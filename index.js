@@ -1,21 +1,18 @@
 const express = require('express')
 
-const courses = require('./routes/api/courses')
-const workshops = require('./routes/api/workshops')
+const assessment = require('./routes/api/Assessments')
 
 const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to LirtenHub</h1>
-    <a href="/api/courses">Courses</a>
-    <a href="/api/workshops">Workshops</a>
+    res.send(`<h1>Welcome to LirtenHub!</h1>
+    <a href="/api/courses">Assessments</a>
     `);
 })
 
 // Direct routes to appropriate files 
-app.use('/api/courses', courses)
-app.use('/api/workshops', workshops)
+app.use('/api/Assessments', assessment)
 
 // Handling 404
 app.use((req, res) => {
