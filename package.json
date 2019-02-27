@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "YasmineMaheeb"
+    "url": "mayarmahmoud"
   },
-  "author": "YasmineMaheeb",
+  "author": "mayarmahmoud",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"

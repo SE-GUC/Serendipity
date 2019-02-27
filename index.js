@@ -7,9 +7,9 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to LirtenHub</h1>
-    <a href="/api/courses">Courses</a>
-    <a href="/api/workshops">Workshops</a>
+    res.send(`<h1>Welcome to Book Store</h1>
+    <a href="/api/courses">Course</a>
+    <a href="/api/workshops">Workshop</a>
     `);
 })
 
