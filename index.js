@@ -1,7 +1,9 @@
-const express = require('express')
-
+const express = require('express');
+const uuid = require('uuid');
+const Joi = require('joi');
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
+const admins = require('./routes/api/AdminProf')
 
 const app = express()
 app.use(express.json())
@@ -10,12 +12,14 @@ app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
     <a href="/api/courses">Courses</a>
     <a href="/api/workshops">Workshops</a>
+    <a href="/api/AdminProf">admins</a>
     `);
 })
 
 // Direct routes to appropriate files 
 app.use('/api/courses', courses)
 app.use('/api/workshops', workshops)
+app.use('/api/AdminProf',admins)
 
 // Handling 404
 app.use((req, res) => {
