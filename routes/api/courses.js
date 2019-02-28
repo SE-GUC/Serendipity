@@ -62,5 +62,35 @@ router.put('/:id', (req, res) => {
     
     res.send(courses)
 })
+router.get('/', (req, res) => {
+    let data = "";
+    courses.forEach((value) => {
+        const courses_id = value.id;
+        const courses_name = value.title;
+        data += `<a href="/api/courses/${courses_id}">${courses_name}</a><br>`;
+    });
+    res.send(data);
+});
+
+router.get('/:id', (req, res) => {
+    var data = "";
+    courses.forEach((value) => {
+        if(value.id === req.params.id) {
+            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.eduOrganisation}<br>duration: ${value.duration}<br>educator: ${value.educator}<br>price: ${value.price}<br>decription: ${value.decription}<br>location: ${value.location}`;
+            return;
+        }
+    });
+    res.send(data || 'No student matches the requested id');
+});
+
+router.delete('/:id', (req, res) => {
+    const courseId = req.params.id 
+    const course = courses.find(course => course.id === courseId)
+    const index = courses.indexOf(course)
+    courses.splice(index,1)
+    res.send(courses)
+})
+
+router.get('/', (req, res) => res.json({ data: courses }))
 
 module.exports = router
