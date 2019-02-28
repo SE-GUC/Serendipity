@@ -41,14 +41,14 @@ router.post('/',  (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    const title = req.body.title
-    const eduOrg = req.body.eduOrg
-    const duration = req.body.duration
-    const educator = req.body.educator
-    const price = req.body.price
-    const description = req.body.description
-    const location = req.body.location
-    const id = req.params.id;
+    const title = req.param.title
+    const eduOrg = req.param.eduOrg
+    const duration = req.param.duration
+    const educator = req.param.educator
+    const price = req.param.price
+    const description = req.param.description
+    const location = req.param.location
+    const id = req.param.id;
 
     const course = courses.find(course => course.id === id)
     
@@ -61,6 +61,11 @@ router.put('/:id', (req, res) => {
     course.location = location
     
     res.send(courses)
-})
+});
+
+
+
+
+
 
 module.exports = router
