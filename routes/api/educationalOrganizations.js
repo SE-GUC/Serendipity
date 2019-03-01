@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     educationalOrganizations.forEach((value) => {
         const educationalOrganizations_id = value.id;
         const educationalOrganizations_name = value.userName;
-        data += `<a href="/api/courses/${educationalOrganizations_id}">${educationalOrganizations_name}</a><br>`;
+        data += `<a href="/api/educationalOrganizations/${educationalOrganizations_id}">${educationalOrganizations_name}</a><br>`;
     });
     res.send(data);
 });
