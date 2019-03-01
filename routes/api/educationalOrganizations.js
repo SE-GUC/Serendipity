@@ -14,7 +14,7 @@ const educationalOrganizations = [
     ['dfRFG'], ['dareen','samah'],['mayar','nora'],['pr1','pr2'],'uni',true,'1/12/2023'),
 ];
 
-router.get('/', (req, res) => res.json({ data: educationalOrganizations }))
+//router.get('/', (req, res) => res.json({ data: educationalOrganizations }))
 
 
 router.get('/', (req, res) => {
