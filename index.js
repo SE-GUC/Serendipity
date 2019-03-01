@@ -1,26 +1,23 @@
-const express = require('express')
+const express = require("express");
 
-const courses = require('./routes/api/courses')
-const workshops = require('./routes/api/workshops')
+const assessment = require("./routes/api/Assessments");
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to LirtenHub</h1>
-    <a href="/api/courses">Courses</a>
-    <a href="/api/workshops">Workshops</a>
+app.get("/", (req, res) => {
+  res.send(`<h1>Welcome to LirtenHub!</h1>
+    <a href=>Assessments</a>
     `);
-})
+});
 
-// Direct routes to appropriate files 
-app.use('/api/courses', courses)
-app.use('/api/workshops', workshops)
+// Direct routes to appropriate files
+app.use("/api/Assessments", assessment);
 
 // Handling 404
 app.use((req, res) => {
-    res.status(404).send({err: 'We can not find what you are looking for'});
- })
+  res.status(404).send({ err: "We can not find what you are looking for" });
+});
 
-const port = 3000
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
+const port = 3000;
+app.listen(port, () => console.log(`Server up and running on port ${port}`));
