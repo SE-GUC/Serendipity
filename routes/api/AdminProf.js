@@ -16,22 +16,82 @@ var admins = [
 
 
 
-// list of admins
+
+//////////////////////
+
+
+
 router.get('/', (req, res) => {
-    res.send({data:admins})
-})
+    let data = "";
+    admins.forEach((value) => {
+        const admin_id = value.id;
+        const admin_name = value.username;
+        data += `<a href="/api/AdminProf/${admin_id}">${admin_name}</a><br>`;
+    });
+    res.send(data);
+ });
+ 
+ router.get('/:id', (req, res) => {
+    var data = "";
+    admins.forEach((value) => {
+        if(value.id === req.params.id) {
+            data = `Id: ${value.id}<br>username: ${value.username}<br>email: ${value.email}<br>password: ${value.password}<br>fullname: ${value.full_name}`;
+            return;
+        }
+    });
+    res.send(data || 'No admin matches the requested id');
+ });
+ 
+ 
+ 
+ // Get a certain job
+ router.get('/:id', (req, res) => {
+ 
+    const adminId = req.params.id 
+    const found = admins.some(admin => admin.id === adminId)
+    if(found){
+    res.json({
+    admins:admins.filter(admin =>admin.id!==adminId)
+ })
+ 
+    }
+    else{
+ 
+       res.status(404).json({err: 'We can not find the admin you are looking for you are looking for sorry'});
+    }
+ });
+ 
 
 
-//view profile of certain id
-router.get('/:id', (req, res) => {
-    const adminid = req.params.id
-    const admin = admins.find(admin => admin.id === adminid)
-    res.send(admin)
-})
+
+
+
+
+
+
+
+
+
+/////////////////////////
+
+
+
+// list of admins
+// router.get('/', (req, res) => {
+//     res.send({data:admins})
+// })
+
+
+// //view profile of certain id
+// router.get('/:id', (req, res) => {
+//     const adminid = req.params.id
+//     const admin = admins.find(admin => admin.id === adminid)
+//     res.send(admin)
+// })
 
 
 // create a new admin
-router.post('/joi',  (req, res) => {
+router.post('/',  (req, res) => {
    
     const full_name  = req.body.full_name;
     const email = req.body.email;
