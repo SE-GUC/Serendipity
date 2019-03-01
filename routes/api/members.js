@@ -16,8 +16,31 @@ var members = [
 
 
 router.get('', (req, res) => {
-    res.send({data:members})
-})
+    let data = "" ;
+    members.forEach((member)=>{
+    data += `username : ${member.userName}<br> 
+    email : ${member.email}<br>
+    name : ${member.name} <br>
+    password : ${member.password}<br>
+    available Daily hours : ${member.availableDailyHours}<br>
+    location : ${member.location}<br>
+    Birth Date : ${member.birthDate} <br>
+    Age : ${member.age}<br>
+    interests : ${member.interests} <br>
+    attended Events : ${member.attendedEvents}<br>
+    Previous Jobs : ${member.previousJobs}<br>
+    Previous Tasks : ${member.previousTasks} <br>
+    Reviews  : ${member.reviews}<br>
+    Reviwers : ${member.reviewers}<br>
+    Certificates : ${member.certificates} <br>
+    Courses Taken : ${member.coursesTaken} <br>
+    Contract Signed : ${member.contractSigned}<br>
+    Expiration Date : ${member.expirationDate}<br>
+    ______________________________________________
+    `;
+    })
+    res.send(data);
+});
 
 
 function Age(birthday) { // birthday is a date
@@ -26,13 +49,8 @@ function Age(birthday) { // birthday is a date
     return d.getFullYear() - t.getFullYear() ;
 }
 
-
-
-
 // create a new member and add it to the database
 router.post('/',  (req, res) => {
-
-
     const userName = req.body.userName;
     const availableDailyHours = req.body.availableDailyHours ;
     const location = req.body.location ;
@@ -82,7 +100,31 @@ if ( found )
 
 }
 }
-return res.send(members);
+let data = "" ;
+members.forEach((member)=>{
+data += `username : ${member.userName}<br> 
+email : ${member.email}<br>
+name : ${member.name} <br>
+password : ${member.password}<br>
+available Daily hours : ${member.availableDailyHours}<br>
+location : ${member.location}<br>
+Birth Date : ${member.birthDate} <br>
+Age : ${member.age}<br>
+interests : ${member.interests} <br>
+attended Events : ${member.attendedEvents}<br>
+Previous Jobs : ${member.previousJobs}<br>
+Previous Tasks : ${member.previousTasks} <br>
+Reviews  : ${member.reviews}<br>
+Reviwers : ${member.reviewers}<br>
+Certificates : ${member.certificates} <br>
+Courses Taken : ${member.coursesTaken} <br>
+Contract Signed : ${member.contractSigned}<br>
+Expiration Date : ${member.expirationDate}<br>
+______________________________________________<br>
+`;
+});
+
+return res.send(data);
 });
 
 
@@ -90,7 +132,28 @@ router.get( '/:username' , (req,res)=>{
     const username = req.params.username;
     const found = members.some(member => member.userName === username);
 if (found){
-    res.json({ members:members.filter(member => member.userName == username) })
+   // res.json({ members:members.filter(member => member.userName == username) })
+   const member = members.find(member=> member.userName === username);
+   const data = `username : ${member.userName}<br> 
+   email : ${member.email}<br>
+   name : ${member.name} <br>
+   password : ${member.password}<br>
+   available Daily hours : ${member.availableDailyHours}<br>
+   location : ${member.location}<br>
+   Birth Date : ${member.birthDate} <br>
+   Age : ${member.age}<br>
+   interests : ${member.interests} <br>
+   attended Events : ${member.attendedEvents}<br>
+   Previous Jobs : ${member.previousJobs}<br>
+   Previous Tasks : ${member.previousTasks} <br>
+   Reviews  : ${member.reviews}<br>
+   Reviwers : ${member.reviewers}<br>
+   Certificates : ${member.certificates} <br>
+   Courses Taken : ${member.coursesTaken} <br>
+   Contract Signed : ${member.contractSigned}<br>
+   Expiration Date : ${member.expirationDate}<br>
+   `  ;
+res.send(data);
 }
 else {
     res.status(404).json({err : 'OFFF'});
@@ -149,7 +212,27 @@ const schema = {
     member.coursesTaken = (req.body.coursesTaken  ) ?   req.body.coursesTaken : member.coursesTaken ;
     member.contractSigned = (req.body.contractSigned ) ?   req.body.contractSigned : member.contractSigned ;
     
-    res.json({ msg : 'updated ' , member});
+    const data = `username : ${member.userName}<br> 
+    email : ${member.email}<br>
+    name : ${member.name} <br>
+    password : ${member.password}<br>
+    available Daily hours : ${member.availableDailyHours}<br>
+    location : ${member.location}<br>
+    Birth Date : ${member.birthDate} <br>
+    Age : ${member.age}<br>
+    interests : ${member.interests} <br>
+    attended Events : ${member.attendedEvents}<br>
+    Previous Jobs : ${member.previousJobs}<br>
+    Previous Tasks : ${member.previousTasks} <br>
+    Reviews  : ${member.reviews}<br>
+    Reviwers : ${member.reviewers}<br>
+    Certificates : ${member.certificates} <br>
+    Courses Taken : ${member.coursesTaken} <br>
+    Contract Signed : ${member.contractSigned}<br>
+    Expiration Date : ${member.expirationDate}<br>
+    `;
+ res.send(data);
+   
 }
 else  {
     return res.status(400).send({ error: "username doesn't exist" });
@@ -165,11 +248,31 @@ router.delete('/:username' , (req,res)  =>{
     const member = members.find(member => member.userName == memberUserName);
     const index = members.indexOf(member);
     members.splice(index,1)
-    res.send(members)
+    let data = "" ;
+members.forEach((member)=>{
+data += `username : ${member.userName}<br> 
+email : ${member.email}<br>
+name : ${member.name} <br>
+password : ${member.password}<br>
+available Daily hours : ${member.availableDailyHours}<br>
+location : ${member.location}<br>
+Birth Date : ${member.birthDate} <br>
+Age : ${member.age}<br>
+interests : ${member.interests} <br>
+attended Events : ${member.attendedEvents}<br>
+Previous Jobs : ${member.previousJobs}<br>
+Previous Tasks : ${member.previousTasks} <br>
+Reviews  : ${member.reviews}<br>
+Reviwers : ${member.reviewers}<br>
+Certificates : ${member.certificates} <br>
+Courses Taken : ${member.coursesTaken} <br>
+Contract Signed : ${member.contractSigned}<br>
+Expiration Date : ${member.expirationDate}<br>
+______________________________________________<br>
+`;
+}); 
  }
  );
-
-
 
 module.exports = router
 
