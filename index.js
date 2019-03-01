@@ -3,7 +3,7 @@ const express = require('express')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const partners = require('./routes/api/partners')
-
+const jobs=require('./routes/api/jobs')
 
 const app = express()
 app.use(express.json())
@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
     <a href="/api/courses">Courses</a>
     <a href="/api/workshops">Workshops</a>
     <a href="/api/partners">Partners</a>
+    <a href="/api/jobs">Job</a>
     `);
 })
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/courses', courses)
 app.use('/api/workshops', workshops)
 app.use('/api/partners', partners)
+app.use('/api/jobs', jobs)
 
 
 // Handling 404
