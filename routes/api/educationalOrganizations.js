@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
     let data = "";
     educationalOrganizations.forEach((value) => {
         const educationalOrganizations_id = value.id;
-        const educationalOrganizations_name = value.name;
+        const educationalOrganizations_name = value.userName;
         data += `<a href="/api/courses/${educationalOrganizations_id}">${educationalOrganizations_name}</a><br>`;
     });
     res.send(data);
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
     var data = "";
     educationalOrganizations.forEach((value) => {
         if(value.id === req.params.id) {
-            data = `Id: ${value.id}<br>Name: ${value.name}<br>eduOrganisation: ${value.eduOrganisation}<br>duration: ${value.duration}<br>educator: ${value.educator}<br>price: ${value.price}<br>decription: ${value.decription}<br>location: ${value.location}`;
+            data = `Id: ${value.id}<br>Name: ${value.userName}<br>eduOrganisation: ${value.eduOrganisation}<br>duration: ${value.duration}<br>educator: ${value.educator}<br>price: ${value.price}<br>decription: ${value.decription}<br>location: ${value.location}`;
             return;
         }
     });

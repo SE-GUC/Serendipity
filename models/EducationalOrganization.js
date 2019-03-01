@@ -1,7 +1,7 @@
 class EducationalOrganization{
     constructor(id, userName, name, password, email, masterClasses, courses, workshops,
         trainers, educators, trainingPrograms, description,contract,expirationDate) {
-        this.id = id;
+        this.id = uuid.v4();
         this.userName = userName;
         this.name = name;
         this.password = password;
