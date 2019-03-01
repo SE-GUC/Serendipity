@@ -8,7 +8,7 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 
 // temporary data created as if it was pulled out of the database ...
 const educationalOrganizations = [
-    new EducationalOrganization('1','GUC', 'GUC', 'YIFIYF546', 'email',['df','wef'],['math','cs'],['df'],
+    new EducationalOrganization('1','GUC', 'GUC2', 'YIFIYF546', 'email',['df','wef'],['math','cs'],['df'],
     ['salma','sama'],['dareen','omar'],['p1','p2'],'university',true,'1/1/2023'),
     new EducationalOrganization('2','AUC', 'AUC', 'YIFAAAIYF546', 'emailA',['Adf','Awef'],['math3','cs2'],
     ['dfRFG'], ['dareen','samah'],['mayar','nora'],['pr1','pr2'],'uni',true,'1/12/2023'),
