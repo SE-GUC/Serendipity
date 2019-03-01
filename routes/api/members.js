@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Joi = require('joi')
 
 router.use(express.json())
 // We will be connecting using database 
@@ -25,30 +26,8 @@ function Age(birthday) { // birthday is a date
     return d.getFullYear() - t.getFullYear() ;
 }
 
-function checkPassword(password) {
-    var format = /[ !@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/;
- //   console.error("password must contains at least a capital letter, a small letter, a specail letter ,  a number " );
-   return  (  /[a-z]/.test(password) && /[A-Z]/.test(password) && password.length > 8 && format.test(password) && /[0-9]/.test(password)  )  ;
 
-}
 
-function checkUserName (username){
-    
-for ( let m in members){
-if (m.userName == username) 
-return false ;
-}
-return true;
-}
-
-function checkMail(mail){
-   
-    for ( let m in members){
-    if (m.mail == mail) 
-    return false 
-    }
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail) && true ;    
-}
 
 // create a new member and add it to the database
 router.post('/',  (req, res) => {
@@ -73,20 +52,43 @@ router.post('/',  (req, res) => {
     const contractSigned = req.body.contractSigned || null;
     const expirationDate = req.body.expirationDate || null;
     const age = Age(birthDate);
-if ( checkMail(email) && checkPassword(password) &&  checkUserName(userName) ){
+
+const schema = {
+userName : Joi.string().required () ,
+email: Joi.string().email().required(),
+name: Joi.string().required(),
+password: Joi.string().required().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
+location : Joi.string().required(),
+availableDailyHours : Joi.string() ,
+birthDate : Joi.date().required() ,
+interests : Joi.array() ,
+attendedEvents : Joi.array() ,
+previousJobs : Joi.array() ,
+previousTasks : Joi.array(),
+previousProjects : Joi.array() ,
+certificates : Joi.array() , 
+coursesTaken : Joi.array(),
+}
+const result = Joi.validate(req.body, schema);
+if (result.error) 
+    return res.status(400).send({ error: result.error.details[0].message });
+else {
+const found = members.some(member => member.userName === req.body.userName);
+if ( found )
+    return res.status(400).send({ error: "username is already in use" });
+ else {
     const member = new Member( userName, availableDailyHours, location, name, email, password, birthDate , interests , attendedEvents , previousJobs , previousTasks , previousProjects , reviews , reviewers , certificates , coursesTaken , contractSigned , expirationDate , age );
    members.push(member)
+
 }
-else {
-    console.error("invalid inputs");
 }
-   res.send(members);
+return res.send(members);
 });
 
 
 router.get( '/:username' , (req,res)=>{
     const username = req.params.username;
-     const found = members.some(member => member.userName === username);
+    const found = members.some(member => member.userName === username);
 if (found){
     res.json({ members:members.filter(member => member.userName == username) })
 }
@@ -100,8 +102,35 @@ else {
 // update info about a member
 router.put('/:username', (req, res) => {
     const userName =req.params.username;
+    const found = members.some(member => member.userName === req.params.username)
+    if  (found){
     const member = members.find(member => member.userName === userName);
    
+const schema = {
+    userName : Joi.string() ,
+    email: Joi.string().email(),
+    name: Joi.string(),
+    password: Joi.string().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
+    location : Joi.string(),
+    availableDailyHours : Joi.string() ,
+    birthDate : Joi.date() ,
+    interests : Joi.array() ,
+    attendedEvents : Joi.array() ,
+    previousJobs : Joi.array() ,
+    previousTasks : Joi.array(),
+    previousProjects : Joi.array() ,
+    certificates : Joi.array() , 
+    coursesTaken : Joi.array(),
+    }
+    const result = Joi.validate(req.body, schema);
+    if (result.error) 
+        return res.status(400).send({ error: result.error.details[0].message });
+
+    if ( req.body.userName){
+        const found = members.some(member => member.userName === req.body.userName);
+        if ( found )
+            return res.status(400).send({ error: "username is already in use" });
+    }
     member.userName = (req.body.userName && checkUserName(req.body.userName))?  req.body.userName : member.userName;
     member.availableDailyHours = (req.body.availableDailyHours)?  req.body.availableDailyHours : member.availableDailyHours ;
     member.location = (req.body.location)? req.body.location : member.location ;
@@ -121,6 +150,11 @@ router.put('/:username', (req, res) => {
     member.contractSigned = (req.body.contractSigned ) ?   req.body.contractSigned : member.contractSigned ;
     
     res.json({ msg : 'updated ' , member});
+}
+else  {
+    return res.status(400).send({ error: "username doesn't exist" });
+}
+
 });
 
 
