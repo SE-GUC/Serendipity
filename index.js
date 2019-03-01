@@ -1,6 +1,8 @@
 
+
 const express = require('express')
 
+const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const jobs=require('./routes/api/jobs')
@@ -11,11 +13,13 @@ app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
     <a href="/api/courses">Courses</a>
     <a href="/api/workshops">Workshops</a>
+    <a href="/api/educationalOrganizations">Educational Organizations</a>
     <a href="/api/jobs">Job</a>
     `);
 })
 
 // Direct routes to appropriate files 
+app.use('/api/educationalOrganizations', educationalOrganizations)
 app.use('/api/courses', courses)
 app.use('/api/workshops', workshops)
 app.use('/api/jobs', jobs)
