@@ -1,3 +1,5 @@
+
+
 {
   "name": "leartin",
   "version": "1.0.0",
@@ -8,13 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "YasmineMaheeb"
+    "url": "Serendipity"
   },
-  "author": "YasmineMaheeb",
+  "author": "Serendipity",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "uuid": "^3.3.2"
+
   }
 }
+
+
