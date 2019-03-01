@@ -68,7 +68,8 @@ router.post('/', (req, res) => {
         contract: contract,
         expirationDate: expirationDate,
 		id: uuid.v4(),
-	};
+    };
+    educationalOrganizations.push(newEducationalOrganization)
 	return res.json({ data: newEducationalOrganization });
 });
 
