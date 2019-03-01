@@ -8,9 +8,9 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 
 // temporary data created as if it was pulled out of the database ...
 const educationalOrganizations = [
-    new EducationalOrganization('1','GUC', 'GUC2', 'YIFIYF546', 'email',['df','wef'],['math','cs'],['df'],
+    new EducationalOrganization('GUC', 'GUC2', 'YIFIYF546', 'email',['df','wef'],['math','cs'],['df'],
     ['salma','sama'],['dareen','omar'],['p1','p2'],'university',true,'1/1/2023'),
-    new EducationalOrganization('2','AUC', 'AUC', 'YIFAAAIYF546', 'emailA',['Adf','Awef'],['math3','cs2'],
+    new EducationalOrganization('AUC', 'AUC', 'YIFAAAIYF546', 'emailA',['Adf','Awef'],['math3','cs2'],
     ['dfRFG'], ['dareen','samah'],['mayar','nora'],['pr1','pr2'],'uni',true,'1/12/2023'),
 ];
 
@@ -45,7 +45,7 @@ router.get('/:id', (req, res) => {
 });
 
 //Creating an educational organization
-router.post('/joi', (req, res) => {
+router.post('/', (req, res) => {
 	const userName = req.body.userName;
     const name = req.body.name;
     const password = req.body.password;
