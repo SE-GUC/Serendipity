@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
     educationalOrganizations.forEach((value) => {
         if(value.id === req.params.id) {
             data = `Id: ${value.id}<br>userName: ${value.userName}<br>name: ${value.name}<br>password: ${value.password}<br>email: ${value.email}<br>masterClasses: ${value.masterClasses}<br>courses: ${value.courses}
-            <br>workshops: ${value.location}<br>trainers: ${value.trainers}
+            <br>workshops: ${value.workshops}<br>trainers: ${value.trainers}
             <br>educators: ${value.educators}
             <br>trainingPrograms: ${value.trainingPrograms}
             <br>description: ${value.description}
