@@ -1,18 +1,19 @@
 const express = require("express");
-
-const assessment = require("./routes/api/Assessments");
+const Joi = require ('joi');
+const uuid = require ('uuid');
+const assessment = require("./routes/api/assessments");
 
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send(`<h1>Welcome to LirtenHub!</h1>
-    <a href=>Assessments</a>
+    <a href="/api/assessments">Assessments</a>
     `);
 });
 
 // Direct routes to appropriate files
-app.use("/api/Assessments", assessment);
+app.use('/api/assessments', assessments);
 
 // Handling 404
 app.use((req, res) => {
