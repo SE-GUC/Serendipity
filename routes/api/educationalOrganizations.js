@@ -45,7 +45,7 @@ router.get('/:id', (req, res) => {
 });
 
 //Creating an educational organization
-router.post('/', (req, res) => {
+router.post('/joi', (req, res) => {
 	const userName = req.body.userName;
     const name = req.body.name;
     const password = req.body.password;
