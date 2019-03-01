@@ -13,6 +13,7 @@
   "author": "YasmineMaheeb",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "joi": "^14.3.1"
   }
 }
