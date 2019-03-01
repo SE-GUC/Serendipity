@@ -70,6 +70,7 @@ router.post('/', (req, res) => {
 		id: uuid.v4(),
     };
     educationalOrganizations.push(newEducationalOrganization)
+    
 	return res.json({ data: newEducationalOrganization });
 });
 
