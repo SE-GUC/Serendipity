@@ -113,27 +113,13 @@ router.put('/:username', (req,res)=> {
 
 //DELETE A PARTNER
 router.delete('/:username', (req,res)=> {
-/*
+
     const username = req.params.username 
-    const partner = partners.find(partner => partner.id === username)
+    const partner = partners.find(partner => partner.username === username)
     const index = partners.indexOf(partner)
-    partners =partners.splice(index,1)
+    partners.splice(index,1)
     res.send(partners)
-*/
-    
-    const found = partners.some(partner => partner.username  === req.params.username);
 
-    if(found){
-    res.json({
-        msg: 'Partner deleted',
-        partners: partners.filter(partner =>partner.username !== req.params.username)
-    });
-    partners = partners.filter(partner =>partner.username !== req.params.username)
-  //  partners= partners.pop(req.params.username);
-
-    }    else {
-        res.status(400).json({msg: `No partner with the username of ${req.params.username}`})
-    }
     
 });
 
