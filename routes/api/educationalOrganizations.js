@@ -82,19 +82,19 @@ router.post('/joi', (req, res) => {
 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 	const newEducationalOrganization = {
-        userName: userName,
-        name: name,
-        password: password,
-        email: email,
-        masterClasses: masterClasses,
-        courses: courses,
-        workshops: workshops,
-        trainers: trainers,
-        educators: educators,
-        trainingPrograms: trainingPrograms,
-        description: description,
-        contract: contract,
-        expirationDate: expirationDate,
+        userName,
+        name,
+        password,
+        email,
+        masterClasses,
+        courses,
+        workshops,
+        trainers,
+        educators,
+        trainingPrograms,
+        description,
+        contract,
+        expirationDate,
 		id: uuid.v4(),
     };
     educationalOrganizations.push(newEducationalOrganization)
