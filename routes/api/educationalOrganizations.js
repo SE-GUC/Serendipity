@@ -31,7 +31,13 @@ router.get('/:id', (req, res) => {
     var data = "";
     educationalOrganizations.forEach((value) => {
         if(value.id === req.params.id) {
-            data = `Id: ${value.id}<br>Name: ${value.userName}<br>eduOrganisation: ${value.eduOrganisation}<br>duration: ${value.duration}<br>educator: ${value.educator}<br>price: ${value.price}<br>decription: ${value.decription}<br>location: ${value.location}`;
+            data = `Id: ${value.id}<br>userName: ${value.userName}<br>name: ${value.name}<br>password: ${value.password}<br>email: ${value.email}<br>masterClasses: ${value.masterClasses}<br>courses: ${value.courses}
+            <br>workshops: ${value.location}<br>trainers: ${value.trainers}
+            <br>educators: ${value.educators}
+            <br>trainingPrograms: ${value.trainingPrograms}
+            <br>description: ${value.description}
+            <br>contract: ${value.contract}
+            <br>expirationDate: ${value.expirationDate}`;
             return;
         }
     });
