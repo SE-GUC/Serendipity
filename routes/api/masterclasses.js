@@ -44,39 +44,39 @@ router.get('/:id', (req, res) => {
 
 
 // Create a masterclass
-router.post('/', (req, res) => {
+// router.post('/', (req, res) => {
     
-    const  title =req.body.title 
-    const duration =req.body.duration
-    const price =req.body.price
-    const description =req.body.description
-    const location =req.body.location
-    const course =req.body.listofcoursesids
-    const workshops=req.body.listofworkshopids
-    const eduid=req.body.Eduorganizationid
-    const id=uuid.v4()
+//     const  title =req.body.title 
+//     const duration =req.body.duration
+//     const price =req.body.price
+//     const description =req.body.description
+//     const location =req.body.location
+//     const course =req.body.listofcoursesids
+//     const workshops=req.body.listofworkshopids
+//     const eduid=req.body.Eduorganizationid
+//     const id=uuid.v4()
     
 
-  const masterclass = new Masterclass(
-    id ,
-    title,
-    eduid,
-   duration,
-    price,
-   description ,
-    location ,
-   course,
-    workshops
+//   const masterclass = new Masterclass(
+//     id ,
+//     title,
+//     eduid,
+//    duration,
+//     price,
+//    description ,
+//     location ,
+//    course,
+//     workshops
 
 
-  )
+//   )
       
    
-  masterclasses.push(masterclass)
-  res.send(masterclasses)
-})
+//   masterclasses.push(masterclass)
+//   res.send(masterclasses)
+// })
 
-router.post('/joi', (req, res) => {
+router.post('/', (req, res) => {
 	const  title =req.body.title 
     const duration =req.body.duration
     const price =req.body.price
