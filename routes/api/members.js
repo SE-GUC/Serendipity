@@ -102,7 +102,7 @@ if ( found )
 }
 let data = "" ;
 members.forEach((member)=>{
-data += `username : ${member.userName}<br> 
+data += `<br> username : ${member.userName}<br> 
 email : ${member.email}<br>
 name : ${member.name} <br>
 password : ${member.password}<br>
@@ -250,7 +250,7 @@ router.delete('/:username' , (req,res)  =>{
     members.splice(index,1)
     let data = "" ;
 members.forEach((member)=>{
-data += `username : ${member.userName}<br> 
+data += `<br> username : ${member.userName}<br> 
 email : ${member.email}<br>
 name : ${member.name} <br>
 password : ${member.password}<br>
