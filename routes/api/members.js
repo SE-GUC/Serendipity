@@ -36,7 +36,7 @@ router.get('', (req, res) => {
     Courses Taken : ${member.coursesTaken} <br>
     Contract Signed : ${member.contractSigned}<br>
     Expiration Date : ${member.expirationDate}<br>
-    ______________________________________________
+    ______________________________________________<br>
     `;
     })
     res.send(data);
