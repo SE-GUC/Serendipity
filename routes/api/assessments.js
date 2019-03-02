@@ -18,6 +18,17 @@ var assessments = [
 router.get('', (req, res) => {
     res.send({data:assessments})//yara changed here
 })
+//get an assessments by its id
+router.get('/:id', (req, res) => {
+    var data = "";
+    assessments.forEach((value) => {
+        if(value.id === req.params.id) {
+            data = `Id: ${value.id}<br>Member Name: ${value.memberName}<br>expertName: ${value.expertName}<br>masterClass: ${value.masterClass}<br>educationalOrg: ${value.educationalOrg}<br>price: ${value.price}<br>phoneNumber: ${value.phoneNumber}<br>daysAvailable: ${value.daysAvailable}`;
+            return;
+        }
+    });
+    res.send(data || 'No student matches the requested id');
+});
 //create a new assessment
 router.post('/',(req, res) => {
     const schema = {
