@@ -2,6 +2,9 @@
 
 
 const express = require('express')
+const uuid = require ('uuid');
+
+
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
@@ -9,6 +12,8 @@ const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
+const assessments = require("./routes/api/assessments");
+
 
 
 const app = express()
@@ -23,7 +28,7 @@ app.get('/', (req, res) => {
     <a href="/api/partners">Partners</a>
     <a href="/api/educationalOrganizations">Educational Organizations</a>
     <a href="/api/jobs">Job</a>
-
+    <a href="/api/assessments">Assessments</a>
     `);
 })
 
@@ -35,6 +40,7 @@ app.use('/api/workshops', workshops)
 app.use('/api/members', members)
 app.use('/api/partners', partners)
 app.use('/api/jobs', jobs)
+app.use('/api/assessments', assessments);
 
 
 

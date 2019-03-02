@@ -194,12 +194,12 @@ const schema = {
         if ( found )
             return res.status(400).send({ error: "username is already in use" });
     }
-    member.userName = (req.body.userName && checkUserName(req.body.userName))?  req.body.userName : member.userName;
+    member.userName = (req.body.userName )?  req.body.userName : member.userName;
     member.availableDailyHours = (req.body.availableDailyHours)?  req.body.availableDailyHours : member.availableDailyHours ;
     member.location = (req.body.location)? req.body.location : member.location ;
     member.name = (req.body.name )? req.body.name : member.name;
-    member.email = (req.body.email && checkMail(req.body.email))? req.body.email :  member.email  ;
-    member.password = (req.body.password && checkPassword(req.body.password)) ? req.body.password :  member.password;
+    member.email = (req.body.email )? req.body.email :  member.email  ;
+    member.password = (req.body.password ) ? req.body.password :  member.password;
     member.birthDate = (req.body.birthDate ) ?  req.body.birthDate : member.birthDate ;
     member.interests = (req.body.interests ) ?  req.body.interests : member.interests ;
     member.attendedEvents = (req.body.attendedEvents  ) ?  req.body.attendedEvents : member.attendedEvents  ;  
@@ -211,6 +211,7 @@ const schema = {
     member.certificates = (req.body.certificates  ) ?  req.body.reviewers : member.reviewers ;
     member.coursesTaken = (req.body.coursesTaken  ) ?   req.body.coursesTaken : member.coursesTaken ;
     member.contractSigned = (req.body.contractSigned ) ?   req.body.contractSigned : member.contractSigned ;
+    
     
     const data = `username : ${member.userName}<br> 
     email : ${member.email}<br>

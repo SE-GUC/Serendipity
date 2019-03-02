@@ -72,14 +72,14 @@ router.put('/:id', (req, res) => {
     const result = Joi.validate(req.body, schema);
     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
-    const title = req.body.title
-    const eduOrg = req.body.eduOrg
-    const duration = req.body.duration
-    const educator = req.body.educator
-    const price = req.body.price
-    const description = req.body.description
-    const location = req.body.location
-    const id = req.params.id;
+    title = req.body.title
+     eduOrg = req.body.eduOrg
+     duration = req.body.duration
+     educator = req.body.educator
+     price = req.body.price
+     description = req.body.description
+     location = req.body.location
+     id = req.params.id;
 
 
     const course = courses.find(course => course.id === id)
