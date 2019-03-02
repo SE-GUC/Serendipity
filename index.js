@@ -1,5 +1,5 @@
 
-const express = require("express");
+/*const express = require("express");
 const Joi = require ('joi');
 const uuid = require ('uuid');
 const assessment = require("./routes/api/assessments");
@@ -9,12 +9,14 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send(`<h1>Welcome to LirtenHub!</h1>
-    <a href="/api/assessments">Assessments</a>
-
+    <a href="/api/assessments">Assessments</a>`
+*/
 const express = require('express')
 
 const Joi = require('joi');
 const uuid = require('uuid');
+
+
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
@@ -22,7 +24,7 @@ const masterclasses = require('./routes/api/masterclasses')
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/AdminProf')
-
+const assessments=require('./routes/api/assessments')
 
 const app = express()
 app.use(express.json())
@@ -38,14 +40,14 @@ app.get('/', (req, res) => {
     <a href="/api/partners">Partners</a>
     <a href="/api/educationalOrganizations">Educational Organizations</a>
     <a href="/api/jobs">Job</a>
-
+    <a href="/api/assessments">Assessments</a>
 
     `);
 });
 
 
 // Direct routes to appropriate files
-app.use('/api/assessments', assessments);
+app.use('/api/assessments', assessments)
 
 // Direct routes to appropriate files 
 
@@ -72,7 +74,7 @@ app.use((req, res) => {
 const port = 3000;
 app.listen(port, () => console.log(`Server up and running on port ${port}`));
 
-const port = 3000
+/*const port = 3000
 
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
-
+*/
