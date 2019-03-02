@@ -272,7 +272,9 @@ Expiration Date : ${member.expirationDate}<br>
 ______________________________________________<br>
 `;
 }); 
- }
+res.send(data); 
+}
+ 
  );
 
 module.exports = router
