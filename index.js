@@ -12,7 +12,6 @@ const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
-const assessments = require("./routes/api/assessments");
 
 
 
@@ -40,7 +39,6 @@ app.use('/api/workshops', workshops)
 app.use('/api/members', members)
 app.use('/api/partners', partners)
 app.use('/api/jobs', jobs)
-app.use('/api/assessments', assessments);
 
 
 
