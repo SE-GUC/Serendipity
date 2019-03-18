@@ -29,15 +29,15 @@ router.get('/', async (req,res) => {
 
 
 // Get a certain MasterClass
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const id =req.params.id
-    const master=Masterclass.findById(id)
+    const master=await Masterclass.findById(id)
     
     res.json(master || 'No masterclass matches the requested id');
 });
 
 //create
-router.post('/', (req, res) => {
+router.post('/', async(req, res) => {
     try {
         const isValidated = validator.createValidation(req.body)
         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 });
 
 // Update a masterclass 
-router.put('/:id', (req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const id = req.params.id
         const master = await Masterclass.findById(id)
