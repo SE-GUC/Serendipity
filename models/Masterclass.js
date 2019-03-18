@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const schema=mongoose.schema
+const Schema=mongoose.Schema
 
-const MasterclassSchema = new schema({
+const MasterclassSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -34,8 +34,10 @@ const MasterclassSchema = new schema({
         type: [String], 
         required: true
     },
-    applicants:[String],
-    required:true
+    applicants:{
+        type:[String],
+        required:true
+    }
 })
 
 module.exports = Masterclass = mongoose.model('masterclasses', MasterclassSchema)
