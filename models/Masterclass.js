@@ -7,8 +7,7 @@ const MasterclassSchema = new Schema({
         required: true
     },
     Eduorganizationid: {
-        type: String,
-        required: true
+        type: String
     },
     duration: {
         type: String,
@@ -27,16 +26,13 @@ const MasterclassSchema = new Schema({
         required: true
     },
     courseIDs: {
-        type: [String], 
-        required: true
-    },
+        type: [String]
+        },
     workshopsIDs: {
-        type: [String], 
-        required: true
+        type: [String]
     },
     applicants:{
-        type:[String],
-        required:true
+        type:[String]
     }
 })
 
