@@ -1,25 +1,41 @@
-const uuid = require('uuid')
+const mongoose = require('mongoose')
+const schema=mongoose.schema
 
-// The masterclass Model
-class Masterclass {
-    constructor( title, Eduorganizationid, duration, price, description, location,courseIDs,workshopsIDs) {
-        this.id = uuid.v4();
+const MasterclassSchema = new schema({
+    title: {
+        type: String,
+        required: true
+    },
+    Eduorganizationid: {
+        type: String,
+        required: true
+    },
+    duration: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number, 
+        required: true
+    },
+    description: {
+        type: String, 
+        required: true
+    },
+    location: {
+        type: String, 
+        required: true
+    },
+    courseIDs: {
+        type: [String], 
+        required: true
+    },
+    workshopsIDs: {
+        type: [String], 
+        required: true
+    },
+    applicants:[String],
+    required:true
+})
 
-        this.title = title;
-
-        this.Eduorganizationid = Eduorganizationid;
-
-        this.duration = duration;
-
-        this.price = price;
-
-        this.description = description;
-
-        this.location = location;
-        this.courseIDs=courseIDs;
-        this.workshopsIDs=workshopsIDs
-
-    };
-};
-
-module.exports = Masterclass
+module.exports = Masterclass = mongoose.model('masterclasses', MasterclassSchema)
