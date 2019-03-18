@@ -75,7 +75,7 @@ router.put('/:id', async(req, res) => {
 
 
 // Delete a masterclass
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async(req, res) => {
     try {
         const id = req.params.id
         const deletedMaster = await Masterclass.findByIdAndRemove(id)
