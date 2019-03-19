@@ -1,5 +1,9 @@
+
 {
-  "name": "Serendipity",
+
+
+  "name": "leartin",
+
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +11,14 @@
     "start": "node index",
     "dev": "nodemon index"
   },
-  "keywords": [],
-  "author": "",
+
+
+  "repository": {
+    "type": "git",
+    "url": "Serendipity"
+  },
+  "author": "Serendipity",
+
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
