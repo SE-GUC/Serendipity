@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
     admins.forEach((value) => {
         const admin_id = value.id;
         const admin_name = value.username;
-        data += `<a href="/api/AdminProf/${admin_id}">${admin_name}</a><br>`;
+        data += `<a href="/api/admins/${admin_id}">${admin_name}</a><br>`;
     });
     res.send(data);
  });

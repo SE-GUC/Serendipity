@@ -29,7 +29,7 @@ const masterclasses = require('./routes/api/masterclasses')
 
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
-const admins = require('./routes/api/AdminProf')
+const admins = require('./routes/api/admins')
 const assessments=require('./routes/api/assessments')
 
 
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
     <a href="/api/workshops">Workshops</a>
 
     <a href="/api/members">members</a>
-    <a href="/api/AdminProf">admins</a>
+    <a href="/api/admins">admins</a>
 
     <a href="/api/masterclasses">masterclasses</a>
 
@@ -66,7 +66,7 @@ app.use('/api/workshops', workshops)
 app.use('/api/members', members)
 
 
-app.use('/api/AdminProf',admins)
+app.use('/api/admins',admins)
 
 app.use('/api/masterclasses', masterclasses)
 app.use('/api/partners', partners)
