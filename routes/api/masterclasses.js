@@ -9,6 +9,9 @@ const router = express.Router();
 router.use(express.json())
 // Models
 const Masterclass = require('../../models/Masterclass');
+//requiring courses model for viewing 
+const Course=require('../../models/Course');
+
 const validator = require('../../validations/masterClassValidations')
 
 
@@ -19,22 +22,62 @@ const validator = require('../../validations/masterClassValidations')
 
 
 // Get all masterclasses
-router.get('/', async (req,res) => {
-    const masterclases = await Masterclass.find()
-    res.json({data: masterclases})
-})
+// router.get('/', async (req,res) => {
+//     const masterclases = await Masterclass.find()
+//     res.json({data: masterclases})
+// })
 
 
-
-
-
-// Get a certain MasterClass
-router.get('/:id', async (req, res) => {
-    const id =req.params.id
-    const master=await Masterclass.findById(id)
+// // Get a certain MasterClass
+// router.get('/:id', async (req, res) => {
+//     const id =req.params.id
+//     const master=await Masterclass.findById(id)
     
-    res.json(master || 'No masterclass matches the requested id');
+//     res.json(master || 'No masterclass matches the requested id');
+// });
+
+
+
+
+
+
+
+// Get all masterclasses
+router.get('/', async(req, res) => {
+    let data = "";
+    const masterclasses = await Masterclass.find()    
+    masterclasses.forEach((value) => {
+        const masterclassid = value.id;
+        const masterclasstitle = value.title;
+        data += `<a href="/api/masterclasses/${masterclassid }">${masterclasstitle}</a><br>`;
+    });
+    res.send(data);
 });
+// Get a certain MasterClass
+router.get('/:id', async(req, res) => {
+    var data = "";
+    const masterclasses = await Masterclass.find()
+    var allCourses=[]
+    const c= await Course.find()
+    masterclasses.forEach((value) => {
+        if(value.id === req.params.id) {
+            value.courseIDs.forEach(async CourseId => {
+                const curr=await Course.findById(CourseId)
+                allCourses.put(curr)
+            });
+            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.Eduorganizationid}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${value.workshopsIDs}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
+            return;
+        }
+    });
+    res.send(data || 'No masterclass matches the requested id');
+});
+
+
+
+
+
+
+
 
 //create
 router.post('/', async(req, res) => {
@@ -57,7 +100,8 @@ router.put('/:id', async(req, res) => {
         if(!master) return res.status(404).send({error: 'masterClass does not exist'})
         const isValidated = validator.updateValidation(req.body)
         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-        const updatedMaster = await Masterclass.updateOne(req.body)
+        const ID={"_id":id}
+        const updatedMaster = await Masterclass.findOneAndUpdate(ID,req.body)
         res.json({msg: 'MasterClass updated successfully',
                   Data: updatedMaster
                 })
