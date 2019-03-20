@@ -23,7 +23,8 @@ router.post('/', (req, res) =>  {
         educator : Joi.string().required(),
         price : Joi.number().required(),
         description : Joi.string(),
-        location : Joi.string()
+        location : Joi.string(),
+        applicants : Joi.array().items(Joi.string(),Joi.number())
     }
 
     const result = Joi.validate(req.body, schema);
@@ -36,6 +37,7 @@ router.post('/', (req, res) =>  {
     const price = req.body.price
     const description = req.body.description
     const location = req.body.location
+    const applicants = req.body.applicants
     
     const workshop = new Workshop(
         title,
@@ -44,7 +46,8 @@ router.post('/', (req, res) =>  {
         educator,
         price,
         description,
-        location
+        location,
+        applicants
     )
     
     workshops.push(workshop)
@@ -59,7 +62,8 @@ router.put('/:id', (req, res) => {
         educator : Joi.string(),
         price : Joi.number(),
         description : Joi.string(),
-        location : Joi.string()
+        location : Joi.string(),
+        applicants : Joi.array().items(Joi.string(),Joi.number())
     }
 
     const result = Joi.validate(req.body, schema);
@@ -72,6 +76,7 @@ router.put('/:id', (req, res) => {
     const price = req.body.price
     const description = req.body.description
     const location = req.body.location
+    const applicants = req.body.applicants
     const id = req.params.id;
 
     const workshop = workshops.find(workshop => workshop.id === id)
@@ -91,7 +96,9 @@ router.put('/:id', (req, res) => {
     workshop.description = description
     if(location !== undefined)
     workshop.location = location
-    
+    if(applicants !== undefined)
+    workshop.applicants = applicants
+
     res.send(workshops)
 })
 router.get('/', (req, res) => {
@@ -115,11 +122,6 @@ router.get('/:id', (req, res) => {
     res.send(data || 'No student matches the requested id');
 });
 
-// router.get('/:id', (req, res) => {
-//     const workshopId = req.params.id
-//     const workshop = workshops.find(workshop => workshop.id === workshopId)
-//     res.send(workshop)
-// })
 
 
 router.delete('/:id', (req, res) => {
@@ -129,6 +131,5 @@ router.delete('/:id', (req, res) => {
     workshops.splice(index,1)
     res.send(workshops)
 })
-//router.get('/', (req, res) => res.json({ data: workshops }))
 
 module.exports = router

@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 
 class Workshop {
-    constructor(title, eduOrganisation, duration, educator, price, decription, location) {
+    constructor(title, eduOrganisation, duration, educator, price, decription, location, applicants) {
         this.id = uuid.v4();
         this.title = title;
         this.eduOrganisation = eduOrganisation;
@@ -10,6 +10,7 @@ class Workshop {
         this.price = price;
         this.description = decription;
         this.location = location;
+        this.applicants = applicants;
     };
 }
 

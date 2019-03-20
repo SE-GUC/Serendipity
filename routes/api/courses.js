@@ -8,8 +8,8 @@ const Course = require('../../models/Course')
 
 // temporary data created as if it was pulled out of the database ...
 var courses = [
-    new Course('SE','GUC', 3, 'Aisha', 300, 'software engineering', 'Cairo'),
-    new Course('DB','GUC', 4, 'Wael', 3000, 'Databases', 'Cairo')
+    new Course('SE','GUC', 3, 'Aisha', 300, 'software engineering', 'Cairo',[1,2]),
+    new Course('DB','GUC', 4, 'Wael', 3000, 'Databases', 'Cairo',[3,7])
 ];
 
 router.post('/',  (req, res) => {
@@ -21,7 +21,8 @@ router.post('/',  (req, res) => {
         educator : Joi.string().required(),
         price : Joi.number().required(),
         description : Joi.string(),
-        location : Joi.string()
+        location : Joi.string(),
+        applicants : Joi.array().items(Joi.string(),Joi.number())
     }
 
     const result = Joi.validate(req.body, schema);
@@ -34,30 +35,23 @@ router.post('/',  (req, res) => {
     const price = req.body.price
     const description = req.body.description
     const location = req.body.location
-    
+    const applicants = req.body.applicants
+
     const course = new Course(
         title,
         eduOrg,
         duration,
-       educator,
-         price,
-         description,
-         location
+        educator,
+        price,
+        description,
+        location,
+        applicants
     )
     courses.push(course)
    res.send(courses)
 });
 
 router.put('/:id', (req, res) => {
-
-    const title = req.param.title
-    const eduOrg = req.param.eduOrg
-    const duration = req.param.duration
-    const educator = req.param.educator
-    const price = req.param.price
-    const description = req.param.description
-    const location = req.param.location
-    const id = req.param.id;
 
     const schema = {
         title : Joi.string(),
@@ -66,20 +60,22 @@ router.put('/:id', (req, res) => {
         educator : Joi.string(),
         price : Joi.number(),
         description : Joi.string(),
-        location : Joi.string()
+        location : Joi.string(),
+        applicants : Joi.array().items(Joi.string(),Joi.number())
     }
 
     const result = Joi.validate(req.body, schema);
     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
-    title = req.body.title
-     eduOrg = req.body.eduOrg
-     duration = req.body.duration
-     educator = req.body.educator
-     price = req.body.price
-     description = req.body.description
-     location = req.body.location
-     id = req.params.id;
+    const title = req.body.title
+    const eduOrg = req.body.eduOrg
+    const duration = req.body.duration
+    const educator = req.body.educator
+    const price = req.body.price
+    const description = req.body.description
+    const location = req.body.location
+    const applicants = req.body.applicants
+    const id = req.params.id;
 
 
     const course = courses.find(course => course.id === id)
@@ -98,6 +94,8 @@ router.put('/:id', (req, res) => {
     course.description = description
     if(location !== undefined)
     course.location = location
+    if(applicants !== undefined)
+    course.applicants = applicants
     
     res.send(courses)
 
@@ -132,7 +130,5 @@ router.delete('/:id', (req, res) => {
     courses.splice(index,1)
     res.send(courses)
 })
-
-router.get('/', (req, res) => res.json({ data: courses }))
 
 module.exports = router
