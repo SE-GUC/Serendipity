@@ -11,7 +11,8 @@ router.use(express.json())
 const Masterclass = require('../../models/Masterclass');
 //requiring courses model for viewing 
 const Course=require('../../models/Course');
-
+const Workshop=require('../../models/Workshop');
+const EducationalOrganization=require('../../models/EducationalOrganization')
 const validator = require('../../validations/masterClassValidations')
 
 
@@ -43,6 +44,7 @@ const validator = require('../../validations/masterClassValidations')
 
 
 // Get all masterclasses
+
 router.get('/', async(req, res) => {
     let data = "";
     const masterclasses = await Masterclass.find()    
@@ -58,14 +60,25 @@ router.get('/:id', async(req, res) => {
     var data = "";
     const masterclasses = await Masterclass.find()
     var allCourses=[]
-    const c= await Course.find()
-    masterclasses.forEach((value) => {
+    var allworkshops=[]
+
+    // const c= await Course.find()
+    // const w= await Workshop.find()
+    masterclasses.forEach(async value => {
         if(value.id === req.params.id) {
             value.courseIDs.forEach(async CourseId => {
                 const curr=await Course.findById(CourseId)
+                if(curr)
                 allCourses.put(curr)
             });
-            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.Eduorganizationid}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${value.workshopsIDs}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
+            value.workshopsIDs.forEach(async workshopId => {
+                const curr=await Workshop.findById(CourseId)
+                if(curr)
+                allworkshops.put(curr)
+            });
+            const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
+            
+            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${educationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
             return;
         }
     });
