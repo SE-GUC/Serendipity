@@ -76,9 +76,9 @@ router.get('/:id', async(req, res) => {
                 if(curr)
                 allworkshops.put(curr)
             });
-            const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
+            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
             
-            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${educationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
+            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.EducationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
             return;
         }
     });
@@ -135,8 +135,27 @@ router.put('/:id', async(req, res) => {
 router.delete('/:id', async(req, res) => {
     try {
         const id = req.params.id
-        const deletedMaster = await Masterclass.findByIdAndRemove(id)
-        res.json({msg:'MasterClass was deleted successfully', data: deletedMaster})
+        const deletedMaster = await Masterclass.findOneAndRemove(id)
+        if(deletedMaster.id === req.params.id) {
+            deletedMaster.courseIDs.forEach(async CourseId => {
+                const curr=await Course.findById(CourseId)
+                if(curr)
+                allCourses.put(curr)
+            });
+            deletedMaster.workshopsIDs.forEach(async workshopId => {
+                const curr=await Workshop.findById(CourseId)
+                if(curr)
+                allworkshops.put(curr)
+            });
+            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
+            
+             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.EducationalOrganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${deletedMaster.applicants}`;
+             return;
+        }
+        
+
+
+        res.json({msg:'MasterClass was deleted successfully', data:deletedMaster})
        }
        catch(error) {
            console.log(error)
