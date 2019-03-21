@@ -101,6 +101,12 @@ router.post('/', (req, res) => {
     
 	return res.json({ data: newEducationalOrganization });
 });
+//update Profile
+router.put('/:id'),(req,res)=>{
+
+}
+
+//Delete 
 
 module.exports = router
 
