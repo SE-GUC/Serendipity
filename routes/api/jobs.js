@@ -1,30 +1,61 @@
 const express = require('express')
-const Joi = require('joi');
-const uuid = require('uuid');
 const router = express.Router()
+const mongoose = require('mongoose')
 
-router.use(express.json())
-// We will be connecting using database 
 const Job = require('../../models/Job')
 
+//const validator = require('../../validations/bookValidations')
+//es2li lw hat3mleeh wala l2
+
+
+
+// const express = require('express')
+// const Joi = require('joi');
+// const uuid = require('uuid');
+// const router = express.Router()
+//router.use(express.json())
+
+// We will be connecting using database 
+
 // temporary data created as if it was pulled out of the database ...
-const Jobs = [
-   new Job('Manager','open','1-1-2015','1-1-2019','maadi',3000,8,'waled','managing interns',['ahmed','mohamed']),
-   new Job('hr','pending','31/2/2019','1/3/2020','october',5000,12,'tarek','hiring people',['noura','sara'])
-];
+// const Jobs = [
+//    new Job('Manager','open','1-1-2015','1-1-2019','maadi',3000,8,'waled','managing interns',['ahmed','mohamed']),
+//    new Job('hr','pending','31/2/2019','1/3/2020','october',5000,12,'tarek','hiring people',['noura','sara'])
+// ];
+var usertype="";
+// Get all jobs //check with someone 
+if(usertype==admin){//get all
+   router.get('/', async (req,res) => {
+      const jobs = await Job.find()
+      res.json({data: jobs})
+  })
+}
+else
+if(usertype==member){
+   router.get('/', async (req,res) => {
+      const jobs = await Job.find()
+      jobs.state="approved"
+      res.json({data: jobs})
+  }) }  
+else
+if(usertype==partner){
+   router.get('/', async (req,res) => {
+      const jobs = await Job.find()
+      jobs.state="approved"
+      res.json({data: jobs})
+  }) 
+  
+  router.get('/', async (req,res) => {
+   const jobs = await Job.find()
+   jobs.partner=partner
+   res.json({data: jobs})
+}) 
 
-// Get all jobs
-//router.get('/', (req, res) => res.json({ data: Jobs }));
+}  
 
-router.get('/', (req, res) => {
-   let data = "";
-   Jobs.forEach((value) => {
-       const job_id = value.id;
-       const job_name = value.title;
-       data += `<a href="/api/jobs/${job_id}">${job_name}</a><br>`;
-   });
-   res.send(data);
-});
+
+
+// Get a certain job
 
 router.get('/:id', (req, res) => {
    var data = "";
@@ -39,22 +70,37 @@ router.get('/:id', (req, res) => {
 
 
 
-// Get a certain job
-router.get('/:id', (req, res) => {
 
-   const jobId = req.params.id 
-   const found = Jobs.some(job => job.id === jobId)
-   if(found){
-   res.json({
-   Jobs:Jobs.filter(job =>job.id!==jobId)
-})
 
-   }
-   else{
 
-      res.status(404).json({err: 'We can not find the job you are looking for you are looking for sorry'});
-   }
-});
+// router.get('/', (req, res) => {
+//    let data = "";
+//    Jobs.forEach((value) => {
+//        const job_id = value.id;
+//        const job_name = value.title;
+//        data += `<a href="/api/jobs/${job_id}">${job_name}</a><br>`;
+//    });
+//    res.send(data);
+// });
+
+
+
+
+// router.get('/:id', (req, res) => {
+
+//    const jobId = req.params.id 
+//    const found = Jobs.some(job => job.id === jobId)
+//    if(found){
+//    res.json({
+//    Jobs:Jobs.filter(job =>job.id!==jobId)
+// })
+
+//    }
+//    else{
+
+//       res.status(404).json({err: 'We can not find the job you are looking for you are looking for sorry'});
+//    }
+// });
 
 
 // Delete a job
