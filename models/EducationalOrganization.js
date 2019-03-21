@@ -16,7 +16,7 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     password: {
-        type: Number,
+        type: String,
         required: true
     },
     email: {
@@ -51,7 +51,7 @@ const EducationalOrganizationSchema = new Schema({
 
     },
     contract:{
-        type: boolean
+        type: Boolean
 
     },
     expirationDate:{

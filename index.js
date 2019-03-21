@@ -12,12 +12,13 @@ app.get('/', (req, res) => {
     <a href="/api/assessments">Assessments</a>`
 */
 const express = require('express')
+const mongoose = require('mongoose')
 
 
 
 
-const Joi = require('joi');
-const uuid = require('uuid');
+const Joi = require('joi');//not needed
+const uuid = require('uuid');//not needed
 
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
@@ -33,9 +34,21 @@ const admins = require('./routes/api/AdminProf')
 const assessments=require('./routes/api/assessments')
 
 
-
+//yara
+//connecting to mongoDB atlas
 const app = express()
+
+const db = require('./config/keys').mongoURI
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+// Init middleware
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
@@ -80,8 +93,10 @@ app.use((req, res) => {
 });
 
 
-const port = 3000;
-app.listen(port, () => console.log(`Server up and running on port ${port}`));
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server on ${port}`))
+// const port = 3000;
+// app.listen(port, () => console.log(`Server up and running on port ${port}`));
 
 /*const port = 3000
 
