@@ -2,19 +2,12 @@ const express = require('express')
 const Joi = require('joi');
 const uuid = require('uuid');
 const router = express.Router()
+const mongoose = require('mongoose')
 
 router.use(express.json())
 // We will be connecting using database 
 const Job = require('../../models/Job')
 
-// temporary data created as if it was pulled out of the database ...
-const Jobs = [
-   new Job('Manager','open','1-1-2015','1-1-2019','maadi',3000,8,'waled','managing interns',['ahmed','mohamed']),
-   new Job('hr','pending','31/2/2019','1/3/2020','october',5000,12,'tarek','hiring people',['noura','sara'])
-];
-
-// Get all jobs
-//router.get('/', (req, res) => res.json({ data: Jobs }));
 
 router.get('/', (req, res) => {
    let data = "";

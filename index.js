@@ -1,11 +1,24 @@
-
 const express = require('express')
+const mongoose = require('mongoose')
+const db = require('./config/keys_db').mongoURI
+const cors = require('cors')
+const app = express()
+
+//connect to database
+mongoose
+    .connect(db , { useNewUrlParser: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+   
 
 
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 
-const Joi = require('joi');
-const uuid = require('uuid');
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
@@ -17,11 +30,6 @@ const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/AdminProf')
 
-
-
-
-const app = express()
-app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>

@@ -1,12 +1,10 @@
 const express = require('express');
-const Joi = require('joi');
+//const Joi = require('joi');
 const Partner = require('../../models/Partner');
 const router= express.Router();
-//const partners= require('./partners');
+const validator = require('../../validations/partnerValidations')
 
-const partners = [
-    new Partner('a@gmail', 'marina1','Marina','asdfgh')
-];
+
 
 //CREATE PARTNER
 router.post('/', (req, res) => {
