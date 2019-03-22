@@ -82,6 +82,20 @@ router.post('/', async (req,res) => {
  })
 
 
+ router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedAdmin = await Admin.findByIdAndRemove(id)
+     res.json({msg:'Admin was deleted successfully', data: deletedAdmin})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
+
+
 
 
 // router.get('/', (req, res) => {
