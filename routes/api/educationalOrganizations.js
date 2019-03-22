@@ -28,28 +28,7 @@ const validator = require('../../validations/EduOrgValidations')
 //     });
 //     res.send(data);
 // });
-//yara to test get //works
-router.get('/', async (req,res) => {
-    const EduOrg = await EducationalOrganization.find()
-    res.json({data: EduOrg})
-})
 
-router.get('/:id', (req, res) => {
-    var data = "";
-    educationalOrganizations.forEach((value) => {
-        if(value.id === req.params.id) {
-            data = `Id: ${value.id}<br>userName: ${value.userName}<br>name: ${value.name}<br>password: ${value.password}<br>email: ${value.email}<br>masterClasses: ${value.masterClasses}<br>courses: ${value.courses}
-            <br>workshops: ${value.workshops}<br>trainers: ${value.trainers}
-            <br>educators: ${value.educators}
-            <br>trainingPrograms: ${value.trainingPrograms}
-            <br>description: ${value.description}
-            <br>contract: ${value.contract}
-            <br>expirationDate: ${value.expirationDate}`;
-            return;
-        }
-    });
-    res.send(data || 'No educatioinal organization matches the requested id');
-});
 // //yara trial
 // router.post('/', async (req,res) => {
 //     try {
