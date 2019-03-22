@@ -4,54 +4,38 @@ const mongoose = require('mongoose')
 
 const Job = require('../../models/Job')
 
-//const validator = require('../../validations/bookValidations')
-//es2li lw hat3mleeh wala l2
+const validator = require('../../validations/JobValidations')
 
-
-
-// const express = require('express')
-// const Joi = require('joi');
-// const uuid = require('uuid');
-// const router = express.Router()
-//router.use(express.json())
-
-// We will be connecting using database 
-
-// temporary data created as if it was pulled out of the database ...
-// const Jobs = [
-//    new Job('Manager','open','1-1-2015','1-1-2019','maadi',3000,8,'waled','managing interns',['ahmed','mohamed']),
-//    new Job('hr','pending','31/2/2019','1/3/2020','october',5000,12,'tarek','hiring people',['noura','sara'])
-// ];
 var usertype="";
 // Get all jobs //check with someone 
-if(usertype==admin){//get all
+//if(usertype==admin){//get all
    router.get('/', async (req,res) => {
       const jobs = await Job.find()
       res.json({data: jobs})
   })
-}
-else
-if(usertype==member){
-   router.get('/', async (req,res) => {
-      const jobs = await Job.find()
-      jobs.state="approved"
-      res.json({data: jobs})
-  }) }  
-else
-if(usertype==partner){
-   router.get('/', async (req,res) => {
-      const jobs = await Job.find()
-      jobs.state="approved"
-      res.json({data: jobs})
-  }) 
+//}
+// else
+// if(usertype==member){
+//    router.get('/', async (req,res) => {
+//       const jobs = await Job.find()
+//       jobs.state="approved"
+//       res.json({data: jobs})
+//   }) }  
+// else
+// if(usertype==partner){
+//    router.get('/', async (req,res) => {
+//       const jobs = await Job.find()
+//       jobs.state="approved"
+//       res.json({data: jobs})
+//   }) 
   
-  router.get('/', async (req,res) => {
-   const jobs = await Job.find()
-   jobs.partner=partner
-   res.json({data: jobs})
-}) 
+//   router.get('/', async (req,res) => {
+//    const jobs = await Job.find()
+//    jobs.partner=partner
+//    res.json({data: jobs})
+// }) 
 
-}  
+// }  
 
 
 
@@ -69,51 +53,37 @@ router.get('/:id', (req, res) => {
 });
 
 
-
-
-
-
-// router.get('/', (req, res) => {
-//    let data = "";
-//    Jobs.forEach((value) => {
-//        const job_id = value.id;
-//        const job_name = value.title;
-//        data += `<a href="/api/jobs/${job_id}">${job_name}</a><br>`;
-//    });
-//    res.send(data);
-// });
-
-
-
-
-// router.get('/:id', (req, res) => {
-
-//    const jobId = req.params.id 
-//    const found = Jobs.some(job => job.id === jobId)
-//    if(found){
-//    res.json({
-//    Jobs:Jobs.filter(job =>job.id!==jobId)
-// })
-
-//    }
-//    else{
-
-//       res.status(404).json({err: 'We can not find the job you are looking for you are looking for sorry'});
-//    }
-// });
-
-
 // Delete a job
 
-router.delete('/:id', (req, res) => {
-   const jobId = req.params.id 
-   const job = Jobs.find(job=> job.id === jobId)
-   const index = Jobs.indexOf(job)
-   Jobs.splice(index,1)
-   res.send(Jobs)
+router.delete('/:id', async (req,res) => {
+   try {
+    const id = req.params.id
+    const deletedJob = await Job.findByIdAndRemove(id)
+    res.json({msg:'Job was deleted successfully', data: deletedJob})
+   }
+   catch(error) {
+       // We will be handling the error later
+       console.log(error)
+   }  
 })
 
 // Update a job
+
+router.put('/:id', async (req,res) => {
+   try {
+    const id = req.params.id
+    const job = await Job.findOne({id})
+    if(!job) return res.status(404).send({error: 'Job does not exist'})
+    const isValidated = validator.updateValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedJob = await Job.updateOne(req.body)
+    res.json({msg: 'Book updated successfully'})
+   }
+   catch(error) {
+       // We will be handling the error later
+       console.log(error)
+   }  
+})
 router.put('/:id', (req, res) => {
    const jobId = req.params.id 
    const updatedTitle = req.body.title
@@ -180,50 +150,21 @@ router.put('/:id', (req, res) => {
 })
 
 //create a job
-router.post('/', (req, res) => {
-	const title = req.body.title
-   const state = req.body.state
-   const startdate=req.body.startdate
-   const enddate=req.body.enddate
-   const location=req.body.location
-   const salary=req.body.salary
-   const candidates=req.body.candidates
-   const dailyhours=req.body.dailyhours
-   const partner=req.body.partner
-   const description=req.body.description;
 
-	const schema = {
-		title: Joi.string().min(3).required(),
-      state: Joi.string().min(3).required(),
-      startdate: Joi.date().required(),
-      enddate: Joi.date().required(),
-      location:Joi.string().required().min(4),
-      salary:Joi.number().required(),
-      dailyhours:Joi.number().required(),
-      partner: Joi.string().min(3).required(),
-      description: Joi.string().min(3).required(),
-      candidates:Joi.array().items()
-
-	}
-	const result = Joi.validate(req.body, schema);
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-	const job =  {
-      title,
-      state,
-      candidates,
-      startdate,
-      enddate,
-      location,
-      salary,
-      dailyhours,
-      partner,
-      description,
-      id:uuid.v4(),
+router.post('/', async (req,res) => {
+   try {
+    const isValidated = validator.createValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const newJob = await Job.create(req.body)
+    res.json({msg:'Book was created successfully', data: newJob})
    }
-   Jobs.push(job)
-   res.send(Jobs)
-	//return res.json({ data: job });
-});
+   catch(error) {
+       // We will be handling the error later
+       console.log(error)
+   }  
+})
+
+
 
 
 
