@@ -68,11 +68,11 @@ router.post('/', async (req,res) => {
  router.put('/:id', async (req,res) => {
     try {
      const id = req.params.id
-     const admin = await Admin.findByIdAndUpdate({id})
+     const admin = await Admin.findOneAndUpdate({id})
      if(!admin) return res.status(404).send({error: 'Admin does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const updatedAdmin = await Admin.findByIdAndUpdate(req.body)
+     const updatedAdmin = await Admin.findOneAndUpdate(req.body)
      res.json({msg: 'Admin updated successfully'})
     }
     catch(error) {
