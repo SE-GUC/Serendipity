@@ -11,8 +11,6 @@ mongoose
     .catch(err => console.log(err))
 
    
-
-
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))

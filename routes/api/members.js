@@ -1,24 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
+const mongoose = require('mongoose')
+const validator = require('../../validations/memberValidations')
 
 router.use(express.json())
 // We will be connecting using database 
 const Member = require('../../models/Member')
 
-var members = [
-    // member = new Member( userName, availableDailyHours, location, name, email, password, birthDate ,interests , attendedEvents , previousJobs , previousTasks , previousProjects , reviews , reviewers , certificates , coursesTaken , contractSigned , expirationDate );
 
-    new Member('hagerhilal' ,'8','el-rehab', 'Hager Hilal', 'hagerhilal2@gmail.com', 'Hh123654!', new Date(1998,02,10) ,['coding'],  [ ]  , [] , [] , [] , '4' , [] , [] , [('1','SE','GUC', '3', 'Aisha', '300', 'software engineering', 'Cairo')] , 'True' , '1/6/2020' , Age(new Date(1998,02,10))),
-    new Member('hamadahilal' ,'12','el-rehab', 'Hamada Hilal', 'hamadahilal@gmail.com', 'HH999999$', new Date (2002,02,04) ,['mechamics' , 'football'],  []  , [] , [] , [] , '4' , [] , [] , [('2','DB','GUC', '4', 'Wael', '3000', 'Databases', 'Cairo')] , 'True' , '1/6/2022' , Age(new Date(2002,02,04)))
-
-];
-
-
-router.get('', (req, res) => {
-    let data = "" ;
-    members.forEach((member)=>{
-    data += `username : ${member.userName}<br> 
+router.get('',async (req, res) => {
+  //  let data = "" ;
+ //   members.forEach((member)=>{
+   /* data += `username : ${member.userName}<br> 
     email : ${member.email}<br>
     name : ${member.name} <br>
     password : ${member.password}<br>
@@ -38,8 +32,10 @@ router.get('', (req, res) => {
     Expiration Date : ${member.expirationDate}<br>
     ______________________________________________<br>
     `;
-    })
-    res.send(data);
+    })*/
+    const members = await members.find()
+    res.json({data: members})
+    
 });
 
 

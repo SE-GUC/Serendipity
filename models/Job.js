@@ -16,12 +16,16 @@ const jobSchema = new Schema ({
         required: true
     },
     startdate: {
-        type: Date,
+        type: mongoose.Schema.Types.Date,
         required: true
     },
     enddate: {
-        type: Date,
+        type:  mongoose.Schema.Types.Date,
         required: true
+    },
+    skills :{
+        type : [String],
+        required : true 
     },
     location: {
         type: String,
