@@ -7,7 +7,7 @@ router.use(express.json())
 
 const Workshop = require('../../models/Workshop')
 
-
+//Create a Workshop
 router.post('/', (req, res) =>  {
 
     const schema = {
@@ -40,6 +40,7 @@ router.post('/', (req, res) =>  {
     }
 })
 
+//Update Workshop
 router.put('/:id', (req, res) => {
     const schema = {
         title : Joi.string(),
