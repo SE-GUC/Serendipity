@@ -3,68 +3,72 @@ const Joi = require('joi');
 const Partner = require('../../models/Partner');
 const router= express.Router();
 //const partners= require('./partners');
+const mongoose = require('mongoose');
+const validator = require('../../validations/partnerValidations');
 
-const partners = [
-    new Partner('a@gmail', 'marina1','Marina','asdfgh')
-];
+// const partners = [
+//     new Partner('a@gmail','Marina','asdfgh')
+// ];
+
 
 //CREATE PARTNER
-router.post('/', (req, res) => {
-    //required fields when signing up
-    const email = req.body.email
-    const username = req.body.username
-    const name = req.body.name
-    const password = req.body.password
-    
-	const schema = {
-        email: Joi.string().email().required(),
-		name: Joi.string().required(),
-		username: Joi.string().required(),
-		password: Joi.string().required(),
+router.post('/', async (req,res) => {
+    try {
+     const isValidated = validator.createValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const newPartner = await Partner.create(req.body)
+     res.json({msg:'Partner was created successfully', data: newPartner})
     }
-
-	const result = Joi.validate(req.body, schema);
-
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
-	const newPartner = {
-        email,
-        username,
-        name,
-		password
-
-    };
-    partners.push(newPartner);
-	return res.json({ data: newPartner });
-});
-
+ 
+    catch(error) { 
+        console.log(error)
+    }  
+ 
+ })
 
 //GET ALL PARTNERS
-router.get('/', (req, res) => {
-    let data = "";
-    partners.forEach((value) => {
-        const partner_username = value.username;
-        const partner_name = value.name;
-        data += `<a href="/api/partners/${partner_username}">${partner_name}</a><br>`;
-    });
-    res.send(data);
-});
-
+router.get('/', async (req,res) => {
+    const partners = await Partner.find()
+    res.json({data: partners})
+})
 
 //GET SINGLE PARTNER
-router.get('/:username', (req,res)=> {
-    const found = partners.some(partner => partner.username  === req.params.username);
+router.get("/:_id", (req, res) => {
 
-    if(found){
-    res.json(partners.filter(partner =>partner.username === req.params.username));
-    }
-    else {
-        res.status(400).json({msg: `No partner with the username of ${req.params.username}`})
-    }
-});
-
+    const id = req.params._id;
+    Partner.findById(id)
+      .exec()
+      .then(doc => {
+        if (doc) {
+          res.status(200).json(doc);
+        } else {
+          res
+            .status(404)
+            .json({ message: "No partner found for provided ID" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+  });
 
 //UPDATE A PARTNER
+
+router.put('/:_id', async (req,res) => {
+
+         const isValidated = validator.updateValidation(req.body)
+         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+        else{
+         Partner.findByIdAndUpdate(req.params._id, req.body)
+         .exec()
+         .then(r => {return res.redirect(303, `/api/partners/${req.params._id}`) })
+         .catch(err => {console.log(err); return res.send("No partner found for provided ID") })
+        }
+       
+     })
+ 
+/*
 router.put('/:username', (req,res)=> {
     const found = partners.some(partner => partner.username  === req.params.username);
     const schema = {
@@ -110,17 +114,18 @@ router.put('/:username', (req,res)=> {
     }
 
 });
+*/
 
 //DELETE A PARTNER
-router.delete('/:username', (req,res)=> {
-
-    const username = req.params.username 
-    const partner = partners.find(partner => partner.username === username)
-    const index = partners.indexOf(partner)
-    partners.splice(index,1)
-    res.send(partners)
-
-    
-});
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedPartner = await Partner.findByIdAndRemove(id)
+     res.json({msg:'Partner was deleted successfully', data: deletedPartner})
+    }
+    catch(error) {
+        console.log(error)
+    }  
+ })
 
 module.exports = router;
