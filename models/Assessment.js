@@ -1,16 +1,14 @@
-const uuid = require('uuid')
+const mongoose = require ('mongoose')
+
+const assessmentSchema = mongoose.Schema ({
+    ID : mongoose.Schema.Types.ObjectId,
+    memberName : String,
+    expertName : String,
+    masterClass : String,
+    educationalOrg :String, 
+    phoneNumber : Number,
+    daysAvailable : String
+})
 
 
-class Assessment {
-    constructor(memberName, expertName, masterClass, educationalOrg, phoneNumber, daysAvailable) {
-        this.id = uuid.v4();
-        this.memberName = memberName;
-        this.expertName = expertName;
-        this.masterClass = masterClass;
-        this.educationalOrg = educationalOrg;
-        this.phoneNumber = phoneNumber;
-        this.daysAvailable = daysAvailable;
-    };
-};
-
-module.exports = Assessment
+module.exports = mongoose.model('Assessment', assessmentSchema)
