@@ -39,12 +39,7 @@ const validator = require('../../validations/masterClassValidations')
 
 
 
-
-
-
-
 // Get all masterclasses
-
 router.get('/', async(req, res) => {
     let data = "";
     const masterclasses = await Masterclass.find()    
