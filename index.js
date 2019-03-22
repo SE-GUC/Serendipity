@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     <a href="/api/assessments">Assessments</a>`
 */
 const express = require('express')
-
+const mongoose = require('mongoose')
 
 
 
@@ -36,6 +36,20 @@ const assessments=require('./routes/api/assessments')
 
 const app = express()
 app.use(express.json())
+
+const db = require('./config/keys').mongoURI
+
+
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+// Init middleware
+//app.use(express.json())
+//app.use(express.urlencoded({extended: false}))
+
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
