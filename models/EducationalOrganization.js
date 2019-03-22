@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 // Create the schema
 const EducationalOrganizationSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
+    // id: {
+    //     type: Number,
+    //     required: true
+    // },
     userName: {
         type: String,
         required: true
@@ -16,7 +16,7 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     password: {
-        type: Number,
+        type: String,
         required: true
     },
     email: {
@@ -51,7 +51,7 @@ const EducationalOrganizationSchema = new Schema({
 
     },
     contract:{
-        type: boolean
+        type: Boolean
 
     },
     expirationDate:{
