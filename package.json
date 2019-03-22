@@ -9,13 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "Serendipity"
+    "url": "reemalik"
   },
-  "author": "Serendipity",
+  "author": "Reem Ali",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
     "joi": "^14.3.1",
+    "mongodb" : "^3.1.13",
+    "mongoose" : "^5.4.19",
     "uuid": "^3.3.2"
   }
 }
