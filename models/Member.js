@@ -14,10 +14,6 @@ const partnerSchema = new Schema ({
         type : Number ,
         required : true
     },
-    username: {
-        type: String ,
-        required: true
-    },
     name: {
         type: String,
         required: true

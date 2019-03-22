@@ -1,7 +1,6 @@
 module.exports = {
 
+mongoURI : 'mongodb+srv://hager:LbTwFh2GFJyh2Yw@cluster0-p2kfe.mongodb.net/test?retryWrites=true'
 
-    mongoURI: 'mongodb+srv://hager:NGrojLNLlJDpAn0t@db-q2x1p.mongodb.net/test?retryWrites=true'
 
-   
 }

@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient;
+
 const db = require('./config/keys_db').mongoURI
 const cors = require('cors')
 const app = express()

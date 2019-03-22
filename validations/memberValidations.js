@@ -3,13 +3,13 @@ const Joi = require('joi')
 module.exports = {
     createValidation: request => {
         const createSchema = {
-            email: Joi.email().required(),
+            email: Joi.string().email().required(),
             userName: Joi.string().min(5).max(100).required(),
-            name: Joi.number().required(),
+            name: Joi.string().required(),
             password: Joi.string().required().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
-            availableDailyHours : Joi.number.required() ,
-            location : Joi.string ().required,
-            birthdate : Joi.date.required() ,
+            availableDailyHours : Joi.number().required() ,
+            location : Joi.string ().required(),
+            birthDate : Joi.date().required() ,
             interests : Joi.array(),
             attendedEvents : Joi.array() ,
             previousProjects : Joi.array(),
@@ -29,11 +29,11 @@ module.exports = {
     },
     updateValidation: request => {
         const updateSchema = {
-            email: Joi.email(),
+            email: Joi.string().email(),
             userName: Joi.string().min(5).max(100),
             name: Joi.number(),
             password: Joi.string().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
-            availableDailyHours : Joi.number ,
+            availableDailyHours : Joi.number() ,
             location : Joi.string (),
             birthdate : Joi.date() ,
             interests : Joi.array(),
