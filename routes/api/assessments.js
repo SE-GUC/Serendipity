@@ -1,61 +1,73 @@
 const express = require ('express')
-const mongoose = require('mongoose')
 const router = express.Router()
-router.use(express.json())
+
+const Joi = require('joi')
+const uuid = require('uuid') 
+const mongoose = require('mongoose')
+const objectId = require('mongoose').objectid
+const mongoose = require('mongoose')
+
+
 const Assessment = require('../../models/Assessment')
-router.post ('/', (req,res) => {
-    const schema = {
-    memberName : Joi.string().required(),
-    expertName : Joi.string().required(),
-    masterClass : Joi.string().required(),
-    educationalOrg :Joi.string().required(), 
-    phoneNumber : Joi.number().required(),
-    daysAvailable : Joi.string().required()
+const validator = require('../../validations/AssessValidations')
+
+router.get('/', async (req,res) => {
+    const assessments = await Assessment.find()
+    res.json({data: assessments})
+})
+
+
+router.post('/', async (req,res) => {
+    try {
+     const isValidated = validator.createValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const newAssessments = await Assessment.create(req.body)
+     res.json({msg:'Assessment appointment booked successfully', data: newAssessments})
     }
-})
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
 
-const result = Joi.validate(req.body, schema);
-if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-else {
-    new Assessment({
-        ID : mongoose.Types.ObjectId(),
-        memberName : req.body.memberName,
-        expertName : req.body.expertName,
-        masterClass : req.body.masterClass,
-        educationalOrg :req.body.educationalOrg, 
-        phoneNumber : req.body.phoneNumber,
-        daysAvailable : req.body.daysAvailable
-    }).save()
-    .then(res.redirect ('/api/assessments'))
-    .catch (err => { console.log(err); return res.send(`Sorry, could not create a new appointment to an assessment.`) })
+ //update assessment
+ router.put('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
 
-}
+     const assess = await Assessment.findByIdAndUpdate(id)
 
-const schema = {
-    memberName : Joi.string(),
-    expertName : Joi.string(),
-    masterClass : Joi.string(),
-    educationalOrg :Joi.string(), 
-    phoneNumber : Joi.number(),
-    daysAvailable : Joi.string()
-}
+     if(!assess) return res.status(404).send({error: 'Assessment appointment has not been booked'+id})
+     const isValidated = validator.updateValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updateAssess = await Assessment.updateOne(req.body)
+     res.json({msg: 'Assessment was updated successfully'+id, data : updateAssess})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
-const result = Joi.validate(req.body, schema);
-if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-else{
-    Assessment.findByIdAndUpdate (req.params.id, req.body)
-    .exec()
-    .then(r => {return res.redirect(303, '/api/assessments/${req.params.id}')})
-    .catch (err => {console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) })
-}
-
-router.delete('/:id', (req,res) => 
-{
-    const assessID = req.params.id
-    res.send(assessments)
-})
-
+//delete
+ router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deleteAssess = await Assessment.findByIdAndRemove(id)
+     res.json({msg:'Appointment for an assessment was deleted successfully', data: deleteAssess})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
 
 module.exports = router
+
+router.get('/:id/assessments' ,async (req,res)=>{
+
+})
+
+

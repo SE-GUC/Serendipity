@@ -1,14 +1,37 @@
 const mongoose = require ('mongoose')
+const Schema = mongoose.Schema
 
-const assessmentSchema = mongoose.Schema ({
-    ID : mongoose.Schema.Types.ObjectId,
-    memberName : String,
-    expertName : String,
-    masterClass : String,
-    educationalOrg :String, 
-    phoneNumber : Number,
-    daysAvailable : String
+
+const assessmentSchema = new Schema ({
+    memberName: {
+        type: String,
+        required: true
+    },
+    expertName: {
+        type: String,
+        required: true
+    },
+    masterClass: {
+        type: String,
+        required: true
+
+    },
+    educationalOrg: {
+        type: String,
+        required: true
+    },
+    phoneNumber: {
+        type: Number,
+        required: true
+    },
+    daysAvailable: {
+        type: String,
+        required: true
+    }
+
 })
 
 
-module.exports = mongoose.model('Assessment', assessmentSchema)
+
+
+module.exports = Assessment = mongoose.model('Assessments', assessmentSchema)
