@@ -52,6 +52,7 @@ const assessments=require('./routes/api/assessments')
 
 
 
+
 //yara
 //connecting to mongoDB atlas
 const app = express()
@@ -68,6 +69,7 @@ mongoose
     .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
+
 
 // Init middleware
 app.use(express.json())
@@ -120,6 +122,7 @@ app.use((req, res) => {
 
 
 
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server on ${port}`))
 // const port = 3000;
@@ -129,4 +132,5 @@ app.listen(port, () => console.log(`Server on ${port}`))
 
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
 */
+
 
