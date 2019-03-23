@@ -15,7 +15,7 @@ const Jobschema = new Schema({
     },
     startdate: {
         type: Date,
-        required: true
+       required: true
     },
     enddate: {
         type: Date,
@@ -25,41 +25,26 @@ const Jobschema = new Schema({
         type: Number,
         required: true
     },
-    applicants: {
-        type: [String],
-        
-    },
+  
     dailyhours: {
         type: Number,
         required: true
     },
     partner: {
         type: String,
-        required: true
+     required: true
     },
     description: {
-        type: Date,
+        type: String,
         
     },
+    applicants: {
+        type: Array
+        
+    }
 })
 
 
 module.exports = Job=mongoose.model('jobs', Jobschema)
 
-//const uuid = require('uuid')
-// class Job {
-//     constructor(title,state, startdate,enddate, location,salary,dailyhours,partner,description,candidates) {
-//        // this.id= uuid.v4();
-//         this.title = title;
-//         this.state=state;
-//         this.startdate=startdate;
-//         this.enddate=enddate
-//         this.location=location;
-//         this.salary=salary;
-//         this.candidates=candidates;
-//         this.dailyhours=dailyhours;
-//         this.partner=partner;
-//         this.description=description;
-//     };
-// }
 
