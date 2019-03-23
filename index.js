@@ -1,5 +1,11 @@
 
 
+
+/*const express = require("express");
+const Joi = require ('joi');
+const uuid = require ('uuid');
+const assessment = require("./routes/api/assessments");
+=======
 const express = require('express')
 const app = express()
 //DB config
@@ -17,8 +23,21 @@ app.use(express.urlencoded({extended: false}))
 
 
 
-const Joi = require('joi');
-const uuid = require('uuid');
+
+const app = express();
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send(`<h1>Welcome to LirtenHub!</h1>
+    <a href="/api/assessments">Assessments</a>`
+*/
+const express = require('express')
+const mongoose = require('mongoose')
+
+
+
+const Joi = require('joi');//not needed
+const uuid = require('uuid');//not needed
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 
@@ -33,8 +52,40 @@ const assessments=require('./routes/api/assessments')
 
 
 
+//yara
+//connecting to mongoDB atlas
+const app = express()
 
 
+
+
+const db = require('./config/keys').mongoURI
+
+
+
+// Connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+
+app.get('/', (req, res) => {
+    res.send(`<h1>Welcome to LirtenHub</h1>
+    <a href="/api/courses">Courses</a>
+    <a href="/api/workshops">Workshops</a>
+
+    <a href="/api/members">members</a>
+    <a href="/api/admins">admins</a>
+
+
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 
 app.get('/', (req, res) => {
@@ -66,4 +117,16 @@ app.use('/api/jobs', jobs)
 app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
+
+
+
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server on ${port}`))
+// const port = 3000;
+// app.listen(port, () => console.log(`Server up and running on port ${port}`));
+
+/*const port = 3000
+
+app.listen(port, () => console.log(`Server up and running on port ${port}`))
+*/
 
