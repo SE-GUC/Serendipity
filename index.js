@@ -7,6 +7,8 @@ const Joi = require('joi');
 const uuid = require('uuid');
 
 const app= express()
+
+//db config.
 const db = require ('./config/keys').mongoURI
 
 mongoose
@@ -38,8 +40,6 @@ const assessments=require('./routes/api/assessments')
 
 const app = express()
 
-//DB config
-const db = require('./config/keys').mongoURI
 
 
 
