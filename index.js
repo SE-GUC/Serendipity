@@ -94,6 +94,7 @@ mongoose
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
+
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -146,6 +147,7 @@ app.use((req, res) => {
 
 
 
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server on ${port}`))
 // const port = 3000;
@@ -155,4 +157,5 @@ app.listen(port, () => console.log(`Server on ${port}`))
 
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
 */
+
 
