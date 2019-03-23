@@ -3,8 +3,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 
-const mongoose = require('mongoose')
-
 const Joi = require('joi');
 const uuid = require('uuid');
 
