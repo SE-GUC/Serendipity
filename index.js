@@ -16,7 +16,7 @@ const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test
 
 mongoose.connect(uri,{ useNewUrlParser: true })
 
-// mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true",{ useNewUrlParser: true })
+mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true",{ useNewUrlParser: true })
 
  const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
