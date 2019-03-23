@@ -78,7 +78,7 @@ router.put('/:_id', async (req,res) => {
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
    else{
-    Partner.findByIdAndUpdate(req.params._id, req.body)
+    EducationalOrganization.findByIdAndUpdate(req.params._id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/educationalOrganizations/${req.params._id}`) })
     .catch(err => {console.log(err); return res.send("No Edu Org found for provided ID") })
