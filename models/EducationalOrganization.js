@@ -25,13 +25,16 @@ const EducationalOrganizationSchema = new Schema({
     },
     masterClasses: {
         type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'MasterClass' }]
     },
     courses:{
         type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'Course' }]
 
     },
     workshops:{
         type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'Workshop' }]
 
     },
     trainers:{
