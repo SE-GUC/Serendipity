@@ -1,7 +1,12 @@
 
 
+const express = require('express')
+const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient;
 
-//mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true
+
+
+
 const express = require('express')
 const app = express()
 app.use(express.json())
@@ -21,6 +26,24 @@ mongoose
     .connect(db)
 
 
+
+
+const db = require('./config/keys_db').mongoURI
+const cors = require('cors')
+const app = express()
+
+//connect to database
+mongoose
+    .connect(db , { useNewUrlParser: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
+   
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 
 
@@ -63,6 +86,7 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
 
 
 app.get('/', (req, res) => {
