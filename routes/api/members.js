@@ -4,7 +4,7 @@ const validator = require('../../validations/memberValidations')
 router.use(express.json())
 const Job =  require('../../models/Job')
 const Member = require('../../models/Member')
-
+const mongoose = require('mongoose')
 router.get('', async(req, res) => {
     const members = await Member.find()
     res.json({data: members})
