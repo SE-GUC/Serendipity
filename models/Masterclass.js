@@ -28,7 +28,7 @@ const MasterclassSchema = new Schema({
         required: true
     },
     courseIDs: {
-        type: [String]
+        type: [{type:Schema.Types.ObjectId, ref: 'Course'}]
         },
     workshopsIDs: {
         type: [String]
