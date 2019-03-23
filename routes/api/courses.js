@@ -7,8 +7,7 @@ router.use(express.json())
 
 
 const Course = require('../../models/Course')
-
-
+//const Member
 router.post('/',  (req, res) => {
     const schema = {
         title : Joi.string().required(),
@@ -41,7 +40,33 @@ router.post('/',  (req, res) => {
     }
 });
 
+router.get('/', async (req,res) => {
+    const courses = await Course.find()
+    res.json({data: courses})
+})
     
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const course = await Course.findById(id)
+        Workshop.getById(id)
+        //const Course = await Course.reviews
+
+        if(!course) return res.status(404).send({error: 'course does not exist'})
+        // for()
+        res.json({data: course})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: course})
+})
+
 router.put('/:id', (req, res) => {
     const schema = {
         title : Joi.string(),
@@ -86,12 +111,25 @@ router.put('/:id', (req, res) => {
 //     res.send(data || 'No student matches the requested id');
 // });
 
-router.delete('/:id', (req, res) => {
-    const courseId = req.params.id 
-    const course = courses.find(course => course.id === courseId)
-    const index = courses.indexOf(course)
-    courses.splice(index,1)
-    res.send(courses)
-})
+// router.delete('/:id', (req, res) => {
+//     const courseId = req.params.id 
+//     const course = courses.find(course => course.id === courseId)
+//     const index = courses.indexOf(course)
+//     courses.splice(index,1)
+//     res.send(courses)
+// })
+
+
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedCourse = await Course.findByIdAndRemove(id)
+     res.json({msg:'Course was deleted successfully', data: deletedCourse})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
 module.exports = router
