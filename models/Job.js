@@ -31,7 +31,7 @@ const Jobschema = new Schema({
         required: true
     },
     partner: {
-        type: String,
+        type:Schema.Types.ObjectId, ref:'Partner',
      required: true
     },
     description: {
@@ -39,7 +39,7 @@ const Jobschema = new Schema({
         
     },
     applicants: {
-        type: Array
+        type: [{type:Schema.Types.ObjectId, ref:'Member'}]
         
     }
 })
