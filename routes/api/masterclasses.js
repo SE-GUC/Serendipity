@@ -54,28 +54,40 @@ router.get('/', async(req, res) => {
 router.get('/:id', async(req, res) => {
     var data = "";
     const masterclasses = await Masterclass.find()
-    var allCourses=[]
     var allworkshops=[]
-
+    //allCourses.push({ID:"yara hena"})
     // const c= await Course.find()
     // const w= await Workshop.find()
+    var i=0;
+    const allCourses=[]
     masterclasses.forEach(async value => {
+       try{
         if(value.id === req.params.id) {
             value.courseIDs.forEach(async CourseId => {
-                const curr=await Course.findById(CourseId)
+                const  curr=await Course.findById({'_id':CourseId})
                 if(curr)
-                allCourses.put(curr)
+                {
+                    
+                    allCourses[i]=(curr)
+                    i++
+                }
+                console.log(allCourses)
             });
-            value.workshopsIDs.forEach(async workshopId => {
-                const curr=await Workshop.findById(workshopId)
-                if(curr)
-                allworkshops.put(curr)
-            });
-            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
             
-            data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.EducationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${value.applicants}`;
-            return;
+            value.workshopsIDs.forEach(async workshopId => {
+                const curr1=await Workshop.findById(workshopId)
+                if(curr1)
+                allworkshops.put(curr1)
+            });
+            console.log(allCourses)
+            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
+            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.EducationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}<br>applicants: ${value.applicants}`;
+            // return;
         }
+    }catch(error)
+    {
+        console.log("error")
+    }
     });
     res.send(data || 'No masterclass matches the requested id');
 });
