@@ -12,7 +12,9 @@ const courseSchema  = mongoose.Schema({
     price  : Number ,
     description  : String ,
     location  : String ,
+
     applicants  : { type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Member'}] }
+
 })
 
 

@@ -6,38 +6,26 @@ const MongoClient = require('mongodb').MongoClient;
 
 
 
-/*const express = require("express");
-const Joi = require ('joi');
-const uuid = require ('uuid');
-const assessment = require("./routes/api/assessments");
 
 const express = require('express')
 const app = express()
-//DB config
-const db = require('./config/keys').mongoURI
+app.use(express.json())
+
 const mongoose = require('mongoose')
+
+// replace the uri string with your connection string.
+// const DB_User = process.env.DB_USER;
+// const DB_Pass = process.env.DB_PASS;
+// const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
+
+// mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true",{ useNewUrlParser: true })
+const db = require('./config/keys').mongoURI
+
 // Connect to mongo
 mongoose
-    .connect(db,{ useNewUrlParser: true })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log(err))
-
-// Init middleware
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+    .connect(db)
 
 
-
-
-const app = express();
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send(`<h1>Welcome to LirtenHub!</h1>
-    <a href="/api/assessments">Assessments</a>`
-*/
-const express = require('express')
-const mongoose = require('mongoose')
 
 
 const db = require('./config/keys_db').mongoURI
