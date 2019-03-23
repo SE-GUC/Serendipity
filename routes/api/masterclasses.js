@@ -81,7 +81,7 @@ router.get('/:id', async(req, res) => {
             });
             console.log(allCourses)
             //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
-            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.Eduorganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}`;
+            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.Eduorganizati}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}`;
             // return;
         }
     }catch(error)
