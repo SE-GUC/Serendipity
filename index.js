@@ -1,32 +1,29 @@
 
-/*const express = require("express");
-const Joi = require ('joi');
-const uuid = require ('uuid');
-const assessment = require("./routes/api/assessments");
-
-const app = express();
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send(`<h1>Welcome to LirtenHub!</h1>
-    <a href="/api/assessments">Assessments</a>`
-*/
+//mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true
 const express = require('express')
+const app = express()
+app.use(express.json())
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
+dotenv.config()
 
+// replace the uri string with your connection string.
+const DB_User = process.env.DB_USER;
+const DB_Pass = process.env.DB_PASS;
+const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
+
+mongoose.connect(uri,{ useNewUrlParser: true })
 
 
 
 const Joi = require('joi');
-const uuid = require('uuid');
 
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
-
 const masterclasses = require('./routes/api/masterclasses')
-
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/AdminProf')
@@ -34,8 +31,6 @@ const assessments=require('./routes/api/assessments')
 
 
 
-const app = express()
-app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
@@ -57,17 +52,11 @@ app.get('/', (req, res) => {
 
 // Direct routes to appropriate files
 app.use('/api/assessments', assessments)
-
-// Direct routes to appropriate files 
-
 app.use('/api/educationalOrganizations', educationalOrganizations)
 app.use('/api/courses', courses)
 app.use('/api/workshops', workshops)
 app.use('/api/members', members)
-
-
 app.use('/api/AdminProf',admins)
-
 app.use('/api/masterclasses', masterclasses)
 app.use('/api/partners', partners)
 app.use('/api/jobs', jobs)
@@ -80,9 +69,11 @@ app.use((req, res) => {
 });
 
 
-const port = 3000;
-app.listen(port, () => console.log(`Server up and running on port ${port}`));
 
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`Running server at http://localhost:${PORT}`)
+})
 /*const port = 3000
 
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
