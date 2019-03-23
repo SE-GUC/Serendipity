@@ -41,17 +41,6 @@ const assessments=require('./routes/api/assessments')
 
 
 
-const db = require('./config/keys').mongoURI
-mongoose
-    .connect(db)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log(err))
-
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-    
-
-
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome to LirtenHub</h1>
     <a href="/api/courses">Courses</a>
