@@ -63,6 +63,45 @@ router.put('/:id', (req, res) => {
     }
 })
 
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const workshop = await Workshop.findById(id)
+       // Workshop.getById(id)
+        //const Course = await Course.reviews
+
+        if(!workshop) return res.status(404).send({error: 'course does not exist'})
+        // for()
+        res.json({data: workshop})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: course})
+})
+
+router.get('/', async (req,res) => {
+    const workshops = await Workshop.find()
+    res.json({data: workshops})
+})
+  
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedWorkshop = await Workshop.findByIdAndRemove(id)
+     res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
 // router.get('/', (req, res) => {
 //     let data = "";
 //     workshops.forEach((value) => {
@@ -86,12 +125,12 @@ router.put('/:id', (req, res) => {
 
 
 
-router.delete('/:id', (req, res) => {
-    const workshopId = req.params.id 
-    const workshop = workshops.find(workshop => workshop.id === workshopId)
-    const index = workshops.indexOf(workshop)
-    workshops.splice(index,1)
-    res.send(workshops)
-})
+// router.delete('/:id', (req, res) => {
+//     const workshopId = req.params.id 
+//     const workshop = workshops.find(workshop => workshop.id === workshopId)
+//     const index = workshops.indexOf(workshop)
+//     workshops.splice(index,1)
+//     res.send(workshops)
+// })
 
 module.exports = router

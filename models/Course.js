@@ -12,7 +12,7 @@ const courseSchema  = mongoose.Schema({
     price  : Number ,
     description  : String ,
     location  : String ,
-    applicants  : Array 
+    applicants  : Array//[mongoose.Schema.Types.ObjectId] 
 })
 
 
