@@ -1,11 +1,16 @@
 
 
+const express = require('express')
+const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient;
+
+
 
 /*const express = require("express");
 const Joi = require ('joi');
 const uuid = require ('uuid');
 const assessment = require("./routes/api/assessments");
-=======
+
 const express = require('express')
 const app = express()
 //DB config
@@ -35,9 +40,28 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 
+const db = require('./config/keys_db').mongoURI
+const cors = require('cors')
+const app = express()
+
+//connect to database
+mongoose
+    .connect(db , { useNewUrlParser: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
+   
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cors())
+
+
 
 const Joi = require('joi');//not needed
 const uuid = require('uuid');//not needed
+
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 
@@ -74,6 +98,7 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
 
 
 app.get('/', (req, res) => {
