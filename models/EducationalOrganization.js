@@ -3,10 +3,7 @@ const Schema = mongoose.Schema
 
 // Create the schema
 const EducationalOrganizationSchema = new Schema({
-    // id: {
-    //     type: Number,
-    //     required: true
-    // },
+ 
     userName: {
         type: String,
         required: true
@@ -24,7 +21,6 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     masterClasses: {
-<<<<<<< HEAD
         type: [{type: Schema.Types.ObjectId, ref: 'Masterclass'}]
     },
     courses:{
@@ -33,19 +29,6 @@ const EducationalOrganizationSchema = new Schema({
     },
     workshops:{
         type: [{type: Schema.Types.ObjectId, ref: 'Workshop'}]
-=======
-        type: [String]
-        //[{ type: Schema.Types.ObjectId, ref: 'MasterClass' }]
-    },
-    courses:{
-        type: [String]
-        //[{ type: Schema.Types.ObjectId, ref: 'Course' }]
-
-    },
-    workshops:{
-        type: [String]
-        //[{ type: Schema.Types.ObjectId, ref: 'Workshop' }]
->>>>>>> 72659733b017d8536aa75cb818d734d359a84bc6
 
     },
     trainers:{
@@ -80,28 +63,3 @@ module.exports = EducationalOrganization = mongoose.model('educationalOrganizati
 
 
 
-
-
-// const uuid = require('uuid')
-
-// class EducationalOrganization{
-//     constructor(userName, name, password, email, masterClasses, courses, workshops,
-//         trainers, educators, trainingPrograms, description,contract,expirationDate) {
-//         this.id = uuid.v4();
-//         this.userName = userName;
-//         this.name = name;
-//         this.password = password;
-//         this.email = email;
-//         this.masterClasses = masterClasses;
-//         this.courses = courses;
-//         this.workshops = workshops;
-//         this.trainers = trainers;
-//         this.educators = educators;
-//         this.trainingPrograms = trainingPrograms;
-//         this.description = description;
-//         this.contract = contract;
-//         this.expirationDate = expirationDate;
-
-// };
-// }
-// module.exports = EducationalOrganization;
