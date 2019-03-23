@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const jobSchema = new Schema ({
     id: {
         type: ObjectId,
-        required: true
+        
     },
     title : {
         type : String ,
