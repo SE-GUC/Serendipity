@@ -29,7 +29,7 @@ module.exports = {
       location:Joi.string().min(4),
       salary:Joi.number(),
       dailyhours:Joi.number(),
-      partner: Joi.string().required().min(4),
+      partner: Joi.string().min(4),
       description: Joi.string().min(3),
       applicants:Joi.array().items()
         }
