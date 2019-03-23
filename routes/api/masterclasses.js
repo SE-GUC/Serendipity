@@ -76,11 +76,8 @@ router.get('/:id', async(req, res) => {
             
             value.workshopsIDs.forEach(async workshopId => {
                 const curr1=await Workshop.findById(workshopId)
-                if(curr1){
-                    allworkshops[i]=(curr1)
-                    i++
-                }
-                console.log(allCourses)
+                if(curr1)
+                allworkshops.put(curr1)
             });
             console.log(allCourses)
             //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
@@ -164,7 +161,7 @@ router.delete('/:id', async(req, res) => {
             });
             //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
             
-             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.EducationalOrganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}<br>applicants: ${deletedMaster.applicants}`;
+             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.EducationalOrganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}`;
              //return;
 
         }

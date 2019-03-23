@@ -31,7 +31,7 @@ const MasterclassSchema = new Schema({
         type: [{type:Schema.Types.ObjectId, ref: 'Course'}]
         },
     workshopsIDs: {
-        type: [String]
+        type: [{type:Schema.Types.ObjectId, ref: 'Workshop'}]
     },
     // applicants:{
     //     type:[String]
