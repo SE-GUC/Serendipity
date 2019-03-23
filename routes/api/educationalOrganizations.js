@@ -57,7 +57,7 @@ router.put('/:id', async (req,res) => {
      const id = req.params.id
      
      const eduorg = await EducationalOrganization.findById(id)
-    const ID = {"_id":id}
+     const ID = {"_id":id}
      if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
