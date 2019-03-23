@@ -1,23 +1,45 @@
 
+
+
+const Joi = require('joi');
+const uuid = require('uuid');
+
+const educationalOrganizations = require('./routes/api/educationalOrganizations')
+
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
 const masterclasses = require('./routes/api/masterclasses')
 const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
-const admins = require('./routes/api/AdminProf')
+const admins = require('./routes/api/admins')
 const assessments=require('./routes/api/assessments')
 
 
 
-//DB config
+
 const db = require('./config/keys').mongoURI
+
 
 // Connect to mongo
 mongoose
-    .connect(db,{ useNewUrlParser: true })
+    .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
+
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+
+app.get('/', (req, res) => {
+    res.send(`<h1>Welcome to LirtenHub</h1>
+    <a href="/api/courses">Courses</a>
+    <a href="/api/workshops">Workshops</a>
+
+    <a href="/api/members">members</a>
+    <a href="/api/admins">admins</a>
+
 
 // Init middleware
 app.use(express.json())
@@ -43,7 +65,7 @@ app.use('/api/educationalOrganizations', educationalOrganizations)
 app.use('/api/courses', courses)
 app.use('/api/workshops', workshops)
 app.use('/api/members', members)
-app.use('/api/AdminProf',admins)
+app.use('/api/admins',admins)
 app.use('/api/masterclasses', masterclasses)
 app.use('/api/partners', partners)
 app.use('/api/jobs', jobs)
