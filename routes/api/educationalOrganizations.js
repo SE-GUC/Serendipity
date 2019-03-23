@@ -73,25 +73,38 @@ router.post('/', async (req,res) => {
              //     }  
              //  })
 // update Profile
-router.put('/:id', async (req,res) => {
-    try {
-     const id = req.params.id
+router.put('/:_id', async (req,res) => {
+
+    const isValidated = validator.updateValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+   else{
+    Partner.findByIdAndUpdate(req.params._id, req.body)
+    .exec()
+    .then(r => {return res.redirect(303, `/api/educationalOrganizations/${req.params._id}`) })
+    .catch(err => {console.log(err); return res.send("No Edu Org found for provided ID") })
+   }
+  
+})
+// router.put('/:id', async (req,res) => {
+//     try {
+//      const id = req.params.id
      
-     const eduorg = await EducationalOrganization.findById(id)
+//      const eduorg = await EducationalOrganization.findByIdAndUpdate(id)
 
-    const ID = {"_id":id}
+//     const ID = {"_id":id}
 
-     if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
-     const isValidated = validator.updateValidation(req.body)
-     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const updatedEdu = await EducationalOrganization.updateOne(req.body)
-     res.json({msg: 'Profile updated successfully', data:updatedEdu})
-    }
-    catch(error) {
-        // We will be handling the error later
-        console.log(error)
-    }  
- })
+//      if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
+//      const isValidated = validator.updateValidation(req.body)
+//      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+//      const updatedEdu = await EducationalOrganization.updateOne(req.body)
+//      res.json({msg: 'Profile updated successfully', data:updatedEdu})
+//     }
+//     catch(error) {
+//         // We will be handling the error later
+//         console.log(error)
+//     }  
+//  })
+
 
 //yara Delete  Works
 router.delete('/:id', async (req,res) => {
