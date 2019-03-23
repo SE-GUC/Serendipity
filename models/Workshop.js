@@ -1,16 +1,20 @@
-const uuid = require('uuid')
 
-class Workshop {
-    constructor(title, eduOrganisation, duration, educator, price, decription, location) {
-        this.id = uuid.v4();
-        this.title = title;
-        this.eduOrganisation = eduOrganisation;
-        this.duration = duration;
-        this.educator = educator;
-        this.price = price;
-        this.description = decription;
-        this.location = location;
-    };
-}
+const mongoose = require('mongoose')
 
-module.exports = Workshop;
+
+const workshopSchema  = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    title  : String ,
+    eduOrganisation  : String ,
+    duration  : Number ,
+    educator  : String ,
+    price  : Number ,
+    description  : String ,
+    location  : String ,
+
+    applicants  : { type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Member'}] } 
+
+})
+
+
+module.exports = mongoose.model('Workshop', workshopSchema)
