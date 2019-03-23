@@ -7,7 +7,7 @@ module.exports={
             userName: Joi.string().min(3).required(),
             name: Joi.string().required(),
             password: Joi.string().min(8).required(),
-            email: Joi.email().required(),
+            email: Joi.string().email().required(),
             masterClasses: Joi.array().items(),
             courses: Joi.array().items(),
             workshops: Joi.array().items(),
