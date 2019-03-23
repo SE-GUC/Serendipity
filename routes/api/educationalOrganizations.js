@@ -15,6 +15,27 @@ router.get('/', async (req,res) => {
 })
 
 
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const educationalOrganizations = await EducationalOrganization.findById(id)
+     //   const user = await book.reviews
+
+        if(!educationalOrganizations) return res.status(404).send({error: 'educational organization does not exist'})
+        
+        res.json({data: educationalOrganizations})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: book})
+})
+
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
@@ -57,7 +78,9 @@ router.put('/:id', async (req,res) => {
      const id = req.params.id
      
      const eduorg = await EducationalOrganization.findById(id)
-     const ID = {"_id":id}
+
+    const ID = {"_id":id}
+
      if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })

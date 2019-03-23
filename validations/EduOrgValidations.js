@@ -34,7 +34,7 @@ module.exports={
             educators: Joi.array().items(),
             trainingPrograms: Joi.array().items(),
             description: Joi.string()
-      //      contract: Joi.boolean().required(),
+         //   contract: Joi.boolean()
        //     expirationDate: Joi.date().required()
             //only admin can update contarct and expiredate
         }
