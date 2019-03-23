@@ -7,8 +7,9 @@ const MasterclassSchema = new Schema({
         type: String,
         required: true
     },
-    Eduorganizationid: {
-        type: String
+    Eduorganization: {
+        type: String,
+        required: true
     },
     duration: {
         type: String,
@@ -32,9 +33,9 @@ const MasterclassSchema = new Schema({
     workshopsIDs: {
         type: [String]
     },
-    applicants:{
-        type:[String]
-    }
+    // applicants:{
+    //     type:[String]
+    // }
 })
 
 module.exports = Masterclass = mongoose.model('masterclasses', MasterclassSchema)

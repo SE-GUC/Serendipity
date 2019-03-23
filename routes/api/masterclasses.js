@@ -76,12 +76,15 @@ router.get('/:id', async(req, res) => {
             
             value.workshopsIDs.forEach(async workshopId => {
                 const curr1=await Workshop.findById(workshopId)
-                if(curr1)
-                allworkshops.put(curr1)
+                if(curr1){
+                    allworkshops[i]=(curr1)
+                    i++
+                }
+                console.log(allCourses)
             });
             console.log(allCourses)
             //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
-            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.EducationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}<br>applicants: ${value.applicants}`;
+            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.EducationalOrganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}`;
             // return;
         }
     }catch(error)

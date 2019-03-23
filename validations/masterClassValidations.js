@@ -8,10 +8,10 @@ module.exports = {
             price:Joi.number().required(),
             description:Joi.string().required(),
             location:Joi.string().required(),  
-            Eduorganizationid:Joi.number(),
+            Eduorganization:Joi.string(),
             courseIDs :Joi.array().items(), 
             workshopsIDs :Joi.array().items(),
-            applicants :Joi.array().items()
+           // applicants :Joi.array().items()
             
         }
 
@@ -25,10 +25,10 @@ module.exports = {
             price:Joi.number(),
             description:Joi.string(),
             location:Joi.string(),  
-            Eduorganizationid:Joi.number(),
+            Eduorganization:Joi.string(),
             courseIDs :Joi.array().items(), 
             workshopsIDs :Joi.array().items(),
-            applicants :Joi.array().items()
+            //applicants :Joi.array().items()
         }
 
         return Joi.validate(request, updateSchema)
