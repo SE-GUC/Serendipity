@@ -1,8 +1,4 @@
-const express = require('express')
-const mongoose = require('mongoose')
 
-//require router handlers
-const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
@@ -12,7 +8,7 @@ const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/AdminProf')
 const assessments=require('./routes/api/assessments')
 
-const app = express()
+
 
 //DB config
 const db = require('./config/keys').mongoURI
@@ -57,5 +53,3 @@ app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
 
-const port = 3000;
-app.listen(port, () => console.log(`Server up and running on port ${port}`));
