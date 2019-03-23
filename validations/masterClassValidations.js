@@ -8,7 +8,7 @@ module.exports = {
             price:Joi.number().required(),
             description:Joi.string().required(),
             location:Joi.string().required(),  
-            Eduorganization:Joi.string(),
+            Eduorganization:Joi.string().required(),
             courseIDs :Joi.array().items(), 
             workshopsIDs :Joi.array().items(),
            // applicants :Joi.array().items()
