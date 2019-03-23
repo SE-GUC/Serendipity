@@ -24,6 +24,7 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     masterClasses: {
+<<<<<<< HEAD
         type: [{type: Schema.Types.ObjectId, ref: 'Masterclass'}]
     },
     courses:{
@@ -32,6 +33,19 @@ const EducationalOrganizationSchema = new Schema({
     },
     workshops:{
         type: [{type: Schema.Types.ObjectId, ref: 'Workshop'}]
+=======
+        type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'MasterClass' }]
+    },
+    courses:{
+        type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'Course' }]
+
+    },
+    workshops:{
+        type: [String]
+        //[{ type: Schema.Types.ObjectId, ref: 'Workshop' }]
+>>>>>>> 72659733b017d8536aa75cb818d734d359a84bc6
 
     },
     trainers:{
