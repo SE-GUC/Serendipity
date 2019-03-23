@@ -1,28 +1,32 @@
 {
-  "name": "sprint1",
+  "name": "leartin",
   "version": "1.0.0",
-  "description": "sprint1",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-
-    "url": "reemalik"
-  },
-  "author": "Reem Ali",
-
     "url": "Serendipity"
   },
   "author": "Serendipity",
-
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "joi": "^14.3.1",
+
     "mongoose": "^5.4.19",
+
+
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.19",
+    
+
+    "mongoose": "^5.4.19",
+
+
     "uuid": "^3.3.2"
   }
 }
