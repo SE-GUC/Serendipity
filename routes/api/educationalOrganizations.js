@@ -4,7 +4,7 @@ const Joi = require('joi')
 const uuid = require('uuid') 
 const mongoose = require('mongoose')
 const objectId = require('mongoose').objectid //needed to access by id
-const mongoose = require('mongoose')
+
 
 const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../validations/EduOrgValidations')
@@ -14,6 +14,27 @@ router.get('/', async (req,res) => {
     res.json({data: educationalOrganizations})
 })
 
+
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const educationalOrganizations = await EducationalOrganization.findById(id)
+     //   const user = await book.reviews
+
+        if(!educationalOrganizations) return res.status(404).send({error: 'educational organization does not exist'})
+        
+        res.json({data: educationalOrganizations})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: book})
+})
 
 router.post('/', async (req,res) => {
     try {
@@ -39,13 +60,13 @@ router.put('/:id', async (req,res) => {
     try {
      const id = req.params.id
      
-     const eduorg = await EducationalOrganization.findByIdAndUpdate(id)
-    
-     if(!eduorg) return res.status(404).send({error: 'Profile does not exist'+id})
+     const eduorg = await EducationalOrganization.findById(id)
+    const ID = {"_id":id}
+     if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
      const isValidated = validator.updateValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const updatedEdu = await EducationalOrganization.updateOne(req.body)
-     res.json({msg: 'Profile updated successfully'+id, data : updatedEdu})
+     res.json({msg: 'Profile updated successfully', data:updatedEdu})
     }
     catch(error) {
         // We will be handling the error later

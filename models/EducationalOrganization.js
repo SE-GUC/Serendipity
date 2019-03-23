@@ -24,14 +24,14 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     masterClasses: {
-        type: [String]
+        type: [{type: Schema.Types.ObjectId, ref: 'Masterclass'}]
     },
     courses:{
-        type: [String]
+        type: [{type: Schema.Types.ObjectId, ref: 'Course'}]
 
     },
     workshops:{
-        type: [String]
+        type: [{type: Schema.Types.ObjectId, ref: 'Workshop'}]
 
     },
     trainers:{
