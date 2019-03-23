@@ -51,7 +51,7 @@ router.get('/:id', async (req,res) => {
         const id = req.params.id
 
         const course = await Course.findById(id)
-        Workshop.getById(id)
+       // Workshop.getById(id)
         //const Course = await Course.reviews
 
         if(!course) return res.status(404).send({error: 'course does not exist'})
