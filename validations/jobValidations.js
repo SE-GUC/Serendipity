@@ -4,14 +4,14 @@ module.exports = {
 createValidation: request => {
         const createSchema = {
             title: Joi.string().required(),
-            state: Joi.string().required,
+            state: Joi.string(),
             startdate: Joi.date().required(),
             enddate: Joi.date().required(),
             skills : Joi.array().required (),
             location : Joi.string().required() ,
-            salary : Joi.string().required() ,
-            candidates : Joi.string().required(),
-            dailyhours : Joi.string ().required(),
+            salary : Joi.number().required() ,
+            candidates : Joi.array(),
+            dailyhours : Joi.number().required(),
             partner : Joi.string ().required(),
             description : Joi.string().required()
 
@@ -41,5 +41,3 @@ createValidation: request => {
 }
 
 
-
-};
