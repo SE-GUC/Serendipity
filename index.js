@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 app.use(express.json())
+
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 dotenv.config()
@@ -12,14 +13,12 @@ const DB_User = process.env.DB_USER;
 const DB_Pass = process.env.DB_PASS;
 const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
 
+
 mongoose.connect(uri,{ useNewUrlParser: true })
 
+// mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true",{ useNewUrlParser: true })
 
-
-const Joi = require('joi');
-
-
-const educationalOrganizations = require('./routes/api/educationalOrganizations')
+ const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
@@ -74,7 +73,3 @@ const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Running server at http://localhost:${PORT}`)
 })
-/*const port = 3000
-
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
-*/
