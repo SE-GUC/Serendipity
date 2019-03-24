@@ -21,8 +21,7 @@ const assessmentSchema = new Schema ({
         required: true
     },
     phoneNumber: {
-        type: Number,
-        required: true
+        type: Number
     },
     daysAvailable: {
         type: String,
