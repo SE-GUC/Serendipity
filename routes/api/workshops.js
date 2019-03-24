@@ -26,7 +26,7 @@ const Workshop = require('../../models/Workshop')
 //     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 router.post('/', async (req, res) =>  {
-    // console
+    try{
     const isValidated = validator.createValidation(req.body)
     if (isValidated.eraror) return res.status(400).send({ error: isValidated.error.details[0].message });
 
@@ -45,6 +45,10 @@ router.post('/', async (req, res) =>  {
         .then( res.redirect('/api/workshops'))
         .catch(err => { console.log(err); return res.send(`Sorry, could not create a new workshop with this data !`) })
     }
+    }
+    catch(error) { 
+        console.log(error)
+    } 
 })
 
 //Update Workshop
