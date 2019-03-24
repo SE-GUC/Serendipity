@@ -2,12 +2,9 @@ const express = require('express')
 
 const Joi = require('joi');
 const router = express.Router()
-const mongoose = require('mongoose')
 router.use(express.json())
 // We will be connecting using database 
 
-const router = express.Router()
-const mongoose = require('mongoose')
 
 
 const Job = require('../../models/Job')
@@ -20,7 +17,6 @@ router.get('', async(req, res) => {
    res.json({data: jobs})
 });
 
-const validator = require('../../validation/JobValidations')
 
 
 

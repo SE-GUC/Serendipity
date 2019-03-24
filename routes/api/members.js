@@ -119,7 +119,7 @@ router.get("/:_id", (req, res) => {
       .then(r => {
         if (r) {
           res.status(200).json(r);
-          res.json( { recommendations : finalfilterbyavailability } )
+          res.json( { recommendations : finalfilterbyavailability(id) } )
         } else {
           res
             .status(404)
