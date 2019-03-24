@@ -5,11 +5,11 @@ const Joi = require('joi')
 const uuid = require('uuid') 
 const mongoose = require('mongoose')
 const objectId = require('mongoose').objectid
-const mongoose = require('mongoose')
 
 
-const Assessment = require('../../models/Assessment')
 const validator = require('../../validations/AssessValidations')
+const Assessment = require('../../models/Assessment')
+
 
 router.get('/', async (req,res) => {
     const assessments = await Assessment.find()
