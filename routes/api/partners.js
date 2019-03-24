@@ -9,7 +9,7 @@ const validator = require('../../validations/partnerValidations')
 
 //const partners= require('./partners');
 const mongoose = require('mongoose');
-const validator = require('../../validations/partnerValidations');
+//const validator = require('../../validations/partnerValidations');
 
 //CREATE PARTNER
 router.post('/', async (req,res) => {

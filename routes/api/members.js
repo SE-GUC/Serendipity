@@ -73,7 +73,6 @@ function finalfilterbyavailability (_id){
 return recommendations;
 }
 
-
 function commen ( array1 , array2){
 c = 0 ;
 for ( i = 0 ; i < array2.length ; i++){
@@ -95,11 +94,13 @@ router.post('/', async (req, res) => {
     try {
         const isValidated = validator.createValidation(req.body)
         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-        if ( req.body.userName){
+        /*if ( req.body.userName){
           const found = Member.find(member => member.userName === req.body.userName);
+          console.log(found);
           if ( found )
-              return res.status(400).send({ error: "username is already in use" });
-      }
+          var r = "username is already in use";
+              // return res.status(400).send({ error: "username is already in use" });
+        }*/
         const newMember = await Member.create(req.body)
         newMember.Age = Age(req.body.birthDate)
         res.json({msg:'Member was created successfully', data: newMember})
@@ -139,11 +140,11 @@ router.put('/:_id', async (req,res) => {
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
    else{
-    if ( req.body.userName){
+    /*if ( req.body.userName){
       const found = Member.find(member => member.userName === req.body.userName);
       if ( found )
           return res.status(400).send({ error: "username is already in use" });
-  }
+  }*/
     Member.findByIdAndUpdate(req.params._id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/members/${req.params._id}`) })
