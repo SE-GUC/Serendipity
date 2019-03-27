@@ -1,10 +1,15 @@
 const express = require('express');
-const Joi = require('joi');
+//const Joi = require('joi');
 const Partner = require('../../models/Partner');
 const router= express.Router();
+
+const validator = require('../../validations/partnerValidations')
+
+
+
 //const partners= require('./partners');
 const mongoose = require('mongoose');
-const validator = require('../../validations/partnerValidations');
+//const validator = require('../../validations/partnerValidations');
 
 //CREATE PARTNER
 router.post('/', async (req,res) => {
@@ -73,5 +78,6 @@ router.delete('/:id', async (req,res) => {
         console.log(error)
     }  
  })
+
 
 module.exports = router;
