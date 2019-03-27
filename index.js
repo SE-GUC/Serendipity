@@ -74,19 +74,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 
-app.get('/', (req, res) => {
-    res.send(`<h1>Welcome to LirtenHub</h1>
-    <a href="/api/courses">Courses</a>
-    <a href="/api/workshops">Workshops</a>
-
-    <a href="/api/members">members</a>
-    <a href="/api/admins">admins</a>
-
-
-// Init middleware
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-
 
 app.get('/', (req, res) => {
   res.send(`<h1>Welcome to LirtenHub</h1>
