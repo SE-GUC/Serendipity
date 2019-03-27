@@ -1,118 +1,93 @@
-const express = require('express')
-const Joi = require ('joi');
+const express = require ('express')
 const router = express.Router()
 
-router.use(express.json())
-// We will be connecting using database 
+const Joi = require('joi')
+const uuid = require('uuid') 
+//const mongoose = require('mongoose')
+const objectId = require('mongoose').objectid
+const mongoose = require('mongoose')
+
+
 const Assessment = require('../../models/Assessment')
+const validator = require('../../validations/AssessValidations')
 
-// temporary data created as if it was pulled out of the database ...
-var assessments = [
-    new Assessment('Peter','Slim Abdelnadher','CS1', 'GUC', '+2012345', 'Monday,Tuesday'),
-    new Assessment('Liam','Aysha El-Safty','SE', 'GUC', '+2657764334', 'Saturday,Tuesday'),
-    new Assessment('Talla','Alaa Abdelateef','Physics 1', 'GUC', '+45657834', 'Sunday'),
-    new Assessment('Eleanor','Hany El-Sharkawy','Math 1', 'GUC', '+09876543', 'Monday,Wednesday'),
-    new Assessment('Elizabeth','Yasser Hegazy','Circuits 2', 'GUC', '+87654324', 'Sunday, Tuesday'),
-];
-//get all assessments
-router.get('', (req, res) => {
-    res.send({data:assessments})//yara changed here
+router.get('/', async (req,res) => {
+    const assessments = await Assessment.find()
+    res.json({data: assessments})
 })
-//get an assessments by its id
-router.get('/:id', (req, res) => {
-    var data = "";
-    assessments.forEach((value) => {
-        if(value.id === req.params.id) {
-            data = `Id: ${value.id}<br>Member Name: ${value.memberName}<br>expertName: ${value.expertName}<br>masterClass: ${value.masterClass}<br>educationalOrg: ${value.educationalOrg}<br>price: ${value.price}<br>phoneNumber: ${value.phoneNumber}<br>daysAvailable: ${value.daysAvailable}`;
-            return;
-        }
-    });
-    res.send(data || 'No student matches the requested id');
-});
-//create a new assessment
-router.post('/',(req, res) => {
-    const schema = {
-    memberName : Joi.string().required(),
-    expertName : Joi.string().required(),
-    masterClass : Joi.string().required(),
-    educationalOrg:Joi.string().required(),
-    phoneNumber : Joi.number().required(),
-    daysAvailable : Joi.string().required()
+
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const assessments = await Assessment.findById(id)
+     //   const user = await book.reviews
+
+        if(!assessments) return res.status(404).send({error: 'This Assessmnet does not exist'})
         
-    }
+        res.json({data: assessments})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
 
-    
-    const finalRes = Joi.validate (req.body, schema);
-    
-   if (finalRes.error) return res.status(400).send ({error: finalRes.error.details[0].message});
-    const memberName = req.body.memberName
-    const expertName = req.body.expertName
-    const masterClass = req.body.masterClass
-    const educationalOrg = req.body.educationalOrg
-    const phoneNumber = req.body.phoneNumber
-    const daysAvailable = req.body.daysAvailable 
-    
-    const assessment = new Assessment (
-        memberName,
-        expertName,
-        masterClass,
-        educationalOrg,
-        phoneNumber,
-        daysAvailable 
-    )
-    assessments.push (assessment)
-    res.send(assessments)
-});
-
-router.put('/:id', (req, res) => {
-    const schema = {
-        memberName: Joi.string(),
-        expertName : Joi.string(),
-        masterClass: Joi.string(),
-        daysAvailable: Joi.string(),
-        phoneNumber : Joi.number(),
-        educationalOrg:Joi.string()
-    }
-
-    const finalRes = Joi.validate (req.body, schema);
-    if (finalRes.error) return res.status(400).send ({error: finalRes.error.details[0].message});
-   
-   const memberName = req.body.memberName
-   const expertName = req.body.expertName
-   const masterClass = req.body.masterClass
-   const educationalOrg = req.body.educationalOrg
-   const daysAvailable  = req.body.daysAvailable 
-   const phoneNumber = req.body.phoneNumber
-   const id = req.params.id;
-    
-    const assessment= assessments.find (assessment => assessment.id === id)
-    
-    if (memberName !== undefined)
-        assessment.memberName = memberName
-     if (expertName !== undefined)
-        assessment.expertName = expertName
-     if (masterClass !== undefined)
-        assessment.masterClass = masterClass
-     if (daysAvailable  !== undefined)
-        assessment.daysAvailable  = daysAvailable 
-     if (phoneNumber !== undefined)
-        assessment.phoneNumber = phoneNumber
-    if (educationalOrg !== undefined)
-        assessment.educationalOrg = educationalOrg
-    
-    res.send(assessments)
+    res.json({data: book})
 })
 
-router.delete('/:id' , (req, res) => {
-  
-    const assessmentID = req.params.id
-    const assessment = assessments.find(assessment => assessment.id === assessmentID)
-    const i = assessments.indexOf (assessment)
-    assessments.splice(i,1)
-    res.send(assessments)
-    
+router.post('/', async (req,res) => {
+    try {
+     const isValidated = validator.createValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const newAssessments = await Assessment.create(req.body)
+     res.json({msg:'Assessment appointment booked successfully', data: newAssessments})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
+
+ //update assessment
+ router.put('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+
+     const assess = await Assessment.findByIdAndUpdate(id)
+
+     if(!assess) return res.status(404).send({error: 'Assessment appointment has not been booked'+id})
+     const isValidated = validator.updateValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updateAssess = await Assessment.updateOne(req.body)
+     res.json({msg: 'Assessment was updated successfully'+id, data : updateAssess})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
+//delete
+ router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deleteAssess = await Assessment.findByIdAndRemove(id)
+     res.json({msg:'Appointment for an assessment was deleted successfully', data: deleteAssess})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+
+
+module.exports = router
+
+router.get('/:id/assessments' ,async (req,res)=>{
+
 })
 
-router.get ('/', (req,res) => res.json({ data: assessments}))
 
-module.exports = router;
