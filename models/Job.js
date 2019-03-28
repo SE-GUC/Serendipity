@@ -3,36 +3,36 @@ const Schema = mongoose.Schema
 const Jobschema = new Schema({
     title: {
         type: String,
-        required: true
+      //  required: true
     },
     state: {
         type: String,
-        required: true
+      //  required: true
     },
     location: {
         type: String,
-        required: true
+     //   required: true
     },
     startdate: {
         type: Date,
-       required: true
+    //   required: true
     },
     enddate: {
         type: Date,
-        required: true
+    //    required: true
     },
     salary: {
         type: Number,
-        required: true
+     //   required: true
     },
   
     dailyhours: {
         type: Number,
-        required: true
+       // required: true
     },
     partner: {
         type:Schema.Types.ObjectId, ref:'Partner',
-     required: true
+    // required: true
     },
     description: {
         type: String,

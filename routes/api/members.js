@@ -276,7 +276,16 @@ res.send(data);
 }
  
  );
-
+router.post("/ApplyForJob/",async(req,res)=>{
+    try{
+        const data=req.body
+        data.state="pending"
+        res.redirect(307,"/api/jobs/")
+    } catch(error)
+    {
+        console.log(error)
+    }  
+})
 module.exports = router
 
 
