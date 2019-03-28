@@ -28,14 +28,35 @@ router.get('/', async (req,res) => {
     res.json({data: masterclases})
 })
 
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const master = await Masterclass.findById(id)
+       
+
+        if(!master) return res.status(404).send({error: 'Masterclass does not exist'})
+        
+        res.json({data: master})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: master})
+})
+
 
 // // Get a certain MasterClass
- router.get('/:id', async (req, res) => {
-     const id =req.params.id
-     const master=await Masterclass.findById(id)
+//  router.get('/:id', async (req, res) => {
+//      const id =req.params.id
+//      const master=await Masterclass.findById(id)
     
-     res.json({data:master} || 'No masterclass matches the requested id');
- });
+//      res.json({data:master} || 'No masterclass matches the requested id');
+//  });
 
 
 
