@@ -33,9 +33,9 @@ const MasterclassSchema = new Schema({
     workshopsIDs: {
         type: [{type:Schema.Types.ObjectId, ref: 'Workshop'}]
     },
-    // applicants:{
-    //     type:[String]
-    // }
+    applicants:{
+        type: [{type:Schema.Types.ObjectId, ref: 'Member'}]
+    }
 })
 
 module.exports = Masterclass = mongoose.model('masterclasses', MasterclassSchema)
