@@ -121,6 +121,6 @@ router.delete('/:id', async (req,res) => {
 
 module.exports = router
 
-router.get('/:id/masterclasses' ,async (req,res)=>{
+// router.get('/:id/masterclasses' ,async (req,res)=>{
 
-})
+// })

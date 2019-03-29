@@ -31,7 +31,7 @@ module.exports = {
         const updateSchema = {
             email: Joi.string().email(),
             userName: Joi.string().min(5).max(100),
-            name: Joi.number(),
+            name: Joi.string(),
             password: Joi.string().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
             availableDailyHours : Joi.number() ,
             location : Joi.string (),

@@ -16,7 +16,7 @@ module.exports={
             trainingPrograms: Joi.array().items(),
             description: Joi.string(),
             contract: Joi.boolean(),
-            expirationDate: Joi.string()
+            expirationDate: Joi.date()
         
         }
         return Joi.validate(request, createSchema)

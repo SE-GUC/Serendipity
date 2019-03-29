@@ -10,7 +10,7 @@ const validator = require('../../validations/CourseValidations')
 const Course = require('../../models/Course')
 //const Member
 router.post('/',  async (req, res) => {
-    
+    try{
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
     else{
@@ -29,6 +29,10 @@ router.post('/',  async (req, res) => {
         .catch(err => { console.log(err); return res.send(`Sorry, could not create a new course with this data !`) })
     
     }
+    }
+    catch(error) { 
+        console.log(error)
+    } 
 });
 
 router.get('/', async (req,res) => {
@@ -70,7 +74,38 @@ router.put('/:id', async(req, res) => {
     }
 });
 
+router.put('/:id', async(req, res) => {
+   
+    const isValidated = validator.updateValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+    else{
+    await Course.findByIdAndUpdate(req.params.id, req.body)
+    .exec()
+    .then(r => {return res.redirect(303, `/api/courses/${req.params.id}`) })
+    .catch(err => {console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) })
+    }
+});
 
+router.put('/:id/apply', async(req,res) => {
+
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const courseId = req.params.id;
+    var course = await Course.findById(courseId);
+    console.log('one')
+    course.applicants.push(applicantId);
+    console.log('two')
+
+    Course.findByIdAndUpdate(courseId,{applicants:course.applicants})
+    .exec()
+    .then(doc => { return res.redirect(303, `/api/courses/${req.params.id}`) })
+    .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+
+    console.log('one')
+
+})
 
 router.delete('/:id', async (req,res) => {
     try {

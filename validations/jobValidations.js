@@ -1,43 +1,39 @@
 const Joi = require('joi')
 
 module.exports = {
-createValidation: request => {
+    createValidation: request => {
         const createSchema = {
-            title: Joi.string().required(),
-            state: Joi.string(),
-            startdate: Joi.date().required(),
-            enddate: Joi.date().required(),
-            skills : Joi.array().required (),
-            location : Joi.string().required() ,
-            salary : Joi.number().required() ,
-            candidates : Joi.array(),
-            dailyhours : Joi.number().required(),
-            partner : Joi.string ().required(),
-            description : Joi.string().required()
-
+            title: Joi.string().min(3).max(500).required(),
+            state: Joi.string().min(3).max(100).required(),
+            location:Joi.string().min(3).max(100).required(),
+            startdate:Joi.date(),
+            enddate: Joi.date(),
+            location:Joi.string().required().min(4),
+            salary:Joi.number().required(),
+            dailyhours:Joi.number().required(),
+            partner: Joi.string().required().min(4),
+            description: Joi.string().min(3).required(),
+            applicants:Joi.array().items()
+      
         }
 
         return Joi.validate(request, createSchema)
     },
+
     updateValidation: request => {
-    const updateSchema = {
-        title: Joi.string(),
-        state: Joi.string(),
-        startdate: Joi.date(),
-        enddate: Joi.date(),
-        skills : Joi.array(),
-        location : Joi.string() ,
-        salary : Joi.string() ,
-        candidates : Joi.string(),
-        dailyhours : Joi.string (),
-        partner : Joi.string (),
-        description : Joi.string()
+        const updateSchema = {
+      title: Joi.string().min(3),
+      state: Joi.string().min(3),
+      startdate: Joi.date(),
+      enddate: Joi.date(),
+      location:Joi.string().min(4),
+      salary:Joi.number(),
+      dailyhours:Joi.number(),
+      partner: Joi.string().min(4),
+      description: Joi.string().min(3),
+      applicants:Joi.array().items()
+        }
 
-    }
-
-    return Joi.validate(request, updateSchema)
-},
-
+        return Joi.validate(request, updateSchema)
+    }, 
 }
-
-
