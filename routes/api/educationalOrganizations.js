@@ -10,9 +10,10 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../validations/EduOrgValidations')
 
 router.get('/', async (req,res) => {
-    const educationalOrganizations = await EducationalOrganization.find()
+    const educationalOrganizations = await EducationalOrganization.find().populate('masterClasses').populate('courses')
     res.json({data: educationalOrganizations})
 })
+///get masterclassesof this EduORg
 
 
 router.get('/:id', async (req,res) => {
@@ -20,7 +21,7 @@ router.get('/:id', async (req,res) => {
     try {
         const id = req.params.id
 
-        const educationalOrganizations = await EducationalOrganization.findById(id)
+        const educationalOrganizations = await EducationalOrganization.findById(id).populate('masterClasses').populate('courses')
      //   const user = await book.reviews
 
         if(!educationalOrganizations) return res.status(404).send({error: 'educational organization does not exist'})
@@ -33,7 +34,7 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: book})
+    res.json({data: educationalOrganizations})
 })
 
 router.post('/', async (req,res) => {

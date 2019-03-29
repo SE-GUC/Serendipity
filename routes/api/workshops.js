@@ -7,24 +7,7 @@ router.use(express.json())
 const validator = require('../../validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 
-//Create a Workshop
-
-// router.post('/', (req, res) =>  {
-
-//     const schema = {
-//         title : Joi.string().required(),
-//         eduOrganisation : Joi.string().required(),
-//         duration : Joi.number(),
-//         educator : Joi.string().required(),
-//         price : Joi.number().required(),
-//         description : Joi.string(),
-//         location : Joi.string(),
-//         applicants : Joi.array().items(Joi.string(),Joi.number())
-//     }
-
-//     const result = Joi.validate(req.body, schema);
-//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
+//create A workshop
 router.post('/', async (req, res) =>  {
     try{
     const isValidated = validator.createValidation(req.body)
@@ -50,24 +33,14 @@ router.post('/', async (req, res) =>  {
         console.log(error)
     } 
 })
+//update a workshop
+//yara trial apply
 
-//Update Workshop
+// function updateApplicants(memberid,wshopid){
+  
+// }
 
-// router.put('/:id', (req, res) => {
-//     const schema = {
-//         title : Joi.string(),
-//         eduOrganisation : Joi.string(),
-//         duration : Joi.number(),
-//         educator : Joi.string(),
-//         price : Joi.number(),
-//         description : Joi.string(),
-//         location : Joi.string(),
-//         applicants : Joi.array().items(Joi.string(),Joi.number())
-//     }
-
-//     const result = Joi.validate(req.body, schema);
-//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
+//
 router.put('/:id', async (req, res) => {
     
     const isValidated = validator.updateValidation(req.body)
