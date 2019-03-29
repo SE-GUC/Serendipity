@@ -4,7 +4,7 @@ module.exports = {
     createValidation: request => {
         const createSchema = {
             title: Joi.string().min(3).max(500).required(),
-            state: Joi.string().min(3).max(100).required(),
+            //state: Joi.string().min(3).max(100).required(), yan -> not needed here as only admins are allowed to change state
             location:Joi.string().min(3).max(100).required(),
             startdate:Joi.date(),
             enddate: Joi.date(),
@@ -23,7 +23,7 @@ module.exports = {
     updateValidation: request => {
         const updateSchema = {
       title: Joi.string().min(3),
-      state: Joi.string().min(3),
+      //state: Joi.string().min(3), yan -> not needed here as only admins are allowed to change state
       startdate: Joi.date(),
       enddate: Joi.date(),
       location:Joi.string().min(4),
