@@ -1,4 +1,5 @@
 const Joi = require('joi')
+Joi.objectId = require('joi-objectid')(Joi);
 //file for validations of eduOrg 
 //cleaner code
 module.exports={
@@ -8,9 +9,9 @@ module.exports={
             name: Joi.string().required(),
             password: Joi.string().min(8).required(),
             email: Joi.string().email().required(),
-            masterClasses: Joi.array().items(),
-            courses: Joi.array().items(),
-            workshops: Joi.array().items(),
+            masterClasses: Joi.objectid().array().items(),
+            courses: Joi.objectid().array().items(),
+            workshops: Joi.objectid().array().items(),
             trainers: Joi.array().items(),
             educators: Joi.array().items(),
             trainingPrograms: Joi.array().items(),

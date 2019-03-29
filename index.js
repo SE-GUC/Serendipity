@@ -3,9 +3,10 @@ const uuid = require('uuid');//not needed
 const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
+const cors = require('cors')
+
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
-
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
@@ -38,7 +39,7 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-// app.use(cors())
+app.use(cors())
 
 
 
