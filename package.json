@@ -31,10 +31,7 @@
   },
   "author": "Serendipity",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SE-GUC/NP-COMPLETE/issues"
-  },
-  "homepage": "https://github.com/SE-GUC/NP-COMPLETE#readme",
+  
   "standard": {
     "env": [
       "jest"
