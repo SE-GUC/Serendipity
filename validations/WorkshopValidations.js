@@ -26,7 +26,7 @@ module.exports = {
         location : Joi.string(),
         applicants : Joi.array().items(Joi.string(),Joi.number())
         }
-
+    
         return Joi.validate(request, updateSchema)
     }
 

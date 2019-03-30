@@ -10,7 +10,7 @@ mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj
 
 test('update a workshop uncomplete data',async() => {
   expect.assertions(1);
-  const response = await fn.updateWorkshop('5c950aaca8ae394ae8b02875',{'title':'yasyas'});
+  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',{'title':'yasyas'});
   expect(response.data.data.title).toEqual('yasyas')
 })
 
@@ -25,7 +25,7 @@ test('update a workshop full data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateWorkshop('5c94a5f45dc85d0cc5322aba',schema);
+  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',schema);
   expect(response.data.data).toMatchObject(schema)
 })
 
@@ -40,7 +40,7 @@ test('update a workshop does not work with wrong data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateWorkshop('5c94a5f45dc85d0cc5322aba',schema);
+  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',schema);
   console.log(response)
   expect(response).toEqual("error")
 })
@@ -66,7 +66,7 @@ test('create workshop', async() =>{
 test('create workshop does not work with incorrect data', async() =>{
   expect.assertions(2);
   const schema = {
-    "title": "workshop1",
+    "name": "workshop1",
     "eduOrganisation": "Nasa",
     "duration": 4,
     "educator1": "slim",        //no field called educator1
@@ -77,6 +77,7 @@ test('create workshop does not work with incorrect data', async() =>{
   const bef = await Workshop.find(schema)
   const res = await fn.createWorkshop(schema)
   const aft = await Workshop.find(schema)
+  console.log(res)
   expect(aft.length - bef.length).toBe(0);
   expect(res).toEqual("error")  
 })

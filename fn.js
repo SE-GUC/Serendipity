@@ -18,7 +18,8 @@ const functions = {
         },
         createWorkshop: async(req) =>{
             try{
-            return await axios.post('http://localhost:3000/api/workshops/',req)
+            const newCourse =  await axios.post('http://localhost:3000/api/workshops/',req)
+            return newCourse
             }
             catch(err){
                 return "error"
