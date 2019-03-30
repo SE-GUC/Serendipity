@@ -81,18 +81,6 @@ const axios = require('axios');
 
   });  
 
-  // test('testing that get doesnt work with wrong data for partners', async()=>{
-  //   expect.assertions(1)
-  //   await funcs.createPartner({name: 'a', email: 'marmar@x.com', password: 'a1'})  
-  //   const response =  await funcs.getPartners()
-  //   const l = response.data.data.length
-  //   const id1 = response.data.data[l-1]._id
-  //   await funcs.deletePartner(response.data.data[l-1]._id)
-  //   const response2 = await funcs.getPartner(id1)
-  //   console.log(response2.data.email + "xx")
-  //   expect(response2.data).toEqual(undefined)
-  // })
-  
 
 
 
