@@ -77,7 +77,7 @@ router.put('/:id', async (req, res) => {
     await Workshop.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/workshops/${req.params.id}`) })
-    .catch(err => {console.log(err); return res.send(`Sorry, couldn't update a workshop with that id !`) })
+    .catch(err => {console.log(err); return res.status(400).send(`Sorry, couldn't update a workshop with that id !`) })
     }
 })
 

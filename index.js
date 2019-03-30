@@ -18,6 +18,8 @@ const assessments=require('./routes/api/assessments')
 
 const app = express()
 app.use(express.json())
+var cors = require('cors');
+app.use(cors());
 
 // replace the uri string with your connection string.
 // const DB_User = process.env.DB_USER;
