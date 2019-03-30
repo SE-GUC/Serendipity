@@ -3,28 +3,13 @@ const Joi = require('joi');
 const mongoose = require('mongoose')
 const router = express.Router()
 router.use(express.json())
+const objectId = require('mongoose').objectid
 
 const validator = require('../../validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
+const Member = require('../../models/Member') //yan
 
-//Create a Workshop
-
-// router.post('/', (req, res) =>  {
-
-//     const schema = {
-//         title : Joi.string().required(),
-//         eduOrganisation : Joi.string().required(),
-//         duration : Joi.number(),
-//         educator : Joi.string().required(),
-//         price : Joi.number().required(),
-//         description : Joi.string(),
-//         location : Joi.string(),
-//         applicants : Joi.array().items(Joi.string(),Joi.number())
-//     }
-
-//     const result = Joi.validate(req.body, schema);
-//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
+//create A workshop
 router.post('/', async (req, res) =>  {
     try{
     const isValidated = validator.createValidation(req.body)
@@ -50,24 +35,7 @@ router.post('/', async (req, res) =>  {
         console.log(error)
     } 
 })
-
-//Update Workshop
-
-// router.put('/:id', (req, res) => {
-//     const schema = {
-//         title : Joi.string(),
-//         eduOrganisation : Joi.string(),
-//         duration : Joi.number(),
-//         educator : Joi.string(),
-//         price : Joi.number(),
-//         description : Joi.string(),
-//         location : Joi.string(),
-//         applicants : Joi.array().items(Joi.string(),Joi.number())
-//     }
-
-//     const result = Joi.validate(req.body, schema);
-//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
+//update 
 router.put('/:id', async (req, res) => {
     
     const isValidated = validator.updateValidation(req.body)
@@ -81,7 +49,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-
+//get by id
 router.get('/:id', async (req,res) => {
     
     try {
@@ -91,7 +59,7 @@ router.get('/:id', async (req,res) => {
        // Workshop.getById(id)
         //const Course = await Course.reviews
 
-        if(!workshop) return res.status(404).send({error: 'course does not exist'})
+        if(!workshop) return res.status(404).send({error: 'Workshop does not exist'})
         // for()
         res.json({data: workshop})
        }
@@ -101,91 +69,49 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: course})
+    //res.json({data: workshop})
 })
 
-
+//get
 router.get('/', async (req,res) => {
     const workshops = await Workshop.find()
     res.json({data: workshops})
 })
-  
 
-// router.delete('/:id', async (req,res) => {
-//     try {
-//      const id = req.params.id
-//      const deletedWorkshop = await Workshop.findByIdAndRemove(id)
-//      res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
-//     }
-//     catch(error) {
-//         // We will be handling the error later
-//         console.log(error)
-//     }  
-//  })
-
-// router.get('/', (req, res) => {
-//     let data = "";
-//     workshops.forEach((value) => {
-//         const workshop_id = value.id;
-//         const workshop_name = value.title;
-//         data += `<a href="/api/workshops/${workshop_id}">${workshop_name}</a><br>`;
-//     });
-//     res.send(data);
-// });
-
-// router.get('/:id', (req, res) => {
-//     var data = "";
-//     workshops.forEach((value) => {
-//         if(value.id === req.params.id) {
-//             data = `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.eduOrganisation}<br>duration: ${value.duration}<br>educator: ${value.educator}<br>price: ${value.price}<br>decription: ${value.decription}<br>location: ${value.location}`;
-//             return;
-//         }
-//     });
-//     res.send(data || 'No student matches the requested id');
-// });
-
-// router.get('/:id', async (req,res) => {
-    
-//     try {
-//         const id = req.params.id
-
-
-//         const workshop = await Workshop.findById(id)
-//        // Workshop.getById(id)
-//         //const Course = await Course.reviews
-
-//         if(!workshop) return res.status(404).send({error: 'course does not exist'})
-//         // for()
-//         res.json({data: workshop})
-//        }
-//        catch(error) {
-//            // We will be handling the error later
-//            console.log(error)
-//        }  
-    
-
-// // router.delete('/:id', (req, res) => {
-// //     const workshopId = req.params.id 
-// //     const workshop = workshops.find(workshop => workshop.id === workshopId)
-// //     const index = workshops.indexOf(workshop)
-// //     workshops.splice(index,1)
-// //     res.send(workshops)
-// // })
-
-//     res.json({data: course})
-// })
-
-
+//delete
 router.delete('/:id', async (req,res) => {
     try {
-     const id = req.params.id
-     const deletedWorkshop = await Workshop.findByIdAndRemove(id)
-     res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
+        const id = req.params.id
+        const deletedWorkshop = await Workshop.findByIdAndRemove(id)
+        res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
     }
     catch(error) {
         // We will be handling the error later
         console.log(error)
     }  
- })
+})
+
+///////////////////////////////////
+//member apply for workshop WORKS!!!
+router.put("/:wid/apply/:mid",async (req,res)=>{
+    const memberid = req.params.mid
+    const workid=req.params.wid
+    const member =await Member.findById(memberid)
+    const workshop =await Workshop.findById(workid)
+    if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
+    if(!member) return res.status(404).send({error: 'This member does not exist'})
+    //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
+    //add element to applicants
+    //workshop.applicants.push(memberid);
+    
+    Workshop.update(
+        { _id: workid }, 
+        { $push: { applicants: memberid } },
+        //done
+    )
+    res.json({msg:'applicant was added successfully', data:workshop})
+    //workshop.save(done);
+   })
+////////////////////////
 
 module.exports = router;
