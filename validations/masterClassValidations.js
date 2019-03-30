@@ -11,7 +11,7 @@ module.exports = {
             Eduorganization:Joi.string().required(),
             courseIDs :Joi.array().items(), 
             workshopsIDs :Joi.array().items(),
-           // applicants :Joi.array().items()
+            applicants :Joi.array().items()
             
         }
 

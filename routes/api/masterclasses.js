@@ -207,8 +207,27 @@ router.delete('/:id', async (req,res) => {
         
         console.log(error)
     }  
+ 
  })
 
+
+ // as a member i can apply for a masterclass
+ router.put("/:maid/apply/:mid",async(req,res)=>{
+    const memberid=req.params.mid
+    const masterclassid=req.params.maid
+    const member=await Member.findById(memberid)
+    const master=await Masterclass.findById(masterclassid)
+    if(!member) return res.status(400).send({error:'member does not exist'})
+    if(!master) return res.status(400).send({error:'master does not exist'})
+
+    Masterclass.update(
+        {_id:masterclassid},
+        {$push:{applicants:memberid}},
+        res.json({msg:'applicants was added successfuly',data:master})
+    )
+
+}
+)
 
 
 
