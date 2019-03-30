@@ -31,29 +31,47 @@ router.get('/', async (req,res) => {
 })
   
 // Get a certain job
+router.get("/:_id", (req, res) => {
+
+   const id = req.params._id;
+   Job.findById(id)
+     .exec()
+     .then(doc => {
+       if (doc) {
+         res.status(200).json(doc);
+       } else {
+         res
+           .status(404)
+           .json({ message: "No job found for provided ID" });
+       }
+     })
+     .catch(err => {
+       console.log(err);
+       res.status(500).json({ error: err });
+     });
+ });
 
 
-
-router.get('/:id', async (req,res) => {
+// router.get('/:id', async (req,res) => {
     
-   try {
-       const id = req.params.id
+//    try {
+//        const id = req.params.id
 
-       const job = await Job.findById(id)
+//        const job = await Job.findById(id)
       
 
-       if(!job) return res.status(404).send({error: 'job does not exist'})
+//        if(!job) return res.status(404).send({error: 'job does not exist'})
        
-       res.json({data: job})
-      }
-      catch(error) {
-          // We will be handling the error later
-          console.log(error)
-      }  
+//        res.json({data: job})
+//       }
+//       catch(error) {
+//           // We will be handling the error later
+//           console.log(error)
+//       }  
    
 
-   res.json({data: job})
-})
+//    res.json({data: job})
+// })
 
 
 
@@ -70,7 +88,7 @@ router.delete('/:id', async (req,res) => {
     res.json({msg:'Job was deleted successfully', data: deletedJob})
    }
    catch(error) {
-       // We will be handling the error later
+      
        console.log(error)
    }  
 })

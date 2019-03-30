@@ -3,7 +3,7 @@ const uuid = require('uuid');//not needed
 const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
-
+const cors=require('cors')
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 
 const courses = require('./routes/api/courses')
@@ -28,17 +28,19 @@ app.use(express.json())
 const db = require('./config/keys').mongoURI
 
 mongoose
-    //.connect(db , { useNewUrlParser: true })
-    .connect(db)
+    .connect(db , { useNewUrlParser: true })
+    //.connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
 
-   
+    process.on('uncaughtException', function (err) {
+      console.log(err);
+  }); 
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-// app.use(cors())
+app.use(cors())
 
 
 
@@ -82,8 +84,8 @@ app.use(express.urlencoded({extended: false}))
 
 
 // Init middleware
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+//app.use(express.json())
+//app.use(express.urlencoded({extended: false}))
 
 
 app.get('/', (req, res) => {
@@ -121,12 +123,6 @@ app.use((req, res) => {
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server on ${port}`))
-// const port = 3000;
-// app.listen(port, () => console.log(`Server up and running on port ${port}`));
 
-/*const port = 3000
-
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
-*/
 
 
