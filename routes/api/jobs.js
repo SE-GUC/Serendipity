@@ -129,6 +129,28 @@ router.post('/', async (req,res) => {
        console.log(error)
    }  
 })
+// as a member I should be able to apply for a job
+router.put('/:jid/apply/:mid',async (req,res)=>{
+   const memberid = req.params.mid
+   const jobid = req.params.jid
+   const member = await Member.findById(memberid)
+   const job = await Job.findById(jobid)
+   if(!job) return res.status(400).send({ error:'job does not exist' })
+   if(!member) return res.status(400).send({ error:'member does not exist' })
+
+   Job.update(
+      {_id:jobid},
+      {$push: {applicants: memberid}}
+   )
+      res.json({msg:'applicant was added succsessfully', data:job})
+
+
+
+   
+
+   
+
+})
 
 
 
