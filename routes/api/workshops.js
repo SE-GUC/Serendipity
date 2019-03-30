@@ -68,6 +68,7 @@ router.post('/', async (req, res) =>  {
 //     const result = Joi.validate(req.body, schema);
 //     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
+
 router.put('/:id', async (req, res) => {
     
     const isValidated = validator.updateValidation(req.body)
@@ -77,7 +78,7 @@ router.put('/:id', async (req, res) => {
     await Workshop.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/workshops/${req.params.id}`) })
-    .catch(err => {console.log(err); return res.send(`Sorry, couldn't update a workshop with that id !`) })
+    .catch(err => {console.log(err); return res.status(400).send(`Sorry, couldn't update a workshop with that id !`) })
     }
 })
 
