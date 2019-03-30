@@ -29,13 +29,6 @@ module.exports = {
         }
 
         return Joi.validate(request, updateSchema)
-    },
-    //////yan
-    applyValidation: request=>{
-        const updateSchema = {
-            applicants :Joi.objectid().array().items()
-        }
-        return Joi.validate(request, applySchema)
     }
 
 
