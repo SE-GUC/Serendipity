@@ -163,30 +163,9 @@ router.delete('/:_id', async (req,res) => {
         console.log(error)
     }
  })
- /////
-//  function Age(birthday) { // birthday is a date
-//   var d = new Date();
-//   var t = new Date (birthday)
-//   return d.getFullYear() - t.getFullYear() ;
-// }
 
-//not working yet
- // member apply for workshop
-//  router.get("/:id/apply",async (req,res)=>{
-//   const id = req.params.id
-//   const workid="5c9e968d78f9b35e1c0afd11"
-//    const c=applyWorkshop(id,workid)
-//    console.log(c)
-//    res.json({data: c})
 
-//  })
 
-//  //yara not working
-//  function applyWorkshop(Memberid,workshopid){
-//     const member = Member.findById(Memberid) //gets the member
-//     const workshop =Workshop.findById(workshopid) //gets the workshop
-//     return workshop;
-//     //console.log(workshop)
-//  }
+
 
 module.exports = router
