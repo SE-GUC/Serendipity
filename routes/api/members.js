@@ -95,15 +95,17 @@ router.post('/', async (req, res) => {
           var r = "username is already in use";
               // return res.status(400).send({ error: "username is already in use" });
         }*/
+        else {
         const newMember = await Member.create(req.body)
         newMember.Age = Age(req.body.birthDate)
         res.json({msg:'Member was created successfully', data: newMember})
-       }
+    }}
        catch(error) {
            // We will be handling the error later
            console.log(error)
 
        } 
+      
 
 });
 router.get("/:_id", (req, res) => {
@@ -113,8 +115,12 @@ router.get("/:_id", (req, res) => {
       .exec()
       .then(r => {
         if (r) {
-          res.status(200).json(r);
-          res.json( { recommendations : finalfilterbyavailability } )
+          const ret = {};
+          ret.data = r;
+          //ret.recommendations = finalfilterbyavailability;
+          res.status(200).json(ret);
+          // res.status(200).json(r);
+          // res.json( { recommendations : finalfilterbyavailability } )
         } else {
           res
             .status(404)
@@ -131,11 +137,6 @@ router.put('/:_id', async (req,res) => {
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
    else{
-    /*if ( req.body.userName){
-      const found = Member.find(member => member.userName === req.body.userName);
-      if ( found )
-          return res.status(400).send({ error: "username is already in use" });
-  }*/
     Member.findByIdAndUpdate(req.params._id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/members/${req.params._id}`) })

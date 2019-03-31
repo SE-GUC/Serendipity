@@ -18,7 +18,7 @@ const assessments=require('./routes/api/assessments')
 
 
 const app = express()
-//app.use(express.json())
+app.use(express.json())
 
 const db = require('./config/keys').mongoURI
 
@@ -66,8 +66,6 @@ app.use('/api/jobs', jobs)
 app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
-
-
 
 
 const port = process.env.PORT || 3000

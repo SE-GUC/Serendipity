@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "jest --detectOpenHandles"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "mongoose": "^5.4.19",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "supertest": "^4.0.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
