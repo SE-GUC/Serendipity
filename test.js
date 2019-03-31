@@ -5,9 +5,15 @@ const Course = require('./models/Course')
 const mongoose = require('mongoose')
 jest.setTimeout(100000);
 
-// mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true", {
-//     useNewUrlParser: true
-//   })
+const db = require('./config/keys').mongoURI
+
+mongoose
+    //.connect(db , { useNewUrlParser: true })
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
+
+
 
 
 //get all, get by id and delete won't work with the other test because of the timeout MAYAR
