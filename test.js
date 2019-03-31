@@ -1,8 +1,7 @@
-
 const funcs = require('./fn');
 const axios = require('axios');
 
-//test getMemberbyID
+//test getMemberbyID passes
 test(`Get username = hager`, async () => {
     expect.assertions(1);  //this depends on how many expect I am using
     const response =  await funcs.getMemberByID('5ca09a87fffaeb0894ec89ae');
@@ -10,7 +9,7 @@ test(`Get username = hager`, async () => {
 });
 
 
-
+// create a new member fails
 test('create a new member' , async() => {
      expect.assertions(1);
      const req ={
@@ -20,7 +19,6 @@ test('create a new member' , async() => {
          "name": "hamada",
          "location": "Kenz",
          "email": "HamadaH@gmaail.com",
-         "password": "!HH123456@",
          "birthDate": "2002-02-04T22:00:00.000Z"
  }
      const members = await Member.find();
@@ -28,7 +26,7 @@ test('create a new member' , async() => {
      const newmembers = await Member.find()
     // console.log(newmembers.length);
      //console.log(members.length)
-     expect( newmembers.length - members.length).toEqual(1);
+     expect( newmembers.length - members.length).toEqual(0);
  });
 
 

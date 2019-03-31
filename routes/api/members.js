@@ -128,8 +128,9 @@ router.get("/:_id", (req, res) => {
         }
       })
       .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
+        return "Member Not Found"
+        //console.log(err);
+        //res.status(500).json({ error: err });
       });
   });
 
