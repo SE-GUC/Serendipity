@@ -61,7 +61,7 @@ getMasterM: async (id) => {
 
     return partner
 
-}
+},
    
     getAdmins: async () => {
         const admins= await axios.get('http://localhost:3000/api/admins/')
