@@ -12,12 +12,21 @@
   },
   "author": "Reem Ali",
   "license": "ISC",
+  "main": "index.js",
   "dependencies": {
+    "@types/jest": "^24.0.11",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "axios": "^0.18.0",
     "express": "^4.16.4",
+    "jest": "^24.5.0",
     "joi": "^14.3.1",
-
-
+    "mon": "0.0.8",
+    "jsonwebtoken": "^8.5.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.19",
-    "uuid": "^3.3.2"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+
   }
 }

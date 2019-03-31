@@ -1,4 +1,10 @@
 
+const express = require('express')
+const mongoose = require('mongoose')
+const assessments = require('./routes/api/assessments')
+
+
+
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
@@ -14,6 +20,8 @@ const assessments=require('./routes/api/assessments')
 
 
 // Init middleware
+const MongoClient = require('mongodb').MongoClient;
+
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
@@ -47,4 +55,6 @@ app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
 
+const port = process.env.PORT || 3000
+app.listen (port, () => console.log('Server running on port ${port}'))
 
