@@ -3,19 +3,33 @@ const functions = {
 createEduOrg: async() =>{
     const NewEdu =await EducationalOrganization.create(
     {
-    userName:'GQA',
-    name:'GGQQAA',
+    userName:'YYA',
+    name:'YYYQAA',
     password:232323,
-    email:'QGA@gg.com'
+    email:'YYGA@gg.com'
     });
     const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
     return allEdu.data
-},//yara get by id 
-createMaster: async(data) =>{
-    return axios.post(`http://localhost:3000/api/educationalOrganizations/`,await data)
-},
-readMaster: (id) =>{
-    return axios.get(`http://localhost:3000/api/educationalOrganizations/${id}`)
-},
+ },
+ createEduOrg2: async() =>{
+    const NewEdu =await EducationalOrganization.create(
+    {
+    userName:'YYAN',
+    name:'YYYQAAN',
+    password:2132323,
+    email:'NYYGA@gg.com'
+    });
+    const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
+    return allEdu.data
+}
+
+
 };
 module.exports = functions;
+//yara get by id 
+// createMaster: async(data) =>{
+//     return axios.post(`http://localhost:3000/api/educationalOrganizations/`,await data)
+// },
+// readMaster: (id) =>{
+//     return axios.get(`http://localhost:3000/api/educationalOrganizations/${id}`)
+// },
