@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Joi = require('joi')
 const uuid = require('uuid') 
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const objectId = require('mongoose').objectid
 const mongoose = require('mongoose')
 
@@ -16,6 +16,26 @@ router.get('/', async (req,res) => {
     res.json({data: assessments})
 })
 
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
+
+        const assessments = await Assessment.findById(id)
+     //   const user = await book.reviews
+
+        if(!assessments) return res.status(404).send({error: 'This Assessmnet does not exist'})
+        
+        res.json({data: assessments})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+
+    res.json({data: book})
+})
 
 router.post('/', async (req,res) => {
     try {

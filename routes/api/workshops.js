@@ -9,24 +9,24 @@ const Workshop = require('../../models/Workshop')
 
 //Create a Workshop
 
-router.post('/', (req, res) =>  {
+// router.post('/', (req, res) =>  {
 
-    const schema = {
-        title : Joi.string().required(),
-        eduOrganisation : Joi.string().required(),
-        duration : Joi.number(),
-        educator : Joi.string().required(),
-        price : Joi.number().required(),
-        description : Joi.string(),
-        location : Joi.string(),
-        applicants : Joi.array().items(Joi.string(),Joi.number())
-    }
+//     const schema = {
+//         title : Joi.string().required(),
+//         eduOrganisation : Joi.string().required(),
+//         duration : Joi.number(),
+//         educator : Joi.string().required(),
+//         price : Joi.number().required(),
+//         description : Joi.string(),
+//         location : Joi.string(),
+//         applicants : Joi.array().items(Joi.string(),Joi.number())
+//     }
 
-    const result = Joi.validate(req.body, schema);
-    if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+//     const result = Joi.validate(req.body, schema);
+//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 router.post('/', async (req, res) =>  {
-    // console
+    try{
     const isValidated = validator.createValidation(req.body)
     if (isValidated.eraror) return res.status(400).send({ error: isValidated.error.details[0].message });
 
@@ -45,24 +45,28 @@ router.post('/', async (req, res) =>  {
         .then( res.redirect('/api/workshops'))
         .catch(err => { console.log(err); return res.send(`Sorry, could not create a new workshop with this data !`) })
     }
+    }
+    catch(error) { 
+        console.log(error)
+    } 
 })
 
 //Update Workshop
 
-router.put('/:id', (req, res) => {
-    const schema = {
-        title : Joi.string(),
-        eduOrganisation : Joi.string(),
-        duration : Joi.number(),
-        educator : Joi.string(),
-        price : Joi.number(),
-        description : Joi.string(),
-        location : Joi.string(),
-        applicants : Joi.array().items(Joi.string(),Joi.number())
-    }
+// router.put('/:id', (req, res) => {
+//     const schema = {
+//         title : Joi.string(),
+//         eduOrganisation : Joi.string(),
+//         duration : Joi.number(),
+//         educator : Joi.string(),
+//         price : Joi.number(),
+//         description : Joi.string(),
+//         location : Joi.string(),
+//         applicants : Joi.array().items(Joi.string(),Joi.number())
+//     }
 
-    const result = Joi.validate(req.body, schema);
-    if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+//     const result = Joi.validate(req.body, schema);
+//     if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
 router.put('/:id', async (req, res) => {
     
@@ -107,17 +111,17 @@ router.get('/', async (req,res) => {
 })
   
 
-router.delete('/:id', async (req,res) => {
-    try {
-     const id = req.params.id
-     const deletedWorkshop = await Workshop.findByIdAndRemove(id)
-     res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
-    }
-    catch(error) {
-        // We will be handling the error later
-        console.log(error)
-    }  
- })
+// router.delete('/:id', async (req,res) => {
+//     try {
+//      const id = req.params.id
+//      const deletedWorkshop = await Workshop.findByIdAndRemove(id)
+//      res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
+//     }
+//     catch(error) {
+//         // We will be handling the error later
+//         console.log(error)
+//     }  
+//  })
 
 // router.get('/', (req, res) => {
 //     let data = "";
@@ -140,36 +144,36 @@ router.delete('/:id', async (req,res) => {
 //     res.send(data || 'No student matches the requested id');
 // });
 
-router.get('/:id', async (req,res) => {
+// router.get('/:id', async (req,res) => {
     
-    try {
-        const id = req.params.id
+//     try {
+//         const id = req.params.id
 
 
-        const workshop = await Workshop.findById(id)
-       // Workshop.getById(id)
-        //const Course = await Course.reviews
+//         const workshop = await Workshop.findById(id)
+//        // Workshop.getById(id)
+//         //const Course = await Course.reviews
 
-        if(!workshop) return res.status(404).send({error: 'course does not exist'})
-        // for()
-        res.json({data: workshop})
-       }
-       catch(error) {
-           // We will be handling the error later
-           console.log(error)
-       }  
+//         if(!workshop) return res.status(404).send({error: 'course does not exist'})
+//         // for()
+//         res.json({data: workshop})
+//        }
+//        catch(error) {
+//            // We will be handling the error later
+//            console.log(error)
+//        }  
     
 
-// router.delete('/:id', (req, res) => {
-//     const workshopId = req.params.id 
-//     const workshop = workshops.find(workshop => workshop.id === workshopId)
-//     const index = workshops.indexOf(workshop)
-//     workshops.splice(index,1)
-//     res.send(workshops)
+// // router.delete('/:id', (req, res) => {
+// //     const workshopId = req.params.id 
+// //     const workshop = workshops.find(workshop => workshop.id === workshopId)
+// //     const index = workshops.indexOf(workshop)
+// //     workshops.splice(index,1)
+// //     res.send(workshops)
+// // })
+
+//     res.json({data: course})
 // })
-
-    res.json({data: course})
-})
 
 
 router.delete('/:id', async (req,res) => {
@@ -184,4 +188,4 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 
-module.exports = router
+module.exports = router;

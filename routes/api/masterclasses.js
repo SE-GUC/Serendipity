@@ -161,7 +161,7 @@ router.delete('/:id', async(req, res) => {
             });
             //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
             
-             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.EducationalOrganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}`;
+             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.Eduorganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}`;
              //return;
 
         }
