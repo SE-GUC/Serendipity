@@ -3,11 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "test": "jest --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "reemalik"
+  },
+  "author": "Reem Ali",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+
   "dependencies": {
     "@types/jest": "^24.0.11",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "axios": "^0.18.0",
+
     "express": "^4.16.4",
     "jest": "^24.5.0",
     "joi": "^14.3.1",
@@ -21,6 +39,10 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10"
+
     "nodemon": "^1.18.10",
     "standard": "^12.0.1"
   },
@@ -44,5 +66,6 @@
   },
   "jest": {
     "testEnvironment": "node"
+
   }
 }
