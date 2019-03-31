@@ -10,7 +10,7 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../validations/EduOrgValidations')
 
 router.get('/', async (req,res) => {
-    const educationalOrganizations = await EducationalOrganization.find().populate('masterClasses').populate('courses')
+    const educationalOrganizations = await EducationalOrganization.find()//.populate('masterClasses').populate('courses')
     res.json({data: educationalOrganizations})
 })
 ///get masterclassesof this EduORg
@@ -40,8 +40,11 @@ router.get('/:id', async (req,res) => {
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
+     console.log("func")
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     console.log("I'm here")
      const newEducationalOrganization = await EducationalOrganization.create(req.body)
+     console.log("hi there")
      res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
     catch(error) {
