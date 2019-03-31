@@ -1,5 +1,6 @@
 const funcs = require('./fn');
 const axios = require('axios');
+jest.setTimeout(10000000);
 
   test('testing that get all works for partners', async () => {
     expect.assertions(4)
