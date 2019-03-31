@@ -51,7 +51,7 @@ test ('update member' , async() => {
 expect.assertions(1);
 const random = Member.findOne({});
 const id = random.id ;
-var member = await axios.get('http://localhost:3000/api/members/'+id)
+var member = await Member.findByID(id)
 console.log(member.data.data.name)
 const  req = {
     "name" : "Mohammad Ashraf"
