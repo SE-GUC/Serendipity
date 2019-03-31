@@ -31,29 +31,47 @@ router.get('/', async (req,res) => {
 })
   
 // Get a certain job
+router.get("/:id", (req, res) => {
+
+   const id = req.params._id;
+   Job.findById(id)
+     .exec()
+     .then(doc => {
+       if (doc) {
+         res.status(200).json(doc);
+       } else {
+         res
+           .status(404)
+           .json({ message: "No job found for provided ID" });
+       }
+     })
+     .catch(err => {
+       console.log(err);
+       res.status(500).json({ error: err });
+     });
+ });
 
 
-
-router.get('/:id', async (req,res) => {
+// router.get('/:id', async (req,res) => {
     
-   try {
-       const id = req.params.id
+//    try {
+//        const id = req.params.id
 
-       const job = await Job.findById(id)
+//        const job = await Job.findById(id)
       
 
-       if(!job) return res.status(404).send({error: 'job does not exist'})
+//        if(!job) return res.status(404).send({error: 'job does not exist'})
        
-       res.json({data: job})
-      }
-      catch(error) {
-          // We will be handling the error later
-          console.log(error)
-      }  
+//        res.json({data: job})
+//       }
+//       catch(error) {
+//           // We will be handling the error later
+//           console.log(error)
+//       }  
    
 
-   res.json({data: job})
-})
+//    res.json({data: job})
+// })
 
 
 
@@ -70,10 +88,10 @@ router.delete('/:id', async (req,res) => {
     res.json({msg:'Job was deleted successfully', data: deletedJob})
    }
    catch(error) {
-       // We will be handling the error later
+      
        console.log(error)
    }  
-})
+});
 
 
 
@@ -131,6 +149,28 @@ router.post('/', async (req,res) => {
    }  
 
 
+
+})
+// as a member I should be able to apply for a job
+router.put('/:jid/apply/:mid',async (req,res)=>{
+   const memberid = req.params.mid
+   const jobid = req.params.jid
+   const member = await Member.findById(memberid)
+   const job = await Job.findById(jobid)
+   if(!job) return res.status(400).send({ error:'job does not exist' })
+   if(!member) return res.status(400).send({ error:'member does not exist' })
+
+   Job.update(
+      {_id:jobid},
+      {$push: {applicants: memberid}}
+   )
+      res.json({msg:'applicant was added succsessfully', data:job})
+
+
+
+   
+
+   
 
 })
 

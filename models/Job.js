@@ -9,6 +9,8 @@ const Jobschema = new Schema({
     state: {
         type: String,
 
+       required: true
+
     },
     location: {
         type: String,
