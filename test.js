@@ -1,3 +1,4 @@
+
 const fn = require('./fn')
 const Course = require('./models/Course')
 const mongoose = require('mongoose')
@@ -6,17 +7,32 @@ const mongoose = require('mongoose')
 //     useNewUrlParser: true
 //   })
 
+beforeAll(async () => {
+  await new Course({
+    _id: mongoose.Types.ObjectId(),
+    title: "tagroba",
+    eduOrganisation: "Nasa",
+    duration: 4,
+    educator: "slim",
+    price: 300000000,
+    description: "quite popular",
+    location: "Las Vegas"
+  }).save();
+  return "one added"
+})
 
 test('update a course uncomplete data',async() => {
   expect.assertions(1);
-  const response = await fn.updateCourse('5c950aaca8ae394ae8b02875',{'title':'yasyas'});
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
+  const response = await fn.updateCourse(id,{'title':'yasyas'});
   expect(response.data.data.title).toEqual('yasyas')
 })
 
 test('update a course full data',async() => {
   expect.assertions(1);
   const schema = {
-    "applicants"	:["5c9e812150bd906a47a946d2"],
+    "applicants"	:[],
     "title":	"dog",
     "duration":	4,
     "educator":	"m3lem",
@@ -24,7 +40,10 @@ test('update a course full data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateCourse('5c94a5f45dc85d0cc5322aba',schema);
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
+  console.log(id)
+  const response = await fn.updateCourse(id,schema);
   expect(response.data.data).toMatchObject(schema)
 })
 
@@ -39,7 +58,9 @@ test('update a course does not work with wrong data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateCourse('5c94a5f45dc85d0cc5322aba',schema);
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
+  const response = await fn.updateCourse(id,schema);
   console.log(response)
   expect(response).toEqual("error")
 })
