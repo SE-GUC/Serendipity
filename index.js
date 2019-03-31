@@ -3,7 +3,7 @@ const uuid = require('uuid');//not needed
 const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
-
+const cors = require('cors')
 const educationalOrganizations = require('./routes/api/educationalOrganizations')
 
 const courses = require('./routes/api/courses')
@@ -18,6 +18,7 @@ const assessments=require('./routes/api/assessments')
 
 const app = express()
 app.use(express.json())
+//app.use(cors())
 
 // replace the uri string with your connection string.
 // const DB_User = process.env.DB_USER;
@@ -38,7 +39,7 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-// app.use(cors())
+ app.use(cors())
 
 
 
