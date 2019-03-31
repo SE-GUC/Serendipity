@@ -4,6 +4,7 @@ module.exports = {
     createValidation: request => {
         const createSchema = {
             title: Joi.string().min(3).max(500).required(),
+
             //state: Joi.string().min(3).max(100).required(),
             location:Joi.string().min(3).max(100).required(),
             startdate:Joi.date(),

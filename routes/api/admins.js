@@ -68,7 +68,7 @@ router.post('/', async (req,res) => {
     catch(error) {
         // We will be handling the error later
         console.log(error)
-    }  
+    }
  })
 
 
