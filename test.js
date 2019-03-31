@@ -76,6 +76,18 @@ test('testing that get all works', async () => {
     }
   });
 
+  test('testing that get by id does not work works', async () => {
+    expect.assertions(1)
+      expect(await fn.getCourses('bbllaabbllaa').status).toEqual(undefined);
+  
+    });
+
+
+test('testing that get by id does not work works', async () => {
+    expect.assertions(1)
+      expect(await fn.deleteCourse('bbllaabbllaa').status).toEqual(undefined);
+  
+    });
 beforeAll(async () => {
   await new Course({
     _id: mongoose.Types.ObjectId(),
