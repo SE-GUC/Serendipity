@@ -1,5 +1,6 @@
 const axios = require('axios');
 const functions = {
+
 createEduOrg: async() =>{
     const NewEdu =await EducationalOrganization.create(
     {
@@ -21,15 +22,19 @@ createEduOrg: async() =>{
     });
     const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
     return allEdu.data
-}
+},
+getEduOrg: async () => {
+    const educationalOrganizations= axios.get('http://localhost:3000/api/educationalOrganizations/')
+    return educationalOrganizations
+},
 
+createEduOrg: async (data) => {
+    axios.post('http://localhost:3000/api/educationalOrganizations/',data).then(res => res.data).catch(e=>'error')
+},
+
+deleteEduOrg: async(id) => {
+    axios.delete('http://localhost:3000/api/educationalOrganizations/'+id).then(res => res.data).catch(e=>'error')}
 
 };
-module.exports = functions;
-//yara get by id 
-// createMaster: async(data) =>{
-//     return axios.post(`http://localhost:3000/api/educationalOrganizations/`,await data)
-// },
-// readMaster: (id) =>{
-//     return axios.get(`http://localhost:3000/api/educationalOrganizations/${id}`)
-// },
+module.exports=functions; 
+

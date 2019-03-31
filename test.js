@@ -29,45 +29,21 @@ test(`Create Edu Org`, async () => {
     expect(response.data[l].password).toEqual('2132323')
     expect(response.data[l].email).toEqual('NYYGA@gg.com')
   });
-  // test('create Edu Org2',async()=>{
-  //   expect.assertions(4)
 
-// const response  =await funcs.createEduOrg()
-//     const l=(response.data.length)-1
-//     expect(response.data[l]).toEqual(          // 1
-//       expect.arrayContaining([      // 2
-//         expect.objectContaining({   // 3
-//           username: 'YYA'               // 4
-//         })
-//       ])
-//     )
-//   })
+test('testing that get all works', async () => {
+  expect.assertions(6)
+  const response1 =  await funcs.getEduOrg()
+  await funcs.createEduOrg({userName:'uaa', name: 'a',  password: '12345678', email: 'a@gmail.com'})    
+  const response =  await funcs.getEduOrg()
+  const l = 1 + response1.data.data.length
+  expect(response1.data.data.length).toBe(1)
 
-//   test("read a masterclass exists",async()=>{
-//     expect.assertions(1)
-//     return expect(typeof(funcs.readMaster)).toBe('function')
-// })
-//yara moh. by id wont work
-//  test("read a masterclass by id",async()=>{
-//     // data={
-//     //     userName: "YOYOOOOOZZZ",
-//     //     name: "5 months",
-//     //     email:"gg@df.com",
-//     //     password: 5000
-        
-//     //     }
-//     const createdMaster=await funcs.createMaster({
-//       userName: "YOYOOOOOZZZ",
-//       name: "5 months",
-//       email:"gg@df.com",
-//       password: 5000
-      
-//     })
-//     console.log(createdMaster)
-//     const master= createdMaster.data.data
-//     const id=master["_id"]
-//     const read=await funcs.readMaster(id)
-//     const readMaster=read.data.data   
-//     expect.assertions(1)
-//     return expect(readMaster).toEqual(master)
-// })
+  expect(response.data.data.length).toBe(l)
+  expect(response.data.data[l-1].userName).toEqual('uaa')
+  expect(response.data.data[l-1].name).toEqual('a')
+  expect(response.data.data[l-1].email).toEqual('a@gmail.com')
+  expect(response.data.data[l-1].password).toEqual('12345678')
+
+  });
+
+  
