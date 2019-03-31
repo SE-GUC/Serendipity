@@ -145,23 +145,30 @@ test('testing that get all works', async () => {
     //   expect(response2.data.data.title).toEqual(undefined)
     // });
 
-      test('testing that delete works', async()=>{
-        expect.assertions(1)
-        await funcs.createJob({
-          title:'lalaadeleted',
-        location:'Cairoooo',
-        salary:'9000000',  
-        dailyhours:'10',
-        description:'kkkkkkkeeeekkkk',
-        startdate:'1998-1-10',
-        enddate:'2010-8-11',
-        state:'closed',
-       partner:'5c9673e3a7f0f43f641386de'
-        })  
-        var response =  await funcs.getJobs()
-        var l = response.data.data.length
-        await funcs.delete(response.data.data[l-1]._id)
-        response =  await funcs.getJobs()
-        expect(response.data.data[l-1]).toEqual(undefined)
+      // test('testing that delete works', async()=>{
+      //   expect.assertions(1)
+      //   await funcs.createJob({title:'lalaadeleted',location:'Cairoooo', salary:'9000000', dailyhours:'10',description:'kkkkkkkeeeekkkk',startdate:'1998-1-10',
+      //   enddate:'2010-8-11',
+      //   state:'closed',
+      //  partner:'5c9673e3a7f0f43f641386de'
+      //   })  
+      //   const response =  await funcs.getJobs()
+      //   const l = response.data.data.length
+      //   await funcs.deleteJob(response.data.data[l-1]._id)
+      //   response =  await funcs.getJobs()
+      //   expect(response.data.data[l-1]).toEqual(undefined)
     
+      // });
+      test('testing that delete works for jobs', async ()=>{
+        expect.assertions(1)
+      //   await funcs.createJob({title:'lalaadeleted33',location:'Cairoooo', salary:'9000000', dailyhours:'10',description:'kkkkkkkeeeekkkk',startdate:'1998-1-10',
+      //   enddate:'2010-8-11',
+      //   state:'closed',
+      //  partner:'5c9673e3a7f0f43f641386de'
+      //   })  
+        const response =  await funcs.getJobs()
+        const l = response.data.data.length
+        await funcs.deleteJob(response.data.data[l-1]._id)
+        const response2 =  await funcs.getJobs()
+        expect(response2.data.data[l-1]).toEqual(undefined)
       });

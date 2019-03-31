@@ -1,6 +1,8 @@
 const axios = require('axios');
 const functions = {
-   
+    deleteJob: async (id) => {
+        axios.delete('http://localhost:3000/api/jobs/:'+id).then(res => res.data).catch(e=>'error')
+    },
     getJobs: async () => {
         const jobs=await axios.get('http://localhost:3000/api/jobs/')
         return jobs
@@ -16,10 +18,6 @@ const functions = {
     createJob: async (data) => {
        await axios.post('http://localhost:3000/api/jobs/',data).then(res => res.data).catch(e=>'error')
     },
-    delete: async (id) => {
-      
-      await axios.delete('http://localhost:3000/api/jobs/'+id).then(res => res.data).catch(e=>'error')}
 };
-
 
 module.exports = functions;
