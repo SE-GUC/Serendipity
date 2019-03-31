@@ -31,7 +31,7 @@ router.get('/', async (req,res) => {
 })
   
 // Get a certain job
-router.get("/:_id", (req, res) => {
+router.get("/:id", (req, res) => {
 
    const id = req.params._id;
    Job.findById(id)
