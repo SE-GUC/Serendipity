@@ -1,4 +1,4 @@
-const funcs = require('./EduOrgfn');
+const funcs = require('./fn');
 jest.setTimeout(1000000);
 //test creat works
 // afterAll(() => {
