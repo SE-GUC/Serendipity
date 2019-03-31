@@ -13,8 +13,7 @@ catch(err){
 createMember : async(req)=>{
     try{
    return await axios.post('http://localhost:3000/api/members/',req) 
-    //const newmember = member.findOne(req)
-    //return newmember;
+
     }
     catch(err){
         return "error"
@@ -33,7 +32,7 @@ updateMember : async ( id , req)=>{
 
 deleteMember : async (id)=>{
 
-    await axios.delete('http://localhost:3000/api/members/'+id)
+return await axios.delete('http://localhost:3000/api/members/'+id)
 
 }
 

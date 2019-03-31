@@ -156,7 +156,7 @@ router.put('/:_id', async (req,res) => {
 router.delete('/:_id', async (req,res) => {
     try {
      const deletedMember = await Member.findOneAndDelete (req.params._id)
-     res.json('Member deleted successfully')
+     res.json({msg :'Member deleted successfully' , data : deletedMember})
     }
     catch(error) {
         console.log(error)
