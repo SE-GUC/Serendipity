@@ -25,7 +25,8 @@ createEduOrg: async (data) => {
 },
 
 deleteEduOrg: async(id) => {
-    axios.delete('http://localhost:3000/api/educationalOrganizations/'+id).then(res => res.data).catch(e=>'error')}
+    axios.delete('http://localhost:3000/api/educationalOrganizations/'+id).then(res => res.data).catch(e=>'error')
+}
 
 };
 module.exports=functions; 
