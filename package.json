@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --forceExit"
   },
   "repository": {
     "type": "git",

@@ -87,7 +87,10 @@ router.put('/:id', async(req, res) => {
 });
 
 router.put('/:id/apply', async(req,res) => {
-
+    console.log('hnaaSmsm')
+    console.log(req.body.applicantId)
+    console.log('hnaaSmsm')
+    
     const isValidated = validator.applyValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
