@@ -42,6 +42,28 @@ const functions = {
         // },
         deleteCourse: async (id) => {
             axios.delete('http://localhost:3000/api/courses/'+id).then(res => res.data).catch(e=>'error')
+        } ,
+
+
+
+
+       // workshop functions
+        getWorkshop: async () => {
+            const course= axios.get('http://localhost:3000/api/workshops/')
+            return course
+        },
+        getWorkshops: async (id) => {
+            const course = axios.get('http://localhost:3000/api/workshops/'+id)
+            return course
+        },
+         createWorkshop: async (data) => {
+           axios.post('http://localhost:3000/api/workshops/',data).then(res => res.data).catch(e=>'error')
+         },
+        // updateWorkshop: async (id,data) => {
+        //     axios.put('http://localhost:3000/api/workshops/'+id,data).then(res => res.data).catch(e=>'error')
+        // },
+        deleteWorkshop: async (id) => {
+            axios.delete('http://localhost:3000/api/workshops/'+id).then(res => res.data).catch(e=>'error')
         } 
 
 };

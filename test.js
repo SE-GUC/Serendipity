@@ -2,7 +2,7 @@
 const fn = require('./fn')
 const Course = require('./models/Course')
 const mongoose = require('mongoose')
-//jest.setTimeout(100000);
+jest.setTimeout(100000);
 
 // mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true", {
 //     useNewUrlParser: true
@@ -181,5 +181,90 @@ test('create course does not work with incorrect data', async() =>{
   expect(aft.length - bef.length).toBe(0);
   expect(res).toEqual("error")  
 })
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// tests for workshop
+
+test('testing that get all works', async () => {
+  expect.assertions(5)
+
+  const response1 =  await fn.getWorkshop()
+  //console.log(response1)
+
+  await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+ 
+  const response =  await fn.getWorkshop()
+  const l = 1 + response1.data.data.length
+  expect(response.data.data.length).toBe(l)
+  expect(response.data.data[l-1].title).toEqual('a')
+  expect(response.data.data[l-1].eduOrganisation).toEqual('aaa')
+  expect(response.data.data[l-1].educator).toEqual('a1')
+  expect(response.data.data[l-1].price).toEqual(2)
+
+
+  
+  });
+
+   test('testing that delete works for course', async ()=>{
+    expect.assertions(1)
+    await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+    const response =  await fn.getWorkshop()
+    const l = response.data.data.length
+    await fn.deleteWorkshop(response.data.data[l-1]._id)
+    const response2 =  await fn.getWorkshops(response.data.data[response.data.data.length-1]._id)
+    expect(response2.data.data[l-1]).toEqual(undefined)
+  });
+
+
+  
+
+  test('Test getting a certain course ', async () => {
+    try {
+    
+      expect.assertions(6)
+    //creating a lawyer for testing 
+    //await funcs.CreateReviewerOrLawyer('Lawyer','Ali el seba3y','male','Egyptian','national id','A6123456778','1998-12-10T00:00:00.000Z','Maadi','ali@yahoo.com','123456788')
+     await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+
+    
+    const res = await fn.getWorkshop()
+    expect(res.data).toBeDefined()
+    expect(res.status).toEqual(200)
+    
+    const res2 = await fn.getWorkshops(res.data.data[res.data.data.length-1]._id)
+    console.log(res2.data)
+  
+    expect(res2.data.data.title).toEqual('a')
+    expect(res2.data.data.eduOrganisation).toEqual('aaa')
+    expect(res2.data.data.educator).toEqual('a1')
+    expect(res2.data.data.price).toEqual(2)
+    
+   
+   
+    }
+  
+    catch(error){
+      
+      console.log(error)
+    
+    }
+  });
+
+  test('testing that get by id does not work works', async () => {
+    expect.assertions(1)
+      expect(await fn.getWorkshops('bbllaabbllaa').status).toEqual(undefined);
+  
+    });
+
+
+test('testing that get by id does not work works', async () => {
+    expect.assertions(1)
+      expect(await fn.deleteCourse('bbllaabbllaa').status).toEqual(undefined);
+  
+    });
+
+
 
 
