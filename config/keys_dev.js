@@ -1,6 +1,13 @@
 
 module.exports = {
-    mongoURI: 'mongodb+srv://user11:abc@cluster0-2vqbb.mongodb.net/test?retryWrites=true',
+
+
+
+
+
+    mongoURI: 'mongodb+srv://yaraan98:Ya12051998@serendipity-iaawa.mongodb.net/test?retryWrites=true',
+
+
 }
 
 
