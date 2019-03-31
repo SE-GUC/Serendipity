@@ -159,6 +159,8 @@ test('testing that get all works', async () => {
       //   expect(response.data.data[l-1]).toEqual(undefined)
     
       // });
+
+      //not working msh 3rfa leeh
       test('testing that delete works for jobs', async ()=>{
         expect.assertions(1)
       //   await funcs.createJob({title:'lalaadeleted33',location:'Cairoooo', salary:'9000000', dailyhours:'10',description:'kkkkkkkeeeekkkk',startdate:'1998-1-10',
