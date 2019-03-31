@@ -13,7 +13,6 @@ beforeAll(async () => {
       skills: [
         "coding"
     ],
-    _id: "5ca0e36d93e31615f45b2598",
     userName: "hager",
     password: "AH!djjj122",
     availableDailyHours: 8,
@@ -35,11 +34,10 @@ test('create a new member' , async() => {
          "location": "Kenz",
          "email": "HamadaH@gmaail.com",
          "birthDate": "2002-02-04T22:00:00.000Z"
- }
+}
     const members = await Member.find();
       await funcs.createMember(req)
      const newmembers = await Member.find()
-//console.log (newmembers)
     expect ( newmembers[newmembers.length-1].userName).toEqual("Hamada")
     expect ( newmembers[newmembers.length-1].name).toEqual("hamada")
     expect ( newmembers[newmembers.length-1].email).toEqual("HamadaH@gmaail.com")
@@ -76,7 +74,7 @@ const members = await Member.find();
 const deleted = await funcs.deleteMember(id)
 const newmembers = await Member.find();
 expect( members.length - newmembers.length).toEqual(1);
-expect( deleted.data.data.id).toBe("5ca09a87fffaeb0894ec89ae")
+expect( deleted.data.data.id).toBe(id)
 }
 catch(e){
 console.log(e)
