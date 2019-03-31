@@ -59,14 +59,15 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: course})
+   // res.json({data: course})
 })
 
 router.put('/:id', async(req, res) => {
-   
+   console.log('a')
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
     else{
+    console.log('b')
     await Course.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/courses/${req.params.id}`) })
@@ -74,17 +75,6 @@ router.put('/:id', async(req, res) => {
     }
 });
 
-router.put('/:id', async(req, res) => {
-   
-    const isValidated = validator.updateValidation(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
-    else{
-    await Course.findByIdAndUpdate(req.params.id, req.body)
-    .exec()
-    .then(r => {return res.redirect(303, `/api/courses/${req.params.id}`) })
-    .catch(err => {console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) })
-    }
-});
 
 router.put('/:id/apply', async(req,res) => {
     console.log('hnaaSmsm')

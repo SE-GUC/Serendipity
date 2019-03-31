@@ -3,11 +3,16 @@ const axios = require('axios');
 const functions = {
         updateCourse: async (id,req) => {
             try{
-            await axios.put('http://localhost:3000/api/courses/'+id,req)
-            const upd = await axios.get('http://localhost:3000/api/courses/'+id)
+            const path = 'http://localhost:3000/api/courses/'+id
+            console.log(path)
+            await axios.put(path,req)
+            console.log('wa7ed')
+            const upd = await axios.get(path)
+            console.log('etneen')
             return upd
             }
             catch(err){
+                console.log('talata')
                 return "error"
             }
         },
@@ -22,8 +27,18 @@ const functions = {
         applyForCourse: async(cid,mid) =>{
             const path = 'http://localhost:3000/api/courses/'+cid+'/apply'
             return await axios.put(path,{"applicantId" : "\""+mid+"\" "} )
-        }
-
+        },
+        getCourse: async () => {
+            const course= axios.get('http://localhost:3000/api/courses/')
+            return course
+        },
+        getCourses: async (id) => {
+            const course = axios.get('http://localhost:3000/api/courses/'+id)
+            return course
+        },
+        deleteCourse: async (id) => {
+            axios.delete('http://localhost:3000/api/courses/'+id).then(res => res.data).catch(e=>'error')
+        } 
 };
 
 module.exports = functions;
