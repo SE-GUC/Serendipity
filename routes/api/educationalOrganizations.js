@@ -34,7 +34,7 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: educationalOrganizations})
+ //   res.json({data: educationalOrganizations})
 })
 
 router.post('/', async (req,res) => {

@@ -21,6 +21,7 @@ test('testing that get all works', async () => {
   
   
 });
+
     test(`Create Edu Org`, async () => {
         expect.assertions(4) //this depends on how many expect I am using
         const l=(await funcs.getEduOrg()).data.data.length
@@ -61,3 +62,44 @@ test('testing that get all works', async () => {
         expect(response2.data.data[l2-1].password).toEqual('a1fiofibdk$')
         expect(response2.data.data[l2-1].name).toEqual('Lamaaa fd')
       });
+
+
+      test('testing that delete works', async()=>{
+        expect.assertions(1)
+        await funcs.createEduOrg({userName:'aaa', name: 'a', email: 'a@gmail.com', password: '12345678'})  
+        var response =  await funcs.getEduOrg()
+        var l = response.data.data.length
+        await funcs.deleteEduOrg(response.data.data[l-1]._id)
+        response =  await funcs.getEduOrg()
+        expect(response.data.data.length).toEqual(l-1)
+    
+      });
+    
+      test('testing that get by id works', async () => {
+        expect.assertions(4)
+        await funcs.createEduOrg({userName:'salma', name: 'a', email: 'a@gmail.com', password: '12345678'})  
+        const response =  await funcs.getEduOrg()
+        const l = response.data.data.length
+        const response1 =  await funcs.getEduOrgById(response.data.data[l-1]._id)
+        expect(response1.data.data.userName).toEqual('salma')
+        expect(response1.data.data.name).toEqual('a')
+        expect(response1.data.data.email).toEqual('a@gmail.com')
+        expect(response1.data.data.password).toEqual('12345678')
+        await funcs.deleteEduOrg(response.data.data[l-1]._id)
+    
+      
+        });
+    
+    
+        test('testing that get by id does not work with wrong data', async () => {
+          expect.assertions(1)
+            expect(await funcs.getEduOrgById('bbllaabbllaa').status).toEqual(undefined);
+        
+          });
+    
+        test('testing that delete does not work with wrong data', async () => {
+            expect.assertions(1)
+              expect(await funcs.deleteEduOrg('bbllaabbllaa').status).toEqual(undefined);
+          
+            });
+      

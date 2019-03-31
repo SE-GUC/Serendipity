@@ -8,6 +8,12 @@ getEduOrg: async () => {
     return educationalOrganizations
 },
 
+getEduOrgById: async (id) => {
+  const educationalOrganizations = axios.get('http://localhost:3000/api/educationalOrganizations/'+id)
+  return educationalOrganizations
+},
+
+
 createEduOrg: async (data) => {
   await axios.post('http://localhost:3000/api/educationalOrganizations/',data).then(res => res.data).catch(e=>'error')
 },
