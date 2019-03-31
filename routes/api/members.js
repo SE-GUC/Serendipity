@@ -15,15 +15,21 @@ function Age(birthday) { // birthday is a date
     var t = new Date (birthday)
     return d.getFullYear() - t.getFullYear() ;
 }
+function helper(_id){
+  return _id
+}
 
-function calculateMatching(_id){
+
+
+async function calculateMatching(_id){
   commen = [] ;
   Member.findById(_id)
   .exec()
   .then ( r => {
    memberskills = r.skills 
-  }); 
-Job.find()
+  });
+  const jobs = await Job.find(); 
+jobs
 .exec()
 .then(r2 => {
   r2.forEach((value) => {
@@ -35,33 +41,35 @@ Job.find()
 return commen;
 };
 
-function filterbylocation (_id){
+async function filterbylocation (_id){
 filtered = [];
 Member.findById(_id)
   .exec()
   .then ( r => {
    memberlocation = r.location 
 });
-calculateMatching(_id).find()
+const jobs = await calculateMatching(_id).find() ;
+jobs
 .exec()
 .then( r2 => {
-  r2.forEach((value) => {
-    const joblocation = value.location;
-    if (memberlocation == joblocation )
-    filtered.push(value)
+r2.forEach((value) => {
+  const joblocation = value.location;
+  if (memberlocation == joblocation )
+  filtered.push(value)
 })
 })
 return filtered;
 };
 
-function finalfilterbyavailability (_id){
+async function finalfilterbyavailability (_id){
   recommendations = [];
   Member.findById(_id)
     .exec()
     .then ( r => {
      memberlocation = r.location 
   });
-  filterbylocation(_id).find()
+  const jobs = filterbylocation(_id).find();
+  jobs
   .exec()
   .then( r2 => {
     r2.forEach((value) => {
@@ -117,9 +125,9 @@ router.get("/:_id", (req, res) => {
         if (r) {
           const ret = {};
           ret.data = r;
-          //ret.recommendations = finalfilterbyavailability;
+          ret.recommendations = finalfilterbyavailability(id);
           res.status(200).json(ret);
-          // res.status(200).json(r);
+           res.status(200).json(r);
           // res.json( { recommendations : finalfilterbyavailability } )
         } else {
           res
@@ -128,9 +136,9 @@ router.get("/:_id", (req, res) => {
         }
       })
       .catch(err => {
-        return "Member Not Found"
-        //console.log(err);
-        //res.status(500).json({ error: err });
+        //return "Member Not Found"
+        console.log(err);
+        res.status(500).json({ error: err });
       });
   });
 

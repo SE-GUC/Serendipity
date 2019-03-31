@@ -45,7 +45,6 @@ console.log(updated)
 expect(updated.data.data.name).toEqual("Mohammad Ashraf")
 });
 
-
 // delete 
 test ('delete hager', async ()=>{
 expect.assertions(1);
@@ -54,4 +53,3 @@ await funcs.deleteMember("5ca09a87fffaeb0894ec89ae")
 const newmembers = await Member.find();
 expect( members.length - newmembers.length).toEqual(1);
 });
-
