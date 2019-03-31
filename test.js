@@ -1,5 +1,5 @@
 
-const fn = require('./fn')
+const funcs = require('./fn');
 const Workshop = require('./models/Workshop')
 const mongoose = require('mongoose')
 
@@ -8,24 +8,43 @@ mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj
   })
 
 
+beforeAll(async () => {
+  await new Workshop({
+    _id: mongoose.Types.ObjectId(),
+    title: "tagroba",
+    eduOrganisation: "Nasa",
+    duration: 4,
+    educator: "slim",
+    price: 300000000,
+    description: "quite popular",
+    location: "Las Vegas"
+  }).save();
+  return "one added"
+})
+
 test('update a workshop uncomplete data',async() => {
   expect.assertions(1);
-  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',{'title':'yasyas'});
+  const aWorkshop = await Workshop.findOne({});
+  const id = aWorkshop.id;
+  const response = await funcs.updateWorkshopCRUD(id,{'title':'yasyas'});
   expect(response.data.data.title).toEqual('yasyas')
 })
 
 test('update a workshop full data',async() => {
   expect.assertions(1);
   const schema = {
-    "applicants"	:["5c9e812150bd906a47a946d2"],
+    "applicants"	:[],
     "title":	"cook",
     "duration":	4,
-    "educator":	"m3lem",
+    "educator":	"Smsm",
     "price":	3000,
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',schema);
+  const aWorkshop = await Workshop.findOne({});
+  const id = aWorkshop.id;
+  const response = await funcs.updateWorkshopCRUD(id,schema);
+  console.log(response)
   expect(response.data.data).toMatchObject(schema)
 })
 
@@ -40,7 +59,9 @@ test('update a workshop does not work with wrong data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const response = await fn.updateWorkshop('5c94b6b5eaa4a20d55dbe641',schema);
+  const aWorkshop = await Workshop.findOne({});
+  const id = aWorkshop.id;
+  const response = await funcs.updateWorkshopCRUD(id,schema);
   console.log(response)
   expect(response).toEqual("error")
 })
@@ -57,7 +78,7 @@ test('create workshop', async() =>{
     "location": "Las Vegas"
   };
   const bef = await Workshop.find(schema)
-  await fn.createWorkshop(schema)
+  await funcs.createWorkshop(schema)
   const aft = await Workshop.find(schema)
   expect(aft.length - bef.length).toBe(1);  
 })
@@ -75,9 +96,25 @@ test('create workshop does not work with incorrect data', async() =>{
     "location": "Las Vegas"
   };
   const bef = await Workshop.find(schema)
-  const res = await fn.createWorkshop(schema)
+  const res = await funcs.createWorkshop(schema)
   const aft = await Workshop.find(schema)
   console.log(res)
   expect(aft.length - bef.length).toBe(0);
   expect(res).toEqual("error")  
 })
+
+//Yara Amr
+
+// test(`update workshop`, async () => {
+//     expect.assertions(1) //this depends on how many expect I am using
+//     const response =  await funcs.updateWorkshop()
+//     console.log(response)
+//     const l=(response.data.length)
+//     //console to see and check data
+//     console.log(response.data[l])
+//     //4 expect -> assertions(4)
+//     expect(response.data[l].eduOrganisation).toEqual('GQA')
+//     // expect(response.data[l].name).toEqual('GGQQAA')
+//     // expect(response.data[l].password).toEqual('232323')
+//     // expect(response.data[l].email).toEqual('QGA@gg.com')
+//   });
