@@ -4,24 +4,24 @@ const Joi = require('joi');
 const router = express.Router()
 const mongoose = require('mongoose')
 router.use(express.json())
-// We will be connecting using database 
-
-// const router = express.Router()
-// const mongoose = require('mongoose')
-
-
 const Job = require('../../models/Job')
+const Admin = require('../../models/Admin')//yara
 const validator = require('../../validations/jobValidations')
 
+////////////////yara WORKS!!!
+//admin post job
+router.put('/:jid/postjob/:aid',async(req,res)=>{
+   const adid = req.params.aid //get admin id 
+   const jobid=req.param.jid //get job id
+   const admin= await Admin.findById(adid) //checks if its an admin
+   if(!admin) return res.status(404).send({error: 'You are not allowed to change the status of this job'})
+   const updatedJob = await Job.findOneAndUpdate(jobid,req.body)
+   res.json({msg: 'Admin updated Job successfully',data:updatedJob
+   })
 
-// list all jobs
-// router.get('', async(req, res) => {
-//    const jobs = await Job.find()
-//    res.json({data: jobs})
-// });
+})
 
-//const validator = require('../../validation/JobValidations')
-
+//////////
 
 
 // Get all jobs 

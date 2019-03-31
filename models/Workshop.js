@@ -10,6 +10,7 @@ const workshopSchema  = mongoose.Schema({
     price  : Number ,
     description  : String ,
     location  : String ,
+
     applicants  : [{type: mongoose.Schema.Types.ObjectId, ref: 'members'}] 
 
 })

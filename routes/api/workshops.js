@@ -9,6 +9,7 @@ const validator = require('../../validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
 
+
 router.post('/', async (req, res) =>  {
     try{
     const isValidated = validator.createValidation(req.body)
@@ -77,8 +78,34 @@ router.get('/', async (req,res) => {
     const workshops = await Workshop.find()
     res.json({data: workshops})
 })
+
+
+///////////////////////////////////
+//member apply for workshop WORKS!!!
+router.put("/:wid/apply/:mid",async (req,res)=>{
+    const memberid = req.params.mid
+    const workid=req.params.wid
+    const member =await Member.findById(memberid)
+    const workshop =await Workshop.findById(workid)
+    if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
+    if(!member) return res.status(404).send({error: 'This member does not exist'})
+    //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
+    //add element to applicants
+    //workshop.applicants.push(memberid);
+    
+    Workshop.update(
+        { _id: workid }, 
+        { $push: { applicants: memberid } },
+        //done
+    )
+    res.json({msg:'applicant was added successfully', data:workshop})
+    //workshop.save(done);
+   })
+////////////////////////
+
   
 router.delete('/:id', async (req,res) => {
+
     try {
         const id = req.params.id
         const deletedWorkshop = await Workshop.findByIdAndRemove(id)

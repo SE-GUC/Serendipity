@@ -21,7 +21,7 @@ const EducationalOrganizationSchema = new Schema({
         required: true
     },
     masterClasses: {
-        type: [{type: Schema.Types.ObjectId, ref: 'Masterclass'}]
+        type: [{type: Schema.Types.ObjectId, ref: 'masterclasses'}]
     },
     courses:{
         type: [{type: Schema.Types.ObjectId, ref: 'Course'}]
