@@ -325,16 +325,7 @@ router.delete('/:_id', async (req,res) => {
  })
 
 
- router.post("/ApplyForJob/",async(req,res)=>{
-    try{
-        const data=req.body
-        data.state="pending"
-        res.redirect(307,"/api/jobs/")
-    } catch(error)
-    {
-        console.log(error)
-    }  
-})
+ 
 
 
 
