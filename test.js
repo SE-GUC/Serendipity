@@ -29,42 +29,6 @@ test("read a masterclass exists",async()=>{
     return expect(readMaster).toEqual(master)
 })
 
-// test("Update a masterclass exists",async()=>{
-//     expect.assertions(1)
-//     return expect(typeof(funcs.updateMaster)).toBe('function')
-// })
-
-// test("Update a masterclass by id",async()=>{
-//     data={
-//         courseIDs: [],
-//         workshopsIDs: [],
-//         title: "yaraaaaa",
-//         duration: "5 months",
-//         Eduorganization:"helloo",
-//         price: 5000,
-//         description: "software engineering",
-//         location: "GUC"
-        
-//         }
-//         data={
-//             courseIDs: [],
-//             workshopsIDs: [],
-//             title: "yaraaaaa2",
-//             duration: "5 months2",
-//             Eduorganization:"helloo2",
-//             price: 50003,
-//             description: "3software engineering",
-//             location: "GUC3"
-            
-//             }
-//     const createdMaster=await funcs.createMaster(data)
-//     const master= createdMaster.data.data
-//     const id=master["_id"]
-//     const read=await funcs.updateMaster(id,data)
-//     const readMaster=read.data.data
-//     expect.assertions(1)
-//     return expect(readMaster).toMatch(master)
-// })
 test("delete a masterclass exists",async()=>{
     expect.assertions(1)
     return expect(typeof(funcs.deleteMaster)).toBe('function')
@@ -308,7 +272,7 @@ test('testing that create works for Masterclasses', async () => {
       })
       
       
-      test('testing that delete works for partners', async ()=>{
+      test('testing that delete works for masters', async ()=>{
 
 
 
@@ -352,7 +316,7 @@ test('testing that create works for Masterclasses', async () => {
     
       })
 
-       test('testing that get works for partners', async () => {
+       test('testing that get works for masters', async () => {
         expect.assertions(6)
        await funcs.createMasterM( {
         //  courseIDs:[] ,
