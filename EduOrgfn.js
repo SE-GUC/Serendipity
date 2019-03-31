@@ -1,20 +1,28 @@
-// const axios = require('axios');
-// const functions = {
-// createEduOrg: async() =>{
-//     const NewEdu =await EducationalOrganization.create(
-//     {
-//     userName:'GQA',
-//     name:'GGQQAA',
-//     password:232323,
-//     email:'QGA@gg.com'
-//     });
-//     const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
-//     return allEdu.data
-// }
-// };
-// module.exports = functions;
 const axios = require('axios');
 const functions = {
+
+createEduOrg: async() =>{
+    const NewEdu =await EducationalOrganization.create(
+    {
+    userName:'YYA',
+    name:'YYYQAA',
+    password:232323,
+    email:'YYGA@gg.com'
+    });
+    const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
+    return allEdu.data
+ },
+ createEduOrg2: async() =>{
+    const NewEdu =await EducationalOrganization.create(
+    {
+    userName:'YYAN',
+    name:'YYYQAAN',
+    password:2132323,
+    email:'NYYGA@gg.com'
+    });
+    const allEdu=  await axios.get('http://localhost:3000/api/educationalOrganizations/')
+    return allEdu.data
+},
 getEduOrg: async () => {
     const educationalOrganizations= axios.get('http://localhost:3000/api/educationalOrganizations/')
     return educationalOrganizations
@@ -30,3 +38,4 @@ deleteEduOrg: async(id) => {
 
 };
 module.exports=functions; 
+

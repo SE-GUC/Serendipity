@@ -4,6 +4,8 @@ const validator = require('../../validations/memberValidations')
 router.use(express.json())
 const Job =  require('../../models/Job')
 const Member = require('../../models/Member')
+const Workshop = require('../../models/Workshop') //yara
+const objectId = require('mongoose').objectid //yara
 
 router.get('', async(req, res) => {
     const members = await Member.find()
@@ -161,5 +163,9 @@ router.delete('/:_id', async (req,res) => {
         console.log(error)
     }
  })
+
+
+
+
 
 module.exports = router

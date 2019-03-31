@@ -4,7 +4,9 @@
   "description": " SE Project",
   "main": "index.js",
   "jest": {
-    "setupTestFrameworkScriptFile": "./index.js"
+    "setupFilesAfterEnv": [
+      "./index.js"
+    ]
   },
   "scripts": {
     "start": "node index",
@@ -22,6 +24,7 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "jest-cli": "^24.5.0",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.0",

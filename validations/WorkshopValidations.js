@@ -1,4 +1,5 @@
 const Joi = require('joi')
+Joi.objectId = require('joi-objectid')(Joi);
 
 module.exports = {
     createValidation: request => {
@@ -10,7 +11,7 @@ module.exports = {
             price : Joi.number().required(),
             description : Joi.string(),
             location : Joi.string(),
-            applicants : Joi.array().items(Joi.string(),Joi.number())
+            //applicants : Joi.array().items(Joi.string(),Joi.number()) doesn't make sense to have applicants now!
         }
         return Joi.validate(request, createSchema)
     },
@@ -24,7 +25,7 @@ module.exports = {
         price : Joi.number(),
         description : Joi.string(),
         location : Joi.string(),
-        applicants : Joi.array().items(Joi.string(),Joi.number())
+        //applicants : Joi.array().items(Joi.string(),Joi.number())
         }
 
         return Joi.validate(request, updateSchema)

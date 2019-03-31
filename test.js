@@ -1,22 +1,34 @@
-// const funcs = require('./EduOrgfn');
-
-// //test creat works
-// test(`Create Edu Org`, async () => {
-//     expect.assertions(4) //this depends on how many expect I am using
-//     const response =  await funcs.createEduOrg()
-//     const l=(response.data.length)-1
-//     //console to see and check data
-//     console.log(response.data[l-1])
-//     //4 expect -> assertions(4)
-//     expect(response.data[l].userName).toEqual('GQA')
-//     expect(response.data[l].name).toEqual('GGQQAA')
-//     expect(response.data[l].password).toEqual('232323')
-//     expect(response.data[l].email).toEqual('QGA@gg.com')
-//   });
-
 const funcs = require('./EduOrgfn');
-jest.setTimeout(100000000);
-//const axios = require('axios');
+jest.setTimeout(1000000);
+//test creat works
+// afterAll(() => {
+  
+// });
+test(`Create Edu Org`, async () => {
+    expect.assertions(4) //this depends on how many expect I am using
+    const response =  await funcs.createEduOrg()
+    const l=(response.data.length)-1
+    //console to see and check data
+    console.log(response.data[l-1])
+    //4 expect -> assertions(4)
+    expect(response.data[l].userName).toEqual('YYA')
+    expect(response.data[l].name).toEqual('YYYQAA')
+    expect(response.data[l].password).toEqual('232323')
+    expect(response.data[l].email).toEqual('YYGA@gg.com')
+  });
+
+  test(`Create Edu Org2`, async () => {
+    expect.assertions(4) //this depends on how many expect I am using
+    const response =  await funcs.createEduOrg2()
+    const l=(response.data.length)-1
+    //console to see and check data
+    console.log(response.data[l-1])
+    //4 expect -> assertions(4)
+    expect(response.data[l].userName).toEqual('YYAN')
+    expect(response.data[l].name).toEqual('YYYQAAN')
+    expect(response.data[l].password).toEqual('2132323')
+    expect(response.data[l].email).toEqual('NYYGA@gg.com')
+  });
 
 test('testing that get all works', async () => {
   expect.assertions(5)
