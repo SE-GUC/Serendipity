@@ -40,11 +40,8 @@ router.get('/:id', async (req,res) => {
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
-     console.log("func")
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     console.log("I'm here")
      const newEducationalOrganization = await EducationalOrganization.create(req.body)
-     console.log("hi there")
      res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
     catch(error) {
@@ -77,18 +74,37 @@ router.post('/', async (req,res) => {
              //     }  
              //  })
 // update Profile
-router.put('/:_id', async (req,res) => {
+router.put('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const eduorg = await EducationalOrganization.findById(id)
+     const ID = {"_id":id}
+     if(!eduorg) return res.status(404).send({error: 'eduorg does not exist'})
+     const isValidated = validator.updateValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedEduorg = await EducationalOrganization.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'EduOrg updated successfully',data:updatedEduorg})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }
+ })
+// router.put('/:id', async (req,res) => {
 
-    const isValidated = validator.updateValidation(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-   else{
-    EducationalOrganization.findByIdAndUpdate(req.params._id, req.body)
-    .exec()
-    .then(r => {return res.redirect(303, `/api/educationalOrganizations/${req.params._id}`) })
-    .catch(err => {console.log(err); return res.send("No Edu Org found for provided ID") })
-   }
+//     const isValidated = validator.updateValidation(req.body)
+//     console.log("here")
+//     if (isValidated.error) { return res.status(400).send({ error: isValidated.error.details[0].message })
+//         }
+//     else{
+//         console.log("worked")
+//     EducationalOrganization.findByIdAndUpdate(req.params.id, req.body)
+//     .exec()
+//     .then(r => {return res.redirect(303, `/api/educationalOrganizations/${req.params.id}`) })
+//     .catch(err => {console.log(err); return res.send("No Edu Org found for provided ID") })
+//    }
   
-})
+// })
 // router.put('/:id', async (req,res) => {
 //     try {
 //      const id = req.params.id

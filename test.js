@@ -42,4 +42,22 @@ test('testing that get all works', async () => {
         
       });
 
-  
+      test('testing that update works for EduOrg', async ()=>{
+        expect.assertions(4)
+        await funcs.createEduOrg({userName: 'akdslfm96', email: 'a@x.com', password: 'a1fiofbdk$',name:'Lamaaa fk'})  
+       
+        const response =  await funcs.getEduOrg()
+     
+        const l = response.data.data.length
+        await funcs.updateEduOrg(response.data.data[l-1]._id,{userName: 'lamaazh2t', email: 'v@x.com', password: 'a1fiofibdk$',name:'Lamaaa fd'})
+       
+        const response2 =  await funcs.getEduOrg()
+      
+        const l2 =  response2.data.data.length
+        //console.log
+        expect(response2.data.data[l2-1].userName).toEqual('lamaazh2t')
+        expect(response2.data.data[l2-1].email).toEqual('v@x.com')
+        
+        expect(response2.data.data[l2-1].password).toEqual('a1fiofibdk$')
+        expect(response2.data.data[l2-1].name).toEqual('Lamaaa fd')
+      });
