@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose')
 
 
@@ -11,7 +10,9 @@ const workshopSchema  = mongoose.Schema({
     price  : Number ,
     description  : String ,
     location  : String ,
-    applicants  : Array 
+
+    applicants  : { type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Member'}] } 
+
 })
 
 
