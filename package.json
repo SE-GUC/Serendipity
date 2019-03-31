@@ -7,7 +7,6 @@
     "start": "node index",
     "dev": "nodemon index",
     "test": "jest --detectOpenHandles"
-
   },
   "repository": {
     "type": "git",
