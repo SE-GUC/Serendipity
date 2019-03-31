@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index",
-    "test": "jest --detectOpenHandles"
+    "dev": "nodemon index"
   },
   "repository": {
     "type": "git",
@@ -15,9 +14,7 @@
   "author": "Reem Ali",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
@@ -28,7 +25,6 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "jest": "^24.5.0",
     "nodemon": "^1.18.10"
   }
 }
