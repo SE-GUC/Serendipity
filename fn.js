@@ -24,7 +24,25 @@ const functions = {
             catch(err){
                 return "error"
             }
-        }
+        },
+
+        getCourse: async () => {
+            const course= axios.get('http://localhost:3000/api/courses/')
+            return course
+        },
+        getCourses: async (id) => {
+            const course = axios.get('http://localhost:3000/api/courses/'+id)
+            return course
+        },
+        //  createCourse: async (data) => {
+        //    axios.post('http://localhost:3000/api/courses/',data).then(res => res.data).catch(e=>'error')
+        //  },
+        // updateWorkshop: async (id,data) => {
+        //     axios.put('http://localhost:3000/api/workshops/'+id,data).then(res => res.data).catch(e=>'error')
+        // },
+        deleteCourse: async (id) => {
+            axios.delete('http://localhost:3000/api/courses/'+id).then(res => res.data).catch(e=>'error')
+        } 
 
 };
 

@@ -59,7 +59,7 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: course})
+   // res.json({data: course})
 })
 
 router.put('/:id', async(req, res) => {
