@@ -5,7 +5,9 @@ module.exports = {
 
 
 
-    mongoURI:'mongodb+srv://Yara_mohamed:123456ym@yaramohamedcluster-g16gy.mongodb.net/test?retryWrites=true',
+
+    mongoURI: 'mongodb+srv://yaraan98:Ya12051998@serendipity-iaawa.mongodb.net/test?retryWrites=true',
+
 
 
 }
