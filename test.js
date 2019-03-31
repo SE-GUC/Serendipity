@@ -1,6 +1,5 @@
 const funcs = require('./fn');
 const axios = require('axios');
-
 //test getMemberbyID passes
 test(`Get username = hager`, async () => {
     expect.assertions(1);  //this depends on how many expect I am using
@@ -8,7 +7,23 @@ test(`Get username = hager`, async () => {
     expect(response.data.data.userName).toEqual('hager')
 });
 
-
+beforeAll(async () => {
+    await new Course({
+      _id: mongoose.Types.ObjectId(),
+      skills: [
+        "coding"
+    ],
+    _id: "5ca0e36d93e31615f45b2598",
+    userName: "hager",
+    password: "AH!djjj122",
+    availableDailyHours: 8,
+    name: "Hager",
+    email: "hager@gmail.com",
+    birthDate: "1998-02-10T00:00:00.000Z",
+    location: "Cairo"
+    }).save();
+    return "one added"
+  })
 // create a new member passes
 test('create a new member' , async() => {
      expect.assertions(5);
@@ -30,15 +45,14 @@ test('create a new member' , async() => {
     expect ( newmembers[newmembers.length-1].email).toEqual("HamadaH@gmaail.com")
     expect ( newmembers[newmembers.length-1].location).toEqual("Kenz")
     expect( newmembers.length - members.length).toEqual(1);
- });
-
-
+});
 
 // update a member
 test ('update member' , async() => {
     try {
 expect.assertions(1);
-const id = "5ca0e39193e31615f45b2599" ;
+const random = Member.findOne({});
+const id = random.id ;
 var member = await axios.get('http://localhost:3000/api/members/'+id)
 console.log(member.data.data.name)
 const  req = {
@@ -52,13 +66,14 @@ expect(updated.data.data.name).toEqual("Mohammad Ashraf")
 console.log(e)
     }
 });
-
 // delete 
 test ('delete hager', async ()=>{
     try{
 expect.assertions(2);
+const random = Member.findOne({});
+const id = random.id ;
 const members = await Member.find();
-const deleted = await funcs.deleteMember("5ca09a87fffaeb0894ec89ae")
+const deleted = await funcs.deleteMember(id)
 const newmembers = await Member.find();
 expect( members.length - newmembers.length).toEqual(1);
 expect( deleted.data.data.id).toBe("5ca09a87fffaeb0894ec89ae")
