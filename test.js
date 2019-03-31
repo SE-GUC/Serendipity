@@ -1,6 +1,6 @@
 const funcs = require('./fn');
 const Masterclass = require('./models/Masterclass')
-
+jest.setTimeout(10000000)
 
 
 test("read a masterclass exists",async()=>{
@@ -94,27 +94,6 @@ test("delete a masterclass by id",async()=>{
 
 ////////////////////////////////
 
-test("read a masterclass by id will not work with wrong data",async()=>{
-    data={
-        courseIDs: [],
-        workshopsIDs: [],
-        title: "yaraaa",
-        duration: "5 month" ,
-        Eduorganization:"helloo",
-        price: 50,
-        description: "software engineering",
-        location: "GUC"
-        
-        }
-    const createdMaster=await funcs.createMaster(data)
-    const master= createdMaster.data.data
-    const id=master["_id"]
-    const read=await funcs.readMaster(id)
-    const readMaster=read.data.data   
-    expect.assertions(0)
-    return expect(readMaster).toBeUndefined
-})
-
 
 // test get MARINA
 test('testing that get all works', async () => {
@@ -180,66 +159,6 @@ test('testing that get all works', async () => {
 
     
     });
-/// update Yasmine
-test('update a masterclass uncomplete data',async() => {
-
-    expect.assertions(1);
-  
-    const response = await funcs.updateMasterY('5c9fa5bbce96229d984088bd',{'title':'yasyas'});
-  
-    expect(response.data.data.title).toEqual('yasyas')
-  
-  })
-  
-  
-  
-  test('update a masterclass full data',async() => {
-  
-    expect.assertions(1);
-  
-    const schema = {
-  
-        "courseIDs": [],
-        "workshopsIDs": [],
-        "title": "YOYOOOOOZZZ",
-        "duration": "5 months",
-        "Eduorganization":"helloo",
-        "price": 5000,
-        "description": "software engineering",
-        "location": "GUC"
-    };
-  
-    const response = await funcs.updateMasterY('5c9fa5bbce96229d984088bd',schema);
-  
-    expect(response.data.data).toMatchObject(schema)
-  
-  })
-  
-  
-  
-  test('update a masterclass does not work with wrong data',async() => {
-  
-    expect.assertions(1);
-  
-     schema={
-        courseIDs: [],
-        workshopsIDs: [],
-        title: "YOYOOOOOZZZ",
-        duration: "5 months",
-        Eduorganization:"helloo",
-        price: 5000,
-        description: "software engineering",
-        location: "GUC"
-        
-        }
-  
-    const response = await funcs.updateMasterY('5c94a5f45dc85d0cc5322aba',schema);
-  
-    console.log(response)
-  
-    expect(response).toEqual("error")
-  
-  })
 //////////////////////////////////
 test("create a masterclass exists",async()=>{
     expect.assertions(1)
@@ -351,17 +270,113 @@ test('testing that create works for Masterclasses', async () => {
             //courseIDs: '5c95052d33373c47208785d7',
             //workshopsIDs: '5c96a619329f797114996421',
            title: 'yarad',
-           duration: 5,
-           price: 'll', 
+           duration: '5',
+           price: 'hh', 
            })
         const response2 =  await funcs.getmasters()
-        expect(response2.data.data[l-1].title).toEqual('yarad')    
-        expect(response2.data.data[l-1].duration).toEqual('5 monthy')
-        expect(response2.data.data[l-1].Eduorganization).toEqual('helloy')
-        expect(response2.data.data[l-1].price).toEqual(50007)
-        expect(response2.data.data[l-1].description).toEqual('gsoftware engineering')
-        expect(response2.data.data[l-1].location).toEqual('fGUC')
-      });  
+        expect(response2.data.data[l-1].title).toEqual('yara')    
+        expect(response2.data.data[l-1].duration).toEqual('5 month')
+        expect(response2.data.data[l-1].Eduorganization).toEqual('hello')
+        expect(response2.data.data[l-1].price).toEqual(5000)
+        expect(response2.data.data[l-1].description).toEqual('software engineering')
+        expect(response2.data.data[l-1].location).toEqual('GUC')
+      })
+      test('testing that create doesnt work with wrong data for partners', async()=>{
+
+
+
+        expect.assertions(1)
+    
+    
+    
+        const l = (await funcs.getmasters()).data.data.length
+    
+    
+    
+        await funcs.createMasterM({
+            //courseIDs: '5c95052d33373c47208785d7',
+            //workshopsIDs: '5c96a619329f797114996421',
+           title: 'yarad',
+           duration: '5',
+           price: 'hh', 
+           })  
+        const response =  await funcs.getmasters()
+        expect(response.data.data[l]).toEqual(undefined)
+    
+    
+    
+      })
+      
+      
+      test('testing that delete works for partners', async ()=>{
+
+
+
+        expect.assertions(1)
+    
+    
+    
+        await funcs.createMasterM({
+            //courseIDs: '5c95052d33373c47208785d7',
+            //workshopsIDs: '5c96a619329f797114996421',
+           title: 'yara',
+           duration: '5 month',
+           Eduorganization:'hello',
+           price: 5000,
+           description: 'software engineering',
+           location: 'GUC'
+           
+           }) 
+    
+    
+    
+        const response =  await funcs.getmasters()
+    
+    
+    
+        const l = response.data.data.length
+    
+    
+    
+        await funcs.deleteMasterM(response.data.data[l-1]._id)
+    
+    
+    
+        const response2 =  await funcs.getmasters()
+    
+    
+    
+        expect(response2.data.data[l-1]).toEqual(undefined)
+    
+    
+    
+      })
+
+       test('testing that get works for partners', async () => {
+        expect.assertions(6)
+       await funcs.createMasterM( {
+        //  courseIDs:[] ,
+        //  workshopsIDs: [],
+        title: 'yara',
+        duration: '5 month' ,
+        Eduorganization:'hello',
+        price: 50,
+        description: 'software engineering',
+        location: 'GUC'
+        
+        })  
+       const response =  await funcs.getmasters()
+       const l = response.data.data.length
+        const response1 =  await funcs.getMasterM(response.data.data[l-1]._id)
+
+        expect(response1.data.data.title).toEqual('yara')
+        expect(response1.data.data.duration).toEqual('5 month')
+        expect(response1.data.data.Eduorganization).toEqual('hello')
+        expect(response1.data.data.price).toEqual(50)
+        expect(response1.data.data.description).toEqual('software engineering')
+        expect(response1.data.data.location).toEqual('GUC')
+   
+       });
 
 
 
@@ -369,35 +384,7 @@ test('testing that create works for Masterclasses', async () => {
 
 
 
-// test('create masterclass does not work with incorrect data', async() =>{
-
-//     expect.assertions(2);
-  
-//     const schema = {
-  
-//         "courseIDs": [],
-//         "workshopsIDs": [],
-//         "title": "YOYOOOOOZZZ",
-//         "duration": "5 months",
-//         "Eduorganization":"helloo",
-//         "price": 5000,
-//         "description": "software engineering",
-//         "location": "GUC"
-//     };
-  
-//     const bef = await Masterclass.find(schema)
-  
-//     const res = await fn.createMasterY(schema)
-  
-//     const aft = await Masterclass.find(schema)
-  
-//     expect(aft.length - bef.length).toBe(0);
-  
-//     expect(res).toEqual("error")  
-  
-//   })
-
-
+//
   
 
 

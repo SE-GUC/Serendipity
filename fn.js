@@ -3,22 +3,25 @@ const axios=require('axios')
 
 
 const functions={
-    
-    
-//yara amr
-// createMasterclass: async() =>{
-//     const Newmaster =await Masterclass.create(
-//     {
-//         title: 'YARAAAAB',
-//         duration: '5 months',
-//         Eduorganization:'helloo',
-//         price: 5000,
-//         description: 'software engineering',
-//         location: 'GUC'
-//     });
-//     const allmaster=  await axios.get('http://localhost:3000/api/masterclasses')
-//     return allmaster.data
-// },
+    default: async =>{
+        return axios.get(`http://localhost:3000/api/masterclasses`)
+    },
+    createMaster: async(data) =>{
+        return axios.post(`http://localhost:3000/api/masterclasses/`,data)
+    },
+    readMaster: async(id) =>{
+        return axios.get(`http://localhost:3000/api/masterclasses/${id}`)
+    },
+    deleteMaster: async(id) =>{
+        return axios.delete(`http://localhost:3000/api/masterclasses/${id}`)
+    },
+    updateMaster: async(id,data) =>{
+        return axios.put(`http://localhost:3000/api/masterclasses/${id}`,data)
+    },
+
+
+
+    //////////
 getmasters: async () => {
     const masters= axios.get('http://localhost:3000/api/masterclasses/')
     return masters
@@ -39,49 +42,35 @@ updateMasterM: async (id,data) => {
 
 
 },
+deleteMasterM: async (id) => {
 
 
-updateMasterY: async (id,req) => {
 
-    try{
+    axios.delete('http://localhost:3000/api/masterclasses/${id}').then(res => res.data).catch(e=>'error')
 
-    await axios.put('http://localhost:3000/api/masterclasses/'+id,req)
 
-    const upd = await axios.get('http://localhost:3000/api/masterclasses/'+id)
 
-    return upd
-
-    }
-
-    catch(err){
-
-        return "error"
-
-    }
+    axios.delete('http://localhost:3000/api/masterclasses/'+id).then(res => res.data).catch(e=>'error')
 
 },
 
+getMasterM: async (id) => {
+
+    const partner = axios.get('http://localhost:3000/api/masterclasses/'+id)
+
+    return partner
+
+}
 
 
 
 
 
 
-    default: async =>{
-        return axios.get(`http://localhost:3000/api/masterclasses`)
-    },
-    createMaster: async(data) =>{
-        return axios.post(`http://localhost:3000/api/masterclasses/`,data)
-    },
-    readMaster: async(id) =>{
-        return axios.get(`http://localhost:3000/api/masterclasses/${id}`)
-    },
-    deleteMaster: async(id) =>{
-        return axios.delete(`http://localhost:3000/api/masterclasses/${id}`)
-    },
-    updateMaster: async(id,data) =>{
-        return axios.put(`http://localhost:3000/api/masterclasses/${id}`,data)
-    }
+
+
+
+    
 
 
 
