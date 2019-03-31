@@ -4,7 +4,6 @@ const validator = require('../../validations/memberValidations')
 router.use(express.json())
 const Job =  require('../../models/Job')
 const Member = require('../../models/Member')
-
 router.get('', async(req, res) => {
     const members = await Member.find()
     res.json({data: members})
@@ -84,11 +83,6 @@ for ( i = 0 ; i < array2.length ; i++){
 return c ;
 }
 
-
-
-
-
-
 // create a new member and add it to the database
 router.post('/', async (req, res) => {
     try {
@@ -132,9 +126,6 @@ router.get("/:_id", (req, res) => {
         res.status(500).json({ error: err });
       });
   });
-
-
-
 
 router.put('/:_id', async (req,res) => {
     const isValidated = validator.updateValidation(req.body)
