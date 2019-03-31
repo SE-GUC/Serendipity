@@ -1,3 +1,4 @@
+
 const fn = require('./fn')
 const Course = require('./models/Course')
 const mongoose = require('mongoose')
@@ -7,7 +8,7 @@ mongoose.connect("mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj
   })
 
 beforeAll(async () => {
-  await new Workshop({
+  await new Course({
     _id: mongoose.Types.ObjectId(),
     title: "tagroba",
     eduOrganisation: "Nasa",
@@ -22,8 +23,8 @@ beforeAll(async () => {
 
 test('update a course uncomplete data',async() => {
   expect.assertions(1);
-  const aWorkshop = await Workshop.findOne({});
-  const id = aWorkshop.id;
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
   const response = await fn.updateCourse(id,{'title':'yasyas'});
   expect(response.data.data.title).toEqual('yasyas')
 })
@@ -39,8 +40,9 @@ test('update a course full data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const aWorkshop = await Workshop.findOne({});
-  const id = aWorkshop.id;
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
+  console.log(id)
   const response = await fn.updateCourse(id,schema);
   expect(response.data.data).toMatchObject(schema)
 })
@@ -56,8 +58,8 @@ test('update a course does not work with wrong data',async() => {
     "description":	"quite popular",
     "location":	"Cairo"
   };
-  const aWorkshop = await Workshop.findOne({});
-  const id = aWorkshop.id;
+  const aCourse = await Course.findOne({});
+  const id = aCourse.id;
   const response = await fn.updateCourse(id,schema);
   console.log(response)
   expect(response).toEqual("error")
