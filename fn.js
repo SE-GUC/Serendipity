@@ -10,6 +10,15 @@ catch(err){
     return "error"
 }
 },
+ makeid (length)  {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+},
 createMember : async(req)=>{
     try{
    return await axios.post('http://localhost:3000/api/members/',req) 
@@ -22,9 +31,8 @@ createMember : async(req)=>{
 
 updateMember : async ( id , req)=>{
    try {
-    await axios.put('http://localhost:3000/api/members/'+id , req )
-    const updated = await axios.get('http://localhost:3000/api/courses/'+id)
-    return updated
+   return await axios.put('http://localhost:3000/api/members/'+id , req )
+    
     }catch(e) {
         return e
     }

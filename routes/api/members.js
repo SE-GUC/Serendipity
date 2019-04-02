@@ -19,16 +19,15 @@ function helper(_id){
   return _id
 }
 
-
-
 async function calculateMatching(_id){
-  commen = [] ;
+ try {
+    commen = [] ;
   Member.findById(_id)
   .exec()
   .then ( r => {
    memberskills = r.skills 
   });
-  const jobs = await Job.find(); 
+const jobs = await Job.find(); 
 jobs
 .exec()
 .then(r2 => {
@@ -38,11 +37,17 @@ jobs
     commen.push(value)  
 });
 })
+}
+catch(error){
+return error 
+}
 return commen;
 };
 
+
 async function filterbylocation (_id){
-filtered = [];
+try {
+  filtered = [];
 Member.findById(_id)
   .exec()
   .then ( r => {
@@ -57,11 +62,15 @@ r2.forEach((value) => {
   if (memberlocation == joblocation )
   filtered.push(value)
 })
-})
+})}
+catch (error){
+  return error
+}
 return filtered;
 };
 
 async function finalfilterbyavailability (_id){
+  try {
   recommendations = [];
   Member.findById(_id)
     .exec()
@@ -76,7 +85,10 @@ async function finalfilterbyavailability (_id){
       if (value.state == "posted" )
       recommendations.push(value)
   })
-  })
+  })}
+  catch (error) {
+    return error
+  }
 return recommendations;
 }
 
@@ -96,18 +108,21 @@ router.post('/', async (req, res) => {
     try {
         const isValidated = validator.createValidation(req.body)
         if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-        /*if ( req.body.userName){
-          const found = Member.find(member => member.userName === req.body.userName);
-          console.log(found);
+          const username = req.body.userName;
+          const found = await Member.findOne({"userName" : username});
           if ( found )
-          var r = "username is already in use";
-              // return res.status(400).send({ error: "username is already in use" });
-        }*/
+               return res.status(400).send({ error: "username is already in use" });
+        else {
+          const email = req.body.email;
+          const found = await Member.findOne({"email" : email});
+          if ( found )
+               return res.status(400).send({ error: "email is already in use" });
         else {
         const newMember = await Member.create(req.body)
         newMember.Age = Age(req.body.birthDate)
         res.json({msg:'Member was created successfully', data: newMember})
     }}
+  }
        catch(error) {
            // We will be handling the error later
            console.log(error)
@@ -128,7 +143,6 @@ router.get("/:_id", (req, res) => {
           ret.recommendations = finalfilterbyavailability(id);
           res.status(200).json(ret);
            res.status(200).json(r);
-          // res.json( { recommendations : finalfilterbyavailability } )
         } else {
           res
             .status(404)
@@ -136,21 +150,37 @@ router.get("/:_id", (req, res) => {
         }
       })
       .catch(err => {
-        //return "Member Not Found"
-        console.log(err);
-        res.status(500).json({ error: err });
+        return "Member Not Found"
+     
       });
   });
 
 router.put('/:_id', async (req,res) => {
+  try{
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const username = req.body.userName;
+          const found = await Member.findOne({"userName" : username});
+          if ( found )
+               return res.status(400).send({ error: "username is already in use" });
+        else {
+          const email = req.body.email;
+          const found = await Member.findOne({"email" : email});
+          if ( found )
+               return res.status(400).send({ error: "email is already in use" });
+  
    else{
-    Member.findByIdAndUpdate(req.params._id, req.body)
-    .exec()
-    .then(r => {return res.redirect(303, `/api/members/${req.params._id}`) })
-    .catch(err => {console.log(err); return res.send("No Member found") })
+  const updated = await Member.findByIdAndUpdate(req.params._id, req.body)
+    
+    return res.send( updated) 
+   
    }
+  }
+}
+   catch(err){
+     res.send(err)
+   }
+  
 });
 
 router.delete('/:_id', async (req,res) => {
@@ -161,6 +191,6 @@ router.delete('/:_id', async (req,res) => {
     catch(error) {
         console.log(error)
     }
- })
+})
 
 module.exports = router

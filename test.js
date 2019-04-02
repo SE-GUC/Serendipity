@@ -1,75 +1,84 @@
 const funcs = require('./fn');
-const axios = require('axios');
-//test getMemberbyID passes
-test(`Get username = hager`, async () => {
-    expect.assertions(1);  //this depends on how many expect I am using
-    const response =  await funcs.getMemberByID('5ca09a87fffaeb0894ec89ae');
-    expect(response.data.data.userName).toEqual('hager')
-});
+const Member = require('./models/Member')
+const mongoose = require('mongoose')
+//jest.setTimeout(1000000);
 
 beforeAll(async () => {
-    await new Course({
+    const name = funcs.makeid(5) ;
+    await new Member({
       _id: mongoose.Types.ObjectId(),
       skills: [
-        "coding"
+        "presentations"
     ],
-    userName: "hager",
-    password: "AH!djjj122",
+    userName: name,
+    password: name+"!@123",
     availableDailyHours: 8,
-    name: "Hager",
-    email: "hager@gmail.com",
-    birthDate: "1998-02-10T00:00:00.000Z",
+    name: name,
+    email: name+"@gmail.com",
+    birthDate: "2030-02-10T00:00:00.000Z",
     location: "Cairo"
     }).save();
     return "one added"
-  })
+});
+
+
+//test getMemberbyID passes
+test(`Get username of a given ID`, async () => {
+    expect.assertions(1);  //this depends on how many expect I am using
+    const member = await Member.findOne({})
+    const username = member.userName
+    const response =  await funcs.getMemberByID(member._id);
+    //console.log(response)
+    expect(response.data.data.userName).toEqual(username)
+});
+
+
 // create a new member passes
 test('create a new member' , async() => {
-     expect.assertions(5);
+    const newmembername = funcs.makeid(5) ;
+     expect.assertions(3);
      const req ={
-         "skills": ["coding"],
-        "userName": "Hamada",
+         "skills": ["finance"],
+        "userName": newmembername,
          "availableDailyHours": 8,
-         "name": "hamada",
-         "location": "Kenz",
-         "email": "HamadaH@gmaail.com",
-         "birthDate": "2002-02-04T22:00:00.000Z"
+         "name": newmembername,
+         password : newmembername+"@!1235",
+         "location": "Nasr city",
+         "email": newmembername+"@gmaail.com",
+         "birthDate": "1990-08-10T22:00:00.000Z"
 }
     const members = await Member.find();
-      await funcs.createMember(req)
-     const newmembers = await Member.find()
-    expect ( newmembers[newmembers.length-1].userName).toEqual("Hamada")
-    expect ( newmembers[newmembers.length-1].name).toEqual("hamada")
-    expect ( newmembers[newmembers.length-1].email).toEqual("HamadaH@gmaail.com")
-    expect ( newmembers[newmembers.length-1].location).toEqual("Kenz")
+  const newmember =  await funcs.createMember(req)
+ // console.log(newmember)
+    const newmembers = await Member.find()
     expect( newmembers.length - members.length).toEqual(1);
+    expect ( newmember.data.data.userName).toEqual(newmembername)
+    expect ( newmember.data.data.email).toEqual(newmembername+"@gmaail.com")
+   
 });
+
+
 
 // update a member
 test ('update member' , async() => {
-    try {
 expect.assertions(1);
-const random = Member.findOne({});
-const id = random.id ;
-var member = await Member.findByID(id)
-console.log(member.data.data.name)
-const  req = {
-    "name" : "Mohammad Ashraf"
-};
-const updated = await funcs.updateMember(id, req);
-console.log(updated)
-expect(updated.data.data.name).toEqual("Mohammad Ashraf")
-    }
-    catch(e){
-console.log(e)
-    }
+const member = await Member.findOne({});
+const id = member._id
+//console.log(id)
+const updated = await funcs.updateMember(id, {'name' : 'updated name again'});
+//console.log(updated.data.name)
+const upd = await Member.findById(id)
+//console.log(upd.name)
+expect(upd.name).toEqual("updated name again")
 });
-// delete 
-test ('delete hager', async ()=>{
+
+
+ //delete 
+test ('delete a member', async ()=>{
     try{
 expect.assertions(2);
-const random = Member.findOne({});
-const id = random.id ;
+const member = Member.findOne({});
+const id = member.id ;
 const members = await Member.find();
 const deleted = await funcs.deleteMember(id)
 const newmembers = await Member.find();
