@@ -23,88 +23,17 @@ beforeAll(async () => {
   return "one added"
 })
 
-// get all, get by id and delete won't work with the other test because of the timeout MAYAR
 
-test('testing that get all works', async () => {
-  expect.assertions(5)
-
-  const response1 =  await fn.getCourse()
-  //console.log(response1)
-
-  await fn.createCourse({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
- 
-  const response =  await fn.getCourse()
-  const l = 1 + response1.data.data.length
-  expect(response.data.data.length).toBe(l)
-  expect(response.data.data[l-1].title).toEqual('a')
-  expect(response.data.data[l-1].eduOrganisation).toEqual('aaa')
-  expect(response.data.data[l-1].educator).toEqual('a1')
-  expect(response.data.data[l-1].price).toEqual(2)
-
-
-  
-  });
-  
-  
-  
-  
-  test('Test getting a certain course ', async () => {
-      try {
-          
-          expect.assertions(6)
-          //creating a lawyer for testing 
-          //await funcs.CreateReviewerOrLawyer('Lawyer','Ali el seba3y','male','Egyptian','national id','A6123456778','1998-12-10T00:00:00.000Z','Maadi','ali@yahoo.com','123456788')
-          await fn.createCourse({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
-          
-          
-          const res = await fn.getCourse()
-          expect(res.data).toBeDefined()
-          expect(res.status).toEqual(200)
-          
-          const res2 = await fn.getCourses(res.data.data[res.data.data.length-1]._id)
-          console.log(res2.data)
-          
-          expect(res2.data.data.title).toEqual('a')
-          expect(res2.data.data.eduOrganisation).toEqual('aaa')
-          expect(res2.data.data.educator).toEqual('a1')
-          expect(res2.data.data.price).toEqual(2)
-          
-          
-          
-        }
-        
-        catch(error){
-            
-            console.log(error)
-            
-        }
-    });
-    
-    test('testing that get by id does not work works', async () => {
-        expect.assertions(1)
-        expect(await fn.getCourses('bbllaabbllaa').status).toEqual(undefined);
-        
-    });
-    
-    
-    test('testing that get by id does not work works', async () => {
-        expect.assertions(1)
-        expect(await fn.deleteCourse('bbllaabbllaa').status).toEqual(undefined);
-        
-    });
-    
     test('update a course uncomplete data',async() => {
         expect.assertions(1);
         const aCourse = await Course.findOne();
         const id = aCourse._id;
-        console.log(aCourse)
         const response = await fn.updateCourse(id,{'title':'yasyas'});
-        console.log(response)
-        expect(response.data.data.title).toEqual('yasyas')
+        expect(response.title).toEqual('yasyas')
     })
     
     test('update a course full data',async() => {
-        expect.assertions(1);
+        expect.assertions(7);
         const schema = {
             "applicants"	:[],
             "title":	"cat",
@@ -114,12 +43,16 @@ test('testing that get all works', async () => {
             "description":	"quite popular",
             "location":	"Cairo"
         };
-        const aCourse = await Course.findOne({});
+        const aCourse = await Course.findOne();
         const id = aCourse._id;
-        console.log(id)
         const response = await fn.updateCourse(id,schema);
-        console.log(response)
-        expect(response.data.data).toMatchObject(schema)
+        expect(response.applicants.length).toBe(0)
+        expect(response.title).toEqual(schema.title)
+        expect(response.duration).toEqual(schema.duration)
+        expect(response.educator).toEqual(schema.educator)
+        expect(response.price).toEqual(schema.price)
+        expect(response.description).toEqual(schema.description)
+        expect(response.location).toEqual(schema.location)
     })
 
 test('update a course does not work with wrong data',async() => {
@@ -133,10 +66,9 @@ test('update a course does not work with wrong data',async() => {
         "description":	"quite popular",
         "location":	"Cairo"
     };
-    const aCourse = await Course.findOne({});
+    const aCourse = await Course.findOne();
     const id = aCourse._id;
     const response = await fn.updateCourse(id,schema);
-    console.log(response)
     expect(response).toEqual("error")
 })
 
@@ -175,98 +107,83 @@ test('create course does not work with incorrect data', async() =>{
   expect(aft.length - bef.length).toBe(0);
   expect(res).toEqual("error")  
 })
-
-
-   test('testing that delete works for course', async ()=>{
-    expect.assertions(1)
-    await fn.createCourse({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
-    const response =  await fn.getCourse()
-    const l = response.data.data.length
-    await fn.deleteCourse(response.data.data[l-1]._id)
-    const response2 =  await fn.getCourses(response.data.data[response.data.data.length-1]._id)
-    expect(response2.data.data[l-1]).toEqual(undefined)
-  });
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// tests for workshop
-
-// test('testing that get all works', async () => {
-//   expect.assertions(5)
-
-//   const response1 =  await fn.getWorkshop()
-//   //console.log(response1)
-
-//   await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
- 
-//   const response =  await fn.getWorkshop()
-//   const l = 1 + response1.data.data.length
-//   expect(response.data.data.length).toBe(l)
-//   expect(response.data.data[l-1].title).toEqual('a')
-//   expect(response.data.data[l-1].eduOrganisation).toEqual('aaa')
-//   expect(response.data.data[l-1].educator).toEqual('a1')
-//   expect(response.data.data[l-1].price).toEqual(2)
-
-
-  
-//   });
-
-//    test('testing that delete works for course', async ()=>{
-//     expect.assertions(1)
-//     await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
-//     const response =  await fn.getWorkshop()
-//     const l = response.data.data.length
-//     await fn.deleteWorkshop(response.data.data[l-1]._id)
-//     const response2 =  await fn.getWorkshops(response.data.data[response.data.data.length-1]._id)
-//     expect(response2.data.data[l-1]).toEqual(undefined)
-//   });
-
-
-  
-
-//   test('Test getting a certain course ', async () => {
-//     try {
     
-//       expect.assertions(6)
-//     //creating a lawyer for testing 
-//     //await funcs.CreateReviewerOrLawyer('Lawyer','Ali el seba3y','male','Egyptian','national id','A6123456778','1998-12-10T00:00:00.000Z','Maadi','ali@yahoo.com','123456788')
-//      await fn.createWorkshop({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+    
 
-    
-//     const res = await fn.getWorkshop()
-//     expect(res.data).toBeDefined()
-//     expect(res.status).toEqual(200)
-    
-//     const res2 = await fn.getWorkshops(res.data.data[res.data.data.length-1]._id)
-//     console.log(res2.data)
-  
-//     expect(res2.data.data.title).toEqual('a')
-//     expect(res2.data.data.eduOrganisation).toEqual('aaa')
-//     expect(res2.data.data.educator).toEqual('a1')
-//     expect(res2.data.data.price).toEqual(2)
-    
-   
-   
-//     }
-  
-//     catch(error){
+
+    test('testing that get all works', async () => {
+        expect.assertions(5)
       
-//       console.log(error)
-    
-//     }
-//   });
-
-//   test('testing that get by id does not work works', async () => {
-//     expect.assertions(1)
-//       expect(await fn.getWorkshops('bbllaabbllaa').status).toEqual(undefined);
-  
-//     });
-
-
-// test('testing that get by id does not work works', async () => {
-//     expect.assertions(1)
-//       expect(await fn.deleteCourse('bbllaabbllaa').status).toEqual(undefined);
-  
-//     });
-
-
+        const response1 =  await fn.getCourse()
+        //console.log(response1)
+      
+        await fn.createCourse({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+       
+        const response =  await fn.getCourse()
+        const l = 1 + response1.data.data.length
+        expect(response.data.data.length).toBe(l)
+        expect(response.data.data[l-1].title).toEqual('a')
+        expect(response.data.data[l-1].eduOrganisation).toEqual('aaa')
+        expect(response.data.data[l-1].educator).toEqual('a1')
+        expect(response.data.data[l-1].price).toEqual(2)
+      
+      
+        
+        });
+        
+        
+        
+        
+        test('Test getting a certain course ', async () => {
+            try {
+                
+                expect.assertions(6)
+                //creating a lawyer for testing 
+                //await funcs.CreateReviewerOrLawyer('Lawyer','Ali el seba3y','male','Egyptian','national id','A6123456778','1998-12-10T00:00:00.000Z','Maadi','ali@yahoo.com','123456788')
+                await fn.createCourse({title: 'a', eduOrganisation: 'aaa', educator: 'a1',price:2})  
+                
+                
+                const res = await fn.getCourse()
+                expect(res.data).toBeDefined()
+                expect(res.status).toEqual(200)
+                
+                const res2 = await fn.getCourses(res.data.data[res.data.data.length-1]._id)
+                console.log(res2.data)
+                
+                expect(res2.data.data.title).toEqual('a')
+                expect(res2.data.data.eduOrganisation).toEqual('aaa')
+                expect(res2.data.data.educator).toEqual('a1')
+                expect(res2.data.data.price).toEqual(2)
+                
+                
+                
+              }
+              
+              catch(error){
+                  
+                  console.log(error)
+                  
+              }
+          })
+          
+          test('testing that get by id does not work works', async () => {
+              expect.assertions(1)
+              expect(await fn.getCourses('bbllaabbllaa').status).toEqual(undefined);
+              
+          }),
+          
+          
+          test('testing that get by id does not work works', async () => {
+              expect.assertions(1)
+              expect(await fn.deleteCourse('bbllaabbllaa').status).toEqual(undefined);
+              
+          }),
+       test('testing that delete works for course', async ()=>{
+        expect.assertions(1) 
+        const response =  await fn.getCourse()
+        const did = response.data.data[0]._id;
+        await fn.deleteCourse(did)
+        const response2 =  await fn.getCourses(did)
+        expect(Object.keys(response2.data)).toEqual(['error'])
+    });
+       

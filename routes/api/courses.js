@@ -49,13 +49,15 @@ router.get('/:id', async (req,res) => {
 
         //const Course = await Course.reviews
 
-        if(!course) return res.status(404).send({error: 'course does not exist'})
+        if(!course) return res.json({error: 'course does not exist'})
         // for()
         res.json({data: course})
        }
        catch(error) {
            // We will be handling the error later
-           console.log(error)
+        //    console.log(error)
+        res.json({err : "Could not find a course with this id"})
+
        }  
     
 
@@ -107,8 +109,7 @@ router.delete('/:id', async (req,res) => {
      res.json({msg:'Course was deleted successfully', data: deletedCourse})
     }
     catch(error) {
-        // We will be handling the error later
-        console.log(error)
+        res.json({err : "Could not find a course with this id"})
     }  
  })
 

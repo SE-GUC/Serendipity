@@ -1,18 +1,15 @@
 const axios = require('axios');
+const Course = require('./models/Course')
 
 const functions = {
         updateCourse: async (id,req) => {
             try{
             const path = 'http://localhost:3000/api/courses/'+id
-            console.log(path)
             await axios.put(path,req)
-            console.log('wa7ed')
-            const upd = await axios.get(path)
-            console.log('etneen')
+            const upd = await Course.findById(id)
             return upd
             }
             catch(err){
-                console.log('talata')
                 return "error"
             }
         },
@@ -29,15 +26,15 @@ const functions = {
             return await axios.put(path,{"applicantId" : "\""+mid+"\" "} )
         },
         getCourse: async () => {
-            const course= axios.get('http://localhost:3000/api/courses/')
+            const course= await axios.get('http://localhost:3000/api/courses/')
             return course
         },
         getCourses: async (id) => {
-            const course = axios.get('http://localhost:3000/api/courses/'+id)
+            const course = await axios.get('http://localhost:3000/api/courses/'+id)
             return course
         },
         deleteCourse: async (id) => {
-            axios.delete('http://localhost:3000/api/courses/'+id).then(res => res.data).catch(e=>'error')
+           await axios.delete('http://localhost:3000/api/courses/'+id).then(res => res.data).catch(e=>'error')
         } 
 };
 
