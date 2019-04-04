@@ -11,7 +11,7 @@ const workshopSchema  = mongoose.Schema({
     description  : String ,
     location  : String ,
 
-    applicants  : { type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Member'}] } 
+    applicants  : [{type: mongoose.Schema.Types.ObjectId, ref: 'members'}] 
 
 })
 

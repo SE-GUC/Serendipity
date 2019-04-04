@@ -1,5 +1,4 @@
 
-
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Jobschema = new Schema({
@@ -8,8 +7,8 @@ const Jobschema = new Schema({
         required: true
     },
     state: {
-        type: String,
-       required: true
+        type: String
+
     },
     location: {
         type: String,
@@ -34,7 +33,7 @@ const Jobschema = new Schema({
     },
     partner: {
         type:Schema.Types.ObjectId, ref:'Partner',
-    required: true
+
     },
     description: {
         type: String,
