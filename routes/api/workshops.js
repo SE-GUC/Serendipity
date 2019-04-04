@@ -40,9 +40,15 @@ router.post('/', async (req, res) =>  {
 router.put('/:id', async (req, res) => {
     
     const isValidated = validator.updateValidation(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
-
+    console.log("in put workshop")
+    if (isValidated.error)
+    {
+        console.log(isValidated.error.details[0].message)
+        return res.status(400).send({ error: isValidated.error.details[0].message });
+    }
+    
     else{
+        console.log("updating workshop..")
     await Workshop.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/workshops/${req.params.id}`) })
@@ -60,18 +66,21 @@ router.get('/:id', async (req,res) => {
        // Workshop.getById(id)
         //const Course = await Course.reviews
 
-        if(!workshop) return res.status(404).send({error: 'Workshop does not exist'})
+        if(!workshop) return res.json({error: 'workshop does not exist'})
         // for()
         res.json({data: workshop})
        }
        catch(error) {
            // We will be handling the error later
-           console.log(error)
-       }  
+           res.json({err : "Could not find a course with this id"})
+ }  
     
 
     //res.json({data: workshop})
 })
+
+///
+//
 
 //get
 router.get('/', async (req,res) => {
@@ -107,15 +116,23 @@ router.put("/:wid/apply/:mid",async (req,res)=>{
 router.delete('/:id', async (req,res) => {
 
     try {
+        console.log("del workshop ")
         const id = req.params.id
         const deletedWorkshop = await Workshop.findByIdAndRemove(id)
+        console.log("deleted workshop success")
+        console.log(deletedWorkshop)
         res.json({msg:'workshop was deleted successfully', data: deletedWorkshop})
     }
     catch(error) {
-        // We will be handling the error later
-        console.log(error)
-    }  
+        res.json({err : "Could not find a Workshop with this id"})
+    }
 })
+
+////
+
+////
+
+///
 
 ///////////////////////////////////
 //member apply for workshop WORKS!!!
