@@ -5,8 +5,11 @@ const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors')
 
-const educationalOrganizations = require('./routes/api/educationalOrganizations')
+const cors=require('cors')
 
+
+
+const educationalOrganizations = require('./routes/api/educationalOrganizations')
 const courses = require('./routes/api/courses')
 const workshops = require('./routes/api/workshops')
 const members = require('./routes/api/members')
@@ -18,18 +21,30 @@ const assessments=require('./routes/api/assessments')
 
 
 const app = express()
-app.use(express.json())
 
+
+
+<<<<<<< HEAD
+=======
+// replace the uri string with your connection string.
+// const DB_User = process.env.DB_USER;
+// const DB_Pass = process.env.DB_PASS;
+// const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
+
+// const db = "mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true";
+>>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
 const db = require('./config/keys').mongoURI
-
+// console.log(db);
 mongoose
-    //.connect(db , { useNewUrlParser: true })
-    .connect(db)
+    .connect(db , { useNewUrlParser: true })
+    //.connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
 
-   
+    process.on('uncaughtException', function (err) {
+      console.log(err);
+  }); 
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -37,36 +52,86 @@ app.use(cors())
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
 app.get('/', (req, res) => {
+
   res.send(`<h1>Welcome to LirtenHub</h1>
+
   <a href="/api/courses">Courses</a>
+
   <a href="/api/workshops">Workshops</a>
+
   <a href="/api/members">members</a>
   <a href="/api/admins">admins</a>
   <a href="/api/masterclasses">masterclasses</a>
+
   <a href="/api/partners">Partners</a>
+
   <a href="/api/educationalOrganizations">Educational Organizations</a>
+
   <a href="/api/jobs">Job</a>
+
   <a href="/api/assessments">Assessments</a>
+
   `);
+
 });
+
+
 
 // Direct routes to appropriate files
+
 app.use('/api/assessments', assessments)
+
 app.use('/api/educationalOrganizations', educationalOrganizations)
+
 app.use('/api/courses', courses)
+
 app.use('/api/workshops', workshops)
+
 app.use('/api/members', members)
+
 app.use('/api/admins',admins)
+
 app.use('/api/masterclasses', masterclasses)
+
 app.use('/api/partners', partners)
+
 app.use('/api/jobs', jobs)
 
+
+
 // Handling 404
+
 app.use((req, res) => {
+
   res.status(404).send({ err: "We can not find what you are looking for" });
+
 });
+
+
+<<<<<<< HEAD
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server on ${port}`))
+=======
+
+
+
 
 
 const port = process.env.PORT || 3000
+
+
 app.listen(port, () => console.log(`Server on ${port}`))
+
+
+
+>>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a

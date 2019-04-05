@@ -9,17 +9,6 @@ router.use(express.json())
 const Admin = require('../../models/Admin')
 const validator = require('../../Validations/AdminValidations')
 
-// temporary data created as if it was pulled out of the database ...
-// var admins = [
-//     new Admin('Mohamed Ahmed','ahmed_96','ahmed@gmail.com','disdkol'),
-//     new Admin('Lama Ihab','lama19','lama@gmail.com','dddidkj'),
-//     new Admin('Tae','tae95','tae@gmail.com','dddidkj')
-// ];
-
-
-
-
-//////////////////////
 
 router.get('/', async (req,res) => {
     const admins = await Admin.find()
@@ -79,7 +68,7 @@ router.post('/', async (req,res) => {
     catch(error) {
         // We will be handling the error later
         console.log(error)
-    }  
+    }
  })
 
 
@@ -94,6 +83,7 @@ router.post('/', async (req,res) => {
         console.log(error)
     }  
  })
+//yara admin post a job 
 
 
 

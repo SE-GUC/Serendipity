@@ -23,82 +23,31 @@ const validator = require('../../validations/masterClassValidations')
 
 
 // Get all masterclasses
-// router.get('/', async (req,res) => {
-//     const masterclases = await Masterclass.find()
-//     res.json({data: masterclases})
-// })
+router.get('/', async (req,res) => {
+    const masterclases = await Masterclass.find()
+    res.json({data: masterclases})
+})
 
-
-// // Get a certain MasterClass
-// router.get('/:id', async (req, res) => {
-//     const id =req.params.id
-//     const master=await Masterclass.findById(id)
+router.get('/:id', async (req,res) => {
     
-//     res.json(master || 'No masterclass matches the requested id');
-// });
+    try {
+        const id = req.params.id
 
+        const master = await Masterclass.findById(id)
+       
 
+        if(!master) return res.status(404).send({error: 'Masterclass does not exist'})
+        
+        res.json({data: master})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
 
-// Get all masterclasses
-router.get('/', async(req, res) => {
-    let data = "";
-    const masterclasses = await Masterclass.find()    
-    masterclasses.forEach((value) => {
-        const masterclassid = value.id;
-        const masterclasstitle = value.title;
-        data += `<a href="/api/masterclasses/${masterclassid }">${masterclasstitle}</a><br>`;
-    });
-    res.send(data);
-});
-// Get a certain MasterClass
-router.get('/:id', async(req, res) => {
-    var data = "";
-    const masterclasses = await Masterclass.find()
-    var allworkshops=[]
-    //allCourses.push({ID:"yara hena"})
-    // const c= await Course.find()
-    // const w= await Workshop.find()
-    var i=0;
-    const allCourses=[]
-    masterclasses.forEach(async value => {
-       try{
-        if(value.id === req.params.id) {
-            value.courseIDs.forEach(async CourseId => {
-                const  curr=await Course.findById({'_id':CourseId})
-                if(curr)
-                {
-                    
-                    allCourses[i]=(curr)
-                    i++
-                }
-                console.log(allCourses)
-            });
-            
-            value.workshopsIDs.forEach(async workshopId => {
-                const curr1=await Workshop.findById(workshopId)
-                if(curr1)
-                allworkshops.put(curr1)
-            });
-            console.log(allCourses)
-            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
-            data+= `Id: ${value.id}<br>Name: ${value.title}<br>eduOrganisation: ${value.Eduorganization}<br>duration: ${value.duration}<br>price: ${value.price}<br>description: ${value.description}<br>location: ${value.location}<br>workshops: ${allworkshops}<br>courses: ${value.courseIDs}`;
-            // return;
-        }
-    }catch(error)
-    {
-        console.log("error")
-    }
-    });
-    res.send(data || 'No masterclass matches the requested id');
-});
-
-
-
-
-
-
-
-
+    //res.json({data: master})
+})
 //create
 router.post('/', async(req, res) => {
     try {
@@ -127,53 +76,44 @@ router.put('/:id', async(req, res) => {
                 })
        }
        catch(error) {
-           // We will be handling the error later
+           
            console.log(error)
        }  
     
 })
 
 
-
-
-
-
-// Delete a masterclass
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', async (req,res) => {
     try {
-        const id = req.params.id
-        const deletedMaster = await Masterclass.findByIdAndRemove(id)
-        var allCourses=[]
-        var allworkshops=[]
+     const id = req.params.id
+     const deletedMaster = await Masterclass.findByIdAndRemove(id)
+     res.json({msg:'masterclass was deleted successfully', data: deletedMaster})
+    }
+    catch(error) {
         
-        if(!deletedMaster) return res.status(404).send({error: 'masterClass does not exist'})
+        console.log(error)
+    }  
+ 
+ })
 
-        if(deletedMaster.id === req.params.id) {
-            deletedMaster.courseIDs.forEach(async CourseId => {
-                const curr=await Course.findById(CourseId)
-                if(curr)
-                allCourses.put(curr)
-            });
-            deletedMaster.workshopsIDs.forEach(async workshopId => {
-                const curr=await Workshop.findById(workshopId)
-                if(curr)
-                allworkshops.put(curr)
-            });
-            //const educationalOrganization= await EducationalOrganization.findById(value.Eduorganizationid)
-            
-             data = `Id: ${deletedMaster.id}<br>Name: ${deletedMaster.title}<br>eduOrganisation: ${deletedMaster.Eduorganization}<br>duration: ${deletedMaster.duration}<br>price: ${deletedMaster.price}<br>description: ${deletedMaster.description}<br>location: ${deletedMaster.location}<br>workshops: ${allworkshops}<br>courses: ${allCourses}`;
-             //return;
 
-        }
+ // as a member i can apply for a masterclass
+ router.put("/:maid/apply/:mid",async(req,res)=>{
+    const memberid=req.params.mid
+    const masterclassid=req.params.maid
+    const member=await Member.findById(memberid)
+    const master=await Masterclass.findById(masterclassid)
+    if(!member) return res.status(400).send({error:'member does not exist'})
+    if(!master) return res.status(400).send({error:'master does not exist'})
 
-       
-        res.json({msg:'MasterClass was deleted successfully',data:deletedMaster})
-       }
-       catch(error) {
-           console.log(error)
-       }  
-        
-})
+    Masterclass.update(
+        {_id:masterclassid},
+        {$push:{applicants:memberid}},
+        res.json({msg:'applicants was added successfuly',data:master})
+    )
+
+}
+)
 
 
 
@@ -182,3 +122,5 @@ router.delete('/:id', async(req, res) => {
 
 
 module.exports = router;
+
+
