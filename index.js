@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors')
 
-const cors=require('cors')
 
 
 
@@ -24,15 +23,7 @@ const app = express()
 
 
 
-<<<<<<< HEAD
-=======
-// replace the uri string with your connection string.
-// const DB_User = process.env.DB_USER;
-// const DB_Pass = process.env.DB_PASS;
-// const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
 
-// const db = "mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true";
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
 const db = require('./config/keys').mongoURI
 // console.log(db);
 mongoose
@@ -52,15 +43,7 @@ app.use(cors())
 
 
 
-<<<<<<< HEAD
-=======
 
-
-
-
-
-
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
 app.get('/', (req, res) => {
 
   res.send(`<h1>Welcome to LirtenHub</h1>
@@ -118,10 +101,7 @@ app.use((req, res) => {
 });
 
 
-<<<<<<< HEAD
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`Server on ${port}`))
-=======
+
 
 
 
@@ -134,4 +114,3 @@ app.listen(port, () => console.log(`Server on ${port}`))
 
 
 
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
