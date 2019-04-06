@@ -4,17 +4,13 @@
   "description": " SE Project",
   "main": "index.js",
   "jest": {
-    "setupTestFrameworkScriptFile": "./index.js"
+    "setupTestFrameworkScriptFile": "./index.js",
+    "testEnvironment": "node"
   },
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-<<<<<<< HEAD
     "test": "jest"
-=======
-    "test": "jest --detectOpenHandles",
-    "testWatch": "jest --watchAll"
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
   },
   "repository": {
     "type": "git",
@@ -23,10 +19,7 @@
   "author": "Serendipity",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-=======
-    "@types/jest": "^24.0.11",
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
+    "@babel/runtime": "^7.4.3",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -45,23 +38,14 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "jest": "^24.5.0",
-    "nodemon": "^1.18.10"
-  },
-  "keywords": []
-=======
-    "jest": "^24.7.1",
     "nodemon": "^1.18.10",
     "standard": "^12.0.1"
   },
+  "keywords": [],
   "standard": {
     "env": [
       "jest"
     ]
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
->>>>>>> e18ca44cff4477d8eb4ee14ecb54b70dd805f33a
 }
