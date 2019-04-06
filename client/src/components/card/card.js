@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios'
 
 const styles = {
@@ -26,19 +26,17 @@ const styles = {
 
 class SimpleCard extends React.Component {
     state = {
+        title: '',
         response: '',
     };
 
     componentDidMount() {
-        // this.setState({response:'1'})
-        axios.get(`http://localhost:5000/api/courses/5c969130da7f7813cc2e4cb1`)//this.props.cid)
+        axios.get(`/api/courses/` + this.props.cid)
             .then(res => {
-
-                this.setState({ response: '2' })
-                var course = '';
                 const ans = res.data.data;
+                var course = '';
+
                 course +=
-                    (ans.title ? "(Title : " + ans.title + ") " : "") +
                     (ans.eduOrganisation ? "(Educational Organisation : " + ans.eduOrganisation + ") " : "") +
                     (ans.duration ? "(Duration : " + ans.duration + ") " : "") +
                     (ans.eduactor ? "(Educator :" + ans.eduactor + ") " : "") +
@@ -46,20 +44,19 @@ class SimpleCard extends React.Component {
                     (ans.description ? "(Description : " + ans.description + ") " : "") +
                     (ans.location ? "(Location : " + ans.location + ") " : "")
 
-                this.setState({ response: course })
+                this.setState({ title: ans.title, response: course })
             })
-
-        // this.setState({response:'3'})
     }
 
     render() {
         return (
             <Card>
                 <CardContent>
-                <p>{this.state.response}</p>
+                    <Typography variant="h5" component="h2">{this.state.title}</Typography>
+                    <p>{this.state.response}</p>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">view applicants</Button>
+                    <Button size="small">view applicants</Button> 
                 </CardActions>
             </Card>
         );
