@@ -2,7 +2,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const assessments = require('./routes/api/assessments')
-
+const MongoClient = require('mongodb').MongoClient;
+const cors= require('cors')
 
 
 const courses = require('./routes/api/courses')
@@ -20,10 +21,23 @@ const assessments=require('./routes/api/assessments')
 
 
 // Init middleware
-const MongoClient = require('mongodb').MongoClient;
+
+const app = express()
+app.use(express.json())
+var cors= require('cors');
+app.use(cors());
+
+
+const db = 'mongodb+srv://assessment:bloomsblooms@cluster0-seluw.gcp.mongodb.net/test?retryWrites=true';
+mongoose
+.connect(db)
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.log(err))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors())
+
 
 app.get('/', (req, res) => {
   res.send(`<h1>Welcome to LirtenHub</h1>
@@ -55,6 +69,7 @@ app.use((req, res) => {
   res.status(404).send({ err: "We can not find what you are looking for" });
 });
 
+var port = process.env.PORT || 3000
 const port = process.env.PORT || 3000
 app.listen (port, () => console.log('Server running on port ${port}'))
 
