@@ -1,4 +1,4 @@
-const funcs = require("./fn");
+const funcs = require("./server/fn");
 const Course = require("./models/Course");
 const Workshop = require("./models/Workshop");
 const mongoose = require("mongoose");
