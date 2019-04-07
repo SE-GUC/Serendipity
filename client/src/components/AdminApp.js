@@ -14,14 +14,19 @@ class AdminApp extends Component {
      
     }
     addadmin=(full_name,email,password,username)=>{
+    
       axios.post("http://localhost:5000/api/admins/",{
 
         full_name:full_name,email:email,password:password,username:username
       }
      
-      ).then(res => this.setState({admin:[...this.state.AdminApp,res.data]}))
-      .catch(e=> alert('failed to create,please meet the validations'))
-     
+      ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
+      
+    
+      .catch(e=> "error")
+      alert('Admin was created succesfully')
+
+
         // <Popup> 
         //   <div> 
         //     Admincouldn't be created, you did not meet validations, try again
@@ -30,10 +35,21 @@ class AdminApp extends Component {
 
 
      // )
+    }
       
-     } 
+     
      onSubmit=(e)=>{
        e.preventDefault();
+       if(!this.state.full_name){
+         alert('full name cannot be empty')
+       }
+       else if (!this.state.password || this.state.password.length<8)
+      alert('password cannot be empty or less than 8 characters')
+      else if (!this.state.username)
+      alert('username cannot be empty')
+      else
+       
+       
        this.addadmin(this.state.full_name,this.state.email,this.state.password,this.state.username);
      
    
@@ -61,7 +77,7 @@ class AdminApp extends Component {
           Email:
           <input
             name="email"
-            type="text"
+            type="email"
             value={this.state.email}
             onChange={this.onChange} 
             />
