@@ -3,7 +3,8 @@ import MemberProfile from './components/MemberProfile';
 
 
 class App extends Component {
- render() {
+ 
+  render() {
     return (
       <div className="Member">
      <MemberProfile/>
