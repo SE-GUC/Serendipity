@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose')
 
 
@@ -12,9 +10,9 @@ const courseSchema  = mongoose.Schema({
     price  : Number ,
     description  : String ,
     location  : String ,
-    applicants  : Array 
+
+    applicants  : { type:[{type: mongoose.Schema.Types.ObjectId, ref: 'Member'}] } 
 })
 
 
 module.exports = mongoose.model('Course', courseSchema)
-

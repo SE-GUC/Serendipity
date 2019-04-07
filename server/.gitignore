@@ -1,2 +1,4 @@
-node_modules/*
-.env
+
+package-lock.json
+config/keys_dev.js
+/node_modules

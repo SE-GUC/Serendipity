@@ -1,106 +1,146 @@
 const express = require('express')
-const Joi = require('joi')
-const uuid = require('uuid')
 const router = express.Router()
+const Joi = require('joi')
+const uuid = require('uuid') 
+const mongoose = require('mongoose')
+const objectId = require('mongoose').objectid //needed to access by id
 
-// We will be connecting using database 
+
 const EducationalOrganization = require('../../models/EducationalOrganization')
+const validator = require('../../validations/EduOrgValidations')
 
-// temporary data created as if it was pulled out of the database ...
-const educationalOrganizations = [
-    new EducationalOrganization('GUC', 'GUC2', 'YIFIYF546', 'email',['df','wef'],['math','cs'],['df'],
-    ['salma','sama'],['dareen','omar'],['p1','p2'],'university',true,'1/1/2023'),
-    new EducationalOrganization('AUC', 'AUC', 'YIFAAAIYF546', 'emailA',['Adf','Awef'],['math3','cs2'],
-    ['dfRFG'], ['dareen','samah'],['mayar','nora'],['pr1','pr2'],'uni',true,'1/12/2023'),
-];
-
-//router.get('/', (req, res) => res.json({ data: educationalOrganizations }))
+router.get('/', async (req,res) => {
+    const educationalOrganizations = await EducationalOrganization.find()//.populate('masterClasses').populate('courses')
+    res.json({data: educationalOrganizations})
+})
+///get masterclassesof this EduORg
 
 
-router.get('/', (req, res) => {
-    let data = "";
-    educationalOrganizations.forEach((value) => {
-        const educationalOrganizations_id = value.id;
-        const educationalOrganizations_name = value.userName;
-        data += `<a href="/api/educationalOrganizations/${educationalOrganizations_id}">${educationalOrganizations_name}</a><br>`;
-    });
-    res.send(data);
-});
+router.get('/:id', async (req,res) => {
+    
+    try {
+        const id = req.params.id
 
-router.get('/:id', (req, res) => {
-    var data = "";
-    educationalOrganizations.forEach((value) => {
-        if(value.id === req.params.id) {
-            data = `Id: ${value.id}<br>userName: ${value.userName}<br>name: ${value.name}<br>password: ${value.password}<br>email: ${value.email}<br>masterClasses: ${value.masterClasses}<br>courses: ${value.courses}
-            <br>workshops: ${value.workshops}<br>trainers: ${value.trainers}
-            <br>educators: ${value.educators}
-            <br>trainingPrograms: ${value.trainingPrograms}
-            <br>description: ${value.description}
-            <br>contract: ${value.contract}
-            <br>expirationDate: ${value.expirationDate}`;
-            return;
-        }
-    });
-    res.send(data || 'No educatioinal organization matches the requested id');
-});
+        const educationalOrganizations = await EducationalOrganization.findById(id).populate('masterClasses').populate('courses')
+     //   const user = await book.reviews
 
-//Creating an educational organization
-router.post('/', (req, res) => {
-	const userName = req.body.userName;
-    const name = req.body.name;
-    const password = req.body.password;
-    const email = req.body.email;
-    const masterClasses = req.body.masterClasses;
-    const courses = req.body.courses;
-    const workshops = req.body.workshops;
-    const trainers = req.body.trainers;
-    const educators = req.body.educators;
-    const trainingPrograms = req.body.trainingPrograms;
-    const description = req.body.description;
-    const contract = req.body.contract;
-    const expirationDate = req.body.expirationDate;
+        if(!educationalOrganizations) return res.status(404).send({error: 'educational organization does not exist'})
+        
+        res.json({data: educationalOrganizations})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
     
 
-    const schema = {
-		userName: Joi.string().min(3).required(),
-        name: Joi.string().required(),
-        password: Joi.string().required(),
-        email: Joi.string().required(),
-        masterClasses: Joi.array().items(),
-        courses: Joi.array().items(),
-        workshops: Joi.array().items(),
-        trainers: Joi.array().items(),
-        educators: Joi.array().items(),
-        trainingPrograms: Joi.array().items(),
-        description: Joi.string().required(),
-        contract: Joi.boolean().required(),
-        expirationDate: Joi.string().required()
+ //   res.json({data: educationalOrganizations})
+})
+
+router.post('/', async (req,res) => {
+    try {
+     const isValidated = validator.createValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const newEducationalOrganization = await EducationalOrganization.create(req.body)
+     res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
-    
-    const result = Joi.validate(req.body, schema);
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
 
-	const newEducationalOrganization = {
-        userName,
-        name,
-        password,
-        email,
-        masterClasses,
-        courses,
-        workshops,
-        trainers,
-        educators,
-        trainingPrograms,
-        description,
-        contract,
-        expirationDate,
-		id: uuid.v4(),
-    };
-    educationalOrganizations.push(newEducationalOrganization)
-    
-	return res.json({ data: newEducationalOrganization });
-});
+
+
+
+
+ //only updates first tuple
+ // router.put('/:id', async (req,res) => {
+     //     try {
+         //      const id = req.params.id
+         
+         //      const eduorg = await EducationalOrganization.findByIdAndUpdate(id)
+         
+         //      if(!eduorg) return res.status(404).send({error: 'Profile does not exist'+id})
+         //      const isValidated = validator.updateValidation(req.body)
+         //      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+         //      const updatedEdu = await EducationalOrganization.updateOne(req.body)
+         //      res.json({msg: 'Profile updated successfully'+id, data : updatedEdu})
+         //     }
+         //     catch(error) {
+             //         // We will be handling the error later
+             //         console.log(error)
+             //     }  
+             //  })
+// update Profile
+router.put('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const eduorg = await EducationalOrganization.findById(id)
+     const ID = {"_id":id}
+     if(!eduorg) return res.status(404).send({error: 'eduorg does not exist'})
+     const isValidated = validator.updateValidation(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedEduorg = await EducationalOrganization.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'EduOrg updated successfully',data:updatedEduorg})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }
+ })
+// router.put('/:id', async (req,res) => {
+
+//     const isValidated = validator.updateValidation(req.body)
+//     console.log("here")
+//     if (isValidated.error) { return res.status(400).send({ error: isValidated.error.details[0].message })
+//         }
+//     else{
+//         console.log("worked")
+//     EducationalOrganization.findByIdAndUpdate(req.params.id, req.body)
+//     .exec()
+//     .then(r => {return res.redirect(303, `/api/educationalOrganizations/${req.params.id}`) })
+//     .catch(err => {console.log(err); return res.send("No Edu Org found for provided ID") })
+//    }
+  
+// })
+// router.put('/:id', async (req,res) => {
+//     try {
+//      const id = req.params.id
+     
+//      const eduorg = await EducationalOrganization.findByIdAndUpdate(id)
+
+//     const ID = {"_id":id}
+
+//      if(!eduorg) return res.status(404).send({error: 'Profile does not exist'})
+//      const isValidated = validator.updateValidation(req.body)
+//      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+//      const updatedEdu = await EducationalOrganization.updateOne(req.body)
+//      res.json({msg: 'Profile updated successfully', data:updatedEdu})
+//     }
+//     catch(error) {
+//         // We will be handling the error later
+//         console.log(error)
+//     }  
+//  })
+
+
+//yara Delete  Works
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedEduOrgProfile = await EducationalOrganization.findByIdAndRemove(id)
+     res.json({msg:'Profile was deleted successfully', data: deletedEduOrgProfile})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 
 module.exports = router
 
+// router.get('/:id/masterclasses' ,async (req,res)=>{
+
+// })

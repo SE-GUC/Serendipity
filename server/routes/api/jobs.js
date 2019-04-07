@@ -1,183 +1,178 @@
 const express = require('express')
+
 const Joi = require('joi');
-const uuid = require('uuid');
 const router = express.Router()
-
+const mongoose = require('mongoose')
 router.use(express.json())
-// We will be connecting using database 
 const Job = require('../../models/Job')
+const Admin = require('../../models/Admin')//yara
+const validator = require('../../validations/jobValidations')
 
-// temporary data created as if it was pulled out of the database ...
-const Jobs = [
-   new Job('Manager','open','1-1-2015','1-1-2019','maadi',3000,8,'waled','managing interns',['ahmed','mohamed']),
-   new Job('hr','pending','31/2/2019','1/3/2020','october',5000,12,'tarek','hiring people',['noura','sara'])
-];
+////////////////yara WORKS!!!
+//admin post job
+router.put('/:jid/postjob/:aid',async(req,res)=>{
+   const adid = req.params.aid //get admin id 
+   const jobid=req.param.jid //get job id
+   const admin= await Admin.findById(adid) //checks if its an admin
+   if(!admin) return res.status(404).send({error: 'You are not allowed to change the status of this job'})
+   const updatedJob = await Job.findOneAndUpdate(jobid,req.body)
+   res.json({msg: 'Admin updated Job successfully',data:updatedJob
+   })
 
-// Get all jobs
-//router.get('/', (req, res) => res.json({ data: Jobs }));
-
-router.get('/', (req, res) => {
-   let data = "";
-   Jobs.forEach((value) => {
-       const job_id = value.id;
-       const job_name = value.title;
-       data += `<a href="/api/jobs/${job_id}">${job_name}</a><br>`;
-   });
-   res.send(data);
-});
-
-router.get('/:id', (req, res) => {
-   var data = "";
-   Jobs.forEach((value) => {
-       if(value.id === req.params.id) {
-           data = `Id: ${value.id}<br>Title: ${value.title}<br>state: ${value.state}<br>startdate: ${value.startdate}<br>enddate: ${value.enddate}<br>location: ${value.location}<br>salary: ${value.salary}<br>dailyhours: ${value.dailyhours}<br>partner: ${value.partner}<br>description: ${value.description}<br>candidates: ${value.candidates}`;
-           return;
-       }
-   });
-   res.send(data || 'No job matches the requested id');
-});
-
-
-
-// Get a certain job
-router.get('/:id', (req, res) => {
-
-   const jobId = req.params.id 
-   const found = Jobs.some(job => job.id === jobId)
-   if(found){
-   res.json({
-   Jobs:Jobs.filter(job =>job.id!==jobId)
 })
 
-   }
-   else{
+//////////
 
-      res.status(404).json({err: 'We can not find the job you are looking for you are looking for sorry'});
-   }
-});
+
+// Get all jobs 
+router.get('/', async (req,res) => {
+   const jobs = await Job.find()
+   res.json({data: jobs})
+})
+  
+// Get a certain job
+router.get("/:id", (req, res) => {
+
+   const id = req.params._id;
+   Job.findById(id)
+     .exec()
+     .then(doc => {
+       if (doc) {
+         res.status(200).json(doc);
+       } else {
+         res
+           .status(404)
+           .json({ message: "No job found for provided ID" });
+       }
+     })
+     .catch(err => {
+       console.log(err);
+       res.status(500).json({ error: err });
+     });
+ });
+
+
+// router.get('/:id', async (req,res) => {
+    
+//    try {
+//        const id = req.params.id
+
+//        const job = await Job.findById(id)
+      
+
+//        if(!job) return res.status(404).send({error: 'job does not exist'})
+       
+//        res.json({data: job})
+//       }
+//       catch(error) {
+//           // We will be handling the error later
+//           console.log(error)
+//       }  
+   
+
+//    res.json({data: job})
+// })
+
+
+
+
 
 
 // Delete a job
 
-router.delete('/:id', (req, res) => {
-   const jobId = req.params.id 
-   const job = Jobs.find(job=> job.id === jobId)
-   const index = Jobs.indexOf(job)
-   Jobs.splice(index,1)
-   res.send(Jobs)
-})
+
+router.delete('/:id', async (req,res) => {
+   try {
+    const id = req.params.id
+    const deletedJob = await Job.findByIdAndRemove(id)
+    res.json({msg:'Job was deleted successfully', data: deletedJob})
+   }
+   catch(error) {
+      
+       console.log(error)
+   }  
+});
+
+
+
 
 // Update a job
-router.put('/:id', (req, res) => {
-   const jobId = req.params.id 
-   const updatedTitle = req.body.title
-   const updatedstate=req.body.state
-   const updatedstartdate=req.body.startdate
-   const updatedenddate=req.body.enddate
-   const updatedlocation=req.body.location
-   const updatedsalary=req.body.salary
-   const updatedcandidates=req.body.candidates
-   const updateddailyhours=req.body.dailyhours
-   const updatedpartner=req.body.partner
-   const updateddescription=req.body.description;
-   
-   
-   
-   const job =Jobs.find(job => job.id === jobId)
-   if(updatedTitle){
-      job.title = updatedTitle
-   }
-   if(updatedstate){
-      job.state=updatedstate
-   }
-   if(updatedstartdate){
-      job.startdate=updatedstartdate
 
+
+
+//create a job
+// create a new member and add it to the database
+// router.post('/', async (req, res) => {
+//    try {
+//        const isValidated = validator.createValidation(req.body)
+//        if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+//        const newJob = await Job.create(req.body)
+//        res.json({msg:'Job created successfully', data: newJob})
+//       }
+//       catch(error) {
+//           // We will be handling the error later
+//           console.log(error)
+
+//       } 
+// });
+
+router.put('/:id', async (req,res) => {
+   try {
+    const id = req.params.id
+    const job = await Job.findById(id)
+    const ID={"_id":id}
+    if(!job) return res.status(404).send({error: 'Job does not exist'})
+    const isValidated = validator.updateValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedJob = await Job.findOneAndUpdate(ID,req.body)
+    res.json({msg: 'Job updated successfully',data:updatedJob
+   })
    }
-   if(updatedenddate){
-      job.enddate=updatedenddate
-   }
-   if(updatedlocation){
-      job.location=updatedlocation
-   }
-   if(updatedsalary){
-      job.salary=updatedsalary
-   }
-   if(updatedcandidates){
-      job.candidates=updatedcandidates
-   }
-   if(updateddailyhours){
-      job.dailyhours=updateddailyhours
-   }
-   if(updatedpartner){
-      job.partner=updatedpartner
-   }
-   if(updateddescription){
-      job.description=updateddescription
-   }
-   const schema = {
-      title: Joi.string().min(3),
-      state: Joi.string().min(3),
-      startdate: Joi.date(),
-     enddate: Joi.date(),
-      location:Joi.string().min(4),
-      salary:Joi.number(),
-      dailyhours:Joi.number(),
-      partner: Joi.string().min(3),
-      description: Joi.string().min(3),
-      candidates:Joi.array().items()
-   
-   }
-   const result = Joi.validate(req.body, schema);
-   if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-   res.send(job)
+   catch(error) {
+       // We will be handling the error later
+       console.log(error)
+   }  
 })
 
 //create a job
-router.post('/', (req, res) => {
-	const title = req.body.title
-   const state = req.body.state
-   const startdate=req.body.startdate
-   const enddate=req.body.enddate
-   const location=req.body.location
-   const salary=req.body.salary
-   const candidates=req.body.candidates
-   const dailyhours=req.body.dailyhours
-   const partner=req.body.partner
-   const description=req.body.description;
 
-	const schema = {
-		title: Joi.string().min(3).required(),
-      state: Joi.string().min(3).required(),
-      startdate: Joi.date().required(),
-      enddate: Joi.date().required(),
-      location:Joi.string().required().min(4),
-      salary:Joi.number().required(),
-      dailyhours:Joi.number().required(),
-      partner: Joi.string().min(3).required(),
-      description: Joi.string().min(3).required(),
-      candidates:Joi.array().items()
-
-	}
-	const result = Joi.validate(req.body, schema);
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-	const job =  {
-      title,
-      state,
-      candidates,
-      startdate,
-      enddate,
-      location,
-      salary,
-      dailyhours,
-      partner,
-      description,
-      id:uuid.v4(),
+router.post('/', async (req,res) => {
+   try {
+    const isValidated = validator.createValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const newJob = await Job.create(req.body)
+    res.json({msg:'Job was created successfully', data: newJob})
    }
-   Jobs.push(job)
-   res.send(Jobs)
-	//return res.json({ data: job });
-});
+   catch(error) {
+       // We will be handling the error later
+       console.log(error)
+   }  
+
+
+
+})
+// as a member I should be able to apply for a job
+router.put('/:jid/apply/:mid',async (req,res)=>{
+   const memberid = req.params.mid
+   const jobid = req.params.jid
+   const member = await Member.findById(memberid)
+   const job = await Job.findById(jobid)
+   if(!job) return res.status(400).send({ error:'job does not exist' })
+   if(!member) return res.status(400).send({ error:'member does not exist' })
+
+   Job.update(
+      {_id:jobid},
+      {$push: {applicants: memberid}}
+   )
+      res.json({msg:'applicant was added succsessfully', data:job})
+
+
+
+   
+
+   
+
+})
 
 
 

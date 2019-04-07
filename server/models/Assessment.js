@@ -12,8 +12,7 @@ const assessmentSchema = new Schema ({
         required: true
     },
     masterClass: {
-        type: String,
-        required: true
+        type: String
 
     },
     educationalOrg: {
@@ -21,8 +20,7 @@ const assessmentSchema = new Schema ({
         required: true
     },
     phoneNumber: {
-        type: Number,
-        required: true
+        type: String
     },
     daysAvailable: {
         type: String,

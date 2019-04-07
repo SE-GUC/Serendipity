@@ -1,10 +1,15 @@
 const express = require('express');
-const Joi = require('joi');
+//const Joi = require('joi');
 const Partner = require('../../models/Partner');
 const router= express.Router();
+
+const validator = require('../../validations/partnerValidations')
+
+
+
 //const partners= require('./partners');
 const mongoose = require('mongoose');
-const validator = require('../../validations/partnerValidations');
+//const validator = require('../../validations/partnerValidations');
 
 //CREATE PARTNER
 router.post('/', async (req,res) => {
@@ -54,10 +59,10 @@ router.put('/:_id', async (req,res) => {
          const isValidated = validator.updateValidation(req.body)
          if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
         else{
-         Partner.findByIdAndUpdate(req.params._id, req.body)
+         await Partner.findByIdAndUpdate(req.params._id, req.body)
          .exec()
          .then(r => {return res.redirect(303, `/api/partners/${req.params._id}`) })
-         .catch(err => {console.log(err); return res.send("No partner found for provided ID") })
+         .catch(err => {console.log(err); return res.status(400).send("No partner found for provided ID") })
         }
        
      })
@@ -73,5 +78,6 @@ router.delete('/:id', async (req,res) => {
         console.log(error)
     }  
  })
+
 
 module.exports = router;

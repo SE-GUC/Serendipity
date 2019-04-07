@@ -1,26 +1,83 @@
-class Member {
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Schema.Types.ObjectId
+const Schema = mongoose.Schema
+const partnerSchema = new Schema ({
+    userName: {
+        type: String,
+        required: true
+    },
+    id  :
+    {
+     type : ObjectId
+    },
+    availableDailyHours: {
+        type : Number ,
+        required : true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String ,
+        required: true
+    },
+    birthDate: {
+        type: Date ,
+        required: true
+    },
+    interests : {
+     type : [String] ,
+    
+    },
+    attendedEvents : {
+        type : [String]
+    },
+    previousJobs :{
+        type : [String]
+    },
+    previousTasks :{
+        type : [String]
+    },
+    previousProjects :{
+        type : [String]
+    },
+    reviews :{
+    type : Number
+    },
+    reviewers :{
+type : [String]
+    },
+    certificates :{
+        type : [String]
+    },
+    coursesTaken :{
+        type : [String]
+    },
+    contractSigned :{
+        type : Boolean
+    },
+    expirationDate :{
+        type : Date
+    },
+    age :{
+        type : Number
+    },
+    skills :{
+        type : [String],
+        required : true
+    }
+    
 
-    constructor(  userName, availableDailyHours, location, name, email, password, birthDate , interests , attendedEvents , previousJobs , previousTasks , previousProjects , reviews , reviewers , certificates , coursesTaken , contractSigned , expirationDate , age ) {
-        this.userName = userName;
-        this.availableDailyHours = availableDailyHours;
-        this.location = location;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.interests = interests;
-        this.attendedEvents = attendedEvents;  
-        this.previousJobs = previousJobs; 
-        this.previousTasks = previousTasks;
-        this.previousProjects = previousProjects;
-        this.reviews = reviews ;
-        this.reviewers = reviewers;
-        this.certificates = certificates;
-        this.coursesTaken = coursesTaken;
-        this.contractSigned = contractSigned;
-        this.expirationDate = expirationDate ;
-        this.age = age ;
-    };
-}
 
-module.exports = Member;
+}) ;
+
+module.exports = Member = mongoose.model('members', partnerSchema)
