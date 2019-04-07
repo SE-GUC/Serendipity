@@ -35,12 +35,14 @@
     "node": "^11.12.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "supertest": "^4.0.2",
+    "react-scripts": "2.1.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^24.7.1",
     "nodemon": "^1.18.10",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "standard": "^12.0.1"
   },
   "keywords": [],
