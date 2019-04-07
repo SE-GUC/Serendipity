@@ -82,7 +82,7 @@ class EduOrgApp extends Component {
   <h1>loading please be patient</h1>
   :(
       <div className="EduOrgApp">
-        <h1>educational Organizations</h1>
+        <h1>Educational Organizations</h1>
         <EduOrgs eduorgs = {this.state.eduorgs}/>
       </div>
     );
