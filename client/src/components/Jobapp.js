@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '..';
-import Popup from 'reactjs-popup'
+//import Popup from 'reactjs-popup'
 
 class Jobapp extends Component {
  
