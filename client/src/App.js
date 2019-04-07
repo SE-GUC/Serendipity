@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 //import Workshops from './component/Workshops'
 import './App.css';
 //import Axios from 'axios';
-import WorkshopApp from './client'
+import WorkshopApp from '../src/WorkshopApp'
 
 class App extends Component {
 render(){
