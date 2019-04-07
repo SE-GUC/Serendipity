@@ -4,7 +4,7 @@ import EduOrg from './client'
 import './App.css';
 import axios from 'axios';
 
-class App extends Component {
+class MemberApp extends Component {
     render(){
         return(
             <div className="App">
