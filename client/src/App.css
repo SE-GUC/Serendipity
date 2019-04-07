@@ -24,7 +24,9 @@ a{
   padding:7px 20px;
   cursor:pointer;
 }
+
 /* .App {
+.App {
   text-align: center;
 }
 
@@ -33,6 +35,9 @@ a{
   height: 40vmin;
   pointer-events: none;
 }
+
+
+
 
 .App-header {
   background-color: #282c34;
@@ -56,5 +61,4 @@ a{
   to {
     transform: rotate(360deg);
   }
-}
-
+}*/
