@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Jobapp from './Jobapp';
+import Jobapp from '../src/components/Jobapp';
 import './App.css';
-import axios from 'axios';
+//import axios from 'axios';
 class App extends Component {
   state={
 jobapp:[]

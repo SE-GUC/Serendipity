@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './';
+import '..';
 import Popup from 'reactjs-popup'
 
 class Jobapp extends Component {
@@ -13,33 +13,29 @@ class Jobapp extends Component {
       salary:'',
       description:'',
       dailyhours:'',
-      partner:''
+      partner:'',
+      state:''
     }
-    addjob=(title,location,startdate,enddate,salary,dailyhours,partner,description)=>{
+    addjob=(title,location,startdate,enddate,salary,dailyhours,partner,description,state)=>{
       axios.post("http://localhost:5000/api/jobs/",{
 
-        title:title,location:location,startdate:startdate,enddate:enddate,salary:salary,dailyhours:dailyhours,partner:partner,description:description
+        title:title,location:location,startdate:startdate,enddate:enddate,salary:salary,dailyhours:dailyhours,partner:partner,description:description,state:state
       }
-      ).then(res => this.setState({jobapp:[...this.state.Jobapp,res.data]}))
-      .catch(e=>
-        <Popup> 
-          <div> 
-            Job couldn't be created, try again
-          </div>
-        </Popup>
+      ).then(res =>
+         this.setState({jobapp:[...this.state.Jobapp,res.data]}))
+      .catch(e=>"error")
+alert('Job created successfully!! YaaaY')
 
-
-      )
+      
       
      } 
      onSubmit=(e)=>{
        e.preventDefault();
-       this.addjob(this.state.title,this.state.location,this.state.startdate,this.state.enddate,this.state.salary,this.state.dailyhours,this.state.partner,this.state.description);
-    //    <Popup> 
-    //    <div> 
-    //      Job created successfully
-    //    </div>
-    //  </Popup>
+       if(!this.state.title||!this.state.location||!this.state.startdate||!this.state.enddate||!this.state.salary||!this.state.dailyhours||!this.state.partner||!this.state.description)
+       alert('validations not satisfied,try again :)!')
+       else
+       this.addjob(this.state.title,this.state.location,this.state.startdate,this.state.enddate,this.state.salary,this.state.dailyhours,this.state.partner,this.state.description,this.state.state);
+   
       }
     
    onChange=(e)=>this.setState({[e.target.name]:e.target.value});
@@ -57,6 +53,7 @@ class Jobapp extends Component {
             onChange={this.onChange} 
             />
         </label>
+        
         <br />
         <br />
         <label>
@@ -136,6 +133,18 @@ class Jobapp extends Component {
         </label>
         <br />
         <br />
+        <label>
+        please select job state:
+        <input
+          name="state"
+          type="text"
+          value={this.state.state}
+         onChange={this.onChange} 
+            />
+        </label>
+        <br />
+        <br />
+        
         {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
         <input 
           type="submit" 
