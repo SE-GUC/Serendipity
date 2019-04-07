@@ -15,6 +15,10 @@ a{
   text-decoration: none;
 } */
 
+h2{
+  background-color:aqua,
+}
+
 .App {
   text-align: center;
 }
@@ -48,4 +52,3 @@ a{
     transform: rotate(360deg);
   }
 }
-

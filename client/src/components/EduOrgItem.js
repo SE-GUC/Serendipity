@@ -15,10 +15,11 @@ class EduOrgItem extends Component {
 
   
   render() {
-      const {id,name,userName,email} = this.props.eduorg
+      const {id,name,userName,email,description} = this.props.eduorg
     return(
         <div style={this.getStyle()}>
-            <p>{name}</p>
+            <p>Name: {name}</p>
+            <p>Email: {email}</p>
         </div>
     )
    

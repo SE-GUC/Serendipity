@@ -1,4 +1,11 @@
+
+////////////////////////////////////////////////////////////////
 import React, { Component } from 'react';
+//import logo from './logo.svg';
+//import Workshops from './component/Workshops'
+import './App.css';
+//import Axios from 'axios';
+import WorkshopApp from '../src/WorkshopApp';
 import EduOrgs from './components/EduOrgs';
 import './App.css';
 import axios from 'axios';
@@ -16,6 +23,7 @@ class App extends Component {
       {/* <EduOrgApp/> */}
       <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations */}
       <Route exact path = "/masterclass" component = {EduOrg}/>{/*MaterClasses */}
+      <Route exact path = "/workshop" component = {WorkshopApp}/> {/*workshop */}
       
       </div>
 

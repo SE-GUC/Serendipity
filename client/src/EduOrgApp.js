@@ -4,6 +4,13 @@ import './App.css';
 import axios from 'axios';
 
 class EduOrgApp extends Component {
+  getStyleEduOrg = () => {
+    return {
+      backgroundColor : '#000',
+      color : '#f0f0f0'
+    }
+  
+  }
 
   constructor(props){
     super(props)
@@ -82,7 +89,7 @@ class EduOrgApp extends Component {
   <h1>loading please be patient</h1>
   :(
       <div className="EduOrgApp">
-        <h1>Educational Organizations</h1>
+        <h1 style = {this.getStyleEduOrg()}>Educational Organizations</h1>
         <EduOrgs eduorgs = {this.state.eduorgs}/>
       </div>
     );
