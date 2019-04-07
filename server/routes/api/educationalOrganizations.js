@@ -10,7 +10,7 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../validations/EduOrgValidations')
 
 router.get('/', async (req,res) => {
-    const educationalOrganizations = await EducationalOrganization.find()//.populate('masterClasses').populate('courses')
+    const educationalOrganizations = await EducationalOrganization.find().populate('courses').populate('masterClasses').populate('courses')
     res.json({data: educationalOrganizations})
 })
 ///get masterclassesof this EduORg
