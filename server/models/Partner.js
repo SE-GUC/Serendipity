@@ -15,4 +15,3 @@ const PartnerSchema = new Schema({
     pastProjects: {type: [String]}
 })
 module.exports = Partner = mongoose.model('partners', PartnerSchema)
-

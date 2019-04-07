@@ -11,6 +11,7 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Header from './components/layout/Header';
 import About from './components/pages/About';
 import AdminApp from './components/AdminApp';
+import Footer from './components/layout/Footer';
 import axios from 'axios';
 import CourseApp from './components/Form';
 
@@ -35,7 +36,7 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
-      
+      <Footer/>
       </div>
 
       </Router>

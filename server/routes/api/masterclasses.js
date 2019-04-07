@@ -1,4 +1,3 @@
-// Dependencies
 const express = require('express');
 const Joi = require('joi');
 const uuid = require('uuid');
@@ -122,5 +121,4 @@ router.delete('/:id', async (req,res) => {
 
 
 module.exports = router;
-
 

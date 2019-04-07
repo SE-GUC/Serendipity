@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Jobschema = new Schema({
@@ -7,7 +6,9 @@ const Jobschema = new Schema({
         required: true
     },
     state: {
-        type: String
+        type: String,
+
+      
 
     },
     location: {
@@ -47,6 +48,3 @@ const Jobschema = new Schema({
 
 
 module.exports = Job=mongoose.model('jobs', Jobschema)
-
-
-
