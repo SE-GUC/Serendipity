@@ -43,6 +43,7 @@ alert('Job created successfully!! YaaaY')
     
     return (
       <div >
+      <h1>Job Application </h1>
       <form onSubmit={this.onSubmit}>
       <label>
           Title:

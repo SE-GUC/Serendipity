@@ -3,8 +3,8 @@ const uuid = require('uuid');//not needed
 const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
+const cors = require('cors')
 
-const cors=require('cors')
 
 
 
@@ -23,12 +23,7 @@ const app = express()
 
 
 
-// replace the uri string with your connection string.
-// const DB_User = process.env.DB_USER;
-// const DB_Pass = process.env.DB_PASS;
-// const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
 
-// const db = "mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true";
 const db = require('./config/keys').mongoURI
 // console.log(db);
 mongoose
@@ -45,11 +40,6 @@ mongoose
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
-
-
-
-
-
 
 
 
@@ -111,12 +101,13 @@ app.use((req, res) => {
 });
 
 
-
-
-
-
-
 const port = process.env.PORT || 5000
+
+
+
+
+
+
 
 
 app.listen(port, () => console.log(`Server on ${port}`))
