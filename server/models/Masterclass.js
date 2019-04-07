@@ -1,58 +1,81 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
+
+
+
+
 
 const MasterclassSchema = new Schema({
-  title: {
-    type: String,
 
-    required: true
-  },
+    title: {
 
-  Eduorganization: {
-    type: String,
+        type: String,
 
-    required: true
-  },
+        required: true
 
-  duration: {
-    type: String,
+    },
 
-    required: true
-  },
+    Eduorganization: {
 
-  price: {
-    type: Number,
+        type: String,
 
-    required: true
-  },
+        required: true
 
-  description: {
-    type: String,
+    },
 
-    required: true
-  },
+    duration: {
 
-  location: {
-    type: String,
+        type: String,
 
-    required: true
-  },
+        required: true
 
-  courseIDs: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Course" }]
-  },
+    },
 
-  workshopsIDs: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Workshop" }]
-  },
+    price: {
 
-  applicants: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Member" }]
-  }
-});
+        type: Number, 
 
-module.exports = Masterclass = mongoose.model(
-  "masterclasses",
-  MasterclassSchema
-);
+        required: true
+
+    },
+
+    description: {
+
+        type: String, 
+
+        required: true
+
+    },
+
+    location: {
+
+        type: String, 
+
+        required: true
+
+    },
+
+    courseIDs: {
+
+        type: [{type:Schema.Types.ObjectId, ref: 'Course'}]
+
+        },
+
+    workshopsIDs: {
+
+        type: [{type:Schema.Types.ObjectId, ref: 'Workshop'}]
+
+    },
+
+    applicants:{
+
+        type: [{type:Schema.Types.ObjectId, ref: 'members'}]
+
+    }
+
+})
+
+
+
+module.exports = Masterclass = mongoose.model('masterclasses', MasterclassSchema)
