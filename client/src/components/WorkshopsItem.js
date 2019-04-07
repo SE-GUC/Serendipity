@@ -12,14 +12,16 @@ export class WorkshopsItem extends Component {
   }
 
   render () {
-    return (
-      <div style = {this.getStyle()} >
-        <p>
-        <input type='checkbox' onChange={this.props.Choose.bind(this,this.props.current._id)}/> {'  '}
-        { this.props.current.title}
-     </p>
-      </div>
-    )   
+    const {title,eduOrganisation,educator,price} = this.props.current
+    return(
+        <div style={this.getStyle()}>
+             <h1>Title: {title}</h1>
+            <p>eduOrganisation: {eduOrganisation}</p>
+            <p>educator: {educator}</p>
+            <p>price: {price}</p>
+
+        </div>
+    )
   }
   
 }

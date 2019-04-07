@@ -6,32 +6,47 @@ import './App.css';
 import Axios from 'axios';
 
 class WorkshopApp extends Component {
-constructor(props){
+  getStyleWork = () => {
+    return {
+      backgroundColor : '#000',
+      color : '#f0f0f0'
+    }
+  
+  }
+  constructor(props){
   super(props)
   this.state={
     workshop:[],
     error:false,
-    loading:true
+    loading:true,
+    clicked:false,//yara amr
   }
 }
-Choose = (id)=>{
-  this.setState( 
-    { workshop : this.state.workshop.map( current => {
-       if(current._id===id) {
-         var s=''
-         current.choice=!current.choice
-         for (var key in current) {
-           if (current.hasOwnProperty(key)) {
-              s+=(key + " : " + current[key]);
-             
-           }
-       }
-       current.title=s
+// Choose = (id)=>{
+//   this.setState( 
+//     { workshop : this.state.workshop.map( current => {
+//        if(current._id===id ) {
+//          if(clicked===false){
+//            clicked==true;
+//             var s=''
+//             current.choice=!current.choice
+//           current.title=s
+//            for (var key in current) {
+//              if (current.hasOwnProperty(key)) {
+//                s+=(key + " : " + current[key]);
+               
+//              }
+//          }
+
+//          }
+//          else{
+//            clicked==false;
+//          }
          
-       }
-       return current
-    }) })
- }
+//        }
+//        return current
+//     }) })
+//  }
 //  delMasterclass= (id)=> {
 //   this.setState( 
 //     { workshop:[...this.state.workshop.filter((current)=>current._id!==id)]
@@ -48,7 +63,8 @@ render(){
   <h1>loading please be patient</h1>
   :
   (<div className='WorkshopApp'>
-  <Workshops workshop={this.state.workshop} Choose={this.Choose} />
+  <h2 style={this.getStyleWork()}>WORKSHOPS</h2>
+  <Workshops workshop={this.state.workshop}  />
   </div>
   )
 }
