@@ -47,23 +47,15 @@ app.use(cors())
 app.get('/', (req, res) => {
 
   res.send(`<h1>Welcome to LirtenHub</h1>
-
   <a href="/api/courses">Courses</a>
-
   <a href="/api/workshops">Workshops</a>
-
   <a href="/api/members">members</a>
   <a href="/api/admins">admins</a>
   <a href="/api/masterclasses">masterclasses</a>
-
   <a href="/api/partners">Partners</a>
-
   <a href="/api/educationalOrganizations">Educational Organizations</a>
-
   <a href="/api/jobs">Job</a>
-
   <a href="/api/assessments">Assessments</a>
-
   `);
 
 });
@@ -112,6 +104,4 @@ const port = process.env.PORT || 5000
 
 
 app.listen(port, () => console.log(`Server on ${port}`))
-
-
 
