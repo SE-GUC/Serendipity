@@ -33,9 +33,18 @@
 }
 
 /* this what keeps the damn footer down */
-footer {
+/* footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: honeydew;
- }
+ } */
+ footer {
+  display: flex;
+  background-color: #222;
+  padding: 10px;
+  color: red;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
