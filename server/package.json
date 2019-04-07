@@ -1,12 +1,16 @@
 {
   "name": "leartin",
   "version": "1.0.0",
-  "description": "",
+  "description": " SE Project",
   "main": "index.js",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./index.js",
+    "testEnvironment": "node"
+  },
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "testWatch": "jest --watchAll"
   },
   "repository": {
@@ -16,7 +20,7 @@
   "author": "Serendipity",
   "license": "ISC",
   "dependencies": {
-    "@types/jest": "^24.0.11",
+    "@babel/runtime": "^7.4.3",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -31,19 +35,20 @@
     "node": "^11.12.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-scripts": "2.1.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^24.7.1",
     "nodemon": "^1.18.10",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "standard": "^12.0.1"
   },
+  "keywords": [],
   "standard": {
     "env": [
       "jest"
     ]
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

@@ -31,7 +31,7 @@ class SimpleCard extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`/api/courses/` + this.props.cid)
+        axios.get(`http://localhost:5000/api/courses/` + this.props.cid)
             .then(res => {
                 const ans = res.data.data;
                 var course = '';
