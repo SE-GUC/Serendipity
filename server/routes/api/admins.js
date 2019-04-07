@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 router.use(express.json())
 // We will be connecting using database 
 const Admin = require('../../models/Admin')
-const validator = require('../../Validations/AdminValidations')
+const validator = require('../../validations/AdminValidations')
 
 
 router.get('/', async (req,res) => {
