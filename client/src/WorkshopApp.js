@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import Workshops from './component/Workshops'
+import Workshops from './components/Workshops'
 import './App.css';
 import Axios from 'axios';
 
