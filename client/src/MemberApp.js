@@ -13,4 +13,4 @@ class MemberApp extends Component {
   }
 }
 
-export default App;
+export default MemberApp;
