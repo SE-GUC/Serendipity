@@ -29,7 +29,7 @@ module.exports={
             password: Joi.string().min(8).max(16),
             email: Joi.string().email(),
             masterClasses: Joi.array().items(),
-            courses: Joi.array().items(Joi.objectId()),
+            courses: Joi.array().items(),
             workshops: Joi.array().items(),
             trainers: Joi.array().items(),
             educators: Joi.array().items(),

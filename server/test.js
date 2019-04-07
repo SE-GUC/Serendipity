@@ -95,7 +95,7 @@ console.log(e)
 }
 });
 
-///////Updated Courses/////////10 Tests
+// ///////Updated Courses/////////10 Tests
 
 ////pending--edited y working
 test('Course:create course', async() =>{
@@ -119,11 +119,11 @@ test('Course:create course', async() =>{
   console.log("after creat course")
   //const aft = await Course.find(schema)
   const aft=await funcs.getCourse()
-  console.log(aft.data.data.length)
+  console.log(aft.data.data)
   expect(aft.data.data.length - bef.data.data.length).toBe(1);  
 })
 
-//Edited it now works!!
+// //Edited it now works!!
 test('Course:create course does not work with incorrect data', async() =>{
   expect.assertions(1);
   const schema = {
