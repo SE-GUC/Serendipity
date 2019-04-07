@@ -78,7 +78,7 @@ getMember = (e) => {
 </input><br></br></div>
 <div className = "field">
 <label for="birthDate ">birthDate </label>
-<input type="date" className="memberform" placeholder={this.state.birthDate} disabled>
+<input type="text" className="memberform" placeholder={this.state.birthDate} disabled>
 </input><br></br></div>
 <div className = "field">
 <label for="interests  ">interests  </label>
