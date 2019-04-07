@@ -10,7 +10,7 @@ import EduOrg from './EduOrg';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-ReactDOM.render(<EduOrg />, document.getElementById('root'));
+//ReactDOM.render(<EduOrg />, document.getElementById('root'));
 
 serviceWorker.unregister();
 
