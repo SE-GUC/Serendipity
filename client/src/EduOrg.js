@@ -26,7 +26,7 @@ Choose = (id)=>{
            }
        }
        current.title=s
-         
+      
        }
        return current
     }) })
@@ -47,6 +47,7 @@ render(){
   <h1>loading please be patient</h1>
   :
   (<div className='App'>
+  <h1>MasterClasses</h1>
   <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass}/>
   </div>
   )
