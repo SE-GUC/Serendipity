@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MemberProfile from './components/MemberProfile';
 
 
-class App extends Component {
+class MemberApp extends Component {
  
   render() {
     return (
