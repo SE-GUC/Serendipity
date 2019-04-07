@@ -23,7 +23,7 @@ const validator = require('../../validations/masterClassValidations')
 
 // Get all masterclasses
 router.get('/', async (req,res) => {
-    const masterclases = await Masterclass.find()
+    const masterclases = await Masterclass.find().populate('courseIDs').populate('workshopsIDs').populate('applicants')
     res.json({data: masterclases})
 })
 
@@ -32,7 +32,7 @@ router.get('/:id', async (req,res) => {
     try {
         const id = req.params.id
 
-        const master = await Masterclass.findById(id)
+        const master = await Masterclass.findById(id).populate('courseIDs').populate('workshopsIDs').populate('applicants')
        
 
         if(!master) return res.status(404).send({error: 'Masterclass does not exist'})

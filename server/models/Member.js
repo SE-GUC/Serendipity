@@ -76,8 +76,6 @@ type : [String]
         required : true
     }
     
-
-
-}) ;
+});
 
 module.exports = Member = mongoose.model('members', partnerSchema)
