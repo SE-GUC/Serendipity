@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+
+
+
+
 import Jobapp from '../src/components/Jobapp';
 import './App.css';
 import WorkshopApp from '../src/WorkshopApp';
@@ -7,13 +11,15 @@ import MemberApp from './MemberApp';
 import EduOrg from './EduOrg';
 import PartnerProfile from '../src/components/PartnerProfile';
 import {BrowserRouter as Router,Route} from 'react-router-dom';
-
+import AdminApp from './components/AdminApp';
+import axios from 'axios';
 
 
 
 class App extends Component {
   state={
-    jobapp:[]
+    jobapp:[],
+    admin:[]
       }
   render(){
     return(
@@ -26,6 +32,7 @@ class App extends Component {
       <Route exact path = "/member" component = {MemberApp}/> 
       <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
       <Route exact path = "/job" component = {Jobapp}/> 
+      <Route exact path = "/admin" component = {AdminApp}/>
       </div>
 
       </Router>
@@ -33,3 +40,4 @@ class App extends Component {
     )}
   }
 export default App;
+
