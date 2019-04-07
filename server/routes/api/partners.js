@@ -28,15 +28,17 @@ router.post('/', async (req,res) => {
 
 //GET ALL PARTNERS
 router.get('/', async (req,res) => {
-    const partners = await Partner.find()
+    const partners = await Partner.find().populate('partners').populate('jobs')
     res.json({data: partners})
 })
 
 //GET SINGLE PARTNER
 router.get("/:_id", (req, res) => {
+ 
+
 
     const id = req.params._id;
-    Partner.findById(id)
+     Partner.findById(id).populate('partners').populate('jobs')
       .exec()
       .then(doc => {
         if (doc) {
@@ -51,6 +53,7 @@ router.get("/:_id", (req, res) => {
         console.log(err);
         res.status(500).json({ error: err });
       });
+      
   });
 
 //UPDATE A PARTNER

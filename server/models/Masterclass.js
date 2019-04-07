@@ -70,7 +70,7 @@ const MasterclassSchema = new Schema({
 
     applicants:{
 
-        type: [{type:Schema.Types.ObjectId, ref: 'Member'}]
+        type: [{type:Schema.Types.ObjectId, ref: 'members'}]
 
     }
 

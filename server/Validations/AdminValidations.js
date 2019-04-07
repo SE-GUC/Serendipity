@@ -16,7 +16,7 @@ module.exports = {
         const updateSchema = {
             full_name: Joi.string(),
             username: Joi.string() ,
-            password: Joi.string().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
+            password: Joi.string().min(8),
             email: Joi.string().email()
             
         }
