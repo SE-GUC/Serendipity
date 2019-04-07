@@ -13,8 +13,17 @@ a{
   color: #333;
   text-decoration: none;
 }
+.container{
+  padding: 0 1rem;
+}
 
-
+.btn{
+  display:inline-block;
+  background: #555;
+  color: #fff;
+  padding:7px 20px;
+  cursor:pointer;
+}
 /* .App {
   text-align: center;
 }
