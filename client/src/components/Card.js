@@ -27,7 +27,9 @@ const styles = {
 class SimpleCard extends React.Component {
     state = {
         title: '',
-        response: '',
+        response: 'loading ...',
+        applicants: undefined,
+        store: '',
     };
 
     componentDidMount() {
@@ -44,7 +46,26 @@ class SimpleCard extends React.Component {
                     (ans.description ? "(Description : " + ans.description + ") " : "") +
                     (ans.location ? "(Location : " + ans.location + ") " : "")
 
-                this.setState({ title: ans.title, response: course })
+                axios.get(`http://localhost:5000/api/courses/${this.props.cid}/applicants`)
+                    .then(res => {
+                        const app = res.data.data;
+                        var mems =
+                            <div>
+                                {app.map(member => (
+                                    <div>
+                                    <text>{"Name: " + member.name +
+                                        "   email: " + member.email +
+                                        "   location: " + member.location +
+                                        "   attended events: " + member.attendedEvents +
+                                        "   previousJobs: " + member.previousJobs +
+                                        "   interests: " + member.interests + "  id: "+member._id}
+                                    </text>
+                                    <br></br>
+                                    </div>
+                                ))}
+                            </div>
+                        this.setState({ title: ans.title, response: course, store: mems })
+                    })
             })
     }
 
@@ -54,12 +75,21 @@ class SimpleCard extends React.Component {
                 <CardContent>
                     <Typography variant="h5" component="h2">{this.state.title}</Typography>
                     <p>{this.state.response}</p>
+                    <br />
+                    {this.state.applicants}
                 </CardContent>
                 <CardActions>
-                    <Button size="small">view applicants</Button> 
+                    <Button size="small" onClick={() => this.handleClick()}>view applicants</Button>
                 </CardActions>
             </Card>
         );
+    }
+
+    handleClick() {
+        if (!this.state.applicants)
+            this.setState({ applicants: this.state.store })
+        else
+            this.setState({ applicants: undefined })
     }
 }
 
