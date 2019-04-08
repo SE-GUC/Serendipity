@@ -3,8 +3,8 @@ const uuid = require('uuid');//not needed
 const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
+const cors = require('cors')
 
-const cors=require('cors')
 
 
 
@@ -23,12 +23,7 @@ const app = express()
 
 
 
-// replace the uri string with your connection string.
-// const DB_User = process.env.DB_USER;
-// const DB_Pass = process.env.DB_PASS;
-// const uri = `mongodb+srv://${DB_User}:${DB_Pass}@cluster0-bufsj.mongodb.net/test?retryWrites=true`;
 
-// const db = "mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true";
 const db = require('./config/keys').mongoURI
 // console.log(db);
 mongoose
@@ -49,31 +44,18 @@ app.use(cors())
 
 
 
-
-
-
-
-
 app.get('/', (req, res) => {
 
   res.send(`<h1>Welcome to LirtenHub</h1>
-
   <a href="/api/courses">Courses</a>
-
   <a href="/api/workshops">Workshops</a>
-
   <a href="/api/members">members</a>
   <a href="/api/admins">admins</a>
   <a href="/api/masterclasses">masterclasses</a>
-
   <a href="/api/partners">Partners</a>
-
   <a href="/api/educationalOrganizations">Educational Organizations</a>
-
   <a href="/api/jobs">Job</a>
-
   <a href="/api/assessments">Assessments</a>
-
   `);
 
 });
@@ -111,15 +93,15 @@ app.use((req, res) => {
 });
 
 
-
-
-
-
-
 const port = process.env.PORT || 5000
 
 
+
+
+
+
+
+
+
 app.listen(port, () => console.log(`Server on ${port}`))
-
-
 

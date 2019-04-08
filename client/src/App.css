@@ -1,8 +1,7 @@
-
-/* *{
+*{
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding:0;
 }
 
 body{
@@ -13,12 +12,22 @@ body{
 a{
   color: #333;
   text-decoration: none;
-} */
-
-h2{
-  background-color:aqua,
+}
+.container{
+  padding: 0 1rem;
 }
 
+.btn{
+  display:inline-block;
+  background: #555;
+  color: #fff;
+  padding:7px 20px;
+  cursor:pointer;
+}
+
+
+/* position: absolute; */
+/* .App {
 .App {
   text-align: center;
 }
@@ -51,4 +60,21 @@ h2{
   to {
     transform: rotate(360deg);
   }
+}
+
+/* this what keeps the damn footer down */
+/* footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: honeydew;
+ } */
+ footer {
+  display: flex;
+  background-color: #222;
+  padding: 10px;
+  color: red;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

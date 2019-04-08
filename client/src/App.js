@@ -1,30 +1,42 @@
-
-////////////////////////////////////////////////////////////////
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-//import Workshops from './component/Workshops'
+import Jobapp from '../src/components/Jobapp';
 import './App.css';
-//import Axios from 'axios';
 import WorkshopApp from '../src/WorkshopApp';
-import EduOrgs from './components/EduOrgs';
-import './App.css';
-import axios from 'axios';
 import EduOrgApp from './EduOrgApp';
+import MemberApp from './MemberApp';
+import EduOrgs from './components/EduOrgs';
 import EduOrg from './EduOrg';
+import PartnerProfile from '../src/components/PartnerProfile';
 import {BrowserRouter as Router,Route} from 'react-router-dom';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import AdminApp from './components/AdminApp';
+import Footer from './components/layout/Footer';
+import axios from 'axios';
+import CourseApp from './components/Form';
 
 class App extends Component {
-
+  state={
+    jobapp:[],
+    admin:[]
+      }
   render(){
     return(
       <Router>
 
-      <div className = 'App'>
-      {/* <EduOrgApp/> */}
+      <div id="page-container" className = 'App'>
+      <Header/> 
+            
       <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations */}
       <Route exact path = "/masterclass" component = {EduOrg}/>{/*MaterClasses */}
       <Route exact path = "/workshop" component = {WorkshopApp}/> {/*workshop */}
-      
+      <Route exact path = "/member" component = {MemberApp}/> 
+      <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
+      <Route exact path = "/job" component = {Jobapp}/> 
+      <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
+      <Route exact path ="/course"component = {CourseApp}/> 
+      <Route exact path = "/about" component = {About}/> 
+      <Footer/>
       </div>
 
       </Router>
@@ -32,3 +44,4 @@ class App extends Component {
     )}
   }
 export default App;
+

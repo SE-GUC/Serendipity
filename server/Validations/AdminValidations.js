@@ -12,6 +12,7 @@ module.exports = {
         return Joi.validate(request, createSchema)
     },
 
+    
     updateValidation: request => {
         const updateSchema = {
             full_name: Joi.string(),

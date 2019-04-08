@@ -8,11 +8,10 @@ const PartnerSchema = new Schema({
     name: {type: String,required: true},
     password: {type: String,required: true},
     description: {type: String},
-    partners: [{type: Schema.Types.ObjectId, ref: 'Partner'}],
+    partners: [{type: Schema.Types.ObjectId, ref: 'partners'}],
     boardOfMembers: {type: [String] },
     fieldOfWork: {type: String }, 
-    vacancies: [{type: Schema.Types.ObjectId, ref: 'Job'}],
+    vacancies: [{type: Schema.Types.ObjectId, ref: 'jobs'}],
     pastProjects: {type: [String]}
 })
 module.exports = Partner = mongoose.model('partners', PartnerSchema)
-

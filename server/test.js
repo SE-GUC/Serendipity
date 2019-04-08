@@ -1,10 +1,451 @@
-const funcs = require("./fn");
+<<<<<<< HEAD:server/test.js
+const funcs = require('./fn');
+const Course = require("./models/Course");
+const Workshop = require("./models/Workshop");
+const mongoose = require("mongoose");
+const Assessment = require('./models/Assessment');
+const Masterclass = require("./models/Masterclass");
+jest.setTimeout(10000000)
+//works
+test("testing that get all works for assessments", async () => {
+  expect.assertions(6);
+  const response1 = await funcs.getAssessments();
+  const data = { memberName: "Reem",
+  expertName: "Aysha",
+  educationalOrg:"GUC",
+  phoneNumber: "1234567",
+  daysAvailable: "sunday, monday, tuesday"}
+  console.log("in 1st a")
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response1.data.data.length + 1;
+  expect(response.data.data.length).toBe(l);
+  expect(response.data.data[l - 1].memberName).toEqual("Reem");
+  expect(response.data.data[l - 1].expertName).toEqual("Aysha");
+  expect(response.data.data[l - 1].educationalOrg).toEqual("GUC");
+  expect(response.data.data[l - 1].phoneNumber).toEqual("1234567");
+  expect(response.data.data[l - 1].daysAvailable).toEqual("sunday, monday, tuesday");
+  console.log("in 1st a done")
+});
+//works
+test("testing that get works for assessments", async () => {
+  expect.assertions(5);
+  console.log("in 2 a")
+  const data = {memberName: "Reem",
+  expertName: "Aysha",
+  educationalOrg:"GUC",
+  phoneNumber: "1234567",
+  daysAvailable: "sunday, monday, tuesday"}
+
+  await funcs.createAssessment(data)
+  console.log("after 2 a create")
+  const response = await funcs.getAssessments();
+  console.log(response.data.data)
+  const l = response.data.data.length;
+  const id =response.data.data[l - 1]._id;
+  console.log(id);
+  const response1 = await funcs.getAssessment(id);
+  expect(response1.data.memberName).toEqual("Reem");
+  expect(response1.data.expertName).toEqual("Aysha");
+  expect(response1.data.educationalOrg).toEqual("GUC");
+  expect(response1.data.phoneNumber).toEqual("1234567");
+  expect(response1.data.daysAvailable).toEqual("sunday, monday, tuesday");
+  console.log("in 2 a s")
+});
+//works
+test("testing that create works for assessments", async () => {
+  expect.assertions(5);
+  const l = (await funcs.getAssessments()).data.data.length;
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  expect(response.data.data[l].memberName).toEqual("Reem Ali");
+  expect(response.data.data[l].expertName).toEqual("Aysha El-Safty");
+  expect(response.data.data[l].educationalOrg).toEqual("GUC-");
+  expect(response.data.data[l].phoneNumber).toEqual("12345679");
+  expect(response.data.data[l].daysAvailable).toEqual("sunday, monday, tuesdayyyy");
+});
+//pending
+test("testing that update works for assessments", async () => {
+  expect.assertions(2);
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  const data2 = {memberName: "Reem",
+  expertName: "Slim"}
+  await funcs.updateAssessment(response.data.data[l - 1]._id, data2);
+  const response2 = await funcs.getAssessments();
+  const l2 = response2.data.data.length;
+  expect(response2.data.data[l2 - 1].memberName).toEqual("Reem");
+  expect(response2.data.data[l2 - 1].expertName).toEqual("Slim");
+});
+
+test("testing that delete works for assessments", async () => {
+  expect.assertions(1);
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  await funcs.deleteAssessment(response.data.data[l - 1]._id);
+  const response2 = await funcs.getAssessments();
+  expect(response2.data.data[l - 1]).toEqual(undefined);
+});
+
+
+test("testing that update doesnt work with wrong data for assessments", async () => {
+  expect.assertions(4);
+  const data={memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+  await funcs.createAssessment(data);
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  await funcs.updateAssessment(response.data.data[l - 1]._id, {
+    memberName: "Reem",
+    educationalOrg: "GUC"
+  });
+  const response2 = await funcs.getAssessments();
+  expect(response2.data.data[l - 1].memberName).toEqual("Reem");
+  expect(response2.data.data[l - 1].expertName).toEqual("Aysha El-Safty");
+  expect(response2.data.data[l - 1].educationalOrg).toEqual("GUC");
+  expect(response2.data.data[l - 1].phoneNumber).toEqual("12345679");
+
+
+  console.log("finished testing assessments");
+});
+
+////////////////////////////////////////////////////////////////////////////
+// ///Tests for Assesments////
+// // test("Read that an assessment exists",async()=>{
+// //     expect.assertions(1)
+// //     return expect(typeof(funcs.readMaster)).toBe('function')
+// // })
+// //pending
+//  test("Read by id that an assessment exists",async()=>{
+//     data={
+//         memberName: "Reem",
+//         expertName: "Aysha",
+//         educationalOrg:"GUC",
+//         phoneNumber: "1234567",
+//         daysAvailable: "sunday, monday, tuesday"
+//         }
+//         console.log("here assesm")
+//     const create=await funcs.createAssessment(data)
+//     const assessment= create.data.data
+//     console.log(assessment)
+//     const id=assessment["_id"]
+//     console.log(id)
+//     const read=await funcs.readAssessment(id)
+//     console.log(read.data)
+//     const readAssessment=read.data
+//     console.log(readAssessment)
+//     expect.assertions(1)
+//     return expect(readAssessment).toEqual(assessment)
+// })
+
+// // test("Delete an existing assessment",async()=>{
+// //     expect.assertions(1)
+// //     return expect(typeof(funcs.deleteAssessment)).toBe('function')
+// // })
+
+// test("Delete an existing assessment by id",async()=>{
+//     data={
+//         memberName: "Reem",
+//         expertName: "Aysha",
+//         educationalOrg:"GUC",
+//         phoneNumber: "1234567",
+//         daysAvailable: "sunday, monday, tuesday"
+//         }
+//     const create=await funcs.createAssessment(data)
+//     const assessment= create.data.data
+//     console.log(assessment)
+//     const id=assessment["_id"]
+//     console.log(id)
+//     const read=await funcs.deleteAssessment(id)
+//     console.log(read.data)
+//     const readAssessment=read.data
+//     console.log(readAssessment)  
+//     expect.assertions(1)
+//     return expect(readAssessment).toEqual(assessment)
+// })
+
+
+
+// test('testing that get all works', async () => {
+//     expect.assertions(7)
+//     const response1 =  await funcs.getAssessments()
+//     await funcs.createAssess(
+//         {
+//           memberName: "Reem",
+//           expertName: "Aysha",
+//           educationalOrg:"GUC",
+//           phoneNumber: "1234567",
+//           daysAvailable: "sunday, monday, tuesday"
+          
+
+//         })  
+ 
+//     const response =  await funcs.getAssessments()
+//   const l = response1.data.data.length+1 
+//     expect(response.data.data.length).toBe(l)
+//     expect(response.data.data[l-1].memberName).toEqual('Reem')
+//     expect(response.data.data[l-1].expertName).toEqual('Aysha')
+//     expect(response.data.data[l-1].educationalOrg).toEqual('GUC')
+//     expect(response.data.data[l-1].phoneNumber).toEqual("1234567")
+//     expect(response.data.data[l-1].daysAvailable).toEqual('sunday, monday, tuesday')
+//     expect(response.data.data[l-1].location).toEqual('GUC')
+//     });
+
+// test("Create an Assessment exists",async()=>{
+//     expect.assertions(1)
+//     return expect(typeof(funcs.createAssessment)).toBe('function')
+// })
+
+//  test("Create an Assessment",async()=>{
+//     data={
+//       memberName: "Ali",
+//       expertName: "Slim",
+//       educationalOrg:"GUC",
+//       phoneNumber: "123456",
+//       daysAvailable: "sunday, thursday"
+//         }
+//     const createdAssessment=await funcs.createAssessment(data)
+//     const assessment= createdAssessment.data.data
+//     const id=assessment["_id"]
+//     return expect(assessment).toMatchObject(data)
+// })
+
+// test('Testing that create works for Assessment', async () => {
+//     expect.assertions(6)
+//     const l = (await funcs.getAssessments()).data.data.length
+//     await funcs.createAssess({
+//       memberName: "Ahmad",
+//       expertName: "Mervat",
+//       educationalOrg:"GUC",
+//       phoneNumber: "123456",
+//       daysAvailable: "saturday"
+//         })  
+//     const response =  await funcs.getAssessments()
+
+//     expect(response.data.data[l].memberName).toEqual('Ahmad')
+//     expect(response.data.data[l].expertName).toEqual('Mervat')
+//     expect(response.data.data[l].educationalOrg).toEqual('GUC')
+//     expect(response.data.data[l].phoneNumber).toEqual("123456")
+//     expect(response.data.data[l].daysAvailable).toEqual('saturday')
+//     expect(response.data.data[l].location).toEqual('GUC')
+//     })
+
+//     test('Testing that an update works for Assessment', async ()=>{
+//         expect.assertions(6)
+//         await funcs.createAssess({
+//           memberName: "Ahmad",
+//           expertName: "Mervat",
+//           educationalOrg:"GUC",
+//           phoneNumber: "223456",
+//           daysAvailable: "saturday, sunday, monday"
+//            })  
+//         const response =  await funcs.getAssessments()
+//         const l = response.data.data.length
+//         await funcs.updateAssess(response.data.data[l-1]._id,{
+//           memberName: "Ahmad Ali",
+//           expertName: "Mervat Abo-ElKheer",
+//           educationalOrg:"GUCB",
+//           phoneNumber: "2223456",
+//           daysAvailable: "saturday, thursday, friday"
+//            })
+//         const response2 =  await funcs.getAssessments()
+//         const l2 =  response2.data.data.length
+//         expect(response2.data.data[l2-1].memberName).toEqual('Ahmad Ali')
+//         expect(response2.data.data[l2-1].expertName).toEqual('Mervat Abo-ElKheer')
+//         expect(response2.data.data[l2-1].educationalOrg).toEqual('GUCB')
+//         expect(response2.data.data[l2-1].phoneNumber).toEqual("2223456")
+//         expect(response2.data.data[l2-1].daysAvailable).toEqual('saturday, thursday, friday')
+//       })
+// /////////////////////////////////////////
+//       test('Testing that update does not work with wrong data for Assessment', async ()=>{
+//         expect.assertions(6)
+
+//         await funcs.createAssess({
+//           memberName: "Ahmad",
+//           expertName: "Mervat",
+//           educationalOrg:"GUC",
+//           phoneNumber: "123456",
+//           daysAvailable: "saturday, sunday, monday"
+//            })  
+//         const response =  await funcs.getAssessments()
+//         const l = response.data.data.length
+//         await funcs.updateAssess(response.data.data[l-1]._id,{
+//            memberName: 'Ahmad ten',
+//            expertName: 'Slim',
+//            phoneNumber: "1245" 
+//            })
+//         const response2 =  await funcs.getAssessments()
+//         expect(response2.data.data[l-1].memberName).toEqual('Ahmad')    
+//         expect(response2.data.data[l-1].expertName).toEqual('Aysha')
+//         expect(response2.data.data[l-1].educationalOrg).toEqual('GUC')
+//         expect(response2.data.data[l-1].phoneNumber).toEqual("12452")
+//         expect(response2.data.data[l-1].daysAvailable).toEqual('saturday, sunday, monday')
+//       })
+
+
+//       test('Testing that delete works for assessments', async ()=>{
+//         expect.assertions(1)
+//         await funcs.createAssess({
+//           memberName: "Ali",
+//           expertName: "Slim",
+//           educationalOrg:"GUC",
+//           phoneNumber: "123456",
+//           daysAvailable: "sunday, thursday"
+//            }) 
+
+//         const response =  await funcs.getAssessments()
+//         const l = response.data.data.length
+//         await funcs.deleteAssess(response.data.data[l-1]._id)
+//         const response2 =  await funcs.getAssessments()
+//         expect(response2.data.data[l-1]).toEqual(undefined)
+//       })
+
+//        test('Testing that get works for assessments', async () => {
+//         expect.assertions(6)
+//        await funcs.createAssess( {
+//           memberName: "Ali",
+//           expertName: "Slim",
+//           educationalOrg:"GUC",
+//           phoneNumber: "123456",
+//           daysAvailable: "sunday, thursday"
+
+//         })  
+//        const response =  await funcs.getAssessments()
+//        const l = response.data.data.length
+//         const response1 =  await funcs.getAssessments(response.data.data[l-1]._id)
+//         expect(response1.data.data.memberName).toEqual('Ali')
+//         expect(response1.data.data.expertName).toEqual('Slim')
+//         expect(response1.data.data.phoneNumber).toEqual("123456")
+//         expect(response1.data.data.daysAvailable).toEqual("sunday, thursday")
+//         expect(response1.data.data.educationalOrg).toEqual('GUC')
+//        });
+
+ 
+
+
+=======
+
+const funcs = require('./fn');
+const Member = require('./models/Member')
+
 const Course = require("./models/Course");
 const Workshop = require("./models/Workshop");
 const mongoose = require("mongoose");
 jest.setTimeout(10000000);
+//jest.setTimeout(1000000);
 
-///////Updated Courses/////////10 Tests
+beforeAll(async () => {
+    const name = funcs.makeid(5) ;
+    await new Member({
+      _id: mongoose.Types.ObjectId(),
+      skills: [
+        "presentations"
+    ],
+    userName: name,
+    password: name+"!@123",
+    availableDailyHours: 8,
+    name: name,
+    email: name+"@gmail.com",
+    birthDate: "2030-02-10T00:00:00.000Z",
+    location: "Cairo"
+    }).save();
+    return "one added"
+});
+
+
+//test getMemberbyID passes
+test(`Get username of a given ID`, async () => {
+    expect.assertions(1);  //this depends on how many expect I am using
+    const member = await Member.findOne({})
+    const username = member.userName
+    const response =  await funcs.getMemberByID(member._id);
+    //console.log(response)
+    expect(response.data.data.userName).toEqual(username)
+});
+
+
+// create a new member passes
+test('create a new member' , async() => {
+    const newmembername = funcs.makeid(5) ;
+     expect.assertions(3);
+     const req ={
+         "skills": ["finance"],
+        "userName": newmembername,
+         "availableDailyHours": 8,
+         "name": newmembername,
+         password : newmembername+"@!1235",
+         "location": "Nasr city",
+         "email": newmembername+"@gmaail.com",
+         "birthDate": "1990-08-10T22:00:00.000Z"
+}
+    const members = await Member.find();
+  const newmember =  await funcs.createMember(req)
+ // console.log(newmember)
+    const newmembers = await Member.find()
+    expect( newmembers.length - members.length).toEqual(1);
+    expect ( newmember.data.data.userName).toEqual(newmembername)
+    expect ( newmember.data.data.email).toEqual(newmembername+"@gmaail.com")
+   
+});
+
+
+
+// update a member
+test ('update member' , async() => {
+expect.assertions(1);
+const member = await Member.findOne({});
+const id = member._id
+//console.log(id)
+const updated = await funcs.updateMember(id, {'name' : 'updated name again'});
+//console.log(updated.data.name)
+const upd = await Member.findById(id)
+//console.log(upd.name)
+expect(upd.name).toEqual("updated name again")
+});
+
+
+ //delete 
+test ('delete a member', async ()=>{
+    try{
+expect.assertions(2);
+const member = Member.findOne({});
+const id = member.id ;
+const members = await Member.find();
+const deleted = await funcs.deleteMember(id)
+const newmembers = await Member.find();
+expect( members.length - newmembers.length).toEqual(1);
+expect( deleted.data.data.id).toBe(id)
+}
+catch(e){
+console.log(e)
+}
+});
+>>>>>>> 800a1d9ad523a66b78bae13e1de934b0b85e0ea6:server/test.js
+
+// ///////Updated Courses/////////10 Tests
 
 ////pending--edited y working
 test('Course:create course', async() =>{
@@ -28,11 +469,11 @@ test('Course:create course', async() =>{
   console.log("after creat course")
   //const aft = await Course.find(schema)
   const aft=await funcs.getCourse()
-  console.log(aft.data.data.length)
+  console.log(aft.data.data)
   expect(aft.data.data.length - bef.data.data.length).toBe(1);  
 })
 
-//Edited it now works!!
+// //Edited it now works!!
 test('Course:create course does not work with incorrect data', async() =>{
   expect.assertions(1);
   const schema = {
@@ -264,19 +705,19 @@ test('update a workshop full data',async() => {
       "description":  "quite popular",
       "location": "Cairo"
   }
-  console.log(schema)
+  //console.log(schema)
   const Workshops = await funcs.getWorkshop();
   const length=(Workshops.data.data.length)-1
-  console.log(length)
+  //console.log(length)
   const aWorkshop=Workshops.data.data[Math.floor(Math.random()*length)] //gets random data to update
   //const aWorkshop = Workshops.data.data[0]; //gets first one
   //console.log(aWorkshop)
   const id = aWorkshop._id;
   const response = await funcs.updateWorkshop(id,schema);
-  console.log("here after update")
-  console.log(response)
-  console.log(response.data)
-  console.log(response.data.data)
+  //console.log("here after update")
+  //console.log(response)
+  //console.log(response.data)
+  //console.log(response.data.data)
   //expect(response.applicants.length).toBe(0)
   expect(response.data.data.title).toEqual(schema.title)
   expect(response.data.data.duration).toEqual(schema.duration)
