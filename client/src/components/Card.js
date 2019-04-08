@@ -33,39 +33,36 @@ class SimpleCard extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/api/courses/` + this.props.cid)
+        const ans = this.props.course;
+        var course = '';
+
+        course +=
+            (ans.eduOrganisation ? "(Educational Organisation : " + ans.eduOrganisation + ") " : "") +
+            (ans.duration ? "(Duration : " + ans.duration + ") " : "") +
+            (ans.eduactor ? "(Educator :" + ans.eduactor + ") " : "") +
+            (ans.price ? "(Price : " + ans.price + ") " : "") +
+            (ans.description ? "(Description : " + ans.description + ") " : "") +
+            (ans.location ? "(Location : " + ans.location + ") " : "")
+
+        axios.get(`http://localhost:5000/api/courses/${this.props.cid}/applicants`)
             .then(res => {
-                const ans = res.data.data;
-                var course = '';
-
-                course +=
-                    (ans.eduOrganisation ? "(Educational Organisation : " + ans.eduOrganisation + ") " : "") +
-                    (ans.duration ? "(Duration : " + ans.duration + ") " : "") +
-                    (ans.eduactor ? "(Educator :" + ans.eduactor + ") " : "") +
-                    (ans.price ? "(Price : " + ans.price + ") " : "") +
-                    (ans.description ? "(Description : " + ans.description + ") " : "") +
-                    (ans.location ? "(Location : " + ans.location + ") " : "")
-
-                axios.get(`http://localhost:5000/api/courses/${this.props.cid}/applicants`)
-                    .then(res => {
-                        const app = res.data.data;
-                        var mems =
+                const app = res.data.data;
+                var mems =
+                    <div>
+                        {app.map(member => (
                             <div>
-                                {app.map(member => (
-                                    <div>
-                                    <text>{"Name: " + member.name +
-                                        "   email: " + member.email +
-                                        "   location: " + member.location +
-                                        "   attended events: " + member.attendedEvents +
-                                        "   previousJobs: " + member.previousJobs +
-                                        "   interests: " + member.interests + "  id: "+member._id}
-                                    </text>
-                                    <br></br>
-                                    </div>
-                                ))}
+                                <text>{"Name: " + member.name +
+                                    "   email: " + member.email +
+                                    "   location: " + member.location +
+                                    "   attended events: " + member.attendedEvents +
+                                    "   previousJobs: " + member.previousJobs +
+                                    "   interests: " + member.interests + "  id: " + member._id}
+                                </text>
+                                <br></br>
                             </div>
-                        this.setState({ title: ans.title, response: course, store: mems })
-                    })
+                        ))}
+                    </div>
+                this.setState({ title: ans.title, response: course, store: mems })
             })
     }
 

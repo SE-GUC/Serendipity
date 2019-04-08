@@ -16,7 +16,7 @@ class Form extends React.Component {
         var c = res.data.data;
         var ans = <div>
           {c.map(course => (
-            <Card cid={course._id} />
+            <Card cid={course._id} course = {course} />
           ))}
         </div>
         this.setState({ response: ans })
