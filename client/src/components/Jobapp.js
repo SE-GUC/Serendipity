@@ -134,7 +134,7 @@ alert('Job created successfully!! YaaaY')
         </label>
         <br />
         <br />
-        <label>
+        {/* <label>
         please select job state:
         <input
           name="state"
@@ -144,7 +144,7 @@ alert('Job created successfully!! YaaaY')
             />
         </label>
         <br />
-        <br />
+        <br /> */}
         
         {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
         <input 

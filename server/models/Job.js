@@ -43,7 +43,12 @@ const Jobschema = new Schema({
     applicants: {
         type: [{type:Schema.Types.ObjectId, ref:'Member'}]
         
+    },
+    taken:{
+       type: Schema.Types.ObjectId, ref:'Member'
     }
+
+
 })
 
 

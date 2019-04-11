@@ -15,9 +15,10 @@ module.exports = {
             dailyhours:Joi.number().required(),
 
             partner: Joi.string().min(4),
-
+            //taken:Joi.string().min(3),
             description: Joi.string().min(3).required(),
             applicants:Joi.array().items()
+            
       
         }
 
@@ -35,7 +36,8 @@ module.exports = {
       dailyhours:Joi.number(),
       partner: Joi.string().min(4),
       description: Joi.string().min(3),
-      applicants:Joi.array().items()
+      applicants:Joi.array().items(),
+      taken:Joi.string().min(3)
         }
 
         return Joi.validate(request, updateSchema)
