@@ -79,6 +79,26 @@ router.get('/:id', async (req,res) => {
     //res.json({data: workshop})
 })
 
+router.get('/:id/applicants', async (req, res) => {
+    try {
+        const id = req.params.id
+        const workshop = await Workshop.findById(id)
+        if (!workshop) return res.json({ error: 'workshop does not exist' })
+        const applicants = workshop.applicants;
+        var members = [];
+        for(let i = 0;i<applicants.length;++i){
+            const mem = await Member.findById(applicants[i])
+            members.push(mem)
+        }
+        res.json({ data: members })
+    }
+    catch (error) {
+        res.json({ err: "Could not find a workshop with this id" })
+    }
+
+
+})
+
 ///
 //
 
