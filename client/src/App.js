@@ -14,6 +14,8 @@ import AdminApp from './components/AdminApp';
 import Footer from './components/layout/Footer';
 import axios from 'axios';
 import CourseApp from './components/Form';
+import UpdForm from './components/UpdForm';
+import CreateForm from './components/CreateForm';
 
 class App extends Component {
   state={
@@ -27,7 +29,7 @@ class App extends Component {
       <div id="page-container" className = 'App'>
       <Header/> 
             
-      <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations */}
+      <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations*/}
       <Route exact path = "/masterclass" component = {EduOrg}/>{/*MaterClasses */}
       <Route exact path = "/workshop" component = {WorkshopApp}/> {/*workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
@@ -36,6 +38,8 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route path = "/updateCourse/:id" component = {UpdForm}/> 
+      <Route path = "/createCourse" component = {CreateForm}/> 
       <Footer/>
       </div>
 

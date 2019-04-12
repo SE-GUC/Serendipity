@@ -83,7 +83,7 @@ router.get('/:id/applicants', async (req, res) => {
 })
 
 router.put('/:id', async (req, res) => {
-    console.log('a')
+    console.log(req.body)
     const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
     else {

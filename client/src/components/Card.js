@@ -5,7 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios'
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const styles = {
     card: {
@@ -22,6 +23,13 @@ const styles = {
     pos: {
         marginBottom: 12,
     },
+    del: {
+        color: '#FF0000',
+    },
+    noApplicants: {
+        color: '#333',
+        fontSize: 13,
+    }
 };
 
 class SimpleCard extends React.Component {
@@ -30,8 +38,8 @@ class SimpleCard extends React.Component {
         response: 'loading ...',
         applicants: undefined,
         store: '',
+        deleting: '',
     };
-
     componentDidMount() {
         const ans = this.props.course;
         var course = '';
@@ -39,7 +47,7 @@ class SimpleCard extends React.Component {
         course +=
             (ans.eduOrganisation ? "(Educational Organisation : " + ans.eduOrganisation + ") " : "") +
             (ans.duration ? "(Duration : " + ans.duration + ") " : "") +
-            (ans.eduactor ? "(Educator :" + ans.eduactor + ") " : "") +
+            (ans.educator ? "(Educator :" + ans.educator + ") " : "") +
             (ans.price ? "(Price : " + ans.price + ") " : "") +
             (ans.description ? "(Description : " + ans.description + ") " : "") +
             (ans.location ? "(Location : " + ans.location + ") " : "")
@@ -51,7 +59,7 @@ class SimpleCard extends React.Component {
                     <div>
                         {app.map(member => (
                             <div>
-                                <text>{"Name: " + member.name +
+                                <text >{"Name: " + member.name +
                                     "   email: " + member.email +
                                     "   location: " + member.location +
                                     "   attended events: " + member.attendedEvents +
@@ -62,6 +70,8 @@ class SimpleCard extends React.Component {
                             </div>
                         ))}
                     </div>
+                if (app.length === 0)
+                    mems = <p style={styles.noApplicants}>No applicants</p>
                 this.setState({ title: ans.title, response: course, store: mems })
             })
     }
@@ -77,17 +87,27 @@ class SimpleCard extends React.Component {
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={() => this.handleClick()}>view applicants</Button>
+                    <Button size="small" onClick={() => this.handleDelete()}>delete course</Button>
+                    <Link to={`/updateCourse/${this.props.cid}`}>Update</Link>
+                    {this.state.deleting}
                 </CardActions>
             </Card>
         );
     }
-
     handleClick() {
         if (!this.state.applicants)
             this.setState({ applicants: this.state.store })
         else
             this.setState({ applicants: undefined })
     }
+    handleDelete() {
+        console.log('init')
+        this.setState({ deleting: <div><br /><p style={styles.del}>deleting ...</p></div> })
+        axios.delete(`http://localhost:5000/api/courses/${this.props.cid}`)
+            .then((res) => { window.location.reload(); console.log('ay7aga') })
+
+    }
+    
 }
 
 
