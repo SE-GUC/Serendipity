@@ -4,7 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors')
-
+const passport = require('passport');//for login
 
 
 
@@ -40,8 +40,8 @@ mongoose
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
-
-
+app.use(passport.initialize()) //login
+require('./config/passport')(passport)//login
 
 
 app.get('/', (req, res) => {
@@ -60,6 +60,35 @@ app.get('/', (req, res) => {
 
 });
 
+///login trial
+// const bcrypt = require('bcryptjs');
+// const jwt = require('jsonwebtoken')
+// const tokenKey = require('../../config/keys').secretOrKey
+// router.post('/login', async (req, res) => {
+// 	try {
+// 		const { email, password } = req.body;
+//         const eduOrg = await EducationalOrganization.findOne({ email });
+//         const partner = await EducationalOrganization.findOne({ email });
+//         const eduOrg = await EducationalOrganization.findOne({ email });
+//     if (!eduOrg) return res.status(404).json({ email: 'Email does not exist' });
+    
+//         const match = bcrypt.compareSync(password, eduOrg.password);
+//         console.log(match)
+//         console.log(password)
+//         console.log(eduOrg.password)
+// 		if (match) {
+//             const payload = {
+//                 id: eduOrg.id,
+//                 name: eduOrg.name,
+//                 email: eduOrg.email
+//             }
+//             const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+//             return res.json({token: `Bearer ${token}`})
+//         }
+// 		else return res.status(400).send({ password: 'Wrong password' });
+// 	} catch (e) {}
+// });
+//////
 
 
 // Direct routes to appropriate files

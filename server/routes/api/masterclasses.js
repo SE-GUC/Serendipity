@@ -12,7 +12,7 @@ const Masterclass = require('../../models/Masterclass');
 const Course=require('../../models/Course');
 const Workshop=require('../../models/Workshop');
 const EducationalOrganization=require('../../models/EducationalOrganization')
-const validator = require('../../validations/masterClassValidations')
+const validator = require('../../Validations/masterClassValidations')
 
 
 

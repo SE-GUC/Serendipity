@@ -9,7 +9,8 @@ const mongoose = require('mongoose')
 
 
 const Assessment = require('../../models/Assessment')
-const validator = require('../../validations/AssessValidations')
+//const validator = require('../../Validations/AssessValidations')
+const validator = require('../../Validations/AssessValidations')
 
 router.get('/', async (req,res) => {
     const assessments = await Assessment.find()
