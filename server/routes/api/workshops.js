@@ -49,6 +49,10 @@ router.put('/:id', async (req, res) => {
     
     else{
         console.log("updating workshop..")
+        console.log(req.body)
+        console.log(req.params.id)
+
+        console.log("here")
     await Workshop.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/workshops/${req.params.id}`) })
