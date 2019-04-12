@@ -60,6 +60,7 @@ class AdminApp extends Component {
     
     return (
       <div >
+        <label> Admin register</label>
       <form onSubmit={this.onSubmit}>
       <label>
         Full Name:

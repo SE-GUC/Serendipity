@@ -1,4 +1,4 @@
-<<<<<<< HEAD:server/test.js
+
 const funcs = require('./fn');
 const Course = require("./models/Course");
 const Workshop = require("./models/Workshop");
@@ -346,7 +346,7 @@ test("testing that update doesnt work with wrong data for assessments", async ()
  
 
 
-=======
+
 
 const funcs = require('./fn');
 const Member = require('./models/Member')
@@ -443,7 +443,7 @@ catch(e){
 console.log(e)
 }
 });
->>>>>>> 800a1d9ad523a66b78bae13e1de934b0b85e0ea6:server/test.js
+
 
 // ///////Updated Courses/////////10 Tests
 
