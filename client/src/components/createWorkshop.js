@@ -18,14 +18,14 @@ class createWorkshop extends Component {
     }
     addworkshop = ( schema) => {
       axios.post(`http://localhost:5000/api/workshops/`, schema)
-          .then(this.setState({ seeUpd: <Link to={`/workshop`} style={styles.linking}> Workshop was created successfully!! See All workshops after your Course was added? </Link> }))
+          .then(this.setState({ seeUpd: <Link to={`/workshop`} style={styles.linking}> Workshop was created successfully!! See All workshops after your workshop was added? </Link> }))
           .catch(e => { alert(e); console.log(e) })
   }
      onSubmit=(e)=>{
       e.preventDefault();
       if(!this.state.title||!this.state.eduOrganisation||!this.state.educator||!this.state.price)
           alert('Information not sufficent!')
-     else
+     else{
       var schema = {};
       if (this.state.title) schema["title"] = this.state.title
       if (this.state.duration) schema["duration"] = this.state.duration
@@ -35,7 +35,8 @@ class createWorkshop extends Component {
       if (this.state.location) schema["location"] = this.state.location
       if (this.state.eduOrganisation) schema["eduOrganisation"] = this.state.eduOrganisation
       this.addworkshop(schema);
-      }
+     } 
+    }
     
    onChange=(e)=>this.setState({[e.target.name]:e.target.value});
   render() {
