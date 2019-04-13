@@ -1,31 +1,52 @@
-import { LOGIN, LOGOUT } from './actionTypes';
-import axios from 'axios';
+// authReducer.js
 
-import setAuthToken  from '../../helpers/setAuthToken'
+import { SET_CURRENT_USER } from '../actions/actionTypes';
+import isEmpty from '../../../../server/Validations/LoginValid/is-empty';
 
-export const login = () => dispatch => {
-	dispatch({
-		type: LOGIN,
-		payload: {
-			username: 'Ammar',
-			email: 'email',
-		},
-	});
-};
+const initialState = {
+    isAuthenticated: false,
+    user: {}
+}
 
-export const logout = () => dispatch => {
-	dispatch({ type: LOGOUT });
-};
+export default function(state = initialState, action ) {
+    switch(action.type) {
+        case SET_CURRENT_USER:
+            return {
+                ...state,
+                isAuthenticated: !isEmpty(action.payload),
+                user: action.payload
+            }
+        default: 
+            return state;
+    }
+}
 
+
+// import { LOGIN, LOGOUT } from './actionTypes';
+// import axios from 'axios';
+// import setAuthToken  from '../../helpers/setAuthToken'
+
+// export const logout = () => dispatch => {
+// 	dispatch({ type: LOGOUT });
+// };
 
 // export const login = (userData) => dispatch => {
-// 	axios.post('http://localhost:5000/api/users/login', userData)
+// 	dispatch({
+// 		type: LOGIN,
+// 		payload: {
+// 			email:userData.email,
+// 			password: userData.password,
+// 		},
+// 	})
+// 	axios.post('http://localhost:5000/api/login/', userData)
+	
 // 	.then( res => {
 // 		const { token } = res.data
 // 		localStorage.setItem('jwtToken', token)
 // 		setAuthToken(token)
-
+// 		alert('right data')
 // 	})
-// 	.catch(err => console.log('error'))
+// 	.catch(err => console.log('Invalid User'),alert('Invalid data'),console.log(userData))
+	
 		
 // 	};

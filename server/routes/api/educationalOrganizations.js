@@ -20,7 +20,7 @@ router.get('/:id', async (req,res) => {
     
     try {
         const id = req.params.id
-
+        
         const educationalOrganizations = await EducationalOrganization.findById(id).populate('masterClasses').populate('courses')
      //   const user = await book.reviews
 
@@ -94,30 +94,30 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 ///login trial
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
-const tokenKey = require('../../config/keys').secretOrKey
-router.post('/login', async (req, res) => {
-	try {
-		const { email, password } = req.body;
-        const eduOrg = await EducationalOrganization.findOne({ email });
-		if (!eduOrg) return res.status(404).json({ email: 'Email does not exist' });
-        const match = bcrypt.compareSync(password, eduOrg.password);
-        console.log(match)
-        console.log(password)
-        console.log(eduOrg.password)
-		if (match) {
-            const payload = {
-                id: eduOrg.id,
-                name: eduOrg.name,
-                email: eduOrg.email
-            }
-            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
-            return res.json({token: `Bearer ${token}`})
-        }
-		else return res.status(400).send({ password: 'Wrong password' });
-	} catch (e) {}
-});
+// const bcrypt = require('bcryptjs');
+// const jwt = require('jsonwebtoken')
+// const tokenKey = require('../../config/keys').secretOrKey
+// router.post('/login', async (req, res) => {
+// 	try {
+// 		const { email, password } = req.body;
+//         const eduOrg = await EducationalOrganization.findOne({ email });
+// 		if (!eduOrg) return res.status(404).json({ email: 'Email does not exist' });
+//         const match = bcrypt.compareSync(password, eduOrg.password);
+//         console.log(match)
+//         console.log(password)
+//         console.log(eduOrg.password)
+// 		if (match) {
+//             const payload = {
+//                 id: eduOrg.id,
+//                 name: eduOrg.name,
+//                 email: eduOrg.email
+//             }
+//             const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+//             return res.json({token: `Bearer ${token}`})
+//         }
+// 		else return res.status(400).send({ password: 'Wrong password' });
+// 	} catch (e) {}
+// });
 //////
 module.exports = router
 

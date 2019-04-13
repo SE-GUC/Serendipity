@@ -1,4 +1,5 @@
 import React from 'react'
+//import '../../App.css';
 
 export default function Footer() {
   return (
@@ -15,7 +16,12 @@ const footerStyle = {
     background: '#333',
     color: '#fff',
     textAlign: 'center',
-    padding: '10px'
+    padding: '10px',
+    position:'fixed', //janna
+    bottom:0,
+    left:0,
+    right:0,
+ 
   }
   
 

@@ -17,7 +17,7 @@ const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/admins')
 const assessments=require('./routes/api/assessments')
-
+const login =require('./routes/api/login') //yan
 
 const app = express()
 
@@ -60,37 +60,6 @@ app.get('/', (req, res) => {
 
 });
 
-///login trial
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken')
-// const tokenKey = require('../../config/keys').secretOrKey
-// router.post('/login', async (req, res) => {
-// 	try {
-// 		const { email, password } = req.body;
-//         const eduOrg = await EducationalOrganization.findOne({ email });
-//         const partner = await EducationalOrganization.findOne({ email });
-//         const eduOrg = await EducationalOrganization.findOne({ email });
-//     if (!eduOrg) return res.status(404).json({ email: 'Email does not exist' });
-    
-//         const match = bcrypt.compareSync(password, eduOrg.password);
-//         console.log(match)
-//         console.log(password)
-//         console.log(eduOrg.password)
-// 		if (match) {
-//             const payload = {
-//                 id: eduOrg.id,
-//                 name: eduOrg.name,
-//                 email: eduOrg.email
-//             }
-//             const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
-//             return res.json({token: `Bearer ${token}`})
-//         }
-// 		else return res.status(400).send({ password: 'Wrong password' });
-// 	} catch (e) {}
-// });
-//////
-
-
 // Direct routes to appropriate files
 
 app.use('/api/assessments', assessments)
@@ -111,6 +80,7 @@ app.use('/api/partners', partners)
 
 app.use('/api/jobs', jobs)
 
+app.use('/api/login',login)//yan
 
 
 // Handling 404
