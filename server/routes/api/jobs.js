@@ -142,7 +142,7 @@ router.post('/', async (req,res) => {
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
     const newJob = await Job.create(req.body)
-    newJob.state="pending"
+    //newJob.state="pending"
     res.json({msg:'Job was created successfully', data: newJob})
    }
    catch(error) {
@@ -174,7 +174,7 @@ router.put('/:jid/accept/:mid',async (req,res)=>{
    const memberid = req.params.mid
    const jobid = req.params.jid
    const member = await Member.findById(memberid)
-   const job = await Job.findByIdAndUpdate(jobid, { taken: memberid})
+   const job = await Job.findByIdAndUpdate(jobid, { taken: memberid,state:'assigned'})
    if(!member) return res.status(400).send({ error:'member does not exist' })
    if(!job) return res.status(400).send({ error:'job does not exist' })
  
