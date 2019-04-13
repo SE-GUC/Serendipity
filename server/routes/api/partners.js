@@ -28,7 +28,7 @@ router.post('/', async (req,res) => {
 
 //GET ALL PARTNERS
 router.get('/', async (req,res) => {
-    const partners = await Partner.find().populate('partners').populate('jobs')
+    const partners = await Partner.find().populate('jobs')
     res.json({data: partners})
 })
 
@@ -38,7 +38,7 @@ router.get("/:_id", (req, res) => {
 
 
     const id = req.params._id;
-     Partner.findById(id).populate('partners').populate('jobs')
+     Partner.findById(id).populate('jobs')
       .exec()
       .then(doc => {
         if (doc) {
@@ -82,5 +82,20 @@ router.delete('/:id', async (req,res) => {
     }  
  })
 
+//GET APPLICANTS FOR A POSTED JOB
+router.get('/:pid/applicants/:jid',async(req,res)=>{
+  const partnerId = req.params.pid;
+  const jobId = req.params.jid;
+  const job = await Job.findById(jobId);
+  if(!job) return res.status(400).send({ error:'Job does not exist' })
+  const string = JSON.stringify(job);
+  const objectValue = JSON.parse(string);
+  const applicants = objectValue['applicants'];
+  const partner1 = objectValue['partner'];
+   if (partner1!=partnerId)
+  return res.status(400).send({ error:'This job does not belong to that partner' })
+  
+  res.json({applicants})
+})
 
 module.exports = router;
