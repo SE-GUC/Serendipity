@@ -19,26 +19,29 @@ router.get('/', async (req,res) => {
 
 
 
-// router.get('/:id', async (req,res) => {
+router.get('/:id', async (req,res) => {
     
-//     try {
-//         const id = req.params.id
+    try {
+        const id = req.params.id
 
-//         const admin = await Admin.findById(id)
+        const admin = await Admin.findById(id)
        
 
-//         if(!admin) return res.status(404).send({error: 'Admin does not exist'})
+        if(!admin) return res.status(404).send({error: 'Admin does not exist'})
+        data = `Name: ${admin.full_name} Email: ${admin.email} Username: ${admin.username}`;
+      
+    
         
-//         res.json({data: admin})
-//        }
-//        catch(error) {
-//            // We will be handling the error later
-//            console.log(error)
-//        }  
+        res.json(data)
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
     
 
-//     res.json({data: admin})
-// })
+   // res.json({data: admin})
+})
 
 
 router.post('/', async (req,res) => {
@@ -93,7 +96,7 @@ router.post('/', async (req,res) => {
 
 
 
- router.get('/pendingjobs', async (req,res) => {
+ router.get('/p/pendingjobs', async (req,res) => {
    try{
     const jobs = await funcs.getJobs()
     
