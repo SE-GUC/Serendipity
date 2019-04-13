@@ -18,7 +18,7 @@ import PartnerApp from './components/PartnerApp';
 import Register from './components/pages/Register';
 import Partners from '../src/components/Partners'
 import PartnerDelete from '../src/components/PartnerDelete'
-import GetAllPartners from './components/GetAllPartners';
+import GetAllPartners from './components/getAllPartners';
 import PartnerUpdate from '../src/components/PartnerUpdate'
 
 
