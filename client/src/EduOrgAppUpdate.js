@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+
 
 
 class EduOrgAppUpdate extends Component {
@@ -11,6 +13,11 @@ class EduOrgAppUpdate extends Component {
       //backgroundColor : '#003366'
     }
   
+  }
+  getr = () =>{
+    return{
+      Color: '#ff0000'
+    }
   }
 
   btnStyle= () => {
@@ -46,35 +53,36 @@ class EduOrgAppUpdate extends Component {
       name: '',
       password: '',
       email: '',
-      masterClasses:'',
-      courses: '',
-      workshops: '',
-      trainers: '',
-      educators: '',
-      trainingPrograms: '',
-      description: '',
-      contract: '',
-      expirationDate: ''
+      // masterClasses:'',
+      // courses: '',
+      // workshops: '',
+      // trainers: '',
+      // educators: '',
+      // trainingPrograms: '',
+      // description: '',
+      // contract: '',
+      //expirationDate: ''
     }
-    updateEduOrg=(id,userName,name,password,email,masterClasses,courses,workshops,trainers,educators,trainingPrograms,description,contract,expirationDate)=>{
+    // masterClasses,courses,workshops,trainers,educators,trainingPrograms,description,contract,
+    updateEduOrg=(id,userName,name,password,email)=>{
       axios.put(`http://localhost:5000/api/educationalOrganizations/${id}`,{
 
         userName:userName,
         name:name,
         password:password,
-        email:email,
-        masterClasses:masterClasses,
-        courses:courses,
-        workshops:workshops,
-        trainers:trainers,
-        educators:educators,
-        trainingPrograms:trainingPrograms,
-        description:description,
-        contract:contract,
-        expirationDate:expirationDate
+        email:email
+        // masterClasses:masterClasses,
+        // courses:courses,
+        // workshops:workshops,
+        // trainers:trainers,
+        // educators:educators,
+        // trainingPrograms:trainingPrograms,
+        // description:description,
+        // contract:contract,
+        //expirationDate:expirationDate
       }
       ).then(res =>
-         this.setState({EduOrgAppCreate:[...this.state.EduOrgAppCreate,res.data]}))
+         this.setState({EduOrgAppUpdate:[...this.state.EduOrgAppUpdate,res.data]}))
       .catch(e=>"error")
 alert('Educatioinal Organization updated successfully!!')
 
@@ -83,13 +91,14 @@ alert('Educatioinal Organization updated successfully!!')
      } 
      onSubmit=(e)=>{
        e.preventDefault();
-       if((this.state.userName.length<3)||(this.state.password.length<8))
+       if((this.state.userName.length<3 && this.state.userName.length>0)||(this.state.password.length<8 && this.state.password.length>0))
        alert('validations not satisfied,try again!')
        else
-       this.updateEduOrg(this.state.userName,this.state.name,this.state.password,this.state.email,
-        this.state.masterClasses,this.state.courses,this.state.workshops,this.state.trainers,
-        this.state.educators,this.state.trainingPrograms,this.state.description,
-        this.state.contract,this.state.expirationDate);
+       this.updateEduOrg(this.state.id,this.state.userName,this.state.name,this.state.password,this.state.email);
+      //  this.state.expirationDate);
+        // this.state.masterClasses,this.state.courses,this.state.workshops,this.state.trainers,
+        // this.state.educators,this.state.trainingPrograms,this.state.description,
+        // this.state.contract,
    
       }
     
@@ -113,7 +122,7 @@ alert('Educatioinal Organization updated successfully!!')
         <br />
         <br />
       <h4 style = {this.getStyleEduOrg1()}>
-          User Name: 
+          User Name <h5 style = {this.getr()}>(*required)</h5> 
           <input
             name="userName"
             type="text"
@@ -125,7 +134,7 @@ alert('Educatioinal Organization updated successfully!!')
         <br />
         <br />
         <h4 style = {this.getStyleEduOrg1()}>
-          Name: {'       '}
+          Name <h5 style = {this.getr()}>(*required)</h5> 
           <input
             name="name"
             type="text"
@@ -136,7 +145,7 @@ alert('Educatioinal Organization updated successfully!!')
         <br />
         <br />
         <h4 style = {this.getStyleEduOrg1()}>
-          Password: 
+          Password <h5 style = {this.getr()}>(*required)</h5> 
           <input
             name="password"
             type="text"
@@ -147,7 +156,7 @@ alert('Educatioinal Organization updated successfully!!')
         <br />
         <br />
         <h4 style = {this.getStyleEduOrg1()}>
-          Email: 
+          Email <h5 style = {this.getr()}>(*required)</h5> 
           <input
             name="email"
             type="email"
@@ -157,7 +166,7 @@ alert('Educatioinal Organization updated successfully!!')
         </h4>
         <br />
         <br />
-        <h4 style = {this.getStyleEduOrg1()}>
+        {/* <h4 style = {this.getStyleEduOrg1()}>
           Master Classes: 
           <input
             name="masterClasses"
@@ -244,8 +253,8 @@ alert('Educatioinal Organization updated successfully!!')
             />
         </h4>  
         <br />
-        <br />
-        <h4 style = {this.getStyleEduOrg1()}>
+        <br /> */}
+        {/* <h4 style = {this.getStyleEduOrg1()}>
           Expiration Date:     
           <input
             name="expirationDate"
@@ -253,12 +262,13 @@ alert('Educatioinal Organization updated successfully!!')
             value={this.state.expirationDate}
            onChange={this.onChange} 
             />
-        </h4>   
+        </h4>    */}
         
-        <br />
-        <br />
+       
         
         {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
+
+
         <input 
           style = {this.btnStyle()}
           type="submit" 
@@ -266,6 +276,13 @@ alert('Educatioinal Organization updated successfully!!')
           //className="btn"
          // style={{flex: '1'}}
         />
+        <br></br>
+        <Link  to="/eduorg/update">Update masterClasses</Link>{'  | '}
+        
+        <Link  to="/eduorg/update">Update courses</Link>{' | '}
+        
+        <Link  to="/eduorg/update">Update workshops</Link>{' | '}
+        
          </form>
          </div>
     );
