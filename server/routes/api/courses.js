@@ -3,6 +3,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose')
 const router = express.Router()
 router.use(express.json())
+const funcs = require('../../fn');
  
  
  
@@ -39,6 +40,29 @@ router.get('/', async (req,res) => {
     const courses = await Course.find()
     res.json({data: courses})
 })
+// search for a course by name 
+router.get('/y/:title', async (req,res) => {
+    
+    try {
+        const title = req.params.title
+        const courses= await funcs.getCourse()
+        console.log(title+'hiii')
+         const coursey=[]
+         for(var i=0;i<courses.data.data.length;i++){
+            if (courses.data.data[i].title===title)
+            coursey.push(courses.data.data[i])
+            res.json({data: coursey})
+         }
+        
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+ 
+    res.json({data: coursey})
+ })
  
 router.get('/:id', async (req,res) => {
  

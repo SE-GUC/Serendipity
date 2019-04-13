@@ -7,6 +7,8 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../validations/jobValidations')
+const funcs = require('../../fn');
+
 
 ////////////////yara WORKS!!!
 //admin post job
@@ -29,8 +31,32 @@ router.get('/', async (req,res) => {
    const jobs = await Job.find()
    res.json({data: jobs})
 })
+
+// serach for a job by name 
+router.get('/y/:title', async (req,res) => {
+    
+   try {
+       const title = req.params.title
+       const jobs= await funcs.getJobs()
+       console.log(title+'hiii')
+        const joby=[]
+        for(var i=0;i<jobs.data.data.length;i++){
+           if (jobs.data.data[i].title===title)
+           joby.push(jobs.data.data[i])
+           res.json({data: joby})
+        }
+       
+      }
+      catch(error) {
+          // We will be handling the error later
+          console.log(error)
+      }  
+   
+
+   res.json({data: joby})
+})
   
-// Get a certain job
+// Get a certain job 
 router.get("/:id", (req, res) => {
 
    const id = req.params._id;

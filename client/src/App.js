@@ -14,9 +14,12 @@ import AdminApp from './components/AdminApp';
 import Footer from './components/layout/Footer';
 import axios from 'axios';
 import CourseApp from './components/Form';
+import MClasses from './MClasses';
+import JobsSearch from './JobsSearch';
 
 class App extends Component {
   state={
+    masterclass:[],
     jobapp:[],
     admin:[]
       }
@@ -28,7 +31,7 @@ class App extends Component {
       <Header/> 
             
       <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations */}
-      <Route exact path = "/masterclass" component = {EduOrg}/>{/*MaterClasses */}
+      <Route exact path = "/masterclass" component = {MClasses}/>{/*MaterClasses */}
       <Route exact path = "/workshop" component = {WorkshopApp}/> {/*workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
       <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
@@ -36,6 +39,7 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/searchJobs" component = {JobsSearch}/> 
       <Footer/>
       </div>
 
