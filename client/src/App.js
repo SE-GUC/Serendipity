@@ -13,6 +13,10 @@ import About from './components/pages/About';
 import AdminApp from './components/AdminApp';
 import axios from 'axios';
 import CourseApp from './components/Form';
+import EduOrgAppCreate from './EduOrgAppCreate';
+import EduOrgAppUpdate from './EduOrgAppUpdate';
+import EduOrgAppDelete from './EduOrgAppDelete';
+import EduOrgProfile from './components/EduOrgProfile';
 
 class App extends Component {
   state={
@@ -35,6 +39,11 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/eduorg/create" component = {EduOrgAppCreate}/>
+      <Route exact path = "/eduorg/update" component = {EduOrgAppUpdate}/> 
+      <Route exact path = "/eduorg/delete" component = {EduOrgAppDelete}/> 
+      <Route exact path = "/eduorg/myaccount" component = {EduOrgProfile}/> 
+
       
       </div>
 
