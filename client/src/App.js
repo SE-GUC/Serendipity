@@ -16,6 +16,8 @@ import axios from 'axios';
 import CourseApp from './components/Form';
 import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
+import createWorkshop from './components/createWorkshop';
+import updateWorkshop from './components/updateWorkshop';
 
 class App extends Component {
   state={
@@ -24,6 +26,9 @@ class App extends Component {
       }
   render(){
     return(
+     
+
+
       <Router>
 
       <div id="page-container" className = 'App'>
@@ -32,6 +37,8 @@ class App extends Component {
       <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations*/}
       <Route exact path = "/masterclass" component = {EduOrg}/>{/*MaterClasses */}
       <Route exact path = "/workshop" component = {WorkshopApp}/> {/*workshop */}
+      <Route exact path = "/workshop/createworkshop" component = {createWorkshop}/> {/*create workshop */}
+      <Route exact path = "/workshop/updateworkshop/:id" component = {updateWorkshop}/> {/*create workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
       <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
       <Route exact path = "/job" component = {Jobapp}/> 

@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
-const validator = require('../../validations/jobValidations')
+const validator = require('../../Validations/jobValidations')
 
 ////////////////yara WORKS!!!
 //admin post job

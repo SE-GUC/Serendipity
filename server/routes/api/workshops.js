@@ -5,7 +5,7 @@ const router = express.Router()
 router.use(express.json())
 const objectId = require('mongoose').objectid
 
-const validator = require('../../validations/WorkshopValidations')
+const validator = require('../../Validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
 
@@ -49,6 +49,10 @@ router.put('/:id', async (req, res) => {
     
     else{
         console.log("updating workshop..")
+        console.log(req.body)
+        console.log(req.params.id)
+
+        console.log("here")
     await Workshop.findByIdAndUpdate(req.params.id, req.body)
     .exec()
     .then(r => {return res.redirect(303, `/api/workshops/${req.params.id}`) })
