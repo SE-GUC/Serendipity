@@ -65,7 +65,8 @@ class App extends Component {
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
-      <Route exact path = "/partner/profile" component = {PartnerProfile}/> PartnerProfile
+      <Route exact path = "/partner/profile" component = {PartnerProfile}/> 
+      {/* PartnerProfile */}
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
   {/* should be hidden to normal Viewers*/ }
       
