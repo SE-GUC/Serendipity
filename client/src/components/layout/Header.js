@@ -10,7 +10,8 @@ function Header() {
     <Link style={LinkStyle} to="/eduorg">Educational Organization</Link>{' '}|{' '}<Link style={LinkStyle} to="/masterclass">MasterClasses</Link>|{' '}
     <Link style={LinkStyle} to="/workshop">Workshops</Link>{' '}|{' '}<Link style={LinkStyle} to="/member">Members</Link>|{' '}
     <Link style={LinkStyle} to="/partner">Partners</Link>{' '}|{' '}<Link style={LinkStyle} to="/job">Jobs</Link>|{' '}
-    <Link style={LinkStyle} to="/course">Courses</Link>{' '}
+    <Link style={LinkStyle} to="/partner">Partners</Link>{' '}|{' '}<Link style={LinkStyle} to="/job">Jobs</Link>|{' '}
+    <Link style={LinkStyle} to="/assessment">Assessment</Link>{' '}
 </header>
   )
 }
