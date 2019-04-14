@@ -10,9 +10,9 @@ const EduOrgForm = (props) => {
     <br></br>
     <br></br>
     
-    <Link  to="/eduorg/delete">Delete my account</Link>{'       |      '}
+    {/* <Link  to="/eduorg/delete">Delete my account</Link>{'       |      '} */}
     
-    <Link  to="/eduorg/update">Update my account</Link>{' '}
+    {/* <Link  to="/eduorg/update">Update my account</Link>{' '} */}
    
 </form>
     );

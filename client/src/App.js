@@ -40,8 +40,8 @@ class App extends Component {
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
       <Route exact path = "/eduorg/create" component = {EduOrgAppCreate}/>
-      <Route exact path = "/eduorg/update" component = {EduOrgAppUpdate}/> 
-      <Route exact path = "/eduorg/delete" component = {EduOrgAppDelete}/> 
+      <Route exact path = "/eduorg/update/:id" component = {EduOrgAppUpdate}/> 
+      <Route exact path = "/eduorg/delete/:id" component = {EduOrgAppDelete}/> 
       <Route exact path = "/eduorg/myaccount" component = {EduOrgProfile}/> 
 
       

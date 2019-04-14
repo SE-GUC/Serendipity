@@ -6,6 +6,23 @@ import {Link} from 'react-router-dom';
 //import { Router, Route, Link } from 'react-router'
 
 class EduOrgProfile extends Component {
+  btnStyle= () => {
+    return{
+        background:'#333',
+        padding: '5px',
+        margin: '10px',
+        align: 'center',
+        float: 'center',
+        textAlign: 'center',
+        borderRadius: '10px',
+        color:'#fff',
+        width: '130px',
+        height: '50px'
+    
+  }
+
+
+}
   state = {
     id: null,
     userName: null,
@@ -21,7 +38,11 @@ class EduOrgProfile extends Component {
     contract: null,
     expirationDate: null
   }
-  
+  onDelete=() =>{
+    //<Link  to={`/eduorg/delete/${this.state.id}`}>Delete my account</Link>{'       |      '}
+    this.props.history.push(`/eduorg/delete/${this.state.id}`);
+
+  }
   getEduOrg = (e) => {
     e.preventDefault();
     const edu = e.target.elements.id.value;
@@ -80,7 +101,12 @@ class EduOrgProfile extends Component {
         { this.state.contract ? <p><h4>Contract:</h4> {this.state.contract}</p>:<p></p>}
         { this.state.expirationDate ? <p><h4>Expiration Date:</h4> {this.state.expirationDate}</p>:<p></p>}
         </center>
-        
+   
+        <button style ={this.btnStyle()}onClick={this.onDelete} > delete my account</button>
+        <br></br>
+        {/* <Link  to={`/eduorg/delete/${this.state.id}`}>Delete my account</Link>{'       |      '} */}
+        <Link  to= {`/eduorg/update/${this.state.id}`}>Update my account</Link>{' '}
+
 
        
       </div>
