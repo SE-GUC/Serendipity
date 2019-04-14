@@ -5,7 +5,7 @@ const router = express.Router()
 router.use(express.json())
 const objectId = require('mongoose').objectid
 
-const validator = require('../../validations/WorkshopValidations')
+const validator = require('../../Validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
 
