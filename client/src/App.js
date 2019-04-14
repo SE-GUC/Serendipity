@@ -81,17 +81,16 @@ class App extends Component {
       <Route exact path = "/job" component = {Jobmain}/> 
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
-      {/* <Route exact path = "/about" component = {About}/>  */}
-      {/* <Route exact path = "/login" component = {Login}/>  */}
-      <Route exact path = "/login" component = {Login2}/> 
+      <Route exact path = "/about" component = {About}/> 
+     
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
       <Route exact path = "/partner/profile" component = {PartnerProfile}/> {/*PartnerProfile */}
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
-      <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
+  {/* should be hidden to normal Viewers*/ }
       
-      <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/login" component = {Login2}/> 
       <Route exact path = "/eduorg/create" component = {EduOrgAppCreate}/>
       <Route exact path = "/eduorg/update/:id" component = {EduOrgAppUpdate}/> 
       <Route exact path = "/eduorg/delete/:id" component = {EduOrgAppDelete}/> 

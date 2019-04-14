@@ -7,6 +7,7 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
+
 const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job

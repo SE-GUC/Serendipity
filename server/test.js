@@ -1,3 +1,4 @@
+
 const funcs = require('./fn');
 //const Course = require("./models/Course");
 //const Workshop = require("./models/Workshop");
@@ -144,6 +145,7 @@ test("testing that update doesnt work with wrong data for assessments", async ()
 
 
 
+
 //jest.setTimeout(1000000);
 
 beforeAll(async () => {
@@ -232,6 +234,7 @@ catch(e){
 console.log(e)
 }
 });
+
 
 // ///////Updated Courses/////////10 Tests
 
