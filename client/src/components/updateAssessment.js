@@ -51,7 +51,20 @@ class updateAssessment extends Component {
       <div >
       <h1> Update a booked assessment.. </h1>
       <form onUpdate={this.onUpdate}>
-      <label>
+     <label>
+          ID:
+          <input
+            name="ID"
+            type="text"
+            value={this.state._id}
+            onChange={this.onChange} 
+            />
+        </label>
+        
+        <br />
+        <br /> 
+     
+     <label>
           MemberName:
           <input
             name="memberName"
