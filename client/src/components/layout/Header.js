@@ -16,9 +16,11 @@ function Header() {
   )
 }
 export default Header;
-
+//#194D33
+//#22555B
+//#193E43
 const headerStyle={
-    background:'#333',
+    background:'#193E43',
     color:'#fff',
     textAlign:'center',
     padding:'10px'

@@ -13,7 +13,7 @@ export default function Footer() {
   )
 }
 const footerStyle = {
-    background: '#333',
+    background: '#193E43',
     color: '#fff',
     textAlign: 'center',
     padding: '10px',
@@ -21,6 +21,7 @@ const footerStyle = {
     bottom:0,
     left:0,
     right:0,
+    flex: 3 //yara
  
   }
   

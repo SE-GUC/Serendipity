@@ -4,8 +4,9 @@ const Joi = require('joi')
 const uuid = require('uuid') 
 const mongoose = require('mongoose')
 const objectId = require('mongoose').objectid //needed to access by id
-
-
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
+const bcrypt = require('bcryptjs');
 const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../Validations/EduOrgValidations')
 

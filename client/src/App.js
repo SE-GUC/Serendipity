@@ -58,8 +58,8 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
-      <Route exact path = "/login" component = {Login}/> 
-      <Route exact path = "/loginp" component = {Login2}/> 
+      {/* <Route exact path = "/login" component = {Login}/>  */}
+      <Route exact path = "/login" component = {Login2}/> 
       <Footer/>
       </div>
 
