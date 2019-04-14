@@ -1,13 +1,22 @@
 const express = require('express');
+const axios = require('axios');
 //const Joi = require('joi');
 //const uuid = require('uuid');
 const router = express.Router();
 const mongoose = require('mongoose')
-
+const Job = require('../../models/Job')
+//const validator = require('../../validations/jobValidations')
 router.use(express.json())
 // We will be connecting using database 
 const Admin = require('../../models/Admin')
 const validator = require('../../Validations/AdminValidations')
+
+
+const funcs = require('../../fn');
+//import axios from 'axios';
+
+
+
 
 
 router.get('/', async (req,res) => {
@@ -26,8 +35,11 @@ router.get('/:id', async (req,res) => {
        
 
         if(!admin) return res.status(404).send({error: 'Admin does not exist'})
+        data = `Name: ${admin.full_name} Email: ${admin.email} Username: ${admin.username}`;
+      
+    
         
-        res.json({data: admin})
+        res.json(data)
        }
        catch(error) {
            // We will be handling the error later
@@ -35,7 +47,7 @@ router.get('/:id', async (req,res) => {
        }  
     
 
-    res.json({data: admin})
+   // res.json({data: admin})
 })
 
 
@@ -83,154 +95,48 @@ router.post('/', async (req,res) => {
         console.log(error)
     }  
  })
-//yara admin post a job 
+
+
+
+ // as an admin i can get all pending jobs
 
 
 
 
-
-// router.get('/', (req, res) => {
-//     let data = "";
-//     admins.forEach((value) => {
-//         const admin_id = value.id;
-//         const admin_name = value.username;
-//         data += `<a href="/api/admins/${admin_id}">${admin_name}</a><br>`;
-//     });
-//     res.send(data);
-//  });
- 
-//  router.get('/:id', (req, res) => {
-//     var data = "";
-//     admins.forEach((value) => {
-//         if(value.id === req.params.id) {
-//             data = `Id: ${value.id}<br>username: ${value.username}<br>email: ${value.email}<br>password: ${value.password}<br>fullname: ${value.full_name}`;
-//             return;
-//         }
-//     });
-//     res.send(data || 'No admin matches the requested id');
-//  });
- 
- 
- 
-//  // Get a certain job
-//  router.get('/:id', (req, res) => {
- 
-//     const adminId = req.params.id 
-//     const found = admins.some(admin => admin.id === adminId)
-//     if(found){
-//     res.json({
-//     admins:admins.filter(admin =>admin.id!==adminId)
-//  })
- 
-//     }
-//     else{
- 
-//        res.status(404).json({err: 'We can not find the admin you are looking for you are looking for sorry'});
-//     }
-//  });
- 
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////
-
-
-
-// list of admins
-// router.get('/', (req, res) => {
-//     res.send({data:admins})
-// })
-
-
-// //view profile of certain id
-// router.get('/:id', (req, res) => {
-//     const adminid = req.params.id
-//     const admin = admins.find(admin => admin.id === adminid)
-//     res.send(admin)
-// })
-
-
-// create a new admin
-// router.post('/',  (req, res) => {
+ router.get('/p/pendingjobs', async (req,res) => {
+   try{
+    const jobs = await funcs.getJobs()
+    
    
-//     const full_name  = req.body.full_name;
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const username = req.body.username;
-   
-//     const schema = {
-// 		full_name: Joi.string().required(),
-//         email: Joi.string().required(),
-//         password:Joi.string().min(6).required(),
-//         username:Joi.string().required()
-// 	}
-
-// 	const result = Joi.validate(req.body, schema);
-
-// 	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
+     
+         const jobspending =[]
+        
+         for(var i=0;i<jobs.data.data.length;i++){
+           
+             if(jobs.data.data[i].state==="pending")
+            jobspending.push(jobs.data.data[i])}
+            res.json({data: jobspending})
+           
+         }
+         catch(error) {
+      
+            console.log(error)
+        }  
+      
+    
+     
     
     
-//     const admin = new Admin(
-        
-//         full_name,
-//         username,
-//         email,
-//        password
-        
-//     )
-//     admins.push(admin)
-//    res.send(admins)
-// });
-
-
-// // update an admin profile with an id
-// router.put('/:id', (req, res) => {
-//     const full_name = req.body.full_name;
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const id = req.params.id;
-//     const username = req.body.username;
-
-//     const admin = admins.find(admin => admin.id === id)
-//    if(full_name){
-//     if (typeof full_name !== 'string') return res.status(400).send({ err: 'Invalid value for name' });
-//     admin.full_name = full_name;}
-//     if(email){
-//         if (typeof email !== 'string') return res.status(400).send({ err: 'Invalid value for email' });
-//     admin.email= email;}
-//     if(password){
-//         if (password.length<6 || typeof password !== 'string') return res.status(400).send({ err: 'password has to be string of min 6' });
- 
-//     admin.password = password;}
-
-//     if(username){
-//         if (typeof username !== 'string') return res.status(400).send({ err: 'Invalid value for username' });
-   
-//     admin.username = username;}
-
-   
   
     
-//     res.send(admins)
-// })
 
-// // delete an admin
+    //res.json({data: jobs})}
 
-// router.delete('/:id', (req, res) => {
-//     const adminid = req.params.id 
-//     const admin = admins.find(admin => admin.id === adminid)
-//     const index = admins.indexOf(admin)
-//     admins.splice(index,1)
-//     res.send(admins)
-// })
+   
+ })
+
+
+
+
 
 module.exports = router

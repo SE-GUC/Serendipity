@@ -78,3 +78,7 @@ type : [String]
 });
 
 module.exports = Member = mongoose.model('members', partnerSchema)
+
+
+// -Added viewing applicants to a course(front and back end)
+// -Added viewing applicants to a workshop(back end)

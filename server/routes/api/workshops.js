@@ -8,6 +8,7 @@ const objectId = require('mongoose').objectid
 const validator = require('../../Validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
+const funcs = require('../../fn');
 
 
 router.post('/', async (req, res) =>  {
@@ -59,6 +60,30 @@ router.put('/:id', async (req, res) => {
     .catch(err => {console.log(err); return res.status(400).send(`Sorry, couldn't update a workshop with that id !`) })
     }
 })
+// search for a course by name 
+router.get('/y/:title', async (req,res) => {
+    
+    try {
+        const title = req.params.title
+        const workshops= await funcs.getWorkshop()
+        console.log(title+'hiii')
+         const ws=[]
+         for(var i=0;i<workshops.data.data.length;i++){
+            if (workshops.data.data[i].title===title)
+            ws.push(workshops.data.data[i])
+            res.json({data: ws})
+         }
+        
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
+    
+ 
+    res.json({data: ws})
+ })
+
 
 //get by id
 router.get('/:id', async (req,res) => {

@@ -16,6 +16,7 @@ function Header() {
     <Link style={LinkStyle} to="/partner">Partners</Link>{' '}|{' '}
     <Link style={LinkStyle} to="/job">Jobs</Link>|{' '}
     <Link style={LinkStyle} to="/course">Courses</Link>{' '}
+   {/* <Link style={LinkStyle} to="/searchJobs">search jobs</Link>{' '} */}
 </header>
   )
 }

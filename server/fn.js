@@ -311,6 +311,38 @@ deleteWorkshop: async (id) => {
       .catch(e => "error");
   },
 
+  getAllWorkshops: async id=>{
+    //const id = req.params.id
+   // const e = axios.get('http://localhost:5000/api/educationalOrganizations/' + id)
+    // const e = await getEduOrgById(id)
+    const e = await axios.get("http://localhost:5000/api/educationalOrganizations/" + id);
+   //const res2 = await getWorkshop()
+   const res2 = await axios.get("http://localhost:5000/api/workshops/");
+    const l = res2.data.data.length
+    var a = []
+    
+
+    //console.log(res2.data.data[0]+'slamaaa')
+    for (let i = 0; i < l; i++) {
+        const element = res2.data.data[i].eduOrganisation
+        if(element===e.data.data.name){
+            a.push(res2.data.data[i])
+            console.log(res2.data.data[i].eduOrganisation)
+            console.log(a[0]+'daren')
+        }
+        
+    }
+   
+    return a;
+  
+  
+    
+  },
+
+
+
+
+
 /////Assessments/////////
 getAssessments: async () => {
   const assessment = await axios.get("http://localhost:5000/api/assessments/");

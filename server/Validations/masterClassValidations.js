@@ -28,7 +28,7 @@ module.exports = {
             Eduorganization:Joi.string(),
             courseIDs :Joi.array().items(), 
             workshopsIDs :Joi.array().items(),
-            //applicants :Joi.array().items()
+            applicants :Joi.array().items()
         }
 
         return Joi.validate(request, updateSchema)
