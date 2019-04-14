@@ -10,6 +10,7 @@ import PartnerProfile from '../src/components/PartnerProfile';
 import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Header from './components/layout/Header';
 import About from './components/pages/About';
+//import Register from './components/pages/Register';
 import AdminApp from './components/AdminApp';
 import Footer from './components/layout/Footer';
 import CourseApp from './components/Form';
@@ -82,7 +83,10 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
-     
+      {/* <Route exact path = "/register" component = {Register}/>  */}
+
+
+   
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
@@ -108,7 +112,8 @@ class App extends Component {
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
-      <Footer/>
+
+      {/* <Footer/> hides some functionalities wont stick to bottom of page */}
       </div>
 
       </Router>
