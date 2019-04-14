@@ -60,7 +60,7 @@ class App extends Component {
       <Route exact path = "/job" component = {Jobmain}/> 
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
-      <Route exact path = "/about" component = {About}/> 
+      {/* <Route exact path = "/about" component = {About}/>  */}
    
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
@@ -87,7 +87,7 @@ class App extends Component {
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
-      <Footer/>
+      {/* <Footer/> */}
       </div>
 
       </Router>
