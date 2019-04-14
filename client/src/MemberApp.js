@@ -8,7 +8,7 @@ class MemberApp extends Component {
     render(){
         return(
             <div className="App">
-            <EduOrg/>
+             <MemberProfile/>
             </div>
         );
     }
