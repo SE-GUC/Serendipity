@@ -7,7 +7,7 @@ const objectId = require('mongoose').objectid //needed to access by id
 
 
 const EducationalOrganization = require('../../models/EducationalOrganization')
-const validator = require('../../validations/EduOrgValidations')
+const validator = require('../../Validations/EduOrgValidations')
 
 router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find().populate('courses').populate('masterClasses').populate('courses')
