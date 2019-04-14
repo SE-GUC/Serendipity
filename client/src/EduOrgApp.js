@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EduOrgs from './components/EduOrgs';
 import './App.css';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class EduOrgApp extends Component {
   getStyleEduOrg = () => {
@@ -90,6 +91,8 @@ class EduOrgApp extends Component {
   :(
       <div className="EduOrgApp">
         <h1 style = {this.getStyleEduOrg()}>Educational Organizations</h1>
+        <br></br>
+        <Link  to= {`/eduorg/myaccount`}>View my account</Link>{' '}
         <EduOrgs eduorgs = {this.state.eduorgs}/>
       </div>
     );
