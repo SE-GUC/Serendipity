@@ -1,160 +1,143 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '..';
-import { Link } from 'react-router-dom';
-
 
 class updateAssessment extends Component {
  
     state={
-        memberName:'',
-        expertName:'',
-        masterClass:'',
-        educationalOrg:'',
-        phoneNumber:'',
-        daysAvailable:'',
-        status:''
+      _id: null,  
+      memberName:'',
+      expertName:'',
+      masterClass:'',
+      educationalOrg:'',
+      phoneNumber:'',
+      daysAvailable:''
     }
-    
-    assess = (_id, schema) => {
-      console.log(_id)
-      console.log(schema)
-
-      axios.put(`http://localhost:5000/api/assessments/${_id}`, schema)
-          .then(this.setState({ seeUpd: <Link to={`/assessment`} style={styles.linking}> Assessment updated successfully! </Link> }))
-          .catch(e => { alert(e); console.log(e) })
-  }
-
-
-     onUpdate=(e)=>{
-       e.preventDefault();
-       const { id } = this.props.match.params
-       var schema = {};
-       if (this.state.memberName) schema["memberName"] = this.state.memberName
-       if (this.state.expertName) schema["expertName"] = this.state.expertName
-       if (this.state.masterClass) schema["masterClass"] = this.state.masterClass
-       if (this.state.educationalOrg) schema["educationalOrg"] = this.state.educationalOrg
-       if (this.state.phoneNumber) schema["phoneNumber"] = this.state.phoneNumber
-       if (this.state.daysAvailable) schema["daysAvailable"] = this.state.daysAvailable
-       console.log(schema)
-       console.log(id)
-
-       this.assess(id, schema);
      
-   
+    updateMemberName=(_id,memberName)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+      memberName:memberName
       }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Member name updated successfully!')
+    }
+
+    updateExpertName=(_id,expertName)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+      expertName:expertName
+      }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Expert name updated successfully!')
+    }
+
+    updateMasterClass=(_id,masterClass)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+      masterClass:masterClass
+      }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Master class updated successfully!')
+    }
+
+    updateEducationalOrg=(_id,educationalOrg)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+      educationalOrg:educationalOrg
+      }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Educational Organisation updated successfully!')
+    }
+
+    updatePhoneNumber=(_id,phoneNumber)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+        phoneNumber:phoneNumber
+      }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Phone number of work updated successfully!')
+    }
+
+    updateDaysAvailable=(_id,daysAvailable)=>{
+      axios.put(`http://localhost:5000/api/assessments/${_id}`,{
+        daysAvailable:daysAvailable
+      }
+      ).then(res => {this.setState({assessment:[...this.state.updateAssessment,res.data]})})
+      .catch(e=> "error")
+      alert('Days available updated successfully!')
+    }
+
+
     
+    onSubmitMemberName=(e)=>{
+       e.preventDefault();
+        this.updateMemberName(this.state._id,this.state.memberName);
+    }
+
+    onSubmitExpertName=(e)=>{
+      e.preventDefault();
+       this.updateExpertName(this.state._id,this.state.expertName);
+     }
+
+    onSubmitMasterClass=(e)=>{
+    e.preventDefault();
+     this.updateMasterClass(this.state._id,this.state.masterClass);
+   }
+
+    onSubmitEducationalOrg=(e)=>{
+   e.preventDefault();
+   this.updateEducationalOrg(this.state._id,this.state.educationalOrg);
+}
+
+    onSubmitPhoneNumber=(e)=>{
+   e.preventDefault();
+   this.updatePhoneNumber(this.state._id,this.state.phoneNumber);
+}  
+
+onSubmitDaysAvailable=(e)=>{
+  e.preventDefault();
+   this.updateDaysAvailable(this.state._id,this.state.daysAvailable);
+}  
+
+
    onChange=(e)=>this.setState({[e.target.name]:e.target.value});
-  render() {
+    
+   render() {
     
     return (
       <div >
-      <h1> Update a booked assessment.. </h1>
-      <form onUpdate={this.onUpdate}>
-     <label>
-          ID:
-          <input
-            name="ID"
-            type="text"
-            value={this.state._id}
-            onChange={this.onChange} 
-            />
-        </label>
-        
-        <br />
-        <br /> 
-     
-     <label>
-          MemberName:
-          <input
-            name="memberName"
-            type="text"
-            value={this.state.memberName}
-            onChange={this.onChange} 
-            />
-        </label>
-        
-        <br />
-        <br />
-        <label>
-        ExpertName:
-          <input
-            name="expertName"
-            type="text"
-            value={this.state.expertName}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        MasterClass:
-          <input
-            name="masterClass"
-            type="text"
-            value={this.state.masterClass}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-          EducationalOrg:
-          <input
-            name="educationalOrg"
-            type="text"
-            value={this.state.educationalOrg}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        PhoneNumber:
-          <input
-            name="phoneNumber"
-            type="number"
-            value={this.state.phoneNumber}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-          DaysAvailable:
-          <input
-            name="daysAvailable"
-            type="text"
-           value={this.state.daysAvailable}
-           onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        
-     
-        
-        <button onClick={this.onUpdate} style={btnStyle}> update</button>
-        {/* <input 
-          type="update" 
-          value="Update" 
-          //className="btn"
-         // style={{flex: '1'}}
-        /> */}
-         </form>
-         {this.state.seeUpd}
-         </div>
+      <label> Id: <input name="_id" type="text" value={this.state._id} onChange={this.onChange}  /></label>
+      <label>*this will be removed later and will use the id of the booked assessment </label> <br /> <br />
+      <form onSubmit={this.onSubmitMemberName}>
+      <label> Member Name: <input name="memberName" type="text" value={this.state.memberName} onChange={this.onChange} /></label>
+      {"  "}
+      <input type="submit" value="Update Member name" />
+      </form>
+      <form onSubmit={this.onSubmitExpertName}>
+      <label> Expert Name: <input name="ExpertName" type="text" value={this.state.expertName} onChange={this.onChange} /></label>
+      {"  "}
+      <input type="submit" value="Update Expert name" />
+      </form>
+      <form onSubmit={this.onSubmitMasterClass}>
+      <label> Master Class: <input name="masterClass" type="text" value={this.state.masterClass} onChange={this.onChange} /></label>
+      {"  "}
+      <input type="submit" value="Update Master class" />
+      </form>
+      <form onSubmit={this.onSubmitEducationalOrg}>
+      <label> Educational Organisation: <input name="educationalOrg" type="text" value={this.state.educationalOrg} onChange={this.onChange} /></label>
+      {"  "}
+      <input type="submit" value="Update Educational Org" />
+      </form>
+      <form onSubmit={this.onSubmitPhoneNumber}>
+      <label>  Phone Number: <input name="phoneNumber" type="Number" value={this.state.phoneNumber} onChange={this.onChange} /></label>
+      {"  "}
+      <input type="submit" value="Update Phone number" />
+      </form>
+      
+  </div >
     );
   }
 }
-const btnStyle={
-background:'#f4f4f4f4',
-color:'#000'
 
-}
-const styles = {
-  linking: {
-      color: '#FF0000',
-  }
-}
+
 export default updateAssessment;
