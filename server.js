@@ -43,15 +43,15 @@ app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
 
-if(process.env.NODE_ENV==='production'){
-  app.use(express.static('client/build'));
+// if(process.env.NODE_ENV==='production'){
+//   app.use(express.static('client/build'));
 
-  app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
-  });
+//   app.get('*',(req,res)=>{
+//     res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
+//   });
 
   
-}
+// }
 
 app.get('/', (req, res) => {
 
@@ -94,7 +94,15 @@ app.use('/api/jobs', jobs)
 
 
 // Handling 404
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static('client/build'));
 
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
+  });
+
+  
+}
 app.use((req, res) => {
 
   res.status(404).send({ err: "We can not find what you are looking for" });
