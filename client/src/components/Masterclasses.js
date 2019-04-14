@@ -27,47 +27,39 @@ class Masterclasses extends Component {
 
 
 
-  state = {
+  // state = {
 
-        userName: null,
+  //       userName: null,
 
-        title:null,
-    duration:null,
-    price:null,
-    description:null,
-    location:null,  
-    Eduorganization:null,
-    courseIDs :null, 
-    workshopsIDs :null,
-    applicants:null
+  //       title:null,
+  //   duration:null,
+  //   price:null,
+  //   description:null,
+  //   location:null,  
+  //   Eduorganization:null,
+  //   courseIDs :null, 
+  //   workshopsIDs :null,
+  //   applicants:null
 
         
 
-      }
+  //     }
 
-  getMasterclass = () => {
+  // getMasterclass = () => {
 
-    axios.get('http://localhost:5000/api/masterclasses/')
+  //   axios.get('http://localhost:5000/api/masterclasses/')
 
-    .then(res => this.setState({masterclasses:[...this.state.Masterclasses,res.data]}))
+  //   .then(res => this.setState({masterclasses:[...this.state.Masterclasses,res.data]}))
 
-  }
+  // }
 
   render() {
-
-    
-
-    return this.props.masterclasses.map((masterclass) => (
-
-      <MasterclassItem key = {masterclass.id} masterclass = {masterclass} mark = {this.props.mark}
-
-      delMasterclass = {this.props.delMasterclass}/>
-
-
-
-    ));
-
-  }
+    return (
+      this.props.masterclasses.map((masterclass) => {
+        return <MasterclassItem  masterclass = {masterclass} delMasterclass = {this.props.delMasterclass}/>
+ })
+ )
+}
 
 }
 

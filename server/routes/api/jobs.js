@@ -6,8 +6,8 @@ const mongoose = require('mongoose')
 router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
-const validator = require('../../validations/jobValidations')
-
+const validator = require('../../Validations/jobValidations')
+const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job
 router.put('/:jid/postjob/:aid',async(req,res)=>{
@@ -16,8 +16,7 @@ router.put('/:jid/postjob/:aid',async(req,res)=>{
    const admin= await Admin.findById(adid) //checks if its an admin
    if(!admin) return res.status(404).send({error: 'You are not allowed to change the status of this job'})
    const updatedJob = await Job.findOneAndUpdate(jobid,req.body)
-   res.json({msg: 'Admin updated Job successfully',data:updatedJob
-   })
+   res.json({msg: 'Admin updated Job successfully',data:updatedJob})
 
 })
 
@@ -29,38 +28,63 @@ router.get('/', async (req,res) => {
    const jobs = await Job.find()
    res.json({data: jobs})
 })
-  
-// Get a certain job
-router.get("/:id", (req, res) => {
 
+// serach for a job by name 
+router.get('/y/:title', async (req,res) => {
+    
+   try {
+       const title = req.params.title
+       const jobs= await funcs.getJobs()
+       console.log(title+'hiii')
+        const joby=[];
+        for(var i=0;i<jobs.data.data.length;i++){
+           if (jobs.data.data[i].title===title)
+           joby.push(jobs.data.data[i])
+           res.json({data: joby})
+        }
+       
+      }
+      catch(error) {
+          // We will be handling the error later
+          console.log(error)
+      }  
+   
+
+   res.json({data: joby})
+})
+  
+// Get a certain job 
+router.get("/:id", (req, res) => {
    const id = req.params._id;
+   const job=Job.findById(id)
    Job.findById(id)
      .exec()
-     .then(doc => {
-       if (doc) {
-         res.status(200).json(doc);
-       } else {
-         res
-           .status(404)
-           .json({ message: "No job found for provided ID" });
-       }
-     })
-     .catch(err => {
+     .then(
+        doc => {
+        if (doc) {
+          res.status(200).json(doc);
+        } else {
+          res
+            .status(404)
+            .json({ message: "No job found for provided ID" });
+        }
+   })
+   .catch(err => {
        console.log(err);
        res.status(500).json({ error: err });
      });
  });
 
 
-// router.get('/:id', async (req,res) => {
+//  router.get('/:id', async (req,res) => {
     
-//    try {
-//        const id = req.params.id
+//     try {
+//         const id = req.params._id
 
-//        const job = await Job.findById(id)
+//         const job = await Job.findById(id)
       
 
-//        if(!job) return res.status(404).send({error: 'job does not exist'})
+//         if(!job) return res.status(404).send({error: 'job does not exist'})
        
 //        res.json({data: job})
 //       }
@@ -70,8 +94,8 @@ router.get("/:id", (req, res) => {
 //       }  
    
 
-//    res.json({data: job})
-// })
+//     res.json({data: job})
+//  })
 
 
 
@@ -141,6 +165,7 @@ router.post('/', async (req,res) => {
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
     const newJob = await Job.create(req.body)
+    //newJob.state="pending"
     res.json({msg:'Job was created successfully', data: newJob})
    }
    catch(error) {
@@ -167,13 +192,20 @@ router.put('/:jid/apply/:mid',async (req,res)=>{
       res.json({msg:'applicant was added succsessfully', data:job})
 
 
-
+})
+router.put('/:jid/accept/:mid',async (req,res)=>{
+   const memberid = req.params.mid
+   const jobid = req.params.jid
+   const member = await Member.findById(memberid)
+   const job = await Job.findByIdAndUpdate(jobid, { taken: memberid,state:'assigned'})
+   if(!member) return res.status(400).send({ error:'member does not exist' })
+   if(!job) return res.status(400).send({ error:'job does not exist' })
+ 
+         res.json({msg:'applicant took the job', data:job})
    
-
    
 
 })
-
 
 
 module.exports = router

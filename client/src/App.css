@@ -41,9 +41,6 @@ h1{
   pointer-events: none;
 }
 
-
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -66,4 +63,21 @@ h1{
   to {
     transform: rotate(360deg);
   }
-}*/
+}
+
+/* this what keeps the damn footer down */
+/* footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: honeydew;
+ } */
+ footer {
+  display: flex;
+  background-color: #222;
+  padding: 10px;
+  color: red;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const workshops = require('./workshops')
 const fn = require('../../fn')
 const EducationalOrganization = require('../../models/EducationalOrganization')
-const validator = require('../../validations/EduOrgValidations')
+const validator = require('../../Validations/EduOrgValidations')
 
 router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find()
@@ -135,3 +135,4 @@ module.exports = router
 
 // })
 //5cb078659b955f1ba40e22a1
+// })

@@ -10,7 +10,10 @@ class PartnerProfile extends Component {
     boardOfMembers: null,
     vacancies: null,
     partners: null,
-    pastProjects: null
+    pastProjects: null,
+    description: null,
+    fieldOfWork: null,
+
   }
   
   getPartner = (e) => {
@@ -24,6 +27,9 @@ class PartnerProfile extends Component {
       const vacancies = res.data.vacancies;
       const partners = res.data.partners;
       const pastProjects = res.data.pastProjects;
+      const description = res.data.description;
+      const fieldOfWork = res.data.fieldOfWork;
+
 
       this.setState({email})
       this.setState({name})
@@ -31,7 +37,8 @@ class PartnerProfile extends Component {
       this.setState({vacancies})
       this.setState({partners})
       this.setState({pastProjects})
-
+      this.setState({description})
+      this.setState({fieldOfWork})
 
     })
   } else return;
@@ -44,10 +51,13 @@ class PartnerProfile extends Component {
         <center>
         { this.state.email ? <p><h4>Email:</h4> {this.state.email}</p>:<p></p>}
         { this.state.name ? <p><h4>Name:</h4> {this.state.name}</p>:<p></p>}
-        { this.state.boardOfMembers ? <p><h4>Board Of Members:</h4><ol>{this.state.boardOfMembers.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
+        { this.state.boardOfMembers ? <p><h4>Board Of Members:</h4>{this.state.boardOfMembers}</p>:<p></p> }
         { this.state.vacancies ? <p><h4>Vacancies:</h4><ol>{this.state.vacancies.map(item => <li>{item.title}</li>)}</ol></p>:<p></p> }
-        { this.state.partners ? <p><h4>Partners:</h4><ol>{this.state.partners.map(item => <li>{item.name}</li>)}</ol></p>:<p></p> }
-        { this.state.pastProjects ? <p><h4>Past Projects:</h4><ol>{this.state.pastProjects.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
+        { this.state.partners ? <p><h4>Partners:</h4>{this.state.partners}</p>:<p></p> }
+        { this.state.pastProjects ? <p><h4>Past Projects:</h4>{this.state.pastProjects}</p>:<p></p> }
+        { this.state.description ? <p><h4>Description:</h4> {this.state.description}</p>:<p></p>}
+        { this.state.fieldOfWork ? <p><h4>Field Of Work:</h4> {this.state.fieldOfWork}</p>:<p></p>}
+     
         </center>
       </div>
 

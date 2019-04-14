@@ -12,13 +12,18 @@ export class WorkshopsItem extends Component {
   }
 
   render () {
-    const {title,eduOrganisation,educator,price} = this.props.current
+    const {_id,title,eduOrganisation,educator,price} = this.props.current
     return(
         <div style={this.getStyle()}>
              <h1>Title: {title}</h1>
             <p>eduOrganisation: {eduOrganisation}</p>
             <p>educator: {educator}</p>
             <p>price: {price}</p>
+            <p>
+              <button onClick={this.props.delWorkshops.bind(this,_id)} style={btnStyle}>delete</button>
+              <button onClick={this.props.updateWorkshops.bind(this,_id)} style={btnStyle1}>update</button>
+          </p>
+         
 
         </div>
     )
@@ -27,11 +32,25 @@ export class WorkshopsItem extends Component {
 }
 
 const btnStyle={
- background:'#ff0000',
- color:'#ffff',
- border:'none',
- padding:'5px 10px',
- borderRadius:'pointer',
- float:'right'
+  color: 'white',
+  background:'red',
+  fontSize: 20,
+  borderColor: 'black',
+  borderWidth: 3,
+  borderRadius:'80%',
+  cursor:'pointer'
+  // float:'down-right'
 }
+const btnStyle1={
+    color: 'white',
+    background:'red',
+    fontSize: 20,
+    borderColor: 'black',
+    borderWidth: 3,
+    borderRadius:'80%',
+  cursor:'pointer'
+  // borderRadius:'50%',
+  // cursor:'pointer',
+  // float:'down-right'
+ }
 export default WorkshopsItem

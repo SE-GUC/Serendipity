@@ -1,11 +1,149 @@
-
 const funcs = require('./fn');
+//const Course = require("./models/Course");
+//const Workshop = require("./models/Workshop");
+const mongoose = require("mongoose");
+//const Assessment = require('./models/Assessment');
+const Masterclass = require("./models/Masterclass");
+//const funcs = require('./fn');
 const Member = require('./models/Member')
 
 const Course = require("./models/Course");
 const Workshop = require("./models/Workshop");
-const mongoose = require("mongoose");
-jest.setTimeout(10000000);
+//const mongoose = require("mongoose");
+//jest.setTimeout(10000000);
+jest.setTimeout(10000000)
+//works
+test("testing that get all works for assessments", async () => {
+  expect.assertions(6);
+  const response1 = await funcs.getAssessments();
+  const data = { memberName: "Reem",
+  expertName: "Aysha",
+  educationalOrg:"GUC",
+  phoneNumber: "1234567",
+  daysAvailable: "sunday, monday, tuesday"}
+  console.log("in 1st a")
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response1.data.data.length + 1;
+  expect(response.data.data.length).toBe(l);
+  expect(response.data.data[l - 1].memberName).toEqual("Reem");
+  expect(response.data.data[l - 1].expertName).toEqual("Aysha");
+  expect(response.data.data[l - 1].educationalOrg).toEqual("GUC");
+  expect(response.data.data[l - 1].phoneNumber).toEqual("1234567");
+  expect(response.data.data[l - 1].daysAvailable).toEqual("sunday, monday, tuesday");
+  console.log("in 1st a done")
+});
+//works
+test("testing that get works for assessments", async () => {
+  expect.assertions(5);
+  console.log("in 2 a")
+  const data = {memberName: "Reem",
+  expertName: "Aysha",
+  educationalOrg:"GUC",
+  phoneNumber: "1234567",
+  daysAvailable: "sunday, monday, tuesday"}
+
+  await funcs.createAssessment(data)
+  console.log("after 2 a create")
+  const response = await funcs.getAssessments();
+  console.log(response.data.data)
+  const l = response.data.data.length;
+  const id =response.data.data[l - 1]._id;
+  console.log(id);
+  const response1 = await funcs.getAssessment(id);
+  expect(response1.data.memberName).toEqual("Reem");
+  expect(response1.data.expertName).toEqual("Aysha");
+  expect(response1.data.educationalOrg).toEqual("GUC");
+  expect(response1.data.phoneNumber).toEqual("1234567");
+  expect(response1.data.daysAvailable).toEqual("sunday, monday, tuesday");
+  console.log("in 2 a s")
+});
+//works
+test("testing that create works for assessments", async () => {
+  expect.assertions(5);
+  const l = (await funcs.getAssessments()).data.data.length;
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  expect(response.data.data[l].memberName).toEqual("Reem Ali");
+  expect(response.data.data[l].expertName).toEqual("Aysha El-Safty");
+  expect(response.data.data[l].educationalOrg).toEqual("GUC-");
+  expect(response.data.data[l].phoneNumber).toEqual("12345679");
+  expect(response.data.data[l].daysAvailable).toEqual("sunday, monday, tuesdayyyy");
+});
+//pending
+test("testing that update works for assessments", async () => {
+  expect.assertions(2);
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  const data2 = {memberName: "Reem",
+  expertName: "Slim"}
+  await funcs.updateAssessment(response.data.data[l - 1]._id, data2);
+  const response2 = await funcs.getAssessments();
+  const l2 = response2.data.data.length;
+  expect(response2.data.data[l2 - 1].memberName).toEqual("Reem");
+  expect(response2.data.data[l2 - 1].expertName).toEqual("Slim");
+});
+
+test("testing that delete works for assessments", async () => {
+  expect.assertions(1);
+  const data = {memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+
+  await funcs.createAssessment(data)
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  await funcs.deleteAssessment(response.data.data[l - 1]._id);
+  const response2 = await funcs.getAssessments();
+  expect(response2.data.data[l - 1]).toEqual(undefined);
+});
+
+
+test("testing that update doesnt work with wrong data for assessments", async () => {
+  expect.assertions(4);
+  const data={memberName: "Reem Ali",
+  expertName: "Aysha El-Safty",
+  educationalOrg:"GUC-",
+  phoneNumber: "12345679",
+  daysAvailable: "sunday, monday, tuesdayyyy"}
+  await funcs.createAssessment(data);
+  const response = await funcs.getAssessments();
+  const l = response.data.data.length;
+  await funcs.updateAssessment(response.data.data[l - 1]._id, {
+    memberName: "Reem",
+    educationalOrg: "GUC"
+  });
+  const response2 = await funcs.getAssessments();
+  expect(response2.data.data[l - 1].memberName).toEqual("Reem");
+  expect(response2.data.data[l - 1].expertName).toEqual("Aysha El-Safty");
+  expect(response2.data.data[l - 1].educationalOrg).toEqual("GUC");
+  expect(response2.data.data[l - 1].phoneNumber).toEqual("12345679");
+
+
+  console.log("finished testing assessments");
+});
+
+
+ 
+
+
+
+
 //jest.setTimeout(1000000);
 
 beforeAll(async () => {
@@ -355,19 +493,19 @@ test('update a workshop full data',async() => {
       "description":  "quite popular",
       "location": "Cairo"
   }
-  console.log(schema)
+  //console.log(schema)
   const Workshops = await funcs.getWorkshop();
   const length=(Workshops.data.data.length)-1
-  console.log(length)
+  //console.log(length)
   const aWorkshop=Workshops.data.data[Math.floor(Math.random()*length)] //gets random data to update
   //const aWorkshop = Workshops.data.data[0]; //gets first one
   //console.log(aWorkshop)
   const id = aWorkshop._id;
   const response = await funcs.updateWorkshop(id,schema);
-  console.log("here after update")
-  console.log(response)
-  console.log(response.data)
-  console.log(response.data.data)
+  //console.log("here after update")
+  //console.log(response)
+  //console.log(response.data)
+  //console.log(response.data.data)
   //expect(response.applicants.length).toBe(0)
   expect(response.data.data.title).toEqual(schema.title)
   expect(response.data.data.duration).toEqual(schema.duration)

@@ -337,9 +337,40 @@ deleteWorkshop: async (id) => {
   
   
     
-  }
-};
+  },
 
 
+
+
+
+/////Assessments/////////
+getAssessments: async () => {
+  const assessment = await axios.get("http://localhost:5000/api/assessments/");
+  return assessment;
+},
+getAssessment: async id => {
+  const assessment = await axios.get("http://localhost:5000/api/assessments/" + id);
+  return assessment;
+},
+createAssessment: async data => {
+  await axios
+    .post("http://localhost:5000/api/assessments/", data)
+    .then(res => res.data)
+    .catch(e => "error");
+  //console.log("in create partner fn");
+},
+updateAssessment: async (id, data) => {
+  await axios
+    .put("http://localhost:5000/api/assessments/" + id, data)
+    .then(res => res.data)
+    .catch(e => "error");
+},
+deleteAssessment: async id => {
+  await axios
+    .delete("http://localhost:5000/api/assessments/" + id)
+    .then(res => res.data)
+    .catch(e => "error");
+}
+}
 
 module.exports = functions;
