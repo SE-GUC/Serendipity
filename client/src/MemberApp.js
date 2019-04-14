@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-import EduOrg from './client'
 import './App.css';
-import axios from 'axios';
 import MemberProfile from './components/MemberProfile';
 
-
 class MemberApp extends Component {
-    render(){
+constructor (){
+super ()
+this.state = {
+    id :'',
+}
+this.onChange = this.onChange.bind(this)
+}
+onChange = (e) => {
+  
+    this.setState({ [e.target.name]: e.target.value });
+}
+  
+
+
+    render(){ 
+
+
+
         return(
             <div className="App">
-             <MemberProfile/>
+            <label>
+    ID : 
+    <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                />
+</label>
+
+            
+            <MemberProfile id ={this.state.id}/>
             </div>
         );
     }
