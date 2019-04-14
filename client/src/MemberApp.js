@@ -25,7 +25,7 @@ onChange = (e) => {
             <div className="App">
             <label>
     ID : 
-    <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                />
+    <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                
 </label>
 
             
