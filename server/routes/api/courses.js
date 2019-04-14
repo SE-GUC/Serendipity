@@ -6,7 +6,7 @@ router.use(express.json())
  
  
  
-const validator = require('../../validations/CourseValidations')
+const validator = require('../../Validations/CourseValidations')
 const Course = require('../../models/Course')
 //const Member
 router.post('/',  async (req, res) => {
