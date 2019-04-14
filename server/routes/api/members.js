@@ -298,4 +298,32 @@ router.delete('/:_id', async (req,res) => {
     }
 })
 
+
+//MAYAR
+router.put('/:id/addcourse', async(req,res) => {
+  // console.log('hnaaSmsm')
+  // console.log(req.body.coursesId)
+  // console.log('hnaaSmsm')
+
+  const isValidated = validator.applyValidation(req.body)
+  if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+  const coursesId = req.body.coursesId;
+  const memberId = req.params.id;
+  var member = await Member.findById(memberId);
+  // console.log('one')
+  // console.log(coursesId)
+
+  member.coursesTaken.push(coursesId);
+ // console.log('two')
+
+  Member.findByIdAndUpdate(memberId,{coursesTaken:member.coursesTaken})
+  .exec()
+  .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
+  .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
+
+  console.log('one')
+
+})
+
 module.exports = router
