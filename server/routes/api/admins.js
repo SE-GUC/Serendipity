@@ -9,8 +9,8 @@ const Job = require('../../models/Job')
 router.use(express.json())
 // We will be connecting using database 
 const Admin = require('../../models/Admin')
-const validator = require('../../validations/AdminValidations')
-const funcs = require('/Users/macbookair/Desktop/Serendipity/server/fn.js');
+const validator = require('../../Validations/AdminValidations')
+const funcs = require('../../fn');
 //import axios from 'axios';
 router.get('/', async (req,res) => {
     const admins = await Admin.find()
