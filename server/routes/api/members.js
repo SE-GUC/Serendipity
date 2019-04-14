@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 
-const validator = require('../../validations/memberValidations')
+const validator = require('../../Validations/memberValidations')
 
 router.use(express.json())
 
