@@ -113,17 +113,12 @@ module.exports = {
             password: Joi.string(),
 
             description: Joi.string(),
-
-            partners: Joi.array().items(),
-
-            boardOfMembers: Joi.array().items(),
-
+            partners: Joi.string(),
+            boardOfMembers: Joi.string(),
             fieldOfWork: Joi.string(),
 
             vacancies: Joi.array().items(),
-
-            pastProjects: Joi.array().items(Joi.string()),
-
+            pastProjects: Joi.string(),
         }
 
 
@@ -137,7 +132,5 @@ module.exports = {
 
 
     }, 
-
-
 
 }

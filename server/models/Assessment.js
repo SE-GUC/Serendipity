@@ -25,6 +25,9 @@ const assessmentSchema = new Schema ({
     daysAvailable: {
         type: String,
         required: true
+    },
+    status: {
+        type: String
     }
 
 })

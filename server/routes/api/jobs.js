@@ -6,10 +6,8 @@ const mongoose = require('mongoose')
 router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
-const validator = require('../../validations/jobValidations')
-const funcs = require('../../fn');
-
-
+const validator = require('../../Validations/jobValidations')
+const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job
 router.put('/:jid/postjob/:aid',async(req,res)=>{
@@ -18,8 +16,7 @@ router.put('/:jid/postjob/:aid',async(req,res)=>{
    const admin= await Admin.findById(adid) //checks if its an admin
    if(!admin) return res.status(404).send({error: 'You are not allowed to change the status of this job'})
    const updatedJob = await Job.findOneAndUpdate(jobid,req.body)
-   res.json({msg: 'Admin updated Job successfully',data:updatedJob
-   })
+   res.json({msg: 'Admin updated Job successfully',data:updatedJob})
 
 })
 
@@ -39,7 +36,7 @@ router.get('/y/:title', async (req,res) => {
        const title = req.params.title
        const jobs= await funcs.getJobs()
        console.log(title+'hiii')
-        const joby=[]
+        const joby=[];
         for(var i=0;i<jobs.data.data.length;i++){
            if (jobs.data.data[i].title===title)
            joby.push(jobs.data.data[i])
