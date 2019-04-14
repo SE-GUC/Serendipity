@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "..";
 import { Link } from "react-router-dom";
-//import Popup from 'reactjs-popup'
-
-class Jobapp extends Component {
+class UpdateJobs extends Component {
   state = {
     title: "",
     location: "",
@@ -13,38 +11,21 @@ class Jobapp extends Component {
     salary: "",
     description: "",
     dailyhours: "",
-    partner: "",
-    state: "pending"
+    partner: ""
+    
   };
-  addjob = (
-    title,
-    location,
-    startdate,
-    enddate,
-    salary,
-    dailyhours,
-    partner,
-    description,
-    state
-  ) => {
+
+  UpdateJobs = (_id, schema) => {
+    console.log(_id);
+    console.log(schema);
+
     axios
-      .post("http://localhost:5000/api/jobs/", {
-        title: title,
-        location: location,
-        startdate: startdate,
-        enddate: enddate,
-        salary: salary,
-        dailyhours: dailyhours,
-        partner: partner,
-        description: description,
-        state: state
-      })
+      .put(`http://localhost:5000/api/jobs/${_id}`, schema)
       .then(
         this.setState({
           seeUpd: (
             <Link to={`/job`} style={styles.linking}>
-              {" "}
-              Job created successfully!! YaaaY{" "}
+              See All jobs after Update?{" "}
             </Link>
           )
         })
@@ -53,41 +34,31 @@ class Jobapp extends Component {
         alert(e);
         console.log(e);
       });
-      alert('Job created successfully!! YaaaY')
   };
-
   onSubmit = e => {
     e.preventDefault();
-    if (
-      !this.state.title ||
-      !this.state.location ||
-      !this.state.startdate ||
-      !this.state.enddate ||
-      !this.state.salary ||
-      !this.state.dailyhours ||
-      !this.state.partner ||
-      !this.state.description
-    )
-      alert("validations not satisfied,try again :)!");
-    else
-      this.addjob(
-        this.state.title,
-        this.state.location,
-        this.state.startdate,
-        this.state.enddate,
-        this.state.salary,
-        this.state.dailyhours,
-        this.state.partner,
-        this.state.description,
-        this.state.state
-      );
-  };
+    const { id } = this.props.match.params;
+    var schema = {};
+    if (this.state.title) schema["title"] = this.state.title;
+    if (this.state.location) schema["location"] = this.state.location;
+    if (this.state.startdate) schema["startdate"] = this.state.startdate;
+    if (this.state.enddate) schema["enddate"] = this.state.enddate;
+    if (this.state.salary) schema["salary"] = this.state.salary;
+    if (this.state.description) schema["description"] = this.state.description;
+    if (this.state.dailyhours) schema["dailyhours"] = this.state.dailyhours;
+    if (this.state.partner) schema["partner"] = this.state.partner;
+    
+    console.log(schema);
+    console.log(id);
 
+    this.UpdateJobs(id, schema);
+    // this.updateworkshop(this.props._id,this.state.title,this.state.eduOrganisation,this.state.duration,this.state.educator,this.state.price,this.state.description,this.state.location);
+  };
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
     return (
       <div>
-        <h1>Job Application </h1>
+        <h1>Update Jobs </h1>
         <form onSubmit={this.onSubmit}>
           <label>
             Title:
@@ -179,16 +150,16 @@ class Jobapp extends Component {
           <br />
           <br />
           {/* <label>
-        please select job state:
-        <input
-          name="state"
-          type="text"
-          value={this.state.state}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br /> */}
+            please select job state:
+            <input
+              name="state"
+              type="text"
+              value={this.state.state}
+             onChange={this.onChange} 
+                />
+            </label>
+            <br />
+            <br /> */}
 
           {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
           <input
@@ -198,17 +169,20 @@ class Jobapp extends Component {
             style={btnStyle}
           />
         </form>
+       
+         {this.state.seeUpd}
+        
       </div>
     );
   }
 }
 const btnStyle = {
-  background: "#000000",
-  color: "#fff"
+  background: "#f4f4f4f4",
+  color: "#000"
 };
 const styles = {
   linking: {
     color: "#FF0000"
   }
 };
-export default Jobapp;
+export default UpdateJobs;

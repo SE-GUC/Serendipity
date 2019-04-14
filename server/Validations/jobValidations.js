@@ -28,9 +28,7 @@ module.exports = {
 
             dailyhours:Joi.number().required(),
 
-
-
-            partner: Joi.string().min(4),
+            partner: Joi.string().min(4).required(),
 
 
 
@@ -71,9 +69,8 @@ module.exports = {
       partner: Joi.string().min(4),
 
       description: Joi.string().min(3),
-
-      applicants:Joi.array().items()
-
+      applicants:Joi.array().items(),
+      taken:Joi.string().min(4)
         }
 
 

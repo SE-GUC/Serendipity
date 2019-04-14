@@ -14,6 +14,8 @@ import AdminApp from './components/AdminApp';
 import Footer from './components/layout/Footer';
 import axios from 'axios';
 import CourseApp from './components/Form';
+import Jobmain from './Jobmain';
+import UpdateJobs from './components/UpdateJobs';
 import MClasses from './MClasses';
 import JobsSearch from './JobsSearch';
 import PartnerApp from './components/PartnerApp';
@@ -50,8 +52,16 @@ class App extends Component {
       <Route exact path = "/workshop/createworkshop" component = {createWorkshop}/> {/*create workshop */}
       <Route exact path = "/workshop/updateworkshop/:id" component = {updateWorkshop}/> {/*create workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
+      <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
+      <Route exact path = "/job" component = {Jobmain}/> 
+      <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
+      <Route exact path ="/course"component = {CourseApp}/> 
+      <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
+      <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
+      {/* <Footer/> */}
       <Route exact path = "/partner/profile" component = {PartnerProfile}/> {/*PartnerProfile */}
-      <Route exact path = "/job" component = {Jobapp}/> 
+      {/* <Route exact path = "/job" component = {Jobapp}/>  */}
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
