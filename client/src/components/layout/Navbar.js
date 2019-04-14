@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../globalState/actions/authentication';
 import { withRouter } from 'react-router-dom';
-import logo from '../../logo.png'
+// import logo from '../../logo.png'
 class Navbar extends Component {
 
     onLogout(e) {
@@ -49,17 +49,17 @@ class Navbar extends Component {
         )
     }
 }
-const NavStyle={
-    background:'#193E43',
-    color:'#fff',
-    textAlign:'center',
-    padding:'10px'
+// const NavStyle={
+//     background:'#193E43',
+//     color:'#fff',
+//     textAlign:'center',
+//     padding:'10px'
     
-  }
-  const LinkStyle={
-    background:'#193E43',
-    color:'#fff',
-  }
+//   }
+//   const LinkStyle={
+//     background:'#193E43',
+//     color:'#fff',
+//   }
 
 Navbar.propTypes = {
     logoutUser: PropTypes.func.isRequired,

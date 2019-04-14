@@ -34,10 +34,5 @@ class EduOrgs extends Component {
     ));
   }
 }
-//proptypes
-// EduOrgs.propTypes = {
-//   eduorgs: PropTypes.array.isRequired,
-//   mark: PropTypes.func.isRequired,
-//   delEduOrg: PropTypes.func.isRequired
-// }
+
 export default EduOrgs;

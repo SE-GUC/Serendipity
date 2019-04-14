@@ -42,7 +42,11 @@ router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const newAssessments = await Assessment.create(req.body)
+     var New = req.body;
+     New["status"] = "pending"
+     const newAssessments = await Assessment.create(New)
+
+     console.log(newAssessments.status)
      res.json({msg:'Assessment appointment booked successfully', data: newAssessments})
     }
     catch(error) {
@@ -69,6 +73,18 @@ router.post('/', async (req,res) => {
         // We will be handling the error later
         console.log(error)
     }  
+ })
+
+ router.put('/:id/accept', async(req,res) => {
+     try{
+        //  console.log(req.p)
+     const assess = await Assessment.findByIdAndUpdate(req.params.id,{status:"accepted"})
+     console.log(assess)
+     res.json({data : assess})
+    }
+    catch(error) {
+        return res.status(400).send(`Sorry, couldn't accept an Assessment with that id !`) 
+    } 
  })
 
 //delete
