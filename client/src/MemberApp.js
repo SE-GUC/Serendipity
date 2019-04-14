@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import EduOrg from './client'
 import './App.css';
 import axios from 'axios';
+import MemberProfile from './components/MemberProfile';
+
 
 class MemberApp extends Component {
     render(){
@@ -13,4 +15,4 @@ class MemberApp extends Component {
         );
     }
 }
-export default App;
+export default MemberApp;
