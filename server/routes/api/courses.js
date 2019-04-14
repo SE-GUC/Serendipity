@@ -9,6 +9,7 @@ router.use(express.json())
 const validator = require('../../Validations/CourseValidations')
 const Course = require('../../models/Course')
 const Member = require('../../models/Member')
+const funcs=require('../../fn');
 //const Member
 router.post('/', async (req, res) => {
     try {
@@ -62,6 +63,51 @@ router.get('/:id', async (req, res) => {
 
     // res.json({data: course})
 })
+// search for a course by name 
+
+router.get('/y/:title', async (req,res) => {
+
+    
+
+    try {
+
+        const title = req.params.title
+
+        const courses= await funcs.getCourse()
+
+        console.log(title+'hiii')
+
+         const coursey=[]
+
+         for(var i=0;i<courses.data.data.length;i++){
+
+            if (courses.data.data[i].title===title)
+
+            coursey.push(courses.data.data[i])
+
+            res.json({data: coursey})
+
+         }
+
+        
+
+       }
+
+       catch(error) {
+
+           // We will be handling the error later
+
+           console.log(error)
+
+       }  
+
+    
+
+ 
+
+    res.json({data: coursey})
+
+ })
 router.get('/:id/applicants', async (req, res) => {
     try {
         const id = req.params.id
