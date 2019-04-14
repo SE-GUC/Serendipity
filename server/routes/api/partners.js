@@ -3,7 +3,7 @@ const express = require('express');
 const Partner = require('../../models/Partner');
 const router= express.Router();
 
-const validator = require('../../validations/partnerValidations')
+const validator = require('../../Validations/partnerValidations')
 
 
 
