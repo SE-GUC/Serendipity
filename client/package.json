@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "axios": "^0.18.0",
+    "query-string": "^6.4.2",
     "react": "^16.8.6",
     "react-alert": "^5.4.0",
     "react-alert-template-basic": "^1.0.0",

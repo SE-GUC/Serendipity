@@ -10,8 +10,13 @@ router.use(express.json())
 // We will be connecting using database 
 const Admin = require('../../models/Admin')
 const validator = require('../../Validations/AdminValidations')
+
 const funcs = require('../../fn');
 //import axios from 'axios';
+
+
+
+
 router.get('/', async (req,res) => {
     const admins = await Admin.find()
     res.json({data: admins})
