@@ -27,8 +27,8 @@ const app = express()
 const db = require('./config/keys').mongoURI
 // console.log(db);
 mongoose
-    .connect(db , { useNewUrlParser: true })
-    //.connect(db)
+   .connect(db,{useNewUrlParser: true})
+    // .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
@@ -36,6 +36,7 @@ mongoose
     process.on('uncaughtException', function (err) {
       console.log(err);
   }); 
+
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
