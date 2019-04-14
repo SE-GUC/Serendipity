@@ -35,6 +35,11 @@ Choose = (id)=>{
   this.setState( 
     { masterclasses:[...this.state.masterclasses.filter((current)=>current._id!==id)]
     })
+  Axios
+.delete(`http://localhost:5000/api/masterclasses/${id}`)
+//.then(res=>this.setState({masterclasses:res.data.data}))
+.then(alert(`deleted masterclass with id ${id}`))
+.catch(error=> this.ERROR.bind(error))
 }
 componentDidMount() {
   Axios

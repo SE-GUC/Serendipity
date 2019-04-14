@@ -39,10 +39,8 @@
 import React, { Component } from 'react';
 import Masterclasses from './Masterclasses';
 
+
 //import PropTypes from 'prop-types';
-
-
-
 
 
 class MasterclassItem extends Component {
@@ -55,12 +53,7 @@ class MasterclassItem extends Component {
 
           padding: '10px',
 
-          borderBottom: '1px #ccc dotted',
-
-          textDecoration: this.props.masterclass.flag?
-
-          'line-through' : 'none'
-
+          borderBottom: '1px #ccc dotted'
       }
 
   }
@@ -71,7 +64,7 @@ class MasterclassItem extends Component {
 
   render() {
 
-      const {id,title,duration,
+      const {_id,title,duration,
         price,
         description,
         location,  
@@ -94,8 +87,9 @@ class MasterclassItem extends Component {
             <p>{"Eduorganization:"}{Eduorganization}</p>
             <p>{"Courses:"}{courseIDs.map(item => <li>{item.title}</li>)}</p>
             <p>{"Workshops:"}{workshopsIDs.map(item => <li>{item.title}</li>)}</p>
-           <p>{"applicants:"}{applicants.map(item => <li>{item.name}</li>)}</p>
-
+           <p>{"applicants:"}{applicants.map(item => <li><p>Applicant Name:{item.name} , Applicant Username:{item.userName} , Applicant email:{item.email}</p></li>)}</p>
+            <button onClick={this.props.delMasterclass.bind(this,_id)}>Delete</button>
+            
 
         </div>
 
