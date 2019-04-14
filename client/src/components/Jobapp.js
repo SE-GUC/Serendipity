@@ -25,9 +25,7 @@ class Jobapp extends Component {
          this.setState({jobapp:[...this.state.Jobapp,res.data]}))
       .catch(e=>"error")
 alert('Job created successfully!! YaaaY')
-
-      
-      
+   
      } 
      onSubmit=(e)=>{
        e.preventDefault();

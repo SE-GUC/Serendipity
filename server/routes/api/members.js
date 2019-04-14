@@ -286,7 +286,7 @@ router.delete('/:_id', async (req,res) => {
 
     try {
 
-     const deletedMember = await Member.findOneAndDelete (req.params._id)
+     const deletedMember = await Member.findOneAndDelete ({ _id : req.params._id})
      res.json({msg :'Member deleted successfully' , data : deletedMember})
 
     }

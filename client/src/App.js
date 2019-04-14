@@ -10,6 +10,7 @@ import PartnerProfile from '../src/components/PartnerProfile';
 import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Header from './components/layout/Header';
 import About from './components/pages/About';
+import Register from './components/pages/Register';
 import AdminApp from './components/AdminApp';
 import Footer from './components/layout/Footer';
 import axios from 'axios';
@@ -36,6 +37,8 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/register" component = {Register}/> 
+
       <Footer/>
       </div>
 

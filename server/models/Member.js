@@ -72,8 +72,7 @@ type : [String]
         type : Number
     },
     skills :{
-        type : [String],
-        required : true
+        type : [String] 
     }
     
 });
