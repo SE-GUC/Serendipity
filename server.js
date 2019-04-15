@@ -4,7 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors')
-
+const passport = require('passport');//for login
 
 
 
@@ -17,7 +17,7 @@ const partners = require('./routes/api/partners')
 const jobs=require('./routes/api/jobs')
 const admins = require('./routes/api/admins')
 const assessments=require('./routes/api/assessments')
-
+const login =require('./routes/api/login') //yan
 
 const app = express()
 
@@ -41,14 +41,8 @@ mongoose
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
-
-
-// if(process.env.NODE_ENV==='production'){
-//   app.use(express.static('client/build'));
-
-//   app.get('*',(req,res)=>{
-//     res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
-//   });
+app.use(passport.initialize()) //login
+require('./config/passport')(passport)//login
 
   
 // }
@@ -68,8 +62,6 @@ app.get('/', (req, res) => {
   `);
 
 });
-
-
 
 // Direct routes to appropriate files
 
@@ -91,6 +83,7 @@ app.use('/api/partners', partners)
 
 app.use('/api/jobs', jobs)
 
+app.use('/api/login',login)//yan
 
 
 // Handling 404

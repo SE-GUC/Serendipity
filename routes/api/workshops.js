@@ -183,27 +183,27 @@ router.delete('/:id', async (req,res) => {
 
 ///
 
-///////////////////////////////////
-//member apply for workshop WORKS!!!
-router.put("/:wid/apply/:mid",async (req,res)=>{
-    const memberid = req.params.mid
-    const workid=req.params.wid
-    const member =await Member.findById(memberid)
-    const workshop =await Workshop.findById(workid)
-    if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
-    if(!member) return res.status(404).send({error: 'This member does not exist'})
-    //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
-    //add element to applicants
-    //workshop.applicants.push(memberid);
+// ///////////////////////////////////
+// //member apply for workshop WORKS!!!
+// router.put("/:wid/apply/:mid",async (req,res)=>{
+//     const memberid = req.params.mid
+//     const workid=req.params.wid
+//     const member =await Member.findById(memberid)
+//     const workshop =await Workshop.findById(workid)
+//     if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
+//     if(!member) return res.status(404).send({error: 'This member does not exist'})
+//     //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
+//     //add element to applicants
+//     //workshop.applicants.push(memberid);
     
-    Workshop.update(
-        { _id: workid }, 
-        { $push: { applicants: memberid } },
-        //done
-    )
-    res.json({msg:'applicant was added successfully', data:workshop})
-    //workshop.save(done);
-   })
+//     Workshop.update(
+//         { _id: workid }, 
+//         { $push: { applicants: memberid } },
+//         //done
+//     )
+//     res.json({msg:'applicant was added successfully', data:workshop})
+//     //workshop.save(done);
+//    })
 ////////////////////////
 
 module.exports = router;

@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding:0;
+ 
 }
 
 body{
@@ -72,7 +73,7 @@ h1{
   width: 100%;
   background-color: honeydew;
  } */
- footer {
+ .footer {
   display: flex;
   background-color: #222;
   padding: 10px;
@@ -80,4 +81,9 @@ h1{
   position: fixed;
   bottom: 0;
   width: 100%;
+
+  
 }
+/* min-height: 400px;
+   margin-bottom: 100px;
+   clear: both; */

@@ -8,10 +8,6 @@ router.use(express.json())
  
  
 
-
-
-
-
 const validator = require('../../Validations/CourseValidations')
 const Course = require('../../models/Course')
 const Member = require('../../models/Member')
@@ -177,6 +173,7 @@ router.delete('/:id', async (req, res) => {
         const deletedCourse = await Course.findByIdAndRemove(id)
         res.json({ msg: 'Course was deleted successfully', data: deletedCourse })
     }
+
     catch (error) {
         res.json({ err: "Could not find a course with this id" })
     }
