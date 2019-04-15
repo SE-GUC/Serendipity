@@ -55,12 +55,27 @@ if(localStorage.jwtToken) {
     window.location.href = '/login'
   }
 }
+
+
 class App extends Component {
   state={
     masterclass:[],
     jobapp:[],
     admin:[]
       }
+      ////trial  her
+constructor(props) {
+  super(props);
+  this.state = {}
+  this.connecToServer = this.connecToServer.bind(this);
+}
+connecToServer() {
+  fetch('/');
+}
+componentDidMount() {
+  this.connecToServer();
+}
+////
   render(){
     return(
      
