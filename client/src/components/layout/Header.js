@@ -14,8 +14,9 @@ function Header() {
     {/* <h1>LirtenHub</h1> */}
     <Link style={LinkStyle} to="/">Home</Link>{' '}|{' '}
     <Link style={LinkStyle} to="/about">About</Link>|{' '}
-    <Link style={LinkStyle} to="/login">Login</Link> {' '}|{' '}
-    <Link style={LinkStyle} to="/register">Register</Link>{' '}|{' '}
+    {/* <Link style={LinkStyle} to="/login">Login</Link> {' '}|{' '} */}
+    <Link style={LinkStyle} to="/register">Register Member</Link>{' '}|{' '}
+    <Link style={LinkStyle} to="/register/partner">Register Partner</Link>{' '}|{' '}
     <Link style={LinkStyle} to="/eduorg">Educational Organization</Link>{' '}|{' '}
     <Link style={LinkStyle} to="/masterclass">MasterClasses</Link>|{' '}
     <Link style={LinkStyle} to="/workshop">Workshops</Link>{' '}|{' '}

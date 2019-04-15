@@ -78,7 +78,7 @@ class App extends Component {
       <Route exact path = "/workshop/createworkshop" component = {createWorkshop}/> {/*create workshop */}
       <Route exact path = "/workshop/updateworkshop/:id" component = {updateWorkshop}/> {/*create workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
-      <Route exact path = "/partner" component = {PartnerProfile}/> {/*PartnerProfile */}
+      {/* <Route exact path = "/partner" component = {PartnerProfile}/> PartnerProfile */}
       <Route exact path = "/job" component = {Jobmain}/> 
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
@@ -90,7 +90,8 @@ class App extends Component {
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
-      <Route exact path = "/partner/profile" component = {PartnerProfile}/> {/*PartnerProfile */}
+      <Route exact path = "/partner/profile" component = {PartnerProfile}/> 
+      {/* PartnerProfile */}
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
   {/* should be hidden to normal Viewers*/ }
       
@@ -102,8 +103,8 @@ class App extends Component {
 
       
       <Route exact path = "/searchJobs" component = {JobsSearch}/> 
-      <Route exact path = "/register" component = {Register}/> 
-      <Route exact path = "/register/partner" component = {PartnerApp}/> 
+      <Route exact path = "/register" component = {Register}/>  {/* member */}
+      <Route exact  path = "/register/partner" component = {PartnerApp}/>  {/* partner */}
       <Route exact path = "/partner" component = {Partners}/> 
       <Route exact path = "/partner/delete" component = {PartnerDelete}/> 
       <Route exact path = "/partner/view" component = {GetAllPartners}/> 
