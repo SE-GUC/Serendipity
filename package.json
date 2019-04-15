@@ -8,12 +8,12 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node server",
     "test": "jest --detectOpenHandles",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "testWatch": "jest --watchAll",
     "client-install": "npm install --prefix client",
-    "server": "nodemon server.js",
+    "server": "nodemon server",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
