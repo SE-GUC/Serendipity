@@ -4,6 +4,10 @@ router.use(express.json())
 const Joi = require('joi')
 const uuid = require('uuid') 
 const mongoose = require('mongoose')
+const objectId = require('mongoose').objectid //needed to access by id
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
+const bcrypt = require('bcryptjs');
 //const objectId = require('mongoose').objectid //needed to access by id
 const workshops = require('./workshops')
 const fn = require('../../fn')
@@ -69,7 +73,19 @@ router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-     const newEducationalOrganization = await EducationalOrganization.create(req.body)
+        const { userName, email, name, password } = req.body;
+		const eduOrg = await EducationalOrganization.findOne({ email }); //making sure email is unique
+		if (eduOrg) return res.status(400).json({ email: 'Email already exists' });
+		const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+        const newEducationalOrganization = new EducationalOrganization({
+			userName,
+			password: hashedPassword,
+			email,
+			name,
+		});
+		await EducationalOrganization.create(newEducationalOrganization);
+     //const newEducationalOrganization = await EducationalOrganization.create(req.body);
      res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
     catch(error) {

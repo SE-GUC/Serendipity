@@ -2,16 +2,20 @@
   "name": "leartin",
   "version": "1.0.0",
   "description": " SE Project",
-  "main": "index.js",
+  "main": "server.js",
   "jest": {
-    "setupTestFrameworkScriptFile": "./index.js",
+    "setupTestFrameworkScriptFile": "./server.js",
     "testEnvironment": "node"
   },
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
+    "start": "node server.js",
     "test": "jest --detectOpenHandles",
-    "testWatch": "jest --watchAll"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "testWatch": "jest --watchAll",
+    "client-install": "npm install --prefix client",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -25,6 +29,7 @@
     "acorn": "^6.1.1",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "jest-cli": "^24.7.1",
@@ -38,7 +43,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "query-string": "^6.4.2",
-    "react-scripts": "2.1.8",
+    "react-color": "^2.17.0",
+    "react-scripts": "^2.1.8",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
