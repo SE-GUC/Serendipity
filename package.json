@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server",
     "test": "jest --detectOpenHandles",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "testWatch": "jest --watchAll",
     "client-install": "npm install --prefix client",
     "server": "nodemon server",
