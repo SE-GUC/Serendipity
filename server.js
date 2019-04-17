@@ -27,8 +27,8 @@ const app = express()
 const db = require('./config/keys').mongoURI
 // console.log(db);
 mongoose
-    .connect(db , { useNewUrlParser: true })
-    //.connect(db)
+   .connect(db,{useNewUrlParser: true})
+    // .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
 
@@ -36,6 +36,7 @@ mongoose
     process.on('uncaughtException', function (err) {
       console.log(err);
   }); 
+
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -43,6 +44,8 @@ app.use(cors())
 app.use(passport.initialize()) //login
 require('./config/passport')(passport)//login
 
+  
+// }
 
 app.get('/', (req, res) => {
 
@@ -84,7 +87,15 @@ app.use('/api/login',login)//yan
 
 
 // Handling 404
+// if(process.env.NODE_ENV==='production'){
+//   app.use(express.static('client/build'));
 
+//   app.get('*',(req,res)=>{
+//     res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
+//   });
+
+  
+// }
 app.use((req, res) => {
 
   res.status(404).send({ err: "We can not find what you are looking for" });
@@ -93,14 +104,19 @@ app.use((req, res) => {
 
 
 const port = process.env.PORT || 5000
-
-
-
-
-
-
-
-
-
 app.listen(port, () => console.log(`Server on ${port}`))
 
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static('client/build'));
+
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(_dirname,'client', 'build','index.html'));
+  });
+
+  
+}
+
+// const server = app.listen(process.env.PORT || 5000, function () {
+//   const port = server.address().port;
+//   console.log("Express is working on port " + port);
+// });
