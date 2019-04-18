@@ -25,13 +25,6 @@ import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
-import updateAssessment from './components/updateAssessment';
-import createAssessment from './components/createAssessment';
-import AssessmentApp from './AssessmentApp';
-import Assessments from './components/Assessments';
-import deleteAssessment from './components/deleteAssessment';
-
-
 
 class App extends Component {
   state={
@@ -65,12 +58,6 @@ class App extends Component {
       <Route exact path = "/partner/delete" component = {PartnerDelete}/> 
       <Route exact path = "/partner/view" component = {GetAllPartners}/> 
       <Route exact path = "/partner/update" component = {PartnerUpdate}/> 
-      <Route exact path = "/assessment" component = {AssessmentApp}/>
-     
-      <Route exact path = "/assessment/update" component = {updateAssessment} />
-      <Route exact path = "/assessment/delete" component = {deleteAssessment}/>
-     
-      
 
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
