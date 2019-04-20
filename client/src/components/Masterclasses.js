@@ -56,7 +56,7 @@ class Masterclasses extends Component {
   render() {
     return (
       this.props.masterclasses.map((masterclass) => {
-        return <MasterclassItem  masterclass = {masterclass} delMasterclass = {this.props.delMasterclass}/>
+        return <MasterclassItem  masterclass = {masterclass} delMasterclass = {this.props.delMasterclass}updateMasterclasses={this.props.updateMasterclasses}/>
  })
  )
 }
