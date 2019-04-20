@@ -83,15 +83,15 @@ router.get('/y/:title', async (req,res) => {
 
          for(var i=0;i<courses.data.data.length;i++){
 
-            if (courses.data.data[i].title===title)
+            if (courses.data.data[i].title.includes(title))
 
             coursey.push(courses.data.data[i])
 
-            res.json({data: coursey})
+           // res.json({data: coursey})
 
          }
 
-        
+         res.json({data: coursey})
 
        }
 
@@ -107,7 +107,7 @@ router.get('/y/:title', async (req,res) => {
 
  
 
-    res.json({data: coursey})
+    
 
  })
 router.get('/:id/applicants', async (req, res) => {

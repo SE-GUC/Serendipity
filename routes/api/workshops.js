@@ -69,11 +69,11 @@ router.get('/y/:title', async (req,res) => {
         console.log(title+'hiii')
          const ws=[]
          for(var i=0;i<workshops.data.data.length;i++){
-            if (workshops.data.data[i].title===title)
+            if (workshops.data.data[i].title.includes(title))
             ws.push(workshops.data.data[i])
-            res.json({data: ws})
+            //res.json({data: ws})
          }
-        
+         res.json({data: ws})
        }
        catch(error) {
            // We will be handling the error later
@@ -81,7 +81,7 @@ router.get('/y/:title', async (req,res) => {
        }  
     
  
-    res.json({data: ws})
+   
  })
 
 

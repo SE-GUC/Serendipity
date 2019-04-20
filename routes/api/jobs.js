@@ -39,11 +39,11 @@ router.get('/y/:title', async (req,res) => {
        console.log(title+'hiii')
         const joby=[];
         for(var i=0;i<jobs.data.data.length;i++){
-           if (jobs.data.data[i].title===title)
+           if (jobs.data.data[i].title.includes(title))
            joby.push(jobs.data.data[i])
-           res.json({data: joby})
+           //res.json({data: joby})
         }
-       
+        res.json({data: joby})
       }
       catch(error) {
           // We will be handling the error later
@@ -51,7 +51,7 @@ router.get('/y/:title', async (req,res) => {
       }  
    
 
-   res.json({data: joby})
+   
 })
   
 // Get a certain job 
