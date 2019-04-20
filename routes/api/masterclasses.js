@@ -97,22 +97,72 @@ router.delete('/:id', async (req,res) => {
 
 
  // as a member i can apply for a masterclass
- router.put("/:maid/apply/:mid",async(req,res)=>{
-    const memberid=req.params.mid
-    const masterclassid=req.params.maid
-    const member=await Member.findById(memberid)
-    const master=await Masterclass.findById(masterclassid)
-    if(!member) return res.status(400).send({error:'member does not exist'})
-    if(!master) return res.status(400).send({error:'master does not exist'})
+//  router.put('/:jid/apply/:mid',async (req,res)=>{
+//     const memid = req.params.mid
+//     const mastid = req.params.jid
+//     const member = await Member.findById(memid)
+//     const job = await Masterclass.findByIdAndUpdate(mastid,  {$push: {applicants: memid}})
+//     if(!member) return res.status(400).send({ error:'member does not exist' })
+//     if(!job) return res.status(400).send({ error:'job does not exist' })
+  
+//           res.json({msg:'applicant applied to the job succesfully', data:job})
+    
+    
+ 
+//  })
+router.put('/:id/apply', async (req, res) => {
+    console.log('hnaaSmsm')
+    console.log(req.body.applicantId)
+    console.log('hnaaSmsm')
+    console.log("apply course")
+   
+    console.log(req.params.id)
 
-    Masterclass.update(
-        {_id:masterclassid},
-        {$push:{applicants:memberid}},
-        res.json({msg:'applicants was added successfuly',data:master})
-    )
 
-}
-)
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const courseId = req.params.id;
+    console.log(courseId)
+    var course = await Masterclass.findById(courseId);
+    if (!course) return res.json({ error: 'masterclass does not exist' })
+
+    console.log('one')
+    console.log(course)
+
+    course.applicants.push(applicantId);
+    console.log('two')
+
+    Masterclass.findByIdAndUpdate(courseId, { applicants: course.applicants })
+        .exec()
+        .then(doc => { return res.redirect(303, `/api/masterclasses/${req.params.id}`) })
+        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+
+    console.log('one')
+
+})
+//  router.put("/:maid/apply/:mid",async(req,res)=>{
+//     console.log("apply masterclasses")
+
+//     const memberid=req.params.mid
+//     const masterclassid=req.params.maid
+//     console.log(memberid)
+//     console.log(masterclassid)
+
+//     const member=await Member.findById(memberid)
+//     const master=await Masterclass.findById(masterclassid)
+//     if(!member) return res.status(400).send({error:'member does not exist'})
+//     if(!master) return res.status(400).send({error:'master does not exist'})
+
+//     Masterclass.update(
+//         {_id:masterclassid},
+//         {$push:{applicants:memberid}},
+//         res.json({msg:'applicants was added successfuly',data:master})
+//     )
+
+// }
+// )
 
 
 
