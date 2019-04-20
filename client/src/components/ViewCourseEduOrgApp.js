@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import ViewWorkshopsEduOrg from './ViewWorkshopsEduOrg'
+import ViewCoursesEduOrg from './ViewCoursesEduOrg'
 //import Workshops from './Woekshops'
 
 //import './App.css';
@@ -9,7 +9,7 @@ import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 //import viewWorkshopsEduOrgItem from './viewWorkshopEduOrgItem';
 
-class ViewWorkshopEduOrgApp extends Component {
+class ViewCourseEduOrgApp extends Component {
   getStyleWork = () => {
     return {
       backgroundColor : '#000',
@@ -29,7 +29,7 @@ class ViewWorkshopEduOrgApp extends Component {
 
 componentDidMount() {
   axios
-  .get('http://localhost:5000/api/workshops')
+  .get('http://localhost:5000/api/courses')
   .then(res=> this.setState({workshop:res.data.data,loading:false}))
   .catch(error=> this.ERROR.bind(error))
 }
@@ -38,14 +38,14 @@ render(){
   return this.state.error?<h1>process couldnot be complete</h1>:this.state.loading?
   <h1>loading please be patient</h1>
   :
-  (<div className='ViewWorkshopEduOrgApp'>
+  (<div className='ViewCourseEduOrgApp'>
 
-  <h2 style={this.getStyleWork()}>WORKSHOPS</h2>
+  <h2 style={this.getStyleWork()}>Courses</h2>
   {/* <h2 style={this.getStyleWork()}>WORKSHOPSaa</h2> */}
 
   {/* <p><button  onClick={this.onClick} style={btnStyle1}>create workshop</button></p> */}
 
-  <ViewWorkshopsEduOrg workshop={this.state.workshop}  />
+  <ViewCoursesEduOrg workshop={this.state.workshop}  />
 
   </div>
   )
@@ -69,5 +69,5 @@ const btnStyle={
   color:'#000'
 }
 
-export default ViewWorkshopEduOrgApp;
+export default ViewCourseEduOrgApp;
 

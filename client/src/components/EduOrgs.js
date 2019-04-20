@@ -30,7 +30,7 @@ class EduOrgs extends Component {
     
     return this.props.eduorgs.map((eduorg) => (
       <EduOrgItem key = {eduorg.id} eduorg = {eduorg} mark = {this.props.mark}
-      viewWorkshops = {this.props.viewWorkshops} />
+      viewWorkshops = {this.props.viewWorkshops} viewCourses = {this.props.viewCourses} />
 
     ));
   }

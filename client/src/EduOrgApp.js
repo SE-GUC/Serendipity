@@ -40,6 +40,13 @@ class EduOrgApp extends Component {
     console.log(_id)
   }
 
+  viewCourses =(_id) => {
+   
+     this.props.history.push(`eduorg/view/courses/${_id}`);
+     
+     console.log(_id)
+   }
+
   
   render() {
     return this.state.error?<h1>process couldnot be complete</h1>:this.state.loading?
@@ -49,7 +56,7 @@ class EduOrgApp extends Component {
         <h1 style = {this.getStyleEduOrg()}>Educational Organizations</h1>
         <br></br>
         <Link  to= {`/eduorg/myaccount`}>View my account</Link>{' '}
-        <EduOrgs eduorgs = {this.state.eduorgs} viewWorkshops={this.viewWorkshops}/>
+        <EduOrgs eduorgs = {this.state.eduorgs} viewWorkshops={this.viewWorkshops} viewCourses = {this.viewCourses}/>
       </div>
     );
   }

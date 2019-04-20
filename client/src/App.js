@@ -46,6 +46,10 @@ import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import workshopsEduOrg from './workshopsEduOrg';
 import ViewEduOrgWorkshops from './ViewEduOrgWorkshops';
+import ViewEduOrgCourses from './ViewEduOrgCourses';
+
+
+
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -117,6 +121,8 @@ class App extends Component {
       <Route path = "/createCourse" component = {CreateForm}/> 
       <Route path = "/salma" component = {workshopsEduOrg}/> 
       <Route path = "/eduorg/view/workshops/:id" component = {ViewEduOrgWorkshops}/> 
+      <Route path = "/eduorg/view/courses/:id" component = {ViewEduOrgCourses}/> 
+
 
 
       {/* <Footer/> hides some functionalities wont stick to bottom of page */}
