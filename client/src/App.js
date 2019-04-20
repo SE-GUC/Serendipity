@@ -47,6 +47,7 @@ import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentic
 import workshopsEduOrg from './workshopsEduOrg';
 import ViewEduOrgWorkshops from './ViewEduOrgWorkshops';
 import ViewEduOrgCourses from './ViewEduOrgCourses';
+import ViewEduOrgMasterclasses from './ViewEduOrgMasterclasses';
 
 
 
@@ -122,6 +123,7 @@ class App extends Component {
       <Route path = "/salma" component = {workshopsEduOrg}/> 
       <Route path = "/eduorg/view/workshops/:id" component = {ViewEduOrgWorkshops}/> 
       <Route path = "/eduorg/view/courses/:id" component = {ViewEduOrgCourses}/> 
+      <Route path = "/eduorg/view/masterclasses/:id" component = {ViewEduOrgMasterclasses}/> 
 
 
 

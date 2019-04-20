@@ -19,6 +19,8 @@ class EduOrgItem extends Component {
             <p>
             <button onClick={this.props.viewWorkshops.bind(this,_id)} >View workshops offered</button>
             <button onClick={this.props.viewCourses.bind(this,_id)} >View Courses offered</button>
+            <button onClick={this.props.viewMasterclasses.bind(this,_id)} >View masterclasses offered</button>
+
          
             </p>
 
