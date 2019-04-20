@@ -1,9 +1,9 @@
 import React from 'react'
-//import '../../App.css';
+import '../../App.css';
 
 export default function Footer() {
   return (
-    <footer style={footerStyle}>
+    <footer className="footer">
      <div>
         <h3>Copyrights © Serendipity 2019 </h3>
         <h3>All rights reserved</h3>
@@ -13,7 +13,7 @@ export default function Footer() {
   )
 }
 const footerStyle = {
-    background: '#193E43',
+    background: '#00000',
     color: '#fff',
     textAlign: 'center',
     padding: '10px',

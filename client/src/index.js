@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'; //yan
 import store from './globalState/store'//yan
 
 // ReactDOM.render(<App />, document.getElementById('root'));
+
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

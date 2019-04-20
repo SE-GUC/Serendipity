@@ -32,7 +32,17 @@ export const loginUser = (user) => dispatch => {
                 });
             });
 }
-
+//
+// const spinnerStyle={
+//   //background:'#193E43',
+//   width: '5rem',
+//   height: '5rem',
+//   color:'#e5e8e8',
+//   textAlign:'center',
+//   fontFamily:'ariel',
+//   padding:'10px'
+// }
+//
 export const setCurrentUser = decoded => {
     return {
         type: SET_CURRENT_USER,

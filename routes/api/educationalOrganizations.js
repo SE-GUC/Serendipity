@@ -12,63 +12,58 @@ const bcrypt = require('bcryptjs');
 const workshops = require('./workshops')
 const fn = require('../../fn')
 const EducationalOrganization = require('../../models/EducationalOrganization')
+const Admin = require('../../models/Admin')
 const validator = require('../../Validations/EduOrgValidations')
+const passport = require('passport');//for auth trial
 
 router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find()
     res.json({data: educationalOrganizations})
 })
-///get masterclassesof this EduORg
-
-
-// router.get('/:id', async (req,res) => {
-    
-//     try {
-//         const id = req.params.id
-
-//         const educationalOrganizations = await EducationalOrganization.findById(id)  //.populate('masterClasses').populate('courses')
-//      //   const user = await book.reviews
-//      console.log(educationalOrganizations.userName)
-
-//         if(!educationalOrganizations) {
-//         return res.status(404).send({error: 'educational organization does not exist'})}
-        
-//         res.json({data: educationalOrganizations})
-//         console.log(res.data)
-//        }
-//        catch(error) {
-//            // We will be handling the error later
-//            console.log(error)
-//        }  
-    
-
-//  //   res.json({data: educationalOrganizations})
-// })
-
-router.get("/:_id", (req, res) => {
- 
-
+//auth trial
+// router.get('/profile', passport.authenticate('jwt', { session: false }),(req, res) =>{
+//         res.send("able to access");
+//     }
+// );
+//
+//show my profile
+//router.get("/:_id", (req, res) => {
+  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
 
     const id = req.params._id;
-     EducationalOrganization.findById(id)
-      .exec()
-      .then(doc => {
-        if (doc) {
-          res.status(200).json(doc);
-         
-        } else {
-          res
-            .status(404)
-            .json({ message: "No Educational Organization found for provided ID" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
+    const admin =await Admin.findById(req.user.id )
+    //req.user.id == id 
+    
+    console.log(id)
+    console.log(admin._id)
+    console.log(req.user.id)
+    const id2=admin.id
+    const id3=req.user.id
+    if(id3==id2 || id3==id) {
+      console.log('hiii')
+      EducationalOrganization.findById(id)
+      
+        .exec()
+        .then(doc => {
+          if (doc) {
+            res.status(200).json(doc);
+          
+          } else {
+            res
+              .status(404)
+              .json({ message: "No Educational Organization found for provided ID" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+      } else {
+        res.status(401).json({ err: "Not authorized "});
+      }
       
   });
-
+//register
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
@@ -101,7 +96,8 @@ router.post('/', async (req,res) => {
 
  
 // update Profile
-router.put('/:id', async (req,res) => {
+
+router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
      const eduorg = await EducationalOrganization.findById(id)
@@ -118,10 +114,11 @@ router.put('/:id', async (req,res) => {
     }
  })
 
-//yara Delete  Works
-router.delete('/:id', async (req,res) => {
+//router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.delete('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
+     
      const deletedEduOrgProfile = await EducationalOrganization.findByIdAndRemove(id)
      res.json({msg:'Profile was deleted successfully', data: deletedEduOrgProfile})
     }

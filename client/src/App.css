@@ -6,14 +6,26 @@
 }
 
 body{
+  height: 100%;
+  /* background-color: #e5e8e8; */
+  background-image: url('logoL.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  font:ariel;
 }
 
 a{
   color: #333;
   text-decoration: none;
 }
+/* div {
+  /* background-image: url('logoL.jpg'); */
+  /* background-color: #e5e8e8;
+  background-size: cover; */
+  /* background-repeat: no-repeat; */
+ /* } */ 
 .container{
   padding: 0 1rem;
 }
@@ -30,11 +42,21 @@ h1{
   text-align: center
 }
 
-/* position: absolute; */
-/* .App {
 .App {
   text-align: center;
+  /* background-color:#e5e8e8;  */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+.App-link {
+  color: #e5e8e8;
+}
+/* position: absolute; */
+/* .App {
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -53,9 +75,6 @@ h1{
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {
@@ -77,8 +96,9 @@ h1{
   display: flex;
   background-color: #222;
   padding: 10px;
-  color: red;
+  color: #ffffff;
   position: fixed;
+  position: bottom;
   bottom: 0;
   width: 100%;
 

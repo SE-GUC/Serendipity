@@ -50,10 +50,27 @@ class Login extends Component {
             });
         }
     }
+//
+//  this.state.error?<h1>process could not be complete</h1>:this.state.loading?
+// <div class="text-center">
+// <br></br><br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+// <div class="spinner-border"  style={spinnerStyle} role="status">
+// <span class="sr-only">Loading...</span>
+// </div>
+// {/* <h1>loading please be patient</h1> */}
+// </div>
 
+//
     render() {
         const {errors} = this.state;
-        return(
+        return this.state.error?<h1>process could not be complete</h1>:this.state.loading?
+        <div class="text-center">
+        <br></br><br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+        <div class="spinner-border"  style={spinnerStyle} role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+        {/* <h1>loading please be patient</h1> */}
+        </div>:(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Login</h2>
             <form onSubmit={ this.handleSubmit }>
@@ -84,7 +101,7 @@ class Login extends Component {
                     {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">
+                    <button style={BtnStyle} type="submit" class="btn btn-dark">
                         Login
                     </button>
                 </div>
@@ -93,7 +110,29 @@ class Login extends Component {
         )
     }
 }
+//className="btn btn-primary"
+///later
+//#e5e8e8 grey
+//black #00000
+//MONTSERRAT
+const BtnStyle={
+    background:'#000000',
+    color:'#e5e8e8',
+    textAlign:'center',
+    fontFamily:'ariel',
+    padding:'10px'
+  }
 
+  const spinnerStyle={
+    //background:'#193E43',
+    width: '5rem',
+    height: '5rem',
+    color:'#e5e8e8',
+    textAlign:'center',
+    fontFamily:'ariel',
+    padding:'10px'
+  }
+  //later
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
