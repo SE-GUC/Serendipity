@@ -4,6 +4,7 @@ const Partner = require('../../models/Partner');
 const router= express.Router();
 
 const validator = require('../../Validations/partnerValidations')
+const bcrypt = require('bcryptjs');
 
 
 
@@ -19,8 +20,14 @@ router.post('/', async (req,res) => {
      const {email, name, password} = req.body;
 		 const p1 = await Partner.findOne({ email }); //making sure email is unique
 		 if (p1) return res.status(400).json({ email: 'Email already exists' });
-	
-     const newPartner = await Partner.create(req.body)
+     const salt = bcrypt.genSaltSync(10);
+     const hashedPassword = bcrypt.hashSync(password, salt);
+     const newPartner = new Partner({
+      email,
+      name,
+      password: hashedPassword,
+    });
+      await Partner.create(newPartner);
      res.json({msg:'Partner was created successfully', data: newPartner})
     }
  
@@ -66,7 +73,11 @@ router.put('/:_id', async (req,res) => {
          const isValidated = validator.updateValidation(req.body)
          if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
         else{
-         await Partner.findByIdAndUpdate(req.params._id, req.body)
+
+        const {email} = req.body;
+        const p1 = await Partner.findOne({ email }); //making sure email is unique
+        if (p1) return res.status(400).json({ email: 'Email already exists' });     
+        await Partner.findByIdAndUpdate(req.params._id, req.body) 
          .exec()
          .then(r => {return res.redirect(303, `/api/partners/${req.params._id}`) })
          .catch(err => {console.log(err); return res.status(400).send("No partner found for provided ID") })
