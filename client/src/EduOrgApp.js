@@ -28,63 +28,19 @@ class EduOrgApp extends Component {
     .catch(error=> this.ERROR.bind(error))
   }
 
-  // state = {
-  //    eduorgs:[]
-       
-      //  {
-      //    id: 1,
-      //    name: 'guc',
-      //    flag: true
-       
-      //  },
-      //  {
-      //    id: 2,
-      //    name: 'auc',
-      //    flag: false
-       
-      //  },
-      //  {
-      //    id: 3,
-      //    name: 'bue',
-      //    flag: false
-       
-      //  }
-      
-     
-     
-     
+  viewWorkshops =(_id) => {
+   // axios.get(`http://localhost:5000/api/educationalOrganizations/w/${_id}`)
+  //  window.location.reload()
+    //var url = `http://localhost:3000/eduorg/view/workshops/${_id}`;
+    this.props.history.push(`eduorg/view/workshops/${_id}`);
+    //var url = `http://localhost:3000/salma/${_id}`;
 
-  //}
-  // componentDidMount(){
-  //   //axios.get('mongodb+srv://salma:123@cluster0-mepxp.mongodb.net/test?retryWrites=true')
-  //   axios.get('http://localhost:5000/api/educationalOrganizations/')
-  //   //axios.get('/api/educationalOrganizations/')
-  //   .then(res => this.setState({eduorgs: res.data}))
-  // }
-//   componentDidMount() {
-//     this.getDataFromDb();
-//     if (!this.state.intervalIsSet) {
-//       let interval = setInterval(this.getDataFromDb, 1000);
-//       this.setState({ intervalIsSet: interval });
-//     }
-// }
-// componentDidMount() {
-//     fetch("http://localhost:5000/api/educationalOrganizations/")
-//       .then(eduorgs => eduorgs.json())
-//       .then(res => this.setState({ eduorgs: res.data }));
-// };
+    //window.location(url);
+    //window.location.href = url;
+    console.log(_id)
+  }
 
-//   mark = (id) => {
-//      this.setState({eduorgs: this.state.eduorgs.map(eduorg =>{
-//        if(eduorg.id===id){
-//          eduorg.flag = !eduorg.flag
-//        }
-//        return eduorg
-//      })})
-// }
-// delEduOrg =(id)=>{
-//   this.setState({eduorgs: [...this.state.eduorgs.filter(eduorg => eduorg.id !== id)]});
-// }
+  
   render() {
     return this.state.error?<h1>process couldnot be complete</h1>:this.state.loading?
   <h1>loading please be patient</h1>
@@ -93,7 +49,7 @@ class EduOrgApp extends Component {
         <h1 style = {this.getStyleEduOrg()}>Educational Organizations</h1>
         <br></br>
         <Link  to= {`/eduorg/myaccount`}>View my account</Link>{' '}
-        <EduOrgs eduorgs = {this.state.eduorgs}/>
+        <EduOrgs eduorgs = {this.state.eduorgs} viewWorkshops={this.viewWorkshops}/>
       </div>
     );
   }

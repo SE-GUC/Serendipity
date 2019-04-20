@@ -108,40 +108,9 @@ class EduOrgAppUpdate extends Component {
         </label>
         <br />
         <br />
-       
-        
         <br />
         <br />
-        {/* <label>
-          Description:
-          <input
-            name="description"
-            type="text"
-            value={this.state.description}
-           onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        please select job state:
-        <input
-          name="state"
-          type="text"
-          value={this.state.state}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br /> */}
-        
         <button onClick={this.onUpdate} style={btnStyle}> update</button>
-        {/* <input 
-          type="update" 
-          value="Update" 
-          //className="btn"
-         // style={{flex: '1'}}
-        /> */}
          </form>
          {this.state.seeUpd}
          </div>

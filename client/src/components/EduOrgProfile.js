@@ -106,6 +106,8 @@ class EduOrgProfile extends Component {
         <br></br>
         {/* <Link  to={`/eduorg/delete/${this.state.id}`}>Delete my account</Link>{'       |      '} */}
         <Link  to= {`/eduorg/update/${this.state.id}`}>Update my account</Link>{' '}
+        <Link  to= {`/salma/${this.state.id}`}>update workshops</Link>{' '}
+
 
 
        

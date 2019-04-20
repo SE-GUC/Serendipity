@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
-
+import {Link} from 'react-router-dom';
 
 class EduOrgItem extends Component {
   getStyle =() => {
@@ -8,43 +7,28 @@ class EduOrgItem extends Component {
           backgroundColor: '#f4f4f4',
           padding: '10px',
           borderBottom: '1px #ccc dotted',
-          textDecoration: this.props.eduorg.flag?
-          'line-through' : 'none'
+         
       }
   }
-
-  
   render() {
-      const {id,name,userName,email,description} = this.props.eduorg
+      const {_id,name,userName,email,description} = this.props.eduorg
     return(
         <div style={this.getStyle()}>
             <p>Name: {name}</p>
             <p>Email: {email}</p>
+            <p>
+            <button onClick={this.props.viewWorkshops.bind(this,_id)} >View workshops offered</button>
+         
+            </p>
+
+
         </div>
     )
    
   }
 }
-//proptypes
-// EduOrgItem.propTypes = {
-//     eduorg: PropTypes.object.isRequired,
-//     mark: PropTypes.func.isRequired,
-//     delEduOrg: PropTypes.func.isRequired
-//   }
 
-// const itemStyle ={
-//     backgroundColor: '#f4f4f4'
-// }
 
-const btnStyle = {
-    backgroundColor: '#ff0000',
-    color: '#fff',
-    border: 'none',
-    padding: '5px 9px',
-    borderRadius: '10%',
-    cursor: 'pointer',
-    float: 'right'
-}
 export default EduOrgItem;
 
 

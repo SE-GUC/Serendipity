@@ -312,20 +312,17 @@ deleteWorkshop: async (id) => {
   },
 
   getAllWorkshops: async id=>{
-    //const id = req.params.id
-   // const e = axios.get('http://localhost:5000/api/educationalOrganizations/' + id)
-    // const e = await getEduOrgById(id)
+  
     const e = await axios.get("http://localhost:5000/api/educationalOrganizations/" + id);
-   //const res2 = await getWorkshop()
+    console.log(e.data.name+"salmasalmasalma")
    const res2 = await axios.get("http://localhost:5000/api/workshops/");
     const l = res2.data.data.length
     var a = []
     
-
-    //console.log(res2.data.data[0]+'slamaaa')
     for (let i = 0; i < l; i++) {
         const element = res2.data.data[i].eduOrganisation
-        if(element===e.data.data.name){
+        
+        if(element===e.data.name){
             a.push(res2.data.data[i])
             console.log(res2.data.data[i].eduOrganisation)
             console.log(a[0]+'daren')
@@ -334,9 +331,28 @@ deleteWorkshop: async (id) => {
     }
    
     return a;
+  },
+
+  getAllCourses: async id=>{
   
-  
+    const e = await axios.get("http://localhost:5000/api/educationalOrganizations/" + id);
+    console.log(e.data.name+"salmasalmasalma")
+   const res2 = await axios.get("http://localhost:5000/api/courses/");
+    const l = res2.data.data.length
+    var a = []
     
+    for (let i = 0; i < l; i++) {
+        const element = res2.data.data[i].eduOrganisation
+        
+        if(element===e.data.name){
+            a.push(res2.data.data[i])
+            console.log(res2.data.data[i].eduOrganisation)
+            console.log(a[0]+'daren')
+        }
+        
+    }
+   
+    return a;
   },
 
 

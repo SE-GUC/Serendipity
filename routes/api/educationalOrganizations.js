@@ -134,11 +134,19 @@ router.delete('/:id', async (req,res) => {
     
  router.get('/w/:id', async (req,res) =>{
      const id = req.params.id
-     console.log(id)
+     console.log(id+"saasasasasa")
      const e = await fn.getAllWorkshops(id)
      console.log(e)
      res.json({msg: 'found it!!',data:e})
  })
+
+ router.get('/courses/:id', async (req,res) =>{
+  const id = req.params.id
+  console.log(id+"saasasasasa")
+  const e = await fn.getAllCourses(id)
+  console.log(e)
+  res.json({msg: 'found it!!',data:e})
+})
 
 module.exports = router
 

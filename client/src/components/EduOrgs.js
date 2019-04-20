@@ -6,6 +6,7 @@ import axios from 'axios';
 class EduOrgs extends Component {
 
   state = {
+        id: null,
         userName: null,
         name: null,
         password: null,
@@ -29,7 +30,7 @@ class EduOrgs extends Component {
     
     return this.props.eduorgs.map((eduorg) => (
       <EduOrgItem key = {eduorg.id} eduorg = {eduorg} mark = {this.props.mark}
-      delEduOrg = {this.props.delEduOrg}/>
+      viewWorkshops = {this.props.viewWorkshops} />
 
     ));
   }
