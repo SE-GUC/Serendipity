@@ -43,6 +43,8 @@ import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
+import AdminCreate from './components/AdminCreate';
+import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -80,7 +82,10 @@ class App extends Component {
       <Route exact path = "/member" component = {MemberApp}/> 
       {/* <Route exact path = "/partner" component = {PartnerProfile}/> PartnerProfile */}
       <Route exact path = "/job" component = {Jobmain}/> 
-      <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
+      <Route exact path = "/admin" component = {AdminApp}/> 
+      <Route exact path = "/admin/register" component = {AdminCreate}/> {/* should be hidden to normal Viewers*/ }
+      <Route exact path = "/admin/pendingjobs" component = {PendingJobs}/>
+
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
       {/* <Route exact path = "/register" component = {Register}/>  */}

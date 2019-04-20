@@ -135,6 +135,40 @@ router.post('/', async (req,res) => {
    
  })
 
+ // approve or reject a pending job
+ router.put('/approverejectjob/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const job = await Job.findById(id)
+     const ID = {"_id":id}
+     if(!job) return res.status(404).send({error: 'job does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedjob = await Job.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Job updated successfully',data:updatedjob})
+    }
+  
+
+
+
+)
+
+ // reject a pending job
+//  router.put('/rejectjob/:id',async(req,res)=>{
+
+   
+
+//     const id = req.params.id
+//     const job = await Job.findById(id)
+//     const ID = {"_id":id}
+//     if(!job) return res.status(404).send({error: 'job does not exist'})
+//     //const isValidated = validator.updateValidation(req.body)
+//     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+//     const updatedjob = await Job.findOneAndUpdate(ID,req.body)
+//     res.json({msg: 'Job updated successfully',data:updatedjob})
+
+// })
+
 
 
 
