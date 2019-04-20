@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding:0;
+ 
 }
 
 body{
@@ -25,6 +26,9 @@ a{
   cursor:pointer;
 }
 
+h1{
+  text-align: center
+}
 
 /* position: absolute; */
 /* .App {
@@ -69,7 +73,7 @@ a{
   width: 100%;
   background-color: honeydew;
  } */
- footer {
+ .footer {
   display: flex;
   background-color: #222;
   padding: 10px;
@@ -77,4 +81,9 @@ a{
   position: fixed;
   bottom: 0;
   width: 100%;
+
+  
 }
+/* min-height: 400px;
+   margin-bottom: 100px;
+   clear: both; */
