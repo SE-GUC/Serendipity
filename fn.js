@@ -355,6 +355,31 @@ deleteWorkshop: async (id) => {
     return a;
   },
 
+  getAllMasterclasses: async id=>{
+  
+    const e = await axios.get("http://localhost:5000/api/educationalOrganizations/" + id);
+    console.log(e.data.name+"salmasalmasalma")
+   const res2 = await axios.get("http://localhost:5000/api/masterclasses/");
+   console.log(res2.data.id+"sassaaaaaaaaaaaaaaaaaaaaaaaaaaadddd")
+    const l = res2.data.data.length
+    console.log(res2.data.data.id+"sassaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+    var a = []
+    
+    for (let i = 0; i < l; i++) {
+        const element = res2.data.data[i].Eduorganization
+        
+        if(element===e.data.name){
+            a.push(res2.data.data[i])
+            console.log(res2.data.data[i].Eduorganization)
+            console.log(a[0]+'daren')
+        }
+        
+    }
+   
+    return a;
+  },
+
 
 
 
