@@ -48,7 +48,10 @@ class PendingJobs extends Component {
         
           .catch(e=> "error")
           alert('Job was approved succesfully')
+          
           window.location = '/admin/pendingjobs';
+          window.location = '/admin/pendingjobs';
+          
     }
     rejectjob =(id)=>{
         console.log(id)
@@ -62,7 +65,10 @@ class PendingJobs extends Component {
         
           .catch(e=> "error")
           alert('Job was rejected and removed succesfully')
-          window.location = '/admin/pendingjobs';
+          
+            window.location = '/admin/pendingjobs';
+            window.location = '/admin/pendingjobs';
+            
     }
     
 

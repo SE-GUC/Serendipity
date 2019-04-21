@@ -147,11 +147,26 @@ router.post('/', async (req,res) => {
      const updatedjob = await Job.findOneAndUpdate(ID,req.body)
      res.json({msg: 'Job updated successfully',data:updatedjob})
     }
+
   
 
 
 
 )
+
+// router.put('/approverejectjob/:id', async (req,res) => {
+
+// //     const isValidated = validator.updateValidation(req.body)
+// //     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+// //    else{
+//    const job= await Job.findByIdAndUpdate(req.params._id, req.body)
+//     .exec()
+//     .then(r => {return res.json({data:job})
+//     .catch(err => {console.log(err); return res.status(400).send("No job found for provided ID") })
+//    }
+
+  
+
 
  // reject a pending job
 //  router.put('/rejectjob/:id',async(req,res)=>{
@@ -173,4 +188,4 @@ router.post('/', async (req,res) => {
 
 
 
-module.exports = router
+module.exports = router;

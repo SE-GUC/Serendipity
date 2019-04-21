@@ -17,7 +17,8 @@ class AdminApp extends Component {
       full_name:'',
       email:'',
       password:'',
-      username:''
+      username:'',
+      super:''
      
     }
 
@@ -148,6 +149,10 @@ class AdminApp extends Component {
        alert('this username already exists or your old username,please enter another one')
        f =false;
        }
+       if(this.state.super==='yes' && adminsdb.data.data[i].super===this.state.super){
+        alert('there is already a super admin')
+        f =false;
+        }
       
     }
    
@@ -372,6 +377,17 @@ class AdminApp extends Component {
             name="username"
             type="text"
             value={this.state.username}
+            onChange={this.onChange} 
+            />
+        </label>
+        <br />
+        <br />
+        <label>
+        Super:
+          <input
+            name="super"
+            type="text"
+            value={this.state.super}
             onChange={this.onChange} 
             />
         </label>

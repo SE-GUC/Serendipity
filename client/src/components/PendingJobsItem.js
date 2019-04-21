@@ -15,7 +15,7 @@ class PendingJobsItem extends Component {
 
   
   render() {
-      const {_id,title,location,startdate,enddate,salary,dailyhours,partner,description} = this.props.pendingjob
+      const {_id,title,location,startdate,enddate,salary,dailyhours,partner,description,state} = this.props.pendingjob
     return(
         <div style={this.getStyle()}>
      
@@ -29,6 +29,7 @@ class PendingJobsItem extends Component {
             <p>Salary: {salary}</p>
             {/* <p>Partner: {partner}</p> */}
             <p>Description: {description}</p>
+            <p>State: {state}</p>
             <button onClick={this.props.approvejob.bind(this, _id)}>Approve</button>
             <button onClick={this.props.rejectjob.bind(this, _id)}>Reject</button>
             

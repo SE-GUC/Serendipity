@@ -6,7 +6,8 @@ class AdminCreate extends Component {
         full_name:'',
         email:'',
         password:'',
-        username:''
+        username:'',
+        super:''
        
       }
 
@@ -15,11 +16,11 @@ class AdminCreate extends Component {
         return await axios.get("http://localhost:5000/api/admins/");
       
       }
-      addadmin=(full_name,email,password,username)=>{
+      addadmin=(full_name,email,password,username,supe)=>{
     
         axios.post("http://localhost:5000/api/admins/",{
   
-          full_name:full_name,email:email,password:password,username:username
+          full_name:full_name,email:email,password:password,username:username,super:supe
         }
        
         ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
@@ -94,6 +95,10 @@ class AdminCreate extends Component {
          f = false;
        alert('email cannot be empty')
        }
+       else if (!this.state.super){
+        f = false;
+      alert('please specify if you are the super admin or not')
+      }
       //const adminsdb
    
          
@@ -116,6 +121,10 @@ class AdminCreate extends Component {
                    alert('this username already exists,please enter another one')
                    f =false;
                    }
+                   if(this.state.super==='yes' && adminsdb.data.data[i].super===this.state.super){
+                    alert('there is already a super admin')
+                    f =false;
+                    }
                   
                 }
                
@@ -124,7 +133,7 @@ class AdminCreate extends Component {
         if(f===true){
          // alert(''+adminsdb.data.data.length)
         
-        this.addadmin(this.state.full_name,this.state.email,this.state.password,this.state.username);
+        this.addadmin(this.state.full_name,this.state.email,this.state.password,this.state.username,this.state.super);
         }
       
     
@@ -177,6 +186,17 @@ class AdminCreate extends Component {
             name="username"
             type="text"
             value={this.state.username}
+            onChange={this.onChange} 
+            />
+        </label>
+        <br />
+        <br />
+        <label>
+          Super:
+          <input
+            name="super"
+            type="text"
+            value={this.state.super}
             onChange={this.onChange} 
             />
         </label>
