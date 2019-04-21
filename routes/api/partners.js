@@ -98,4 +98,56 @@ router.get('/:pid/applicants/:jid',async(req,res)=>{
   res.json({applicants})
 })
 
+//add to the vacanies//noura
+// router.put('/:pid/vac/:jid',async (req,res)=>{
+//   const partnerid = req.params.pid
+//   const jobid = req.params.jid
+//   const job = await Job.findById(jobid)
+//   console.log(jobid)
+//   console.log(partnerid)
+
+//   const partner = await Partner.findByIdAndUpdate(partnerid,  {$push: {vacanies: jobid}})
+//   if(!partner) return res.status(400).send({ error:'partner does not exist' })
+//   if(!job) return res.status(400).send({ error:'job does not exist' })
+
+//         res.json({msg:'job added to vacanies', data:partner})
+  
+  
+
+// })
+router.put('/:pid/vac/:jid', async (req, res) => {
+  
+
+  // const isValidated = validator.applyValidation(req.body)
+  // if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+  const jobId =req.params.jid;
+  const partnerId = req.params.pid;
+  var partner = await Partner.findById(partnerId);
+  console.log('one')
+  partner.vacancies.push(jobId);
+  console.log('two')
+
+  Partner.findByIdAndUpdate(partnerId, { vacancies: jobId })
+      .exec()
+     
+  console.log('one')
+
+})
+
+//GET jobs for a certain partner//noura
+router.get('/:pid/jobs',async(req,res)=>{
+  const partnerId = req.params.pid;
+  const partner= await Partner.findById(partnerId)
+   if(!partner) return res.status(400).send({ error:'Partner does not exist' })
+
+  const f= await partner.vacancies
+  const x=[];
+  //const c=await  Job.findById(f[0])
+  for(var i=0;i<f.length;i++){
+  x.push( await Job.findById(f[i]))
+  }
+  res.json({x})
+})
+
 module.exports = router;

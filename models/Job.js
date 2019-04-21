@@ -43,7 +43,7 @@ const Jobschema = new Schema({
     type: String
   },
   applicants: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Member" }]
+    type: [{ type: Schema.Types.ObjectId, ref: "members" }]
   },
   taken: {
     type: Schema.Types.ObjectId,

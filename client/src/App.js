@@ -44,6 +44,8 @@ import CreateForm from './components/CreateForm';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import AcceptJobs from './components/AcceptJobs';
+import JobV from './JobV';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -91,6 +93,8 @@ class App extends Component {
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
       <Route exact path = "/partner/profile" component = {PartnerProfile}/> 
+      <Route exact path = "/accept" component = {JobV}/> 
+
       {/* PartnerProfile */}
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
   {/* should be hidden to normal Viewers*/ }

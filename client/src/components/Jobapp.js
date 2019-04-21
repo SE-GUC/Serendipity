@@ -43,17 +43,18 @@ class Jobapp extends Component {
         this.setState({
           seeUpd: (
             <Link to={`/job`} style={styles.linking}>
-              {" "}
-              Job created successfully!! YaaaY{" "}
+              See All jobs after create?{" "}
             </Link>
           )
+        }, {
+          updateJob()
         })
       )
       .catch(e => {
         alert(e);
         console.log(e);
       });
-      alert('Job created successfully!! YaaaY')
+      //alert('Job created successfully!! YaaaY')
   };
 
 
@@ -85,7 +86,14 @@ class Jobapp extends Component {
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+  updateJob=(id)=>{
+    const res =  getJobs();
+const x=res.data.data.length;
+    const ids='5cae20486ed86f1b94744d3b'
 
+    axios.put(`http://localhost:5000/api/partners/${ids}/vac/${id}`)  
+  };
+  
   render() {
     return (
       <div>
@@ -200,10 +208,15 @@ class Jobapp extends Component {
             style={btnStyle}
           />
         </form>
+        {this.state.seeUpd}
       </div>
     );
   }
 }
+getJobs: async () => {
+  const jobs = await axios.get("http://localhost:5000/api/jobs/");
+  return jobs;
+};
 const btnStyle = {
   background: "#000000",
   color: "#fff"

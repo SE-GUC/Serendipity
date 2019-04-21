@@ -54,7 +54,7 @@ module.exports = {
 
       title: Joi.string().min(3),
 
-      //state: Joi.string().min(3),
+      state: Joi.string().min(3),
 
       startdate: Joi.date(),
 

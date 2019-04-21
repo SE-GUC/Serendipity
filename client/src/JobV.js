@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Jobsi from "./components/Jobsi";
+import Jobsi from "./components/Jobacc";
 import "./App.css";
 import axios from "axios";
 
-class Jobmain extends Component {
+class JobV extends Component {
   getStyleEduOrg = () => {
     return {
       backgroundColor: "#000",
@@ -21,25 +21,17 @@ class Jobmain extends Component {
     };
   }
   componentDidMount() {
+    const id='5c9673e3a7f0f43f641386de'
     axios
-      .get("http://localhost:5000/api/jobs/a/approved")
-      .then(res => this.setState({ job: res.data.data, loading: false }))
+      .get(`http://localhost:5000/api/partners/${id}/jobs`)
+      
+      .then(res => this.setState({ job: res.data.x, loading: false }))
       .catch(error => this.ERROR.bind(error));
   }
 
-  delJobs = _id => {
-    axios.delete(`http://localhost:5000/api/jobs/${_id}`);
-    window.location.reload();
-    console.log(_id);
-  };
-  updateJobs = _id => {
-    this.props.history.push(`/job/updateJobs/${_id}`);
-    console.log(_id);
-  };
+  
  
-  onClick = () => {
-    this.props.history.push("/job/Jobapp");
-  };
+ 
   render() {
     return this.state.error ? (
       <h1>process couldnot be complete</h1>
@@ -49,15 +41,12 @@ class Jobmain extends Component {
       <div className="Jobmain">
         <h2 >Jobs</h2>
         <p>
-          <button onClick={this.onClick} style={btnStyle1}>
-            create jobs
-          </button>
+          
         </p>
 
         <Jobsi
           job={this.state.job}
-          delJobs={this.delJobs}
-          updateJobs={this.updateJobs}
+          
         />
       </div>
     );
@@ -80,4 +69,4 @@ const btnStyle = {
   color: "#000"
 };
 
-export default Jobmain;
+export default JobV;

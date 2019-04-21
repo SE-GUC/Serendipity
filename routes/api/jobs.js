@@ -7,7 +7,7 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
-
+const axios = require('axios');
 const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job
@@ -25,9 +25,37 @@ router.put('/:jid/postjob/:aid',async(req,res)=>{
 
 
 // Get all jobs 
-router.get('/', async (req,res) => {
-   const jobs = await Job.find()
+router.get('/',  async(req,res) => {
+   
+   const jobs = await Job.find().populate('applicants')
    res.json({data: jobs})
+})
+router.get('/a/approved',  async(req,res) => {
+   
+   
+   try{
+      const jobs = await  funcs.getJobs()
+      
+           const jobspending =[]
+          console.log(jobs.data.data.length)
+           for(var i=0;i<jobs.data.data.length;i++){
+             
+               if(jobs.data.data[i].state==="approved"){
+                  console.log(jobs.data.data[i].state)
+              jobspending.push(jobs.data.data[i])}
+            }
+            res.json({data: jobspending})
+         }
+           catch(error) {
+        
+              console.log(error)
+          }  
+        
+      
+       
+      
+      
+   
 })
 
 // serach for a job by name 
@@ -55,48 +83,32 @@ router.get('/y/:title', async (req,res) => {
 })
   
 // Get a certain job 
-router.get("/:id", (req, res) => {
+
+router.get("/:_id", (req, res) => {
+ 
+
+
    const id = req.params._id;
-   const job=Job.findById(id)
-   Job.findById(id)
+    Job.findById(id)
      .exec()
-     .then(
-        doc => {
-        if (doc) {
-          res.status(200).json(doc);
-        } else {
-          res
-            .status(404)
-            .json({ message: "No job found for provided ID" });
-        }
-   })
-   .catch(err => {
+     .then(doc => {
+       if (doc) {
+         res.status(200).json(doc);
+       } else {
+         res
+           .status(404)
+           .json({ message: "No Job found for provided ID" });
+       }
+     })
+     .catch(err => {
        console.log(err);
        res.status(500).json({ error: err });
      });
+     
  });
 
 
-//  router.get('/:id', async (req,res) => {
-    
-//     try {
-//         const id = req.params._id
 
-//         const job = await Job.findById(id)
-      
-
-//         if(!job) return res.status(404).send({error: 'job does not exist'})
-       
-//        res.json({data: job})
-//       }
-//       catch(error) {
-//           // We will be handling the error later
-//           console.log(error)
-//       }  
-   
-
-//     res.json({data: job})
-//  })
 
 
 
@@ -125,21 +137,6 @@ router.delete('/:id', async (req,res) => {
 
 
 
-//create a job
-// create a new member and add it to the database
-// router.post('/', async (req, res) => {
-//    try {
-//        const isValidated = validator.createValidation(req.body)
-//        if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-//        const newJob = await Job.create(req.body)
-//        res.json({msg:'Job created successfully', data: newJob})
-//       }
-//       catch(error) {
-//           // We will be handling the error later
-//           console.log(error)
-
-//       } 
-// });
 
 router.put('/:id', async (req,res) => {
    try {
@@ -168,12 +165,22 @@ router.post('/', async (req,res) => {
     const newJob = await Job.create(req.body)
     //newJob.state="pending"
     res.json({msg:'Job was created successfully', data: newJob})
+    const x= await funcs.getJobs()
+    const len=x.data.data.length
+    const ids=newJob.partner
+    const jid=x.data.data[len - 1]._id
+    axios.put(`http://localhost:5000/api/partners/${ids}/vac/${jid}`) 
+    
+    console.log(jid)
+   //  console.log(newJob.objectId)
    }
    catch(error) {
-       // We will be handling the error later
+     
        console.log(error)
-   }  
+   }
 
+
+    
 
 
 })
@@ -207,7 +214,43 @@ router.put('/:jid/accept/:mid',async (req,res)=>{
    
 
 })
+router.put('/:jid/applyx/:mid',async (req,res)=>{
+   const memberid = req.params.mid
+   const jobid = req.params.jid
+   const member = await Member.findById(memberid)
+   const job = await Job.findByIdAndUpdate(jobid,  {$push: {applicants: memberid}})
+   if(!member) return res.status(400).send({ error:'member does not exist' })
+   if(!job) return res.status(400).send({ error:'job does not exist' })
+ 
+         res.json({msg:'applicant applied to the job succesfully', data:job})
+   
+   
 
+})
+//GET JOBS  A Partner Posted
+router.get('/:pid/posted',async(req,res)=>{
+   const partnerId = req.params.pid;
+   const partnerx=await Partner.findById(partnerId)
+   const jobs= await funcs.getJobs()
+   
+   if(!partnerx) return res.status(400).send({ error:'Partner does not exist' })
+   const jobsp=[];
+   
+    for(var i=0;i<jobs.data.data.length;i++){
+       if (jobs.data.data[i].partner===partnerx)
+       jobsp.push(jobs.data.data[i])
+       res.json({data: jobsp})
+    }
+
+   // const string = JSON.stringify(job);
+   // const objectValue = JSON.parse(string);
+   // const applicants = objectValue['applicants'];
+   // const partner1 = objectValue['partner'];
+   //  if (partner1!=partnerId)
+   // return res.status(400).send({ error:'This job does not belong to that partner' })
+   
+   // res.json({applicants})
+ })
 
 
 module.exports = router
