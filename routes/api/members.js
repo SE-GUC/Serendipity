@@ -23,8 +23,10 @@ router.get('', async (req, res) => {
 
 });
 
-
-
+router.get('/getexperts' , async (req , res) => {
+  const members = await Member.find({expert : true})
+res.json(members);
+})
 
 
 function Age(birthday) { // birthday is a date
@@ -230,27 +232,18 @@ router.get("/:_id", (req, res) => {
         ret.recommendations = finalfilterbyavailability(id);
         res.status(200).json(ret);
         res.status(200).json(r);
-
       } else {
 
         res
 
           .status(404)
-
           .json({ message: "Member Not Found" });
-
       }
-
     })
-
     .catch(err => {
       return "Member Not Found"
-
-
     });
-
 });
-
 router.put('/:_id', async (req, res) => {
   try {
 

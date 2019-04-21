@@ -9,44 +9,27 @@ module.exports = {
         const createSchema = {
 
             email: Joi.string().email().required(),
-
             userName: Joi.string().min(5).max(100).required(),
-
             name: Joi.string().required(),
-
             password: Joi.string().required().min(8).regex(/[!@#$%^&*()_+\-=\[\]{};':'\\|,.<>\/?]/),
-
             availableDailyHours : Joi.number().required() ,
-
             location : Joi.string ().required(),
-
             birthDate : Joi.date().required() ,
-
             interests : Joi.array(),
-
             attendedEvents : Joi.array() ,
-
             previousProjects : Joi.array(),
-
             previousTasks : Joi.array(),
-
             previousJobs : Joi.array(),
-
             review : Joi.array(),
-
             reviewers : Joi.array(),
-
             certificates : Joi.array(),
-
             coursesTaken : Joi.array(),
-
-            contractSigned : Joi.boolean(),
-
+            contractSigned : Joi.bool(),
             expirationDate : Joi.date(),
-
             age : Joi.number(),
-
-            skills : Joi.array()
+            skills : Joi.array() ,
+            expert :Joi.boolean() ,
+            pendingRequests : Joi.array() 
 
         }
 
@@ -91,14 +74,12 @@ module.exports = {
             certificates : Joi.array(),
 
             coursesTaken : Joi.array(),
-
             contractSigned : Joi.boolean(),
-
             expirationDate : Joi.date(),
-
             age : Joi.number(),
-
-            skills : Joi.array()
+            skills : Joi.array(),
+            expert : Joi.boolean() ,
+            pendingRequests : Joi.array()
 
         }
 

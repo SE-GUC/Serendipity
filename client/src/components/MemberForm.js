@@ -1,6 +1,7 @@
 import React , { Fragment, Component } from "react";
 import axios from 'axios';
 import MemberApp from "../MemberApp";
+import { RSA_NO_PADDING } from "constants";
 class MemberForm extends Component  {
   constructor(){
     super();
@@ -67,10 +68,14 @@ handleSubmit = async event => {
     'Content-Type': 'application/json'
   }
 }).then(res => {
+      if ( res.status == "400" ){
+        alert(' used username or email')
+    }
+    else {
       console.log(res);
       alert('congratulations , You are a member now !')
       this.setState({done : true})
-    }).catch(e => {
+    }}).catch(e => {
       console.log(e)
       alert('Something went wrong! check it out and try again')
     })

@@ -63,7 +63,7 @@ type : [String]
         type : [String]
     },
     contractSigned :{
-        type : Boolean
+        type : mongoose.Schema.Types.Boolean
     },
     expirationDate :{
         type : Date
@@ -73,7 +73,14 @@ type : [String]
     },
     skills :{
         type : [String] 
+    },
+    expert : {
+        type : Boolean
+    },
+    pendingRequests : {
+        type : [{type: mongoose.Schema.Types.ObjectId, ref: 'Assessment'}]
     }
+
     
 });
 
