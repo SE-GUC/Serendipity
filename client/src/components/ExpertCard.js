@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Star from './StarRating';
 import StarRatingComponent from 'react-star-rating-component';
 
 
@@ -21,7 +20,7 @@ handleRatingClick = function(e){
             backgroundColor:'#00000',
            borderStyle: 'outset',
             width : 500 ,
-    }  
+    }
     return(
         <div style={style}>
         <h1>

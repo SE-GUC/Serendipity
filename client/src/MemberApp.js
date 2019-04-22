@@ -39,7 +39,6 @@ all =  function(e){
   this.props.history.push("/allmembers");
 }
 experts =  function(e){
-    //this.setState({ all : true }); 
   this.props.history.push("/AllExperts");
 }
 profile=  function(e){
@@ -63,16 +62,6 @@ workshop =  function(e){
     this.props.history.push("/workshop");
        
 }
-/*componentDidMount() {
-    axios
-      .get("http://localhost:5000/api/members")
-      .then(res => {
-        this.setState({ recommendations: res.recommendations })
-        console.log(this.state.recommendations)
-    })
-      .catch(error => console.log("blabizo"));
-} 
-*/
     render(){
         const btnstyle = {
             position: 'absolute' , 
@@ -87,10 +76,7 @@ workshop =  function(e){
         return(
             <div className="App">
            <recommendations id = {this.state.id} />
-     <label>
-    ID : 
-    <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                
-</label>
+
 
 <button onClick ={this.profile} style={btnstyle} > View Profile  </button> 
 <br/><br/><br/><br/>

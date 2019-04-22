@@ -54,11 +54,7 @@ handleSubmit = async event => {
     availableDailyHours : this.state.availableDailyHours ,
      location : this.state.location ,
      birthDate : this.state.birthDate,
-/*     interests : this.state.interests,
-     certificates : this.state.certificates ,
-     coursesTaken : this.state.coursesTaken ,
-     skills : this.state.skills
-*/
+
   };
   console.log(member)
  fetch(`http://localhost:5000/api/members/`, {
@@ -171,50 +167,6 @@ return (
             type="date"
            value={this.state.birthDate}
            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-          interests:
-          <input
-            name="interests"
-            type="array"
-            value={this.state.interests}
-           onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        certificates:
-        <input
-          name="certificates"
-          type="array"
-          value={this.state.certificates}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        Courses Taken:
-        <input
-          name="coursesTaken"
-          type="array"
-          value={this.state.coursesTaken}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        Skills:
-        <input
-          name="skills"
-          type="array"
-          value={this.state.skills}
-         onChange={this.onChange} 
             />
         </label>
         <br />

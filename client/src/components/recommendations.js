@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import JobItem from './JobItem';
 
-class recommendations extends Component {
+class Recommendations extends Component {
     constructor (props){
         super(props);
         state = {
@@ -10,8 +10,7 @@ recommendations = []
         }
     }
     componentDidMount() {
-        axios
-          .get("http://localhost:5000/api/members/${this.props.id}" )
+        axios.get("http://localhost:5000/api/members/${this.props.id}" )
           .then(res => {
             this.setState({ recommendations: res.recommendations })
             console.log(this.state.recommendations)
@@ -27,4 +26,4 @@ recommendations = []
      }
 
 }
-export default recommendations;
+export default Recommendations;
