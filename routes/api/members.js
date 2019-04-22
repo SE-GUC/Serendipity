@@ -191,8 +191,10 @@ router.post('/', async (req, res) => {
   try {
 
     const isValidated = validator.createValidation(req.body)
+    
 
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    if (isValidated.error) { console.log(isValidated.error.details[0].message)
+      return res.status(400).send({ error: isValidated.error.details[0].message })}
     const username = req.body.userName;
     const found = await Member.findOne({ "userName": username });
     if (found)
@@ -208,9 +210,10 @@ router.post('/', async (req, res) => {
 
         newMember.Age = Age(req.body.birthDate)
         //notification
-        require('../../services/mailer').sendMail(newEducationalOrganization).then(data => {
+        require('../../services/mailer').sendMail(newMember).then(data => {
           console.log(data)
          }).catch(err => console.log(err)) ;
+         
         res.json({ msg: 'Member was created successfully', data: newMember })
       }
     }
