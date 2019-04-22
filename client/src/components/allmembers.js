@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MemberCard from './memberCard'
 import axios from 'axios';
+import ExpertCard from './ExpertCard'
 
 
 class Allmembers extends Component {
@@ -24,6 +25,9 @@ class Allmembers extends Component {
     render() {
        return (
           this.state.members.map((member) => {
+            if ( member.expert ){
+              return <ExpertCard  name  = {member.name} email = {member.email} Skills = {member.Skills} Available Daily Hours = {member.availableDailyHours} location = {member.location} Review = {member.review}/>
+            }
            return  <MemberCard  name  = {member.name} email = {member.email} Skills = {member.Skills} AvailableDailyHours = {member.availableDailyHours} location = {member.location} Review = {member.review}/>
      }));
      

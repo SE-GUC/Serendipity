@@ -34,7 +34,7 @@ constructor (){
          up_location : '',
          up_password: '',
          up_birthDate: '',
-      up_interests : [],
+      up_interests :'',
       up_attendedEvents : [],
       up_previousJobs : [],
       up_previousTasks :[],
@@ -46,7 +46,7 @@ constructor (){
       up_contractSigned :[],
       up_expirationDate :'',
       up_age :'',
-      up_skills :[] ,
+      up_skills :'' ,
       edit :  false ,
       view : true ,
       id : null ,
@@ -136,6 +136,21 @@ axios.delete(`http://localhost:5000/api/members/${member}`)
     
     alert('Account deleted successfully')
 }
+addSkill =  function(e){
+  const member = this.prop.id
+  axios.put(`http://localhost:5000/api/members/${member}/addskills` , {
+    skill : this.state.up_skills
+  })
+.then( res => console.log(res))
+};
+
+addInterest =  function(e){
+  const member = this.prop.id
+  axios.put(`http://localhost:5000/api/members/${member}/addinterests` , {
+    interest : this.state.up_interests
+  })
+.then( res => console.log(res))
+};
 
 render() {
   const  formstyle ={
@@ -159,7 +174,6 @@ Email address :
 
 User name : 
 <input type="text"   value={this.state.userName} disabled/><br></br>
-
 Name : 
 <input type="text"   value={this.state.name} disabled /><br></br>
 Password :
@@ -194,13 +208,15 @@ Age :
 <input type="number"   value={this.state.age} disabled/><br></br>
 Skills :
 <input type="array"   value={this.state.skills} disabled/><br></br>
-</form> : null }
 <button onClick={this.edit}>
   Edit profile info
 </button>
 <button onClick={this.delete}>
   Delete profile 
 </button>
+</form> : null }
+
+
 { this.state.edit && !this.state.view ?
 <form onSubmit={this.handleSubmit}  style={formstyle}>
 Email address :  
@@ -226,13 +242,33 @@ BirthDate :
 <br></br>
 <button onClick = {this.handleSubmit}>
 save changes
-</button> 
-</form> : null }
+</button>
+<br/><br/> 
+<br/> 
+ 
+Add Skill 
+<br/> 
 
+<input type="text" name="up_skill"  value = {this.state.up_skill } onChange={this.onChange } /><br/> 
+<br/> 
+
+<button onClicl = {this.addSkill} > Add skill </button>
+
+<br/> 
+<br/> 
+<br/> 
+Add interest 
+<br/> 
+<input type="text" name="up_interest"  value = {this.state.up_interest } onChange={this.onChange } />
+<br/> 
+<br/> 
+<button onClicl = {this.addInterest} > Add skill </button>
+
+
+
+</form> : null }
 </div>
 )
 }
-
-
 }
 export default MemberProfile ;
