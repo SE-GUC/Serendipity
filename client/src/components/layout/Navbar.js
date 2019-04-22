@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { logoutUser } from '../../globalState/actions/authentication';
 import { withRouter } from 'react-router-dom';
 // import logo from '../../logo.png'
@@ -70,4 +70,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default (withRouter(Navbar));

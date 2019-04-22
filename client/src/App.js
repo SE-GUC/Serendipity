@@ -16,7 +16,6 @@ import Footer from './components/layout/Footer';
 import CourseApp from './components/Form';
 // import Login from './components/pages/LoginPage';
 //////trail yan pending
-// import { Provider } from 'react-redux'; //yan
 // import store from '../src/globalState/store'; //yan
 import Login2 from './components/pages/Login';//trial yan
 import 'bootstrap/dist/css/bootstrap.min.css'; //trial yan
@@ -41,6 +40,7 @@ import PartnerUpdate from '../src/components/PartnerUpdate'
 
 import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
+import CourseOver from './components/CourseOver';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
@@ -69,7 +69,7 @@ class App extends Component {
       <Router>
 
       <div id="page-container" className = 'App'>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Header/> 
             
       <Route exact path = "/eduorg" component = {EduOrgApp}/> {/*Educational Organizations*/}
@@ -95,7 +95,7 @@ class App extends Component {
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
   {/* should be hidden to normal Viewers*/ }
       
-      <Route exact path = "/login" component = {Login2}/> 
+      {/* <Route exact path = "/login" component = {Login2}/>  */}
       <Route exact path = "/eduorg/create" component = {EduOrgAppCreate}/>
       <Route exact path = "/eduorg/update/:id" component = {EduOrgAppUpdate}/> 
       <Route exact path = "/eduorg/delete/:id" component = {EduOrgAppDelete}/> 
@@ -113,6 +113,8 @@ class App extends Component {
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
+
+      <Route exact path = "/courseOver" component = {CourseOver}/> 
 
       {/* <Footer/> hides some functionalities wont stick to bottom of page */}
       </div>
