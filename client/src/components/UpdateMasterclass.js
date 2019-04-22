@@ -66,7 +66,7 @@ class UpdateMasterclass extends Component {
        if (this.state.description) schema["description"] = this.state.description
        if (this.state.location) schema["location"] = this.state.location
        if (this.state.Eduorganization) schema["Eduorganization"] = this.state.Eduorganization
-       if (this.state.chosenCourses) schema["courseIDs"]=this.state.chosenCourses
+       if (this.state.chosenCourses.length>0) schema["courseIDs"]=this.state.chosenCourses
        console.log(schema)
        console.log(id)
 
