@@ -48,6 +48,7 @@ import workshopsEduOrg from './workshopsEduOrg';
 import ViewEduOrgWorkshops from './ViewEduOrgWorkshops';
 import ViewEduOrgCourses from './ViewEduOrgCourses';
 import ViewEduOrgMasterclasses from './ViewEduOrgMasterclasses';
+import MasterclassesEduOrg from './MasterclassesEduOrg'
 
 
 
@@ -121,6 +122,7 @@ class App extends Component {
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
       <Route path = "/salma" component = {workshopsEduOrg}/> 
+      <Route path = "/salma2" component = {MasterclassesEduOrg}/> 
       <Route path = "/eduorg/view/workshops/:id" component = {ViewEduOrgWorkshops}/> 
       <Route path = "/eduorg/view/courses/:id" component = {ViewEduOrgCourses}/> 
       <Route path = "/eduorg/view/masterclasses/:id" component = {ViewEduOrgMasterclasses}/> 
