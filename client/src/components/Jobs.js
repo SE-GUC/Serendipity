@@ -11,4 +11,3 @@ class Jobs extends Component {
 
 }
 export default Jobs;
-    

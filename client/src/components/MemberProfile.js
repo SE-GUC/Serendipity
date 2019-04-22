@@ -138,16 +138,20 @@ axios.delete(`http://localhost:5000/api/members/${member}`)
 }
 
 render() {
+  const  formstyle ={
+    color: '#31323C',
+    margin: 20,
+    padding: 20, 
+    backgroundColor:'#FFFFFF',
+   borderStyle: 'outset',
+    width : 500 ,
+}
   return (
   
     <div >
-<h1>
-<button onClick={this.getMember} > View profile </button><br/>
-    Hello {this.state.name} <br/>
-</h1>
 
 { this.state.view && !this.state.edit ?
-  <form >
+  <form style={formstyle}>
 
 Email address :  
 <input type="email"   value={this.state.email} disabled /><br></br>
@@ -198,7 +202,7 @@ Skills :
   Delete profile 
 </button>
 { this.state.edit && !this.state.view ?
-<form onSubmit={this.handleSubmit} >
+<form onSubmit={this.handleSubmit}  style={formstyle}>
 Email address :  
 <input type="email"  name="up_email" value={this.state.up_email ? this.state.up_email : this.state.email } onChange={this.onChange} />
 <br></br>
@@ -259,7 +263,6 @@ Skills :
 save changes
 </button> 
 </form> : null }
-
 
 </div>
 )

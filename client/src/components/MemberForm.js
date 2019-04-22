@@ -89,7 +89,7 @@ render(){
         margin: 20,
         padding: 20, 
         backgroundColor:'#FFFFFF',
-        borderStyle: 'outset',
+       borderStyle: 'outset',
         width : 500 ,
 }
 

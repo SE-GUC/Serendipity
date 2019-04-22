@@ -43,7 +43,10 @@ import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
+import Allmembers from './components/allmembers';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import AllExperts from './components/AllExperts';
+import MemberProfile from './components/MemberProfile';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -83,6 +86,10 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/>  {/* should be hidden to normal Viewers*/ }
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/allmembers" component = {Allmembers}/>
+      <Route exact path = "/memberprofile" component = {MemberProfile}/>
+      <Route exact path = "/AllExperts" component = {AllExperts}/>
+
       {/* <Route exact path = "/register" component = {Register}/>  */}
 
 

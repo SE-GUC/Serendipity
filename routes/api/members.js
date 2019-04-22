@@ -11,6 +11,8 @@ const Job = require('../../models/Job')
 const Member = require('../../models/Member')
 
 const Workshop = require('../../models/Workshop') //yara
+const Assessment = require('../../models/Assessment') 
+
 const objectId = require('mongoose').objectid //yara
 
 
@@ -28,6 +30,10 @@ router.get('/getexperts' , async (req , res) => {
 res.json(members);
 })
 
+app.get('./routes/api/assessments/:name' , async (req , res) => {
+const assessments = await Assessment.find({memberName : name})
+res.json(assessments);
+});
 
 function Age(birthday) { // birthday is a date
 
@@ -153,7 +159,6 @@ async function finalfilterbyavailability(_id) {
   }
 
   return recommendations;
-
 }
 
 
