@@ -224,41 +224,6 @@ Location :
 BirthDate : 
 <input type="text" name="up_birthDate"  value= {this.state.up_birthDate ? this.state.up_birthDate : this.state.birthDate} onChange={this.onChange} />
 <br></br>
-Interests : 
-<input type="array" name="up_interests"  value={this.state.interests} onChange={this.onChange} />
-<br></br>
-Attended Events :
-<input type="array" name="up_attendedEvents"  value={this.state.attendedEvents} onChange={this.onChange} />
-<br></br>
-Previous Projects :
-<input type="array" name="up_previousProjects"   value={this.state.previousProjects} onChange={this.onChange} />
-<br></br>
-Previous Tasks :
-<input type="array" name="up_previousTasks"  value={this.state.previousTasks} onChange={this.onChange} />
-<br></br>
-Previous Jobs :
-<input type="array" name="up_previousJobs"  value={this.state.previousJobs} onChange={this.onChange} />
-<br></br>
-Review  
-<input type="text"  name="up_review" value={this.state.reviews} onChange={this.onChange} />
-<br></br>
-Reviewers :
-<input type="text"  name="up_reviewers" value={this.state.reviewers} onChange={this.onChange} /><br></br>
-Certificates :
-<input type="text"  name="up_certificates" value={this.state.certificates} onChange={this.onChange} />
-<br></br>
-Courses Taken :
-<input type="text" name="up_coursesTaken"  value={this.state.coursesTaken} onChange={this.onChange} />
-<br></br>
-Contract Signed :
-<input type="boolean"  name="up_contractSigned" value={this.state.contractSigned} onChange={this.onChange} />
-<br></br>
-Age :
-<input type="number" name="up_age"  value={this.state.age} onChange={this.onChange} />
-<br></br>
-Skills :
-<input type="array" name="up_skills"  value={this.state.skills} onChange={this.onChange}  />
-<br></br>
 <button onClick = {this.handleSubmit}>
 save changes
 </button> 

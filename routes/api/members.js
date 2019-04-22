@@ -30,7 +30,7 @@ router.get('/getexperts' , async (req , res) => {
 res.json(members);
 })
 
-app.get('./routes/api/assessments/:name' , async (req , res) => {
+router.get('./routes/api/assessments/:name' , async (req , res) => {
 const assessments = await Assessment.find({memberName : name})
 res.json(assessments);
 });
@@ -303,9 +303,6 @@ router.delete('/:_id', async (req, res) => {
 
 //MAYAR
 router.put('/:id/addcourse', async(req,res) => {
-  // console.log('hnaaSmsm')
-  // console.log(req.body.coursesId)
-  // console.log('hnaaSmsm')
 
   const isValidated = validator.applyValidation(req.body)
   if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -313,19 +310,41 @@ router.put('/:id/addcourse', async(req,res) => {
   const coursesId = req.body.coursesId;
   const memberId = req.params.id;
   var member = await Member.findById(memberId);
-  // console.log('one')
-  // console.log(coursesId)
-
   member.coursesTaken.push(coursesId);
- // console.log('two')
-
   Member.findByIdAndUpdate(memberId,{coursesTaken:member.coursesTaken})
   .exec()
   .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
   .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
-
   console.log('one')
 
-})
+});
+router.put('/:id/addskills', async(req,res) => {
+
+  const isValidated = validator.applyValidation(req.body)
+  if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+  const skill = req.body.skill;
+  const memberId = req.params.id;
+  var member = await Member.findById(memberId);
+  member.skills.push(skill);
+  Member.findByIdAndUpdate(memberId,{skills:member.skills})
+  .exec()
+  .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
+  .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
+});
+router.put('/:id/addinterests', async(req,res) => {
+
+  const isValidated = validator.applyValidation(req.body)
+  if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+  const interest = req.body.interest;
+  const memberId = req.params.id;
+  var member = await Member.findById(memberId);
+  member.interests.push(interest);
+  Member.findByIdAndUpdate(memberId,{interests:member.interests})
+  .exec()
+  .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
+  .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
+});
 
 module.exports = router

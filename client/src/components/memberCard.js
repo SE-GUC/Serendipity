@@ -12,8 +12,6 @@ class MemberCard extends Component {
            borderStyle: 'outset',
             width : 500 ,
       }
-      
-        
     return(
         <div style={style}>
             <p>{"Name                   :"}{this.props.name}</p>

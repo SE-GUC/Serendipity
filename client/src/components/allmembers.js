@@ -11,7 +11,6 @@ class Allmembers extends Component {
           members: [],
         };
       }
-
     componentDidMount() {
         axios
           .get("http://localhost:5000/api/members")
@@ -20,7 +19,7 @@ class Allmembers extends Component {
             this.setState({ members: res.data.data })
             console.log(this.state.members)
         })
-          .catch(error => this.ERROR.bind(error));
+          .catch(error => console.log("error"));
     }      
     render() {
        return (

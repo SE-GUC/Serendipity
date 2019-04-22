@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import MemberProfile from './components/MemberProfile';
 import Allmembers from './components/allmembers';
+import JobItem from './components/JobItem';
+import axios from 'axios';
 
 class MemberApp extends Component {
 constructor (){
@@ -13,7 +15,8 @@ this.state = {
     course : false ,
     masterclass : false ,
     workshop : false , 
-    all : false 
+    all : false ,
+    recommendations :[]
 
 }
 this.onChange = this.onChange.bind(this)
@@ -59,7 +62,16 @@ workshop =  function(e){
     this.props.history.push("/workshop");
        
 }
-
+/*componentDidMount() {
+    axios
+      .get("http://localhost:5000/api/members")
+      .then(res => {
+        this.setState({ recommendations: res.recommendations })
+        console.log(this.state.recommendations)
+    })
+      .catch(error => console.log("blabizo"));
+} 
+*/
     render(){
         const btnstyle = {
             position: 'absolute' , 
@@ -73,10 +85,14 @@ workshop =  function(e){
         }
         return(
             <div className="App">
-            <label>
+           <recommendations id = {this.state.id} />
+     <label>
     ID : 
     <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                
 </label>
+
+
+
 <button onClick ={this.profile} style={btnstyle} > View Profile  </button> 
 <br/><br/><br/><br/>
 
