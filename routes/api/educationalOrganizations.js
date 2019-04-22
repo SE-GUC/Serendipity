@@ -15,6 +15,7 @@ const EducationalOrganization = require('../../models/EducationalOrganization')
 const Admin = require('../../models/Admin')
 const validator = require('../../Validations/EduOrgValidations')
 const passport = require('passport');//for auth trial
+const nodemailer = require("nodemailer"); //notifications
 
 router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find()
@@ -30,14 +31,22 @@ router.get('/', async (req,res) => {
 //router.get("/:_id", (req, res) => {
   router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
 
-    const id = req.params._id;
-    const admin =await Admin.findById(req.user.id )
     //req.user.id == id 
     
+    const id = req.params._id;
+    const admin =await Admin.findById(req.user.id )
+    id2=''
+    if(!admin){
+       id2="";
+    }
+    else{
+       id2=admin._id;
+    }
     console.log(id)
-    console.log(admin._id)
+    console.log(id2)
     console.log(req.user.id)
-    const id2=admin.id
+    // const id2="";
+    // =;admin.id
     const id3=req.user.id
     if(id3==id2 || id3==id) {
       console.log('hiii')
@@ -79,10 +88,28 @@ router.post('/', async (req,res) => {
 			email,
 			name,
 		});
-		await EducationalOrganization.create(newEducationalOrganization);
+    await EducationalOrganization.create(newEducationalOrganization);
+    //notification trial yan
+    //+ token.token 
+    console.log(newEducationalOrganization.email)
+    // const transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
+    // const mailOptions = { from: 'no-reply@yourwebapplication.com', to: newEducationalOrganization.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + '.\n' };
+    // transporter.sendMail(mailOptions, function (err) {
+    //     if (err) { return res.status(500).send({ msg: err.message }); }
+    //     res.status(200).send('A verification email has been sent to ' + newEducationalOrganization.email + '.');
+    //     console.log(res.data)
+    // });
+    /////
+
      //const newEducationalOrganization = await EducationalOrganization.create(req.body);
+     
+     require('../../services/mailer').sendMail().then(data => {
+      console.log(data)
+     }).catch(err => console.log(err)) ;
+     
      res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
+
     catch(error) {
         // We will be handling the error later
         console.log(error)
@@ -96,7 +123,7 @@ router.post('/', async (req,res) => {
 
  
 // update Profile
-
+//
 router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
@@ -114,7 +141,7 @@ router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, re
     }
  })
 
-//router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
+
 router.delete('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
@@ -147,4 +174,3 @@ module.exports = router
 // router.get('/:id/masterclasses' ,async (req,res)=>{
 
 // })
-

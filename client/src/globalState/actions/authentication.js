@@ -14,7 +14,8 @@ import jwt_decode from 'jwt-decode';
 //                     payload: err.response.data
 //                 });
 //             });
-// }
+//}
+
 //not working!!
 export const loginUser = (user) => dispatch => {
     axios.post('http://localhost:5000/api/login', user)
