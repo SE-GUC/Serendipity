@@ -5,6 +5,8 @@ const axios = require('axios');
 const router = express.Router();
 const mongoose = require('mongoose')
 const Job = require('../../models/Job')
+const Partner = require('../../models/Partner')
+const Member = require('../../models/Member')
 //const validator = require('../../validations/jobValidations')
 router.use(express.json())
 // We will be connecting using database 
@@ -146,6 +148,114 @@ router.post('/', async (req,res) => {
      //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const updatedjob = await Job.findOneAndUpdate(ID,req.body)
      res.json({msg: 'Job updated successfully',data:updatedjob})
+    }
+
+  
+
+
+
+)
+
+
+// get pending registered partners 
+router.get('/p/pendingpartners', async (req,res) => {
+    try{
+     const partners = await funcs.getPartners()
+     
+    
+      
+          const partnerspending =[]
+         
+          for(var i=0;i<partners.data.data.length;i++){
+            
+              if(partners.data.data[i].registered==="no")
+             partnerspending.push(partners.data.data[i])}
+             res.json({data: partnerspending})
+            
+          }
+          catch(error) {
+       
+             console.log(error)
+         }  
+       
+     
+      
+     
+     
+   
+     
+ 
+     //res.json({data: jobs})}
+ 
+    
+  })
+
+// get pending members to register
+
+  router.get('/p/pendingmembers', async (req,res) => {
+    try{
+     const members = await funcs.getMembers()
+     
+    
+      
+          const memberspending =[]
+         
+          for(var i=0;i<members.data.data.length;i++){
+            
+              if(members.data.data[i].registered==="no")
+             memberspending.push(members.data.data[i])}
+             res.json({data: memberspending})
+            
+          }
+          catch(error) {
+       
+             console.log(error)
+         }  
+       
+     
+      
+     
+     
+   
+     
+ 
+     //res.json({data: jobs})}
+ 
+    
+  })
+// approve or reject a pending partner
+
+  router.put('/arpartner/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const partner = await Partner.findById(id)
+     const ID = {"_id":id}
+     if(!partner) return res.status(404).send({error: 'job does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedpartner = await Partner.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Job updated successfully',data:updatedpartner})
+    }
+
+  
+
+
+
+)
+
+
+// approve or reject a pending partner
+
+router.put('/armember/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const member = await Member.findById(id)
+     const ID = {"_id":id}
+     if(!member) return res.status(404).send({error: 'member does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedmember = await Member.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Member updated successfully',data:updatedmember})
     }
 
   

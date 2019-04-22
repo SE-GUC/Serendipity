@@ -46,6 +46,8 @@ import updateWorkshop from './components/updateWorkshop';
 import AdminCreate from './components/AdminCreate';
 import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import PendingPartnersForm from './components/PendingPartnersForm';
+import PendingMembersForm from './components/PendingMembersForm';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -85,6 +87,8 @@ class App extends Component {
       <Route exact path = "/admin" component = {AdminApp}/> 
       <Route exact path = "/admin/register" component = {AdminCreate}/> {/* should be hidden to normal Viewers*/ }
       <Route exact path = "/admin/pendingjobs" component = {PendingJobs}/>
+      <Route exact path = "/admin/pendingpartners" component = {PendingPartnersForm}/>
+      <Route exact path = "/admin/pendingmembers" component = {PendingMembersForm}/>
 
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 

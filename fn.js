@@ -281,6 +281,11 @@ deleteWorkshop: async (id) => {
     return partner;
   },
 
+  getMembers: async () => {
+    const members = await axios.get("http://localhost:5000/api/members/");
+    return members;
+  },
+
   /////////////Admins///////////////////////
   getAdmins: async () => {
     const admins = await axios.get("http://localhost:5000/api/admins/");
