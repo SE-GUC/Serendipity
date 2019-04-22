@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExpertCard from './ExpertCard'
 import axios from 'axios';
+import StarRating from 'react-star-rating'
 
 
 class AllExperts extends Component {
@@ -23,11 +24,12 @@ class AllExperts extends Component {
     }      
     render() {
        return (
+        
           this.state.members.map((member) => {
            return  <ExpertCard  name  = {member.name} email = {member.email} Skills = {member.Skills} Available Daily Hours = {member.availableDailyHours} location = {member.location} Review = {member.review}/>
 
-        }));
-     
+        })
+        );    
     }
 }
 export default AllExperts;

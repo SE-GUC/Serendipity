@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class MemberCard extends Component {
  
   render() {
@@ -20,6 +19,7 @@ class MemberCard extends Component {
             <p>{"Available Daily Hours  :"}{this.props.AvailableDailyHours}</p>
             <p>{"Location               :"}{this.props.location}</p>
             <p>{"Review                 :"}{this.props.reviews}</p>
+           
         </div>
     )
   }

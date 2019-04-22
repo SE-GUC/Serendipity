@@ -5,6 +5,7 @@ import Allmembers from './components/allmembers';
 import JobItem from './components/JobItem';
 import axios from 'axios';
 
+
 class MemberApp extends Component {
 constructor (){
 super ()
@@ -90,8 +91,6 @@ workshop =  function(e){
     ID : 
     <input name="id" type="text" value={this.state.id}  onChange={this.onChange} />                
 </label>
-
-
 
 <button onClick ={this.profile} style={btnstyle} > View Profile  </button> 
 <br/><br/><br/><br/>
