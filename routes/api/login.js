@@ -28,6 +28,8 @@ router.post('/', async (req, res) => {
         //Admin
         if(admin) 
         {   console.log("admin")
+        if(admin.super==="no" && admin.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchA = bcrypt.compareSync(password, admin.password);
             const matchAA = (password===admin.password) //since password is not hashed yet
             if (matchA || matchAA) {
@@ -44,6 +46,8 @@ router.post('/', async (req, res) => {
         //EduOrg
         if(eduOrg) 
         {   console.log("eduorg")
+        if(eduOrg.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchE = bcrypt.compareSync(password, eduOrg.password);
            // const matchEE = (password===eduOrg.password) dont need it as password is hashed
             if (matchE ) {
@@ -60,6 +64,8 @@ router.post('/', async (req, res) => {
         //Member
         if(member) {
             console.log("member")
+            if(member.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchM = bcrypt.compareSync(password, member.password);
             const matchMM = (password===member.password)
             console.log(matchMM)
@@ -77,6 +83,8 @@ router.post('/', async (req, res) => {
         //Partner
         if(partner){
             console.log("partner")
+            if(partner.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchP = bcrypt.compareSync(password, partner.password);
             const matchPP = (password===partner.password)
             console.log(matchPP)

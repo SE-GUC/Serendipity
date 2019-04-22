@@ -235,6 +235,8 @@ class AdminApp extends Component {
         <Link to="/admin/pendingjobs">View Pending Jobs </Link>
         <Link to="/admin/pendingpartners">View Pending Partners </Link>
         <Link to="/admin/pendingmembers">View Pending Members </Link>
+        <Link to="/admin/pendingeduorgs">View Pending EduOrgs </Link>
+        <Link to="/admin/pendingadmins">View Pending Admins </Link>
 
         <Admins admins = {this.state.admins} deleteadmin={this.deleteadmin} updateadmin={this.updateadmin} showadmin={this.showadmin}/>
         <br />

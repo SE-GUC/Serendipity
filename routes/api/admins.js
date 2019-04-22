@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const Job = require('../../models/Job')
 const Partner = require('../../models/Partner')
 const Member = require('../../models/Member')
+const EduOrg = require('../../models/EducationalOrganization')
 //const validator = require('../../validations/jobValidations')
 router.use(express.json())
 // We will be connecting using database 
@@ -223,6 +224,44 @@ router.get('/p/pendingpartners', async (req,res) => {
  
     
   })
+
+
+  // get pending eduorg to register
+
+  router.get('/p/pendingeduorg', async (req,res) => {
+    try{
+     const eduorgs = await funcs.getEduOrg()
+     
+    
+      
+          const eduorgspending =[]
+         
+          for(var i=0;i<eduorgs.data.data.length;i++){
+            
+              if(eduorgs.data.data[i].registered==="no")
+             eduorgspending.push(eduorgs.data.data[i])}
+             res.json({data: eduorgspending})
+            
+          }
+          catch(error) {
+       
+             console.log(error)
+         }  
+       
+     
+      
+     
+     
+   
+     
+ 
+     //res.json({data: jobs})}
+ 
+    
+  })
+
+
+  
 // approve or reject a pending partner
 
   router.put('/arpartner/:id',async(req,res)=>{
@@ -256,6 +295,157 @@ router.put('/armember/:id',async(req,res)=>{
      //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const updatedmember = await Member.findOneAndUpdate(ID,req.body)
      res.json({msg: 'Member updated successfully',data:updatedmember})
+    }
+
+  
+
+
+
+)
+
+// get pending eduorg to register
+
+  router.get('/p/pendingeduorg', async (req,res) => {
+    try{
+     const eduorgs = await funcs.getEduOrg()
+     
+    
+      
+          const eduorgspending =[]
+         
+          for(var i=0;i<eduorgs.data.data.length;i++){
+            
+              if(eduorgs.data.data[i].registered==="no")
+             eduorgspending.push(eduorgs.data.data[i])}
+             res.json({data: eduorgspending})
+            
+          }
+          catch(error) {
+       
+             console.log(error)
+         }  
+       
+     
+      
+     
+     
+   
+     
+ 
+     //res.json({data: jobs})}
+ 
+    
+  })
+
+
+  // get pending admins approved by super admin to register
+
+  router.get('/p/pendingadmins', async (req,res) => {
+    try{
+     const admins = await funcs.getAdmins()
+     
+    
+      
+          const adminspending =[]
+         
+          for(var i=0;i<admins.data.data.length;i++){
+            
+              if(admins.data.data[i].registered==="no" && admins.data.data[i].super!=="yes")
+             adminspending.push(admins.data.data[i])}
+             res.json({data: adminspending})
+            
+          }
+          catch(error) {
+       
+             console.log(error)
+         }  
+       
+     
+      
+     
+     
+   
+     
+ 
+     //res.json({data: jobs})}
+ 
+    
+  })
+
+
+  
+// approve or reject a pending partner
+
+  router.put('/arpartner/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const partner = await Partner.findById(id)
+     const ID = {"_id":id}
+     if(!partner) return res.status(404).send({error: 'job does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedpartner = await Partner.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Job updated successfully',data:updatedpartner})
+    }
+
+  
+
+
+
+)
+
+
+// approve or reject a pending partner
+
+router.put('/armember/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const member = await Member.findById(id)
+     const ID = {"_id":id}
+     if(!member) return res.status(404).send({error: 'member does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedmember = await Member.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Member updated successfully',data:updatedmember})
+    }
+
+  
+
+
+
+)
+
+// approve or reject a pending eduorg
+router.put('/areduorg/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const eduorg = await EduOrg.findById(id)
+     const ID = {"_id":id}
+     if(!eduorg) return res.status(404).send({error: 'EduOrg does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatededuorg = await EduOrg.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'EduOrg updated successfully',data:updatededuorg})
+    }
+
+  
+
+
+
+)
+
+
+// approve or reject a pending eduorg
+router.put('/aradmins/:id',async(req,res)=>{
+
+    const id = req.params.id
+     const admin = await Admin.findById(id)
+     const ID = {"_id":id}
+     if(!admin) return res.status(404).send({error: 'Admin does not exist'})
+     //const isValidated = validator.updateValidation(req.body)
+     //if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     const updatedadmin = await Admin.findOneAndUpdate(ID,req.body)
+     res.json({msg: 'Admin updated successfully',data:updatedadmin})
     }
 
   

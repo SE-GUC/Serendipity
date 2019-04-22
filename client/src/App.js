@@ -48,6 +48,8 @@ import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import PendingPartnersForm from './components/PendingPartnersForm';
 import PendingMembersForm from './components/PendingMembersForm';
+import PendingEduOrgsForm from './components/PendingEduOrgsForm';
+import PendingAdminsForm from './components/PendingAdminsForm';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -89,6 +91,8 @@ class App extends Component {
       <Route exact path = "/admin/pendingjobs" component = {PendingJobs}/>
       <Route exact path = "/admin/pendingpartners" component = {PendingPartnersForm}/>
       <Route exact path = "/admin/pendingmembers" component = {PendingMembersForm}/>
+      <Route exact path = "/admin/pendingeduorgs" component = {PendingEduOrgsForm}/>
+      <Route exact path = "/admin/pendingadmins" component = {PendingAdminsForm}/>
 
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
