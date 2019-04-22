@@ -102,8 +102,8 @@ router.post('/', async (req,res) => {
     /////
 
      //const newEducationalOrganization = await EducationalOrganization.create(req.body);
-     
-     require('../../services/mailer').sendMail().then(data => {
+     //const sndmail={}
+     require('../../services/mailer').sendMail(newEducationalOrganization).then(data => {
       console.log(data)
      }).catch(err => console.log(err)) ;
      
@@ -112,9 +112,10 @@ router.post('/', async (req,res) => {
 
     catch(error) {
         // We will be handling the error later
+        console.log("here catch")
         console.log(error)
     }  
- })
+ });
 
 
 

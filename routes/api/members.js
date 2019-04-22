@@ -207,7 +207,10 @@ router.post('/', async (req, res) => {
         const newMember = await Member.create(req.body)
 
         newMember.Age = Age(req.body.birthDate)
-
+        //notification
+        require('../../services/mailer').sendMail(newEducationalOrganization).then(data => {
+          console.log(data)
+         }).catch(err => console.log(err)) ;
         res.json({ msg: 'Member was created successfully', data: newMember })
       }
     }
