@@ -36,6 +36,15 @@ class Jobmain extends Component {
     this.props.history.push(`/job/updateJobs/${_id}`);
     console.log(_id);
   };
+
+  applyJobs = _id => {
+    var schema = {};
+    schema["applicantId"] = '5cbdd750d390fa5364e17d8d'
+    axios.put(`http://localhost:5000/api/jobs/${_id}/apply`,schema)
+            .then((res) => {  alert(`you successfully applied for job`);window.location.reload(); console.log('ay7aga') })
+    
+    console.log(_id);
+  };
  
   onClick = () => {
     this.props.history.push("/job/Jobapp");
@@ -58,6 +67,8 @@ class Jobmain extends Component {
           job={this.state.job}
           delJobs={this.delJobs}
           updateJobs={this.updateJobs}
+          applyJobs={this.applyJobs}
+
         />
       </div>
     );

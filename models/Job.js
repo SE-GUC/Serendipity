@@ -7,7 +7,8 @@ const Jobschema = new Schema({
     required: true
   },
   state: {
-    type: String
+    type: String,
+    default:'pending'
     // PENDING:'pending',
     // APPROVED:'approved',
     // ASSIGNED:'assigned',

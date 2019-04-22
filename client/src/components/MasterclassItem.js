@@ -89,6 +89,8 @@ class MasterclassItem extends Component {
             <p>{"Workshops:"}{workshopsIDs.map(item => <li>{item.title}</li>)}</p>
            <p>{"applicants:"}{applicants.map(item => <li><p>Applicant Name:{item.name} , Applicant Username:{item.userName} , Applicant email:{item.email}</p></li>)}</p>
             <button onClick={this.props.delMasterclass.bind(this,_id)}>Delete</button>
+            <button onClick={this.props.applyMasterclass.bind(this,_id)}>apply</button>
+
             
 
         </div>

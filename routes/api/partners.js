@@ -88,14 +88,20 @@ router.get('/:pid/applicants/:jid',async(req,res)=>{
   const jobId = req.params.jid;
   const job = await Job.findById(jobId);
   if(!job) return res.status(400).send({ error:'Job does not exist' })
-  const string = JSON.stringify(job);
-  const objectValue = JSON.parse(string);
-  const applicants = objectValue['applicants'];
-  const partner1 = objectValue['partner'];
-   if (partner1!=partnerId)
-  return res.status(400).send({ error:'This job does not belong to that partner' })
+const c= await job.applicants
+const x=[];
+  //const c=await  Job.findById(f[0])
+  for(let i=0;i<c.length;i++){
+  x.push( await Member.findById(c[i]))
+  }
+  // const string = JSON.stringify(job);
+  // const objectValue = JSON.parse(string);
+  // const applicants = objectValue['applicants'];
+  // const partner1 = objectValue['partner'];
+  //  if (partner1!=partnerId)
+  // return res.status(400).send({ error:'This job does not belong to that partner' })
   
-  res.json({applicants})
+  res.json({x})
 })
 
 //add to the vacanies//noura
@@ -145,7 +151,7 @@ router.get('/:pid/jobs',async(req,res)=>{
   const f= await partner.vacancies
   const x=[];
   //const c=await  Job.findById(f[0])
-  for(var i=0;i<f.length;i++){
+  for(let i=0;i<f.length;i++){
   x.push( await Job.findById(f[i]))
   }
   res.json({x})

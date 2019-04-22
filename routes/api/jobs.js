@@ -9,23 +9,10 @@ const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
 const axios = require('axios');
 const funcs=require('../../fn');
-////////////////yara WORKS!!!
-//admin post job
-router.put('/:jid/postjob/:aid',async(req,res)=>{
-   const adid = req.params.aid //get admin id 
-   const jobid=req.param.jid //get job id
-   const admin= await Admin.findById(adid) //checks if its an admin
-   if(!admin) return res.status(404).send({error: 'You are not allowed to change the status of this job'})
-   const updatedJob = await Job.findOneAndUpdate(jobid,req.body)
-   res.json({msg: 'Admin updated Job successfully',data:updatedJob})
-
-})
-
-//////////
-
+const passport = require('passport');//for auth trial
 
 // Get all jobs 
-router.get('/',  async(req,res) => {
+router.get('/', passport.authenticate('jwt', { session: false }),  async(req,res) => {
    
    const jobs = await Job.find().populate('applicants')
    res.json({data: jobs})
@@ -167,7 +154,7 @@ router.post('/', async (req,res) => {
     res.json({msg:'Job was created successfully', data: newJob})
     const x= await funcs.getJobs()
     const len=x.data.data.length
-    const ids="5ca0e12a5959443cbce698f3"
+    const ids="5cbdd7f5d390fa5364e17d90"
     const jid=x.data.data[len - 1]._id
     axios.put(`http://localhost:5000/api/partners/${ids}/vac/${jid}`) 
     
@@ -214,10 +201,62 @@ router.put('/:jid/apply/:mid', async (req, res) => {
        .exec()
        .then(doc => { return res.redirect(303, `/api/jobs/${req.params.jid}`) })
        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+      })
+
+
+
+router.put('/:id/apply', async (req, res) => {
+   console.log('hnaaSmsm')
+   console.log(req.body.applicantId)
+   console.log('hnaaSmsm')
+   console.log("apply course")
+  
+   console.log(req.params.id)
+
+
+   const isValidated = validator.applyValidation(req.body)
+   if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+   const applicantId = req.body.applicantId;
+   const jobId = req.params.id;
+   console.log(jobId)
+   var job = await Job.findById(jobId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
+   console.log('one')
+   console.log(job)
+
+   job.applicants.push(applicantId);
+   console.log('two')
+
+   Job.findByIdAndUpdate(jobId, { applicants: job.applicants })
+       .exec()
+       .then(doc => { return res.redirect(303, `/api/jobs/${req.params.id}`) })
+       .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a job with that id !`) });
 
    console.log('one')
 
 })
+// router.put('/:jid/apply/:mid',async (req,res)=>{
+//    console.log("apply job")
+//    const memberid = req.params.mid
+//    const jobid = req.params.jid
+//    const member = await Member.findById(memberid)
+//    const job = await Job.findById(jobid)
+//    console.log(jobid)
+//    console.log(memberid)
+
+//    if(!job) return res.status(400).send({ error:'job does not exist' })
+//    if(!member) return res.status(400).send({ error:'member does not exist' })
+
+//    Job.update(
+//       {_id:jobid},
+//       {$push: {applicants: memberid}}
+//    )
+//       res.json({msg:'applicant was added succsessfully', data:job})
+
+
+// })
 router.put('/:jid/accept/:mid',async (req,res)=>{
    const memberid = req.params.mid
    const jobid = req.params.jid

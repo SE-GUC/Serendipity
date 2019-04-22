@@ -44,6 +44,12 @@ export class JobsItem extends Component {
           >
             update
           </button>
+          <button
+            onClick={this.props.applyJobs.bind(this, _id)}
+            style={btnStyle1}
+          >
+            apply
+          </button>
         </p>
       </div>
     );

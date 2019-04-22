@@ -13,6 +13,7 @@ class Jobacc extends Component {
         delJobs={this.props.delJobs}
         updateJobs={this.props.updateJobs}
         viewApplicants={this.props.viewApplicants}
+        accept={this.props.accept}
       />
     ));
   }

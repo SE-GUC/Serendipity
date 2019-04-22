@@ -21,7 +21,7 @@ class JobV extends Component {
     };
   }
   componentDidMount() {
-    const id='5ca0e12d5959443cbce698f4'
+    const id='5cbdd7dfd390fa5364e17d8f'
     axios
       .get(`http://localhost:5000/api/partners/${id}/jobs`)
       
@@ -29,10 +29,11 @@ class JobV extends Component {
       .catch(error => this.ERROR.bind(error));
   }
   viewApplicants = _id => {
-    const id='5ca0e12d5959443cbce698f4'
-
-    axios
-      .get(`http://localhost:5000/api/partners/${id}/applicants/${_id}`)
+    this.props.history.push(`applicants/${_id}`);
+    console.log(_id);
+  };
+   accept = _id => {
+    this.props.history.push(`taken/${_id}`);
     console.log(_id);
   };
 
@@ -54,7 +55,7 @@ class JobV extends Component {
         <Jobsi
           job={this.state.job}
           viewApplicants={this.viewApplicants}
-
+           accept={this.accept}
           
         />
       </div>

@@ -46,6 +46,9 @@ import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
+import Allmembers from './components/GetMem';
+import GetMem from './components/GetMem';
+import CardButton from './components/CardButton';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -90,6 +93,9 @@ class App extends Component {
 
    
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
+      <Route exact path = "/applicants/:ids" component = {GetMem}/> {/*create job */}
+      <Route exact path = "/accept/:ids" component = {CardButton}/> {/*create job */}
+
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
       <Route exact path = "/partner/profile" component = {PartnerProfile}/> 
