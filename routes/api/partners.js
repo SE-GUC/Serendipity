@@ -118,18 +118,19 @@ router.get('/:pid/applicants/:jid',async(req,res)=>{
 router.put('/:pid/vac/:jid', async (req, res) => {
   
 
-  // const isValidated = validator.applyValidation(req.body)
+  // const isValidated = validator.applyValidation(req.params.jid)
   // if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
   const jobId =req.params.jid;
   const partnerId = req.params.pid;
   var partner = await Partner.findById(partnerId);
-  console.log('one')
+  console.log(jobId)
   partner.vacancies.push(jobId);
-  console.log('two')
+  console.log(partnerId)
 
-  Partner.findByIdAndUpdate(partnerId, { vacancies: jobId })
+  Partner.findByIdAndUpdate(partnerId, { vacancies: partner.vacancies })
       .exec()
+      .then(doc => { return res.redirect(303, `/api/partners/${req.params.pid}`) })
      
   console.log('one')
 

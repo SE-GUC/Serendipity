@@ -5,14 +5,15 @@ import "../App.css";
 class Jobacc extends Component {
   render() {
     return this.props.job.map(current => (
-        console.log(current)
-    //   <JobsItem
-    //     key={current._id}
-    //     current={current}
-    //     Choose={this.props.Choose}
-    //     delJobs={this.props.delJobs}
-    //     updateJobs={this.props.updateJobs}
-    //   />
+         //console.log(current)
+      <JobsItem
+        key={current._id}
+        current={current}
+        Choose={this.props.Choose}
+        delJobs={this.props.delJobs}
+        updateJobs={this.props.updateJobs}
+        viewApplicants={this.props.viewApplicants}
+      />
     ));
   }
 }

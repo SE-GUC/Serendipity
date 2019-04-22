@@ -21,13 +21,20 @@ class JobV extends Component {
     };
   }
   componentDidMount() {
-    const id='5c9673e3a7f0f43f641386de'
+    const id='5ca0e12d5959443cbce698f4'
     axios
       .get(`http://localhost:5000/api/partners/${id}/jobs`)
       
       .then(res => this.setState({ job: res.data.x, loading: false }))
       .catch(error => this.ERROR.bind(error));
   }
+  viewApplicants = _id => {
+    const id='5ca0e12d5959443cbce698f4'
+
+    axios
+      .get(`http://localhost:5000/api/partners/${id}/applicants/${_id}`)
+    console.log(_id);
+  };
 
   
  
@@ -46,6 +53,8 @@ class JobV extends Component {
 
         <Jobsi
           job={this.state.job}
+          viewApplicants={this.viewApplicants}
+
           
         />
       </div>

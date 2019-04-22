@@ -167,7 +167,7 @@ router.post('/', async (req,res) => {
     res.json({msg:'Job was created successfully', data: newJob})
     const x= await funcs.getJobs()
     const len=x.data.data.length
-    const ids=newJob.partner
+    const ids="5ca0e12a5959443cbce698f3"
     const jid=x.data.data[len - 1]._id
     axios.put(`http://localhost:5000/api/partners/${ids}/vac/${jid}`) 
     
@@ -185,20 +185,37 @@ router.post('/', async (req,res) => {
 
 })
 // as a member I should be able to apply for a job
-router.put('/:jid/apply/:mid',async (req,res)=>{
-   const memberid = req.params.mid
-   const jobid = req.params.jid
-   const member = await Member.findById(memberid)
-   const job = await Job.findById(jobid)
-   if(!job) return res.status(400).send({ error:'job does not exist' })
-   if(!member) return res.status(400).send({ error:'member does not exist' })
+// router.put('/:jid/apply/:mid',async (req,res)=>{
+//    const memberid = req.params.mid
+//    const jobid = req.params.jid
+//    const member = await Member.findById(memberid)
+//    const job = await Job.findById(jobid)
+//    if(!job) return res.status(400).send({ error:'job does not exist' })
+//    if(!member) return res.status(400).send({ error:'member does not exist' })
 
-   Job.update(
-      {_id:jobid},
-      {$push: {applicants: memberid}}
-   )
-      res.json({msg:'applicant was added succsessfully', data:job})
+//    Job.update(
+//       {_id:jobid},
+//       {$push: {applicants: memberid}}
+//    )
+//       res.json({msg:'applicant was added succsessfully', data:job})
 
+
+// })
+router.put('/:jid/apply/:mid', async (req, res) => {
+  
+   const jobID = req.params.id;
+   const memberId = req.params.id;
+   var job = await Job.findById(jobID);
+   
+   job.applicants.push(memberId);
+  
+
+   Job.findByIdAndUpdate(jobID, { applicants: job.applicants })
+       .exec()
+       .then(doc => { return res.redirect(303, `/api/jobs/${req.params.jid}`) })
+       .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+
+   console.log('one')
 
 })
 router.put('/:jid/accept/:mid',async (req,res)=>{

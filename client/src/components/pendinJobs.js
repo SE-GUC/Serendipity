@@ -35,7 +35,7 @@ export class pendinJobs extends Component {
         <p>description: {description}</p>
         <p>state: {state}</p>
         <p>
-          
+        <button onClick={this.props.viewApplicants.bind(this,_id)} style={btnStyle}>view applicants</button>
            
         </p>
       </div>
