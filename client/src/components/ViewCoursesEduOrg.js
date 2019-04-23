@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import WorkshopsItem from './WorkshopsItem'
+import ViewCourseEduOrgItem from './ViewCourseEduOrgItem'
 import '../App.css'
-class Workshops extends Component{
+class ViewCouresEduOrg extends Component{
     render(){
         return this.props.workshop.map((current)=> 
-        <WorkshopsItem key={current._id} current={current}
+        <ViewCourseEduOrgItem key={current._id} current={current}
          Choose={this.props.Choose} 
          delWorkshops={this.props.delWorkshops} updateWorkshops={this.props.updateWorkshops} />)
         
@@ -14,5 +14,5 @@ class Workshops extends Component{
         background:'#f4f4f4f4',
         color:'#000'
       }
-    export default Workshops 
+    export default ViewCouresEduOrg 
     

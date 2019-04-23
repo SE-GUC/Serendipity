@@ -48,12 +48,20 @@ import Allmembers from './components/allmembers';
 import AdminCreate from './components/AdminCreate';
 import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import workshopsEduOrg from './workshopsEduOrg';
+import ViewEduOrgWorkshops from './ViewEduOrgWorkshops';
+import ViewEduOrgCourses from './ViewEduOrgCourses';
+import ViewEduOrgMasterclasses from './ViewEduOrgMasterclasses';
+import MasterclassesEduOrg from './MasterclassesEduOrg'
+import FormEduOrg from './FormEduOrg'
+
+
 import AllExperts from './components/AllExperts';
 import MemberProfile from './components/MemberProfile';
 
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
-import Allmembers from './components/GetMem';
+//import Allmembers from './components/GetMem';
 import GetMem from './components/GetMem';
 import CardButton from './components/CardButton';
 
@@ -152,7 +160,15 @@ class App extends Component {
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
+      <Route path = "/myaccount/workshops/" component = {workshopsEduOrg}/> 
+      <Route path = "/myaccount/masterclasses" component = {MasterclassesEduOrg}/> 
+      <Route path = "/eduorg/view/workshops/:id" component = {ViewEduOrgWorkshops}/> 
+      <Route path = "/eduorg/view/courses/:id" component = {ViewEduOrgCourses}/> 
+      <Route path = "/eduorg/view/masterclasses/:id" component = {ViewEduOrgMasterclasses}/> 
+      <Route path = "/myaccount/courses" component = {FormEduOrg}/> 
 
+
+    
       <Route exact path = "/courseOver" component = {CourseOver}/> 
 
       {/* <Footer/> hides some functionalities wont stick to bottom of page */}

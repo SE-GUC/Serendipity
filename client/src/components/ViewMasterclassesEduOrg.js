@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import WorkshopsItem from './WorkshopsItem'
+import ViewMasterclassEduOrgItem from './ViewMasterclassEduOrgItem'
 import '../App.css'
-class Workshops extends Component{
+class ViewMasterclassesEduOrg extends Component{
     render(){
         return this.props.workshop.map((current)=> 
-        <WorkshopsItem key={current._id} current={current}
+        <ViewMasterclassEduOrgItem key={current._id} current={current}
          Choose={this.props.Choose} 
          delWorkshops={this.props.delWorkshops} updateWorkshops={this.props.updateWorkshops} />)
         
         }
     }
-    const btnStyle={
-        background:'#f4f4f4f4',
-        color:'#000'
-      }
-    export default Workshops 
+    export default ViewMasterclassesEduOrg 
     
