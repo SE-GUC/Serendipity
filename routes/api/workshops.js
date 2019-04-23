@@ -234,6 +234,8 @@ router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async 
         res.json({err : "you applied successfully"})
 
     console.log('one')
+    res.json({err : "you applied successfully"})
+
     }else{
         console.log("Could not find a Workshop with this id")
         res.json({err : "you're not authorized"})
