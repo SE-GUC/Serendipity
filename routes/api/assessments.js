@@ -1,3 +1,5 @@
+
+
 const express = require ('express')
 const router = express.Router()
 
@@ -6,6 +8,7 @@ const uuid = require('uuid')
 //const mongoose = require('mongoose')
 const objectId = require('mongoose').objectid
 const mongoose = require('mongoose')
+const passport = require('passport');//for auth trial
 
 
 const Assessment = require('../../models/Assessment')
@@ -17,6 +20,108 @@ router.get('/', async (req,res) => {
     res.json({data: assessments})
 })
 
+
+router.post('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+
+    //req.user.id == id 
+    
+    const id = req.params._id;
+    console.log(req.params._id);
+    const member =await member.findById(req.user.id )
+    const admin = await admin.findById(req.user.id)
+    id2=''
+    if(!member || !admin){
+      // id2="";
+      res.status(401).json({ err: "Not authorized "});
+    }
+    else if(member){
+       id2=member._id;
+    }
+    else{
+        id2=admin._id;
+    }
+    console.log(id)
+    console.log(id2)
+    console.log(req.user.id)
+    // const id2="";
+    // =;admin.id
+    const id3=req.user.id
+    if(id3==id2 || id3==id) {
+      console.log('hiii')
+      Assessment.findById(id)
+      
+        .exec()
+        .then(doc => {
+          if (doc) {
+            res.status(200).json(doc);
+          
+          } else {
+            res
+              .status(404)
+              .json({ message: "No Assessment found for provided ID" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+      } else {
+        res.status(401).json({ err: "Not authorized "});
+      }
+      
+  });
+
+  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+
+    //req.user.id == id 
+    
+    const id = req.params._id;
+    console.log(req.params._id);
+    //const member =await member.findById(req.user.id )
+    const admin = await admin.findById(req.user.id)
+    id2=''
+    if(!admin){
+      // id2="";
+      res.status(401).json({ err: "Not authorized "});
+    }
+    
+    else{
+        id2=admin._id;
+    }
+    console.log(id)
+    console.log(id2)
+    console.log(req.user.id)
+    // const id2="";
+    // =;admin.id
+    const id3=req.user.id
+    if(id3==id2 || id3==id) {
+      console.log('hiii')
+      Assessment.findById(id)
+      
+        .exec()
+        .then(doc => {
+          if (doc) {
+            res.status(200).json(doc);
+          
+          } else {
+            res
+              .status(404)
+              .json({ message: "No Assessment found for provided ID" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+      } else {
+        res.status(401).json({ err: "Not authorized "});
+      }
+      
+  });
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:id', async (req,res) => {
     
     try {

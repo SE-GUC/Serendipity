@@ -12,6 +12,46 @@ const styles = theme => ({
   },
 });
 
+// const tokenB= localStorage.getItem('jwtToken');
+// console.log(tokenB)
+
+// if(edu){
+//   axios.get(`http://localhost:5000/api/assessments/${edu}`, {
+//     Authorization: tokenB
+//   }).then((res) =>{
+    
+//     const id = edu;
+//     const userName = res.data.userName;
+//     const name = res.data.name;
+//     const email = res.data.email;
+//     const masterClasses = res.data.masterClasses;
+//     const courses = res.data.courses;
+//     const workshops = res.data.workshops;
+//     const trainers = res.data.trainers;
+//     const educators = res.data.educators;
+//     const trainingPrograms = res.data.trainingPrograms;
+//     const description = res.data.description;
+//     const contract = res.data.contract;
+//     const expirationDate = res.data.expirationDate;
+
+//     this.setState({id})
+//     this.setState({userName})
+//     this.setState({name})
+//     this.setState({email})
+//     this.setState({masterClasses})
+//     this.setState({courses})
+//     this.setState({workshops})
+//     this.setState({trainers})
+//     this.setState({educators})
+//     this.setState({trainingPrograms})
+//     this.setState({description})
+//     this.setState({contract})
+//     this.setState({expirationDate})
+
+
+//   })
+// } else return;
+
 function ContainedButtons(props) {
   const { classes } = props;
   return (

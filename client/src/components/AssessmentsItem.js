@@ -20,8 +20,8 @@ export class AssessmentsItem extends Component {
             <p>Phone number: {phoneNumber}</p>
             <p>Days available: {daysAvailable}</p>
             <p>
-              <button onClick={this.props.deleteAssessment} style={btnStyle}>delete</button>
-              <button onClick={this.props.updateAssessment} style={btnStyle}>update</button>
+              {/* <button onClick={this.props.deleteAssessment} style={btnStyle}>delete</button>
+              <button onClick={this.props.updateAssessment} style={btnStyle}>update</button> */}
           </p>
          
 

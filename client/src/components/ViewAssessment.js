@@ -7,7 +7,7 @@ class ViewAssessment extends Component{
         return this.props.assessment.map((current)=> 
         <AssessmentsItem key={current._id} 
         current={current} Choose={this.props.Choose} 
-        deleteAssessment={this.props.deleteAssessment}
+        //deleteAssessment={this.props.deleteAssessment}
          assess={this.props.assess}/>)
         }
     }

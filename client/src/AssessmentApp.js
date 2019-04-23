@@ -35,7 +35,7 @@ deleteAssessment =(_id) => {
   window.location.reload()
   console.log(_id)
 }
-updateAssessments =(_id) => {
+updateAssessment =(_id) => {
   this.props.history.push(`assessment/update`);
   console.log(_id)
 }
@@ -54,7 +54,7 @@ render(){
 
  <Assessments assessment={this.state.assessment}
   deleteAssessment={this.deleteAssessment}
-   updateAssessments={this.updateAssessments}
+   updateAssessment={this.updateAssessment}
     createAssessment ={this.createAssessment}/>
 
   </div>
