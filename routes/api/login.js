@@ -10,6 +10,7 @@ const Admin = require('../../models/Admin');//yara
 const EducationalOrganization= require('../../models/EducationalOrganization');
 const Partner = require('../../models/Partner');
 const Member = require('../../models/Member');
+const passport = require('passport');//for login
 //works !!
 router.post('/', async (req, res) => {
 	try {
@@ -108,4 +109,8 @@ router.post('/', async (req, res) => {
         
 	} catch (e) {}
 });
+
+router.get("/secret", passport.authenticate('jwt', { session: false }), (req, res)=>{
+    res.json("Success! You can not see this without a token");
+  });
 module.exports = router

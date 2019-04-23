@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class PartnerDelete extends Component {
  
@@ -18,10 +21,16 @@ class PartnerDelete extends Component {
        onChange=(e)=>this.setState({[e.target.name]:e.target.value});
 
   render() {
+
+
+    const {user} = this.props.auth;
+    this.state.id={user}.user.id;
+
+
     return (
       <div >
       <form onSubmit={this.onSubmit}>
-      <label>
+      {/* <label>
         id: *this will be removed later and will use the id of the signed-in partner
           <input
             name="id"
@@ -29,7 +38,7 @@ class PartnerDelete extends Component {
             value={this.state.id}
             onChange={this.onChange} 
             />
-        </label>
+        </label> */}
         <br />
         <br />
         <h2>Are you sure you want to delete your account?</h2>
@@ -45,4 +54,15 @@ class PartnerDelete extends Component {
   }
 }
 
-export default PartnerDelete;
+
+PartnerDelete.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(withRouter(PartnerDelete));
+

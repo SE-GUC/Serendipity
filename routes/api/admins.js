@@ -13,8 +13,7 @@ router.use(express.json())
 // We will be connecting using database 
 const Admin = require('../../models/Admin')
 const validator = require('../../Validations/AdminValidations')
-const passport = require('passport');
-
+const passport = require('passport');//for auth trial
 
 const funcs = require('../../fn');
 //import axios from 'axios';
@@ -33,8 +32,8 @@ router.get('/',async (req,res) => {
 })
 
 
-
-router.get('/:id', async (req,res) => {
+//  router.get('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.get('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
     
     try {
         
@@ -45,9 +44,6 @@ router.get('/:id', async (req,res) => {
 
         if(!admin) return res.status(404).send({error: 'Admin does not exist'})
         data = `Name: ${admin.full_name} Email: ${admin.email} Username: ${admin.username}`;
-      
-    
-        
         res.json(data)
        
     }
