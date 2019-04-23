@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 import EduOrgItem from './EduOrgItem';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
+const styles = {
+  button: {
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 20,
+    borderColor: 'black',
+    borderWidth: 1
+  },
+};
 class EduOrgs extends Component {
 
   state = {
@@ -27,12 +37,21 @@ class EduOrgs extends Component {
   }
   render() {
     
-    return this.props.eduorgs.map((eduorg) => (
+    return (
+    <div>
+    <Link to={`/courseOver`} style = {styles.button}> Is a Course/Workshop/MasterClass over?? </Link>
+    {this.props.eduorgs.map((eduorg) => (
       <EduOrgItem key = {eduorg.id} eduorg = {eduorg} mark = {this.props.mark}
       delEduOrg = {this.props.delEduOrg}/>
 
-    ));
+    ))}
+    </div>)
   }
 }
-
+//proptypes
+// EduOrgs.propTypes = {
+//   eduorgs: PropTypes.array.isRequired,
+//   mark: PropTypes.func.isRequired,
+//   delEduOrg: PropTypes.func.isRequired
+// }
 export default EduOrgs;

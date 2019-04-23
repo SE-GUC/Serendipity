@@ -1,10 +1,14 @@
-
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import Workshops from './components/Workshops'
+import Workshops from './components/Workshopsm'
 import './App.css';
 import Axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+//import { logoutUser } from '../globalState/actions/authentication';
+import PropTypes from 'prop-types';
+
 
 class WorkshopApp extends Component {
   getStyleWork = () => {
@@ -69,11 +73,25 @@ updateWorkshops =(_id) => {
   this.props.history.push(`workshop/updateWorkshop/${_id}`);
   console.log(_id)
 }
+applyWorkshop=(_id) => {
+  // const { user} = this.props.auth;
+  const mem =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+  var schema = {};
+  schema["applicantId"] = mem
+  Axios.put(`http://localhost:5000/api/workshops/${_id}/apply/`,schema)
+  .then(res =>alert(res.data.err))
+  console.log(_id+"mayar")
+  
+ 
+}
 onClick=() =>{
   this.props.history.push("/workshop/createWorkshop")
 }
 
 render(){
+  const {user} = this.props.auth;
+  this.state.id={user}.user.id;
   return this.state.error?<h1>process couldnot be complete</h1>:this.state.loading?
   <h1>loading please be patient</h1>
   :
@@ -82,7 +100,7 @@ render(){
   <h2 style={this.getStyleWork()}>WORKSHOPS</h2>
   <p><button  onClick={this.onClick} style={btnStyle1}>create workshop</button></p>
 
-  <Workshops workshop={this.state.workshop} delWorkshops={this.delWorkshops} updateWorkshops={this.updateWorkshops} />
+  <Workshops workshop={this.state.workshop} applyWorkshop={this.applyWorkshop} />
 
   </div>
   )
@@ -92,6 +110,13 @@ ERROR=(error)=>{
   this.setState({error:true})
 }
 }
+WorkshopApp.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
 const btnStyle1={
   background:'grey',
   color:'black',
@@ -106,5 +131,6 @@ const btnStyle={
   color:'#000'
 }
 
-export default WorkshopApp;
+//export default WorkshopApp;
+export default connect(mapStateToProps)(withRouter(WorkshopApp));
 

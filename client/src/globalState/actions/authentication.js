@@ -14,7 +14,8 @@ import jwt_decode from 'jwt-decode';
 //                     payload: err.response.data
 //                 });
 //             });
-// }
+//}
+
 //not working!!
 export const loginUser = (user) => dispatch => {
     axios.post('http://localhost:5000/api/login', user)
@@ -32,7 +33,17 @@ export const loginUser = (user) => dispatch => {
                 });
             });
 }
-
+//
+// const spinnerStyle={
+//   //background:'#193E43',
+//   width: '5rem',
+//   height: '5rem',
+//   color:'#e5e8e8',
+//   textAlign:'center',
+//   fontFamily:'ariel',
+//   padding:'10px'
+// }
+//
 export const setCurrentUser = decoded => {
     return {
         type: SET_CURRENT_USER,

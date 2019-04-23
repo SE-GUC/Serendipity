@@ -88,5 +88,17 @@ module.exports = {
         return Joi.validate(request, updateSchema)
 
     }, 
+    
+    applyValidation : request => {
+
+        const applySchema = {
+
+            coursesId : Joi.string()
+
+        }
+
+        return Joi.validate(request,applySchema)
+
+    }
 
 }

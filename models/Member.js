@@ -79,6 +79,11 @@ type : [String]
     },
     pendingRequests : {
         type : [{type: mongoose.Schema.Types.ObjectId, ref: 'Assessment'}]
+    },
+    registered: {
+        type: String, 
+        default:'no',
+        required: false
     }
 
     

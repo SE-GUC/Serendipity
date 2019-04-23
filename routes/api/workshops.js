@@ -9,6 +9,7 @@ const validator = require('../../Validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
 const funcs = require('../../fn');
+const passport = require('passport');//for auth trial
 
 
 router.post('/', async (req, res) =>  {
@@ -69,11 +70,11 @@ router.get('/y/:title', async (req,res) => {
         console.log(title+'hiii')
          const ws=[]
          for(var i=0;i<workshops.data.data.length;i++){
-            if (workshops.data.data[i].title===title)
+            if (workshops.data.data[i].title.includes(title))
             ws.push(workshops.data.data[i])
-            res.json({data: ws})
+            //res.json({data: ws})
          }
-        
+         res.json({data: ws})
        }
        catch(error) {
            // We will be handling the error later
@@ -81,19 +82,44 @@ router.get('/y/:title', async (req,res) => {
        }  
     
  
-    res.json({data: ws})
+   
  })
 
+ router.get('/:eduOrg/getByName/:title', async (req, res) => {
+
+    try {
+        const eduOrg = req.params.eduOrg
+        console.log(eduOrg)
+        const title = req.params.title
+        console.log(title)
+        const workshops = await Workshop.find()
+        for (var i = 0; i < workshops.length; i++) {
+
+            if (workshops[i].title === title && workshops[i].eduOrganisation === eduOrg){
+                res.json({ data: workshops[i]})
+            }
+        }
+        
+        res.json({ err: "no course with this info" })
+    }
+
+    catch (error) {
+        res.json({ err: "something isn't right" })
+    }
+
+})
 
 //get by id
 router.get('/:id', async (req,res) => {
     
     try {
+
+        // console.log("NNNNNNNNNNNNNNNNN")
         const id = req.params.id
 
         const workshop = await Workshop.findById(id)
        // Workshop.getById(id)
-        //const Course = await Course.reviews
+        //const Workshop = await Workshop.reviews
 
         if(!workshop) return res.json({error: 'workshop does not exist'})
         // for()
@@ -112,11 +138,12 @@ router.get('/:id/applicants', async (req, res) => {
     try {
         const id = req.params.id
         const workshop = await Workshop.findById(id)
-        if (!workshop) return res.json({ error: 'workshop does not exist' })
+        if (!workshop) return res.json({ err: 'workshop does not exist' })
         const applicants = workshop.applicants;
         var members = [];
         for(let i = 0;i<applicants.length;++i){
             const mem = await Member.findById(applicants[i])
+            if (mem)
             members.push(mem)
         }
         res.json({ data: members })
@@ -140,27 +167,81 @@ router.get('/', async (req,res) => {
 
 ///////////////////////////////////
 //member apply for workshop WORKS!!!
-router.put("/:wid/apply/:mid",async (req,res)=>{
-    const memberid = req.params.mid
-    const workid=req.params.wid
-    const member =await Member.findById(memberid)
-    const workshop =await Workshop.findById(workid)
-    if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
-    if(!member) return res.status(404).send({error: 'This member does not exist'})
-    //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
-    //add element to applicants
-    //workshop.applicants.push(memberid);
-    
-    Workshop.update(
-        { _id: workid }, 
-        { $push: { applicants: memberid } },
-        //done
-    )
-    res.json({msg:'applicant was added successfully', data:workshop})
-    //workshop.save(done);
-   })
-////////////////////////
+// router.put("/:wid/apply/:mid",async (req,res)=>{
+//     console.log("apply workshop")
 
+//     const memberid = req.params.mid
+//     const workid=req.params.wid
+//     console.log(workid)
+//     console.log(memberid)
+
+//     const member =await Member.findById(memberid)
+//     const workshop =await Workshop.findById(workid)
+//     if(!member) return res.status(404).send({error: 'This member does not exist'})
+//     if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
+//     //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
+//     //add element to applicants
+//     //workshop.applicants.push(memberid);
+    
+//     Workshop.update(
+//         { _id: workid }, 
+//         { $push: { applicants: memberid } },
+//         //done
+//     )
+//     res.json({msg:'applicant was added successfully', data:workshop})
+//     //workshop.save(done);
+//    })
+////////////////////////
+router.put('/:id/applly', passport.authenticate('jwt', { session: false }),async (req, res) => {
+    console.log(req.body)
+    //console.log(req)
+    const t = await req.body
+    console.log(t)
+})
+////
+router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async (req, res) => {
+    console.log('hnaaSmsm')
+    //console.log(req.body)
+    console.log(req.body.applicantId)
+    console.log('hnaaSmsm')
+    console.log("apply course")
+   
+    console.log(req.params.id)
+    console.log(req.user.id)
+    const member =await Member.findById(req.body.applicantId )
+    console.log(member+"mmmm")
+    if(member){
+
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const courseId = req.params.id;
+    console.log(courseId)
+    var course = await Workshop.findById(courseId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
+    console.log('one')
+    console.log(course)
+
+    course.applicants.push(applicantId);
+    console.log('two')
+
+    Workshop.findByIdAndUpdate(courseId, { applicants: course.applicants })
+        .exec()
+        .then(doc => { return res.redirect(303, `/api/courses/${req.params.id}`) })
+        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+        res.json({err : "you applied successfully"})
+
+    console.log('one')
+    res.json({err : "you applied successfully"})
+
+    }else{
+        console.log("Could not find a Workshop with this id")
+        res.json({err : "you're not authorized"})
+    }
+
+})
   
 router.delete('/:id', async (req,res) => {
 
@@ -177,6 +258,50 @@ router.delete('/:id', async (req,res) => {
     }
 })
 
+router.put('/:id/apply', async (req, res) => {
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const workshopId = req.params.id;
+    var workshop = await Workshop.findById(workshopId);
+    console.log('one')
+    workshop.applicants.push(applicantId);
+    console.log('two')
+
+    Workshop.findByIdAndUpdate(workshopId, { applicants: workshop.applicants })
+        .exec()
+        .then(doc => { return res.redirect(303, `/api/workshops/${req.params.id}`) })
+        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a workshop with that id !`) });
+
+    console.log('one')
+
+})
+
+router.put('/:id/unApply', async (req, res) => {
+
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const workshopId = req.params.id;
+    var workshop = await Workshop.findById(workshopId);
+    console.log('one')
+    var app = workshop.applicants
+    var index = app.indexOf(applicantId);
+    if (index > -1) {
+        app.splice(index, 1);
+      }
+    console.log('two')
+
+    Workshop.findByIdAndUpdate(workshopId, { applicants: app })
+        .exec()
+        .then(doc => { return res.redirect(303, `/api/workshops/${req.params.id}`) })
+        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a workshop with that id !`) });
+
+    console.log('one')
+
+})
 ////
 
 ////

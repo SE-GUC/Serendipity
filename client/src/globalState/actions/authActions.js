@@ -1,14 +1,14 @@
 // authReducer.js
 
 import { SET_CURRENT_USER } from '../actions/actionTypes';
-import isEmpty from '../../../../server/Validations/LoginValid/is-empty';
-
+//import isEmpty from '../../../../server/Validations/LoginValid/is-empty';
+import isEmpty from '../../is-empty';
 const initialState = {
     isAuthenticated: false,
     user: {}
 }
 
-export default function(state = initialState, action ) {
+export default function (state = initialState, action ) {
     switch(action.type) {
         case SET_CURRENT_USER:
             return {
