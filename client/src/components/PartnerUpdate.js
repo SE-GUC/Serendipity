@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class PartnerUpdate extends Component {
  
@@ -14,6 +17,8 @@ class PartnerUpdate extends Component {
       fieldOfWork:'',
       pastProjects:''
     }
+
+    
      
     updatePartnerEmail=(_id,email)=>{
       axios.put(`http://localhost:5000/api/partners/${_id}`,{
@@ -133,11 +138,14 @@ onSubmitPartners=(e)=>{
    onChange=(e)=>this.setState({[e.target.name]:e.target.value});
     
    render() {
-    
+
+    const {user} = this.props.auth;
+    this.state._id={user}.user.id;
+
     return (
       <div >
-      <label> Id: <input name="_id" type="text" value={this.state._id} onChange={this.onChange}  /></label>
-      <label>*this will be removed later and will use the id of the signed in partner </label> <br /> <br />
+      {/* <label> Id: <input name="_id" type="text" value={this.state._id} onChange={this.onChange}  /></label> */}
+      {/* <label>*this will be removed later and will use the id of the signed in partner </label> <br /> <br /> */}
       <form onSubmit={this.onSubmitEmail}>
       <label> Email: <input name="email" type="email" value={this.state.email} onChange={this.onChange} /></label>
       {"  "}
@@ -185,4 +193,14 @@ onSubmitPartners=(e)=>{
 }
 
 
-export default PartnerUpdate;
+
+PartnerUpdate.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(withRouter(PartnerUpdate));

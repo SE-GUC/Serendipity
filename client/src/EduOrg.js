@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import Masterclasses from './components/MasterclassesNew'
+import Masterclasses from './components/Masterclasses'
 import './App.css';
 import Axios from 'axios';
 

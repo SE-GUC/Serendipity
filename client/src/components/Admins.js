@@ -15,8 +15,11 @@ class Admins extends Component {
         
       }
   getAdmin = () => {
-    axios.get('http://localhost:5000/api/admins/')
-    .then(res => this.setState({admins:[...this.state.Admins,res.data]}))
+    
+    axios.get('http://localhost:5000/api/admins/'
+     
+  )
+    .then(res =>this.setState({admins:[...this.state.Admins,res.data]}))
   }
   render() {
     

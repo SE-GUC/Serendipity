@@ -62,8 +62,7 @@ module.exports = {
 
         return Joi.validate(request, updateSchema)
 
-    },
-    applyValidation : request => {
+    },   applyValidation : request => {
 
         const applySchema = {
 

@@ -18,7 +18,18 @@ const AdminSchema = new Schema({
     password: {
         type: String, 
         required: true
-    }
+    },
+    super: {
+        type: String, 
+        required: true
+    },
+    registered: {
+        type: String, 
+        default:'no',
+        required: false
+    },
+
+
     
    
 })
