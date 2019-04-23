@@ -66,7 +66,7 @@ class workshopsEduOrg extends Component {
 
     
       <h2 style={this.getStyleWork()}>WORKSHOPS</h2>
-      {/* <p><button  onClick={this.onClick} style={btnStyle1}>create workshop</button></p> */}
+      <p><button  onClick={this.onClick} >create workshop</button></p>
       </form>
     
       <WorkshopsEO workshop={this.state.workshop} delWorkshops={this.delWorkshops} updateWorkshops={this.updateWorkshops} />
