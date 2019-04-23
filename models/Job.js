@@ -38,7 +38,7 @@ const Jobschema = new Schema({
   partner: {
     type: Schema.Types.ObjectId,
     ref: "Partner",
-    required: true
+   // required: true
   },
   description: {
     type: String

@@ -9,10 +9,10 @@ const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
 const axios = require('axios');
 const funcs=require('../../fn');
-const passport = require('passport');//for auth trial
+const passport = require('passport');
 
 // Get all jobs 
-router.get('/', passport.authenticate('jwt', { session: false }),  async(req,res) => {
+router.get('/',  async(req,res) => {
    
    const jobs = await Job.find().populate('applicants')
    res.json({data: jobs})
@@ -145,21 +145,41 @@ router.put('/:id', async (req,res) => {
 
 //create a job
 
-router.post('/', async (req,res) => {
+router.post('/',passport.authenticate('jwt', { session: false }), async (req,res) => {
    try {
     const isValidated = validator.createValidation(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    if (isValidated.error){ console.log( isValidated.error.details[0].message)
+        return res.status(400).send({ error: isValidated.error.details[0].message }) }
+    const admin =await Admin.findById(req.user.id )
+    id2=''
+    if(!admin){
+       id2="";
+    }
+    else{
+       id2=admin._id;
+    }
+    const id3=req.user.id
+    const partner= Partner.findById(id3)
+    if(partner) console.log("partner exists")
+    console.log(partner._id)
+console.log(id3)
+    if(id3==id2 || partner){
     const newJob = await Job.create(req.body)
-    //newJob.state="pending"
+    
     res.json({msg:'Job was created successfully', data: newJob})
+    
     const x= await funcs.getJobs()
     const len=x.data.data.length
     const ids="5cbdd7f5d390fa5364e17d90"
     const jid=x.data.data[len - 1]._id
-    axios.put(`http://localhost:5000/api/partners/${ids}/vac/${jid}`) 
+    axios.put(`http://localhost:5000/api/partners/${id3}/vac/${jid}`) 
     
     console.log(jid)
-   //  console.log(newJob.objectId)
+    }
+
+   else{
+      res.status(401).json({ err: "Not authorized "});
+   }
    }
    catch(error) {
      

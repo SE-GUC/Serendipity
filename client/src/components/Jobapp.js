@@ -3,7 +3,11 @@ import axios from "axios";
 import "..";
 import { Link } from "react-router-dom";
 //import Popup from 'reactjs-popup'
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Navbar from './layout/Navbar';
+import { withRouter } from 'react-router-dom';
+import { logoutUser } from '../globalState/actions/authentication';
 class Jobapp extends Component {
   state = {
     title: "",
@@ -13,8 +17,8 @@ class Jobapp extends Component {
     salary: "",
     description: "",
     dailyhours: "",
-    partner: "",
-    state: "pending"
+  //  partner: "",
+    //state: "pending"
   };
   addjob = (
     title,
@@ -23,22 +27,26 @@ class Jobapp extends Component {
     enddate,
     salary,
     dailyhours,
-    partner,
+    // partner,
     description,
-    state
+   // state
   ) => {
+    const {user} = this.props.auth;
+    //this.state.id={user}.user.id
+    const tokenB= localStorage.getItem('jwtToken');
+    console.log(tokenB)
     axios
-      .post("http://localhost:5000/api/jobs/", {
+      .post("http://localhost:5000/api/jobs/" ,{
         title: title,
         location: location,
         startdate: startdate,
         enddate: enddate,
         salary: salary,
         dailyhours: dailyhours,
-        partner: partner,
+        // partner: partner,
         description: description,
-        state: state
-      })
+        //state: state
+      },{ Authorization: tokenB})
       .then(
         this.setState({
           seeUpd: (
@@ -69,7 +77,7 @@ class Jobapp extends Component {
       !this.state.enddate ||
       !this.state.salary ||
       !this.state.dailyhours ||
-      !this.state.partner ||
+      
       !this.state.description
     )
       alert("validations not satisfied,try again :)!");
@@ -81,9 +89,9 @@ class Jobapp extends Component {
         this.state.enddate,
         this.state.salary,
         this.state.dailyhours,
-        this.state.partner,
+        // this.state.partner,
         this.state.description,
-        this.state.state
+       // this.state.state
       );
   };
 
@@ -166,17 +174,7 @@ class Jobapp extends Component {
               onChange={this.onChange}
             />
           </label>
-          <br />
-          <br />
-          <label>
-            Partner:
-            <input
-              name="partner"
-              type="text"
-              value={this.state.partner}
-              onChange={this.onChange}
-            />
-          </label>
+         
           <br />
           <br />
           <label>
@@ -228,4 +226,14 @@ const styles = {
     color: "#FF0000"
   }
 };
-export default Jobapp;
+Jobapp.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+//export default EduOrgProfile;
+export default connect(mapStateToProps)(withRouter(Jobapp));

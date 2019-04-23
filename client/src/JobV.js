@@ -21,7 +21,12 @@ class JobV extends Component {
     };
   }
   componentDidMount() {
-    const id='5cbdd7dfd390fa5364e17d8f'
+    console.log("lsdkjjdf")
+    // const {user} = this.props.auth;
+    // const tokenB= localStorage.getItem('jwtToken');
+    const id='5cbdd7f5d390fa5364e17d90'
+    //const id=this.state.id
+    //console.log(tokenB)
     axios
       .get(`http://localhost:5000/api/partners/${id}/jobs`)
       

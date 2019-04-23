@@ -144,6 +144,8 @@ router.put('/:pid/vac/:jid', async (req, res) => {
 
 //GET jobs for a certain partner//noura
 router.get('/:pid/jobs',async(req,res)=>{
+
+  
   const partnerId = req.params.pid;
   const partner= await Partner.findById(partnerId)
    if(!partner) return res.status(400).send({ error:'Partner does not exist' })

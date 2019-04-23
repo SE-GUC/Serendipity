@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Jobsi from "./components/Jobsi";
 import "./App.css";
 import axios from "axios";
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 class Jobmain extends Component {
   getStyleEduOrg = () => {
     return {
@@ -28,6 +30,7 @@ class Jobmain extends Component {
   }
 
   delJobs = _id => {
+   
     axios.delete(`http://localhost:5000/api/jobs/${_id}`);
     window.location.reload();
     console.log(_id);

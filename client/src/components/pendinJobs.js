@@ -19,7 +19,7 @@ export class pendinJobs extends Component {
       enddate,
       salary,
       dailyhours,
-      partner,
+     // partner,
       description,
       state
     } = this.props.current;
@@ -31,7 +31,7 @@ export class pendinJobs extends Component {
         <p>enddate: {enddate}</p>
         <p>salary: {salary}</p>
         <p>dailyhours: {dailyhours}</p>
-        <p>partner: {partner}</p>
+        {/* <p>partner: {partner}</p> */}
         <p>description: {description}</p>
         <p>state: {state}</p>
         <p>
