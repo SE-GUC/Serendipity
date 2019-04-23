@@ -44,6 +44,10 @@ Choose = (id)=>{
 .then(alert(`deleted masterclass with id ${id}`))
 .catch(error=> this.ERROR.bind(error))
 }
+updateMasterclasses =(_id) => {
+  this.props.history.push(`getMasterclass/update/${_id}`);
+  console.log(_id)
+}
 
 applyMasterclass = (_id) => {
   const mem =this.state.id;
@@ -73,7 +77,8 @@ render(){
   :
   (<div className='App'>
   <h1>MasterClasses</h1>
-  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass}  applyMasterclass = {this.applyMasterclass}/>
+  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass} updateMasterclasses={this.updateMasterclasses}applyMasterclass = {this.applyMasterclass}/>
+ 
   </div>
   )
 }

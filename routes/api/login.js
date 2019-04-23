@@ -10,6 +10,7 @@ const Admin = require('../../models/Admin');//yara
 const EducationalOrganization= require('../../models/EducationalOrganization');
 const Partner = require('../../models/Partner');
 const Member = require('../../models/Member');
+const passport = require('passport');//for login
 //works !!
 router.post('/', async (req, res) => {
 	try {
@@ -28,6 +29,8 @@ router.post('/', async (req, res) => {
         //Admin
         if(admin) 
         {   console.log("admin")
+        if(admin.super==="no" && admin.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchA = bcrypt.compareSync(password, admin.password);
             const matchAA = (password===admin.password) //since password is not hashed yet
             if (matchA || matchAA) {
@@ -44,6 +47,9 @@ router.post('/', async (req, res) => {
         //EduOrg
         if(eduOrg) 
         {   console.log("eduorg")
+        if(eduOrg.registered!=="yes")
+        
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchE = bcrypt.compareSync(password, eduOrg.password);
            // const matchEE = (password===eduOrg.password) dont need it as password is hashed
             if (matchE ) {
@@ -60,6 +66,8 @@ router.post('/', async (req, res) => {
         //Member
         if(member) {
             console.log("member")
+            if(member.registered!=="yes")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchM = bcrypt.compareSync(password, member.password);
             const matchMM = (password===member.password)
             console.log(matchMM)
@@ -77,6 +85,10 @@ router.post('/', async (req, res) => {
         //Partner
         if(partner){
             console.log("partner")
+            if(partner.registered!=="yes"){
+            console.log("in partner not registered ")
+        return res.status(404).json({ email: 'You are not approved yet to log in ' });
+            }
             const matchP = bcrypt.compareSync(password, partner.password);
             const matchPP = (password===partner.password)
             console.log(matchPP)
@@ -97,4 +109,8 @@ router.post('/', async (req, res) => {
         
 	} catch (e) {}
 });
+
+router.get("/secret", passport.authenticate('jwt', { session: false }), (req, res)=>{
+    res.json("Success! You can not see this without a token");
+  });
 module.exports = router

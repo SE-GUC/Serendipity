@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Masterclasses from './components/Masterclasses'
+import Masterclasses from './components/MasterclassesY'
 import './App.css';
 import Axios from 'axios';
 
@@ -27,7 +27,7 @@ change=(e)=>{
     
     else{
     this.setState( 
-        { masterclasses:[...this.state.masterclasses.filter((current)=>current.title===this.state.searchBy)]
+        { masterclasses:[...this.state.masterclasses.filter((current)=>current.title.includes(this.state.searchBy))]
         })
 
 }

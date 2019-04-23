@@ -54,6 +54,7 @@ class SimpleCard extends React.Component {
 
         axios.get(`http://localhost:5000/api/courses/${this.props.cid}/applicants`)
             .then(res => {
+                console.log(res)
                 const app = res.data.data;
                 var mems =
                     <div>
