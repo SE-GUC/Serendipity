@@ -4,6 +4,7 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 import MasterclassCreate from './components/MasterclassCreate';
 import MasterclassUpdate from './components/MasterclassUpdate';
 import MasterclassProfile from './components/MasterclassProfile';
+import UpdateMasterclass from './components/UpdateMasterclass';
 
 import {Link} from 'react-router-dom';
 
@@ -28,7 +29,7 @@ class MClasses extends Component {
       <Route exact path = "/createMasterclass" component = {MasterclassCreate}/>{/*create MaterClasses */}
       <Route exact path = "/updateMasterclass" component = {MasterclassUpdate}/>{/*update MaterClasses */} 
       <Route exact path = "/getMasterclassby" component = {MasterclassProfile}/> 
-      
+      <Route exact path = "/getMasterclass/update/:id" component = {UpdateMasterclass}/>
   
       </div>
 

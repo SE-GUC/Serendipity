@@ -5,7 +5,9 @@ const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors')
 const passport = require('passport');//for login
-
+const passportJWT = require("passport-jwt");//trial auth
+const ExtractJwt = passportJWT.ExtractJwt; //trial auth
+const JwtStrategy = passportJWT.Strategy;//trial auth
 
 
 const educationalOrganizations = require('./routes/api/educationalOrganizations')

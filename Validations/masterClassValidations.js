@@ -33,4 +33,15 @@ module.exports = {
 
         return Joi.validate(request, updateSchema)
     }, 
+    applyValidation : request => {
+
+        const applySchema = {
+
+            applicantId : Joi.string()
+
+        }
+
+        return Joi.validate(request,applySchema)
+
+    }
 }

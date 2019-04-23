@@ -11,6 +11,8 @@ class Jobsi extends Component {
         Choose={this.props.Choose}
         delJobs={this.props.delJobs}
         updateJobs={this.props.updateJobs}
+        applyJobs={this.props.applyJobs}
+
       />
     ));
   }

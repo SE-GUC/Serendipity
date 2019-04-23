@@ -12,63 +12,67 @@ const bcrypt = require('bcryptjs');
 const workshops = require('./workshops')
 const fn = require('../../fn')
 const EducationalOrganization = require('../../models/EducationalOrganization')
+const Admin = require('../../models/Admin')
 const validator = require('../../Validations/EduOrgValidations')
+const passport = require('passport');//for auth trial
+const nodemailer = require("nodemailer"); //notifications
 
 router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find()
     res.json({data: educationalOrganizations})
 })
-///get masterclassesof this EduORg
+//auth trial
+// router.get('/profile', passport.authenticate('jwt', { session: false }),(req, res) =>{
+//         res.send("able to access");
+//     }
+// );
+//
+//show my profile
+//router.get("/:_id", (req, res) => {
+  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
 
-
-// router.get('/:id', async (req,res) => {
+    //req.user.id == id 
     
-//     try {
-//         const id = req.params.id
-
-//         const educationalOrganizations = await EducationalOrganization.findById(id)  //.populate('masterClasses').populate('courses')
-//      //   const user = await book.reviews
-//      console.log(educationalOrganizations.userName)
-
-//         if(!educationalOrganizations) {
-//         return res.status(404).send({error: 'educational organization does not exist'})}
-        
-//         res.json({data: educationalOrganizations})
-//         console.log(res.data)
-//        }
-//        catch(error) {
-//            // We will be handling the error later
-//            console.log(error)
-//        }  
-    
-
-//  //   res.json({data: educationalOrganizations})
-// })
-
-router.get("/:_id", (req, res) => {
- 
-
-
     const id = req.params._id;
-     EducationalOrganization.findById(id)
-      .exec()
-      .then(doc => {
-        if (doc) {
-          res.status(200).json(doc);
-         
-        } else {
-          res
-            .status(404)
-            .json({ message: "No Educational Organization found for provided ID" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
+    const admin =await Admin.findById(req.user.id )
+    id2=''
+    if(!admin){
+       id2="";
+    }
+    else{
+       id2=admin._id;
+    }
+    console.log(id)
+    console.log(id2)
+    console.log(req.user.id)
+    // const id2="";
+    // =;admin.id
+    const id3=req.user.id
+    if(id3==id2 || id3==id) {
+      console.log('hiii')
+      EducationalOrganization.findById(id)
+      
+        .exec()
+        .then(doc => {
+          if (doc) {
+            res.status(200).json(doc);
+          
+          } else {
+            res
+              .status(404)
+              .json({ message: "No Educational Organization found for provided ID" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+        });
+      } else {
+        res.status(401).json({ err: "Not authorized "});
+      }
       
   });
-
+//register
 router.post('/', async (req,res) => {
     try {
      const isValidated = validator.createValidation(req.body)
@@ -84,15 +88,34 @@ router.post('/', async (req,res) => {
 			email,
 			name,
 		});
-		await EducationalOrganization.create(newEducationalOrganization);
+    await EducationalOrganization.create(newEducationalOrganization);
+    //notification trial yan
+    //+ token.token 
+    console.log(newEducationalOrganization.email)
+    // const transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
+    // const mailOptions = { from: 'no-reply@yourwebapplication.com', to: newEducationalOrganization.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + '.\n' };
+    // transporter.sendMail(mailOptions, function (err) {
+    //     if (err) { return res.status(500).send({ msg: err.message }); }
+    //     res.status(200).send('A verification email has been sent to ' + newEducationalOrganization.email + '.');
+    //     console.log(res.data)
+    // });
+    /////
+
      //const newEducationalOrganization = await EducationalOrganization.create(req.body);
+     //const sndmail={}
+     require('../../services/mailer').sendMail(newEducationalOrganization).then(data => {
+      console.log(data)
+     }).catch(err => console.log(err)) ;
+     
      res.json({msg:'Educational organization was created successfully', data: newEducationalOrganization})
     }
+
     catch(error) {
         // We will be handling the error later
+        console.log("here catch")
         console.log(error)
     }  
- })
+ });
 
 
 
@@ -101,7 +124,8 @@ router.post('/', async (req,res) => {
 
  
 // update Profile
-router.put('/:id', async (req,res) => {
+//
+router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
      const eduorg = await EducationalOrganization.findById(id)
@@ -118,10 +142,11 @@ router.put('/:id', async (req,res) => {
     }
  })
 
-//yara Delete  Works
-router.delete('/:id', async (req,res) => {
+
+router.delete('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
     try {
      const id = req.params.id
+     
      const deletedEduOrgProfile = await EducationalOrganization.findByIdAndRemove(id)
      res.json({msg:'Profile was deleted successfully', data: deletedEduOrgProfile})
     }
@@ -140,6 +165,17 @@ router.delete('/:id', async (req,res) => {
      res.json({msg: 'found it!!',data:e})
  })
 
+ 
+ //Marina
+ router.get('/courses1/:id', async (req,res) =>{
+  const eduorgID = req.params.id;
+  const eduOrg = await EducationalOrganization.findById(eduorgID).populate('courses');
+  const string = JSON.stringify(eduOrg);
+  const objectValue = JSON.parse(string);
+  const courses = objectValue['courses'];
+  res.json({courses})
+})
+
 module.exports = router
 
 // applyForCourse: async (cid, mid) => {
@@ -150,4 +186,3 @@ module.exports = router
 // router.get('/:id/masterclasses' ,async (req,res)=>{
 
 // })
-

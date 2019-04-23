@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Admins from './Admins';
+import {Link} from 'react-router-dom';
+//const passport = require('passport');
+
 
 import {BrowserRouter as Router,Route} from 'react-router-dom';
 
@@ -15,7 +18,8 @@ class AdminApp extends Component {
       full_name:'',
       email:'',
       password:'',
-      username:''
+      username:'',
+      super:''
      
     }
 
@@ -30,6 +34,7 @@ class AdminApp extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
       .get('http://localhost:5000/api/admins/')
       .then(res=> this.setState({admins:res.data.data,loading:false}))
@@ -57,37 +62,55 @@ class AdminApp extends Component {
     //   })
     // } else return;
     // }
-    addadmin=(full_name,email,password,username)=>{
-    
-      axios.post("http://localhost:5000/api/admins/",{
 
-        full_name:full_name,email:email,password:password,username:username
-      }
+
+    getAdmins= async ()  => {
+      //const tokenB= localStorage.getItem('jwtToken');
+      
+      return await axios.get("http://localhost:5000/api/admins/"
+      
+      );
+    
+    }
+    // addadmin=(full_name,email,password,username)=>{
+    
+    //   axios.post("http://localhost:5000/api/admins/",{
+
+    //     full_name:full_name,email:email,password:password,username:username
+    //   }
      
-      ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
+    //   ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
       
     
-      .catch(e=> "error")
-      alert('Admin was created succesfully')
-      window.location = '/admin';
-     // <Redirect to="/HomePage" /> 
+    //   .catch(e=> "error")
+    //   alert('Admin was created succesfully')
+    //   window.location = '/admin';
+    //  // <Redirect to="/HomePage" /> 
 
 
-        // <Popup> 
-        //   <div> 
-        //     Admincouldn't be created, you did not meet validations, try again
-        //   </div>
-        // </Popup>
+    //     // <Popup> 
+    //     //   <div> 
+    //     //     Admincouldn't be created, you did not meet validations, try again
+    //     //   </div>
+    //     // </Popup>
 
 
-     // )
-    }
+    //  // )
+    // }
     showadmin = (id) => {
-      window.location = `http://localhost:5000/api/admins/${id}`;
+      const tokenB= localStorage.getItem('jwtToken');
+      
+      window.location = `http://localhost:5000/api/admins/${id}`
+        
+      
     }
     deleteadmin = (id) => {
-      axios.delete(`http://localhost:5000/api/admins/${id}`)
-        .then(res => this.setState({ admins: [...this.state.admins.filter(admin => admin._id !== id)] }));
+      const tokenB= localStorage.getItem('jwtToken');
+
+      axios.delete(`http://localhost:5000/api/admins/${id}`,{
+        Authorization: tokenB
+      })
+        .then(res =>this.setState({ admins: [...this.state.admins.filter(admin => admin._id !== id)] }));
         
     }
 
@@ -98,9 +121,11 @@ class AdminApp extends Component {
     }
    
     updateadminreal=(id,full_name,email,password,username)=>{
+      const tokenB= localStorage.getItem('jwtToken');
       axios.put(`http://localhost:5000/api/admins/${id}`,{
 
-        full_name:full_name,email:email,password:password,username:username}
+        full_name:full_name,email:email,password:password,username:username},{
+          Authorization: tokenB}
       
      
       ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
@@ -120,37 +145,95 @@ class AdminApp extends Component {
    
 
     
-    onSubmitUpdate =(e)=>{
+    onSubmitUpdate= async(e)=>{
       e.preventDefault();
-     
-      if (this.state.password && this.state.password.length<8)
+      var f=true;
+      if (this.state.password && this.state.password.length<8){
+        f = false;
       alert('password cannot be less than 8 characters')
-    
-      else{
-       
+      }
+      const adminsdb =  await this.getAdmins()
+      for(var i=0;i<adminsdb.data.data.length;i++){
+               
+        if(this.state.email && adminsdb.data.data[i].email===this.state.email){
+       alert('this email already exists or is your old email,please enter another one')
+       f =false;
+        }
+
+       if(this.state.username && adminsdb.data.data[i].username===this.state.username){
+       alert('this username already exists or your old username,please enter another one')
+       f =false;
+       }
+       if(this.state.super==='yes' && adminsdb.data.data[i].super===this.state.super){
+        alert('there is already a super admin')
+        f =false;
+        }
+      
+    }
+   
+       if(f===true)
      
        this.updateadminreal(this.state.updatedadmin,this.state.full_name,this.state.email,this.state.password,this.state.username);
-      }
+      
 
     }
       
      
-     onSubmit=(e)=>{
-       e.preventDefault();
-       if(!this.state.full_name){
-         alert('full name cannot be empty')
-       }
-       else if (!this.state.password || this.state.password.length<8)
-      alert('password cannot be empty or less than 8 characters')
-      else if (!this.state.username)
-      alert('username cannot be empty')
-      else
+    //  onSubmit= async(e)=>{
+    //    e.preventDefault();
+    //    var f=true;
+  
+    //    if(!this.state.full_name){
+    //      f = false;
+    //      alert('full name cannot be empty')
+    //    }
+    //    else if (!this.state.password || this.state.password.length<8){
+    //      f= false;
+    //   alert('password cannot be empty or less than 8 characters')
+    //    }
+    //   else if (!this.state.username){
+    //     f = false;
+    //   alert('username cannot be empty')
+    //   }
+    //   else if (!this.state.email){
+    //     f = false;
+    //   alert('email cannot be empty')
+    //   }
+    //  //const adminsdb
+  
+        
+          
+    //       const adminsdb =  await this.getAdmins()
+         
+          
+
+           
+    //        // to check that username and email do not exist before when creating 
+   
+    //            for(var i=0;i<adminsdb.data.data.length;i++){
+               
+    //                if(adminsdb.data.data[i].email===this.state.email){
+    //               alert('this email already exists,please enter another one')
+    //               f =false;
+    //                }
+
+    //               if(adminsdb.data.data[i].username===this.state.username){
+    //               alert('this username already exists,please enter another one')
+    //               f =false;
+    //               }
+                 
+    //            }
+              
+             
+      
+    //    if(f===true){
+    //     // alert(''+adminsdb.data.data.length)
        
-       
-       this.addadmin(this.state.full_name,this.state.email,this.state.password,this.state.username);
+    //    this.addadmin(this.state.full_name,this.state.email,this.state.password,this.state.username);
+    //    }
      
    
-      }
+    //   }
     
    onChange=(e)=>this.setState({[e.target.name]:e.target.value});
   render() {
@@ -163,6 +246,13 @@ class AdminApp extends Component {
    
       <div className="Admins">
         <h1>Admins</h1>
+
+        <Link to="/admin/pendingjobs">View Pending Jobs </Link>
+        <Link to="/admin/pendingpartners">View Pending Partners </Link>
+        <Link to="/admin/pendingmembers">View Pending Members </Link>
+        <Link to="/admin/pendingeduorgs">View Pending EduOrgs </Link>
+        <Link to="/admin/pendingadmins">View Pending Admins </Link>
+
         <Admins admins = {this.state.admins} deleteadmin={this.deleteadmin} updateadmin={this.updateadmin} showadmin={this.showadmin}/>
         <br />
       
@@ -178,7 +268,7 @@ class AdminApp extends Component {
 
 
     
-        <label> Admin Register</label>
+        {/* <label> Admin Register</label>
         <br/>
         <br />
       <form onSubmit={this.onSubmit}>
@@ -229,7 +319,7 @@ class AdminApp extends Component {
         <br />
    
         {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
-        <input 
+        {/* <input 
           type="submit" 
           value="Submit" 
           //className="btn"
@@ -237,7 +327,7 @@ class AdminApp extends Component {
         />
          </form>
          <br/>
-         <br/>
+         <br/> */} 
 
          {/* <form onSubmit={this.onSubmitget}>
          <label> Get an Admin</label>
@@ -312,6 +402,17 @@ class AdminApp extends Component {
         </label>
         <br />
         <br />
+        <label>
+        Super:
+          <input
+            name="super"
+            type="text"
+            value={this.state.super}
+            onChange={this.onChange} 
+            />
+        </label>
+        <br />
+        <br />
    
         {/* <button onClick={this.addjob.bind(this)} style={btnStyle}> Submit</button> */}
         <input 
@@ -340,4 +441,6 @@ background:'#000000',
 color:'#fff'
 
 }
+
+
 export default AdminApp;
