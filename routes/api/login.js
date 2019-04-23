@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
             console.log(matchMM)
             if (matchM || matchMM) {
                 const payload = {
-                    id: member.id,
+                    id: member._id,
                     name: member.name,
                     email: member.email
                 }
