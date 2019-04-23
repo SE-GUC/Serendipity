@@ -50,6 +50,13 @@ import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import AllExperts from './components/AllExperts';
 import MemberProfile from './components/MemberProfile';
+
+import AcceptJobs from './components/AcceptJobs';
+import JobV from './JobV';
+import Allmembers from './components/GetMem';
+import GetMem from './components/GetMem';
+import CardButton from './components/CardButton';
+
 import PendingPartnersForm from './components/PendingPartnersForm';
 import PendingMembersForm from './components/PendingMembersForm';
 import PendingEduOrgsForm from './components/PendingEduOrgsForm';
@@ -113,9 +120,14 @@ class App extends Component {
 
    
       <Route exact path = "/job/Jobapp" component = {Jobapp}/> {/*create job */}
+      <Route exact path = "/applicants/:ids" component = {GetMem}/> {/*create job */}
+      <Route exact path = "/accept/:ids" component = {CardButton}/> {/*create job */}
+
       <Route exact path = "/job/updateJobs/:id" component = {UpdateJobs}/> {/*update job */}
       {/* <Footer/> */}
       <Route exact path = "/partner/profile" component = {PartnerProfile}/> 
+      <Route exact path = "/accept" component = {JobV}/> 
+
       {/* PartnerProfile */}
       {/* <Route exact path = "/job" component = {Jobapp}/>  */}
   {/* should be hidden to normal Viewers*/ }

@@ -28,7 +28,7 @@ module.exports = {
 
             dailyhours:Joi.number().required(),
 
-            partner: Joi.string().min(4).required(),
+            partner: Joi.string().min(4),
 
 
 
@@ -54,7 +54,7 @@ module.exports = {
 
       title: Joi.string().min(3),
 
-      //state: Joi.string().min(3),
+      state: Joi.string().min(3),
 
       startdate: Joi.date(),
 
