@@ -35,7 +35,7 @@ class workshopsEduOrg extends Component {
     componentDidMount() {
         const s = this.ggg();
       axios
-      .get('http://localhost:5000/api/educationalOrganizations/w/'+s)
+      .get('http://localhost:5000/api/educationalOrganizations/w/'+s)  //auth======
       .then(res=> this.setState({workshop:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
@@ -46,11 +46,15 @@ class workshopsEduOrg extends Component {
       console.log(_id)
     }
     updateWorkshops =(_id) => {
-      this.props.history.push(`workshop/updateWorkshop/${_id}`);
+    //  window.location = `http://localhost:5000/workshop/updateWorkshop/${_id}`
+    window.location = window.location.protocol + "//" + window.location.host + "/" +`workshop/updateWorkshop/${_id}`
+     // this.props.history.push(`workshop/updateWorkshop/${_id}`);
+    //  window.location.reload()
       console.log(_id)
     }
     onClick=() =>{
       this.props.history.push("/workshop/createWorkshop")
+      
     }
     
     render(){

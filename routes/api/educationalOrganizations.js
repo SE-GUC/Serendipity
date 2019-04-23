@@ -18,37 +18,9 @@ router.get('/', async (req,res) => {
     const educationalOrganizations = await EducationalOrganization.find()
     res.json({data: educationalOrganizations})
 })
-///get masterclassesof this EduORg
 
-
-// router.get('/:id', async (req,res) => {
-    
-//     try {
-//         const id = req.params.id
-
-//         const educationalOrganizations = await EducationalOrganization.findById(id)  //.populate('masterClasses').populate('courses')
-//      //   const user = await book.reviews
-//      console.log(educationalOrganizations.userName)
-
-//         if(!educationalOrganizations) {
-//         return res.status(404).send({error: 'educational organization does not exist'})}
-        
-//         res.json({data: educationalOrganizations})
-//         console.log(res.data)
-//        }
-//        catch(error) {
-//            // We will be handling the error later
-//            console.log(error)
-//        }  
-    
-
-//  //   res.json({data: educationalOrganizations})
-// })
 
 router.get("/:_id", (req, res) => {
- 
-
-
     const id = req.params._id;
      EducationalOrganization.findById(id)
       .exec()
