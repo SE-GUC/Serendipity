@@ -16,7 +16,6 @@ import Footer from './components/layout/Footer';
 import CourseApp from './components/Form';
 // import Login from './components/pages/LoginPage';
 //////trail yan pending
-// import { Provider } from 'react-redux'; //yan
 // import store from '../src/globalState/store'; //yan
 import Login2 from './components/pages/Login';//trial yan
 import 'bootstrap/dist/css/bootstrap.min.css'; //trial yan
@@ -41,6 +40,7 @@ import PartnerUpdate from '../src/components/PartnerUpdate'
 import RegisterAll from '../src/components/pages/RegisterAll';
 import UpdForm from './components/UpdForm';
 import CreateForm from './components/CreateForm';
+import CourseOver from './components/CourseOver';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
@@ -118,8 +118,9 @@ class App extends Component {
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
 
-      {/* <Footer/>  */}
-      {/* hides some functionalities wont stick to bottom of page */}
+      <Route exact path = "/courseOver" component = {CourseOver}/> 
+
+      {/* <Footer/> hides some functionalities wont stick to bottom of page */}
       </div>
 
       </Router>
