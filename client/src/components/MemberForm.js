@@ -1,6 +1,7 @@
 import React , { Fragment, Component } from "react";
 import axios from 'axios';
 import MemberApp from "../MemberApp";
+import { RSA_NO_PADDING } from "constants";
 class MemberForm extends Component  {
   constructor(){
     super();
@@ -53,11 +54,7 @@ handleSubmit = async event => {
     availableDailyHours : this.state.availableDailyHours ,
      location : this.state.location ,
      birthDate : this.state.birthDate,
-/*     interests : this.state.interests,
-     certificates : this.state.certificates ,
-     coursesTaken : this.state.coursesTaken ,
-     skills : this.state.skills
-*/
+
   };
   console.log(member)
  fetch(`http://localhost:5000/api/members/`, {
@@ -67,10 +64,14 @@ handleSubmit = async event => {
     'Content-Type': 'application/json'
   }
 }).then(res => {
+      if ( res.status == "400" ){
+        alert(' used username or email')
+    }
+    else {
       console.log(res);
       alert('congratulations , You are a member now !')
       this.setState({done : true})
-    }).catch(e => {
+    }}).catch(e => {
       console.log(e)
       alert('Something went wrong! check it out and try again')
     })
@@ -84,7 +85,7 @@ render(){
         margin: 20,
         padding: 20, 
         backgroundColor:'#FFFFFF',
-        borderStyle: 'outset',
+       borderStyle: 'outset',
         width : 500 ,
 }
 
@@ -166,50 +167,6 @@ return (
             type="date"
            value={this.state.birthDate}
            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-          interests:
-          <input
-            name="interests"
-            type="array"
-            value={this.state.interests}
-           onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        certificates:
-        <input
-          name="certificates"
-          type="array"
-          value={this.state.certificates}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        Courses Taken:
-        <input
-          name="coursesTaken"
-          type="array"
-          value={this.state.coursesTaken}
-         onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        Skills:
-        <input
-          name="skills"
-          type="array"
-          value={this.state.skills}
-         onChange={this.onChange} 
             />
         </label>
         <br />

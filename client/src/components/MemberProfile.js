@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import MemberID from './MemberID';
 import { rmdirSync } from 'fs';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { logoutUser } from '../globalState/actions/authentication';
 class MemberProfile extends Component {
 constructor (){
   super();     
@@ -34,7 +37,7 @@ constructor (){
          up_location : '',
          up_password: '',
          up_birthDate: '',
-      up_interests : [],
+      up_interests :'',
       up_attendedEvents : [],
       up_previousJobs : [],
       up_previousTasks :[],
@@ -46,33 +49,36 @@ constructor (){
       up_contractSigned :[],
       up_expirationDate :'',
       up_age :'',
-      up_skills :[] ,
+      up_skills :'' ,
       edit :  false ,
       view : true ,
       id : null ,
       delete : false
         };
 
-this.getMember = this.getMember.bind(this);
+this.componentDidMount = this.componentDidMount.bind(this);
 this.edit = this.edit.bind(this);
 this.onChange = this.onChange.bind(this);
 this.delete =  this.delete.bind(this);
+this.addSkill = this.addSkill.bind(this);
+this.addInterest = this.addInterest.bind(this);
 }
-
-
-
-getMember = function()
+componentDidMount= function()
 {
-  const member = this.props.id ;
+  const {isAuthenticated, user} = this.props.auth;
+  console.log({user}.user.id)
+  const member =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+   console.log(tokenB)
   if(member){
-  axios.get(`http://localhost:5000/api/members/${member}`).then((res) =>{
+  axios.get(`http://localhost:5000/api/members/${member}` , {Authorization: tokenB }).then((res) =>{
     console.log(res)
     this.setState({email : res.data.data.email , name : res.data.data.name , userName : res.data.data.userName , availableDailyHours : res.data.data.availableDailyHours , location : res.data.data.location , password : res.data.password , birthDate : res.data.data.birthDate , interests : res.data.data.interests ,
     attendedEvents :res.data.data.attendedEvents , previousJobs : res.data.data.previousJobs , previousTasks : res.data.data.previousTasks , previousProjects : res.data.data.previousProjects , reviews : res.data.data.reviews , reviewers : res.data.data.reviewers , 
   certificates : res.data.data.certificates , coursesTaken : res.data.data.coursesTaken , contractSigned : res.data.data.contractSigned , expirationDate : res.data.data.expirationDate , age : res.data.data.age , skills : res.data.data.skills })
 })
 } else return;
-}
+};
 
 onChange = (e) => {
   
@@ -80,15 +86,19 @@ onChange = (e) => {
 }
 
 handleSubmit = async event => {
-  const member = this.props.id ;
+  const {isAuthenticated, user} = this.props.auth;
+  console.log({user}.user.id)
+  const member =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+  console.log(tokenB)
   event.preventDefault();
   
-  axios.put(`http://localhost:5000/api/members/${member}`,{
+  axios.put(`http://localhost:5000/api/members/${member}` ,{
     email: this.state.up_email ? this.state.up_email : this.state.email ,
     }
   )
     .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}`,{
+    axios.put(`http://localhost:5000/api/members/${member}` ,{
 
    userName : this.state.up_userName ? this.state.up_userName : this.state.userName ,
     }
@@ -104,58 +114,86 @@ handleSubmit = async event => {
     }
   )
     .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}`,{
+    axios.put(`http://localhost:5000/api/members/${member}`, {
        location : this.state.up_location ? this.state.up_location : this.state.location ,
       }
     )
       .catch(e=> e)
-      axios.put(`http://localhost:5000/api/members/${member}`,{
+      axios.put(`http://localhost:5000/api/members/${member}` , {
        birthDate : this.state.up_birthDate ? this.state.up_birthDate : this.state.birthDate 
       }
     )
       .catch(e=> e)
-      axios.put(`http://localhost:5000/api/members/${member}`,{
+      axios.put(`http://localhost:5000/api/members/${member}`, {
          password : this.state.up_password ? this.state.up_password : this.state.password 
         }
       )
-        .catch(e=> e)
+      .catch(e=> e)
      alert('Updated!');
 }
 
 edit = function(){
   this.setState({edit : true , view : false })
 }
-
 delete =  function(e){
+  const {isAuthenticated, user} = this.props.auth;
+  console.log({user}.user.id)
+  const member =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+   console.log(tokenB);
   e.preventDefault();
-  const member = this.props.id
   this.setState({edit : false , view : false , delete : true})
   console.log(member)
-axios.delete(`http://localhost:5000/api/members/${member}`)
+axios.delete(`http://localhost:5000/api/members/${member}` , {Authorization: tokenB } )
 .then( res => console.log(res))
     
     alert('Account deleted successfully')
-}
+};
 
+addSkill =  function(e){
+  const {isAuthenticated, user} = this.props.auth;
+  console.log({user}.user.id)
+  const member =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+ console.log(tokenB);
+  axios.put(`http://localhost:5000/api/members/${member}/addskills` ,  
+    { skill : this.state.up_skills
+  })
+.then( res => console.log(res))
+};
+
+addInterest =  function(e){
+  const {isAuthenticated, user} = this.props.auth;
+  console.log({user}.user.id)
+  const member =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
+  axios.put(`http://localhost:5000/api/members/${member}/addinterests` , {
+    interest : this.state.up_interests
+})
+.then( res => console.log(res))
+};
 render() {
+  const  formstyle ={
+    color: '#31323C',
+    margin: 20,
+    padding: 20, 
+    backgroundColor:'#FFFFFF',
+   borderStyle: 'outset',
+    width : 500 ,
+};
+const {isAuthenticated, user} = this.props.auth;
+    console.log({user}.user.id)
+    this.state.id={user}.user.id;
+    console.log(this.state.id);
   return (
-  
     <div >
-<h1>
-<button onClick={this.getMember} > View profile </button><br/>
-    Hello {this.state.name} <br/>
-</h1>
-
 { this.state.view && !this.state.edit ?
-  <form >
+    <form style={formstyle}>
 
 Email address :  
 <input type="email"   value={this.state.email} disabled /><br></br>
-
-
 User name : 
 <input type="text"   value={this.state.userName} disabled/><br></br>
-
 Name : 
 <input type="text"   value={this.state.name} disabled /><br></br>
 Password :
@@ -190,15 +228,15 @@ Age :
 <input type="number"   value={this.state.age} disabled/><br></br>
 Skills :
 <input type="array"   value={this.state.skills} disabled/><br></br>
-</form> : null }
 <button onClick={this.edit}>
   Edit profile info
 </button>
 <button onClick={this.delete}>
   Delete profile 
 </button>
+</form> : null }
 { this.state.edit && !this.state.view ?
-<form onSubmit={this.handleSubmit} >
+<form onSubmit={this.handleSubmit}  style={formstyle}>
 Email address :  
 <input type="email"  name="up_email" value={this.state.up_email ? this.state.up_email : this.state.email } onChange={this.onChange} />
 <br></br>
@@ -220,51 +258,25 @@ Location :
 BirthDate : 
 <input type="text" name="up_birthDate"  value= {this.state.up_birthDate ? this.state.up_birthDate : this.state.birthDate} onChange={this.onChange} />
 <br></br>
-Interests : 
-<input type="array" name="up_interests"  value={this.state.interests} onChange={this.onChange} />
-<br></br>
-Attended Events :
-<input type="array" name="up_attendedEvents"  value={this.state.attendedEvents} onChange={this.onChange} />
-<br></br>
-Previous Projects :
-<input type="array" name="up_previousProjects"   value={this.state.previousProjects} onChange={this.onChange} />
-<br></br>
-Previous Tasks :
-<input type="array" name="up_previousTasks"  value={this.state.previousTasks} onChange={this.onChange} />
-<br></br>
-Previous Jobs :
-<input type="array" name="up_previousJobs"  value={this.state.previousJobs} onChange={this.onChange} />
-<br></br>
-Review  
-<input type="text"  name="up_review" value={this.state.reviews} onChange={this.onChange} />
-<br></br>
-Reviewers :
-<input type="text"  name="up_reviewers" value={this.state.reviewers} onChange={this.onChange} /><br></br>
-Certificates :
-<input type="text"  name="up_certificates" value={this.state.certificates} onChange={this.onChange} />
-<br></br>
-Courses Taken :
-<input type="text" name="up_coursesTaken"  value={this.state.coursesTaken} onChange={this.onChange} />
-<br></br>
-Contract Signed :
-<input type="boolean"  name="up_contractSigned" value={this.state.contractSigned} onChange={this.onChange} />
-<br></br>
-Age :
-<input type="number" name="up_age"  value={this.state.age} onChange={this.onChange} />
-<br></br>
-Skills :
-<input type="array" name="up_skills"  value={this.state.skills} onChange={this.onChange}  />
-<br></br>
 <button onClick = {this.handleSubmit}>
 save changes
-</button> 
+</button>
+<br/><br/> 
+<br/> 
+ 
+
 </form> : null }
-
-
 </div>
-)
+)}
+}
+MemberProfile.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+//export default EduOrgProfile;
+export default connect(mapStateToProps)(withRouter(MemberProfile));
 
-}
-export default MemberProfile ;
