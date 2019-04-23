@@ -73,6 +73,11 @@ type : [String]
     },
     skills :{
         type : [String] 
+    },
+    registered: {
+        type: String, 
+        default:'no',
+        required: false
     }
     
 });

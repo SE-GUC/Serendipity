@@ -7,7 +7,7 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
-
+const passport = require('passport');//for auth trial
 const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job
@@ -30,6 +30,8 @@ router.get('/', async (req,res) => {
    res.json({data: jobs})
 })
 
+
+
 // serach for a job by name 
 router.get('/y/:title', async (req,res) => {
     
@@ -39,11 +41,11 @@ router.get('/y/:title', async (req,res) => {
        console.log(title+'hiii')
         const joby=[];
         for(var i=0;i<jobs.data.data.length;i++){
-           if (jobs.data.data[i].title===title)
+           if (jobs.data.data[i].title.includes(title))
            joby.push(jobs.data.data[i])
-           res.json({data: joby})
+           //res.json({data: joby})
         }
-       
+        res.json({data: joby})
       }
       catch(error) {
           // We will be handling the error later
@@ -51,7 +53,7 @@ router.get('/y/:title', async (req,res) => {
       }  
    
 
-   res.json({data: joby})
+   
 })
   
 // Get a certain job 
@@ -105,8 +107,8 @@ router.get("/:id", (req, res) => {
 
 // Delete a job
 
-
-router.delete('/:id', async (req,res) => {
+//router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.delete('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const id = req.params.id
     const deletedJob = await Job.findByIdAndRemove(id)
@@ -119,29 +121,7 @@ router.delete('/:id', async (req,res) => {
 });
 
 
-
-
-// Update a job
-
-
-
-//create a job
-// create a new member and add it to the database
-// router.post('/', async (req, res) => {
-//    try {
-//        const isValidated = validator.createValidation(req.body)
-//        if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-//        const newJob = await Job.create(req.body)
-//        res.json({msg:'Job created successfully', data: newJob})
-//       }
-//       catch(error) {
-//           // We will be handling the error later
-//           console.log(error)
-
-//       } 
-// });
-
-router.put('/:id', async (req,res) => {
+router.put('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const id = req.params.id
     const job = await Job.findById(id)
@@ -161,7 +141,7 @@ router.put('/:id', async (req,res) => {
 
 //create a job
 
-router.post('/', async (req,res) => {
+router.post('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
@@ -178,22 +158,59 @@ router.post('/', async (req,res) => {
 
 })
 // as a member I should be able to apply for a job
-router.put('/:jid/apply/:mid',async (req,res)=>{
-   const memberid = req.params.mid
-   const jobid = req.params.jid
-   const member = await Member.findById(memberid)
-   const job = await Job.findById(jobid)
-   if(!job) return res.status(400).send({ error:'job does not exist' })
-   if(!member) return res.status(400).send({ error:'member does not exist' })
 
-   Job.update(
-      {_id:jobid},
-      {$push: {applicants: memberid}}
-   )
-      res.json({msg:'applicant was added succsessfully', data:job})
+router.put('/:id/apply', async (req, res) => {
+   console.log('hnaaSmsm')
+   console.log(req.body.applicantId)
+   console.log('hnaaSmsm')
+   console.log("apply course")
+  
+   console.log(req.params.id)
 
+
+   const isValidated = validator.applyValidation(req.body)
+   if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+   const applicantId = req.body.applicantId;
+   const jobId = req.params.id;
+   console.log(jobId)
+   var job = await Job.findById(jobId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
+   console.log('one')
+   console.log(job)
+
+   job.applicants.push(applicantId);
+   console.log('two')
+
+   Job.findByIdAndUpdate(jobId, { applicants: job.applicants })
+       .exec()
+       .then(doc => { return res.redirect(303, `/api/jobs/${req.params.id}`) })
+       .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a job with that id !`) });
+
+   console.log('one')
 
 })
+// router.put('/:jid/apply/:mid',async (req,res)=>{
+//    console.log("apply job")
+//    const memberid = req.params.mid
+//    const jobid = req.params.jid
+//    const member = await Member.findById(memberid)
+//    const job = await Job.findById(jobid)
+//    console.log(jobid)
+//    console.log(memberid)
+
+//    if(!job) return res.status(400).send({ error:'job does not exist' })
+//    if(!member) return res.status(400).send({ error:'member does not exist' })
+
+//    Job.update(
+//       {_id:jobid},
+//       {$push: {applicants: memberid}}
+//    )
+//       res.json({msg:'applicant was added succsessfully', data:job})
+
+
+// })
 router.put('/:jid/accept/:mid',async (req,res)=>{
    const memberid = req.params.mid
    const jobid = req.params.jid

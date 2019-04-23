@@ -50,6 +50,8 @@ class Form extends React.Component {
         <Link to={`/createCourse`} style={styles.button}>Create a new course?</Link>
         <br /><br />
         {this.state.deleting}
+        {this.state.applying}
+
         {this.state.response}
       </div>
     )

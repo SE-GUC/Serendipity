@@ -69,6 +69,12 @@ updateWorkshops =(_id) => {
   this.props.history.push(`workshop/updateWorkshop/${_id}`);
   console.log(_id)
 }
+applyWorkshop=(_id) => {
+  var schema = {};
+  schema["applicantId"] = '5c9cd4a3a5322632a423cf4a'
+  Axios.put(`http://localhost:5000/api/workshops/${_id}/apply/`,schema)
+  console.log(_id+"mayar")
+}
 onClick=() =>{
   this.props.history.push("/workshop/createWorkshop")
 }
@@ -82,7 +88,7 @@ render(){
   <h2 style={this.getStyleWork()}>WORKSHOPS</h2>
   <p><button  onClick={this.onClick} style={btnStyle1}>create workshop</button></p>
 
-  <Workshops workshop={this.state.workshop} delWorkshops={this.delWorkshops} updateWorkshops={this.updateWorkshops} />
+  <Workshops workshop={this.state.workshop} delWorkshops={this.delWorkshops} updateWorkshops={this.updateWorkshops} applyWorkshop={this.applyWorkshop} />
 
   </div>
   )
