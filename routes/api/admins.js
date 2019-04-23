@@ -341,7 +341,7 @@ router.get('/p/pendingpartners',passport.authenticate('jwt', { session: false })
   router.put('/arpartner/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
     const id = req.params.id
      const partner = await Partner.findById(id)
      const ID = {"_id":id}
@@ -368,7 +368,7 @@ router.get('/p/pendingpartners',passport.authenticate('jwt', { session: false })
 router.put('/armember/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
 
     const id = req.params.id
      const member = await Member.findById(id)
@@ -479,7 +479,7 @@ router.put('/armember/:id',passport.authenticate('jwt', { session: false }),asyn
   router.put('/arpartner/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
     const id = req.params.id
      const partner = await Partner.findById(id)
      const ID = {"_id":id}
@@ -506,7 +506,7 @@ router.put('/armember/:id',passport.authenticate('jwt', { session: false }),asyn
 router.put('/armember/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
     const id = req.params.id
      const member = await Member.findById(id)
      const ID = {"_id":id}
@@ -531,7 +531,7 @@ router.put('/armember/:id',passport.authenticate('jwt', { session: false }),asyn
 router.put('/areduorg/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
     const id = req.params.id
      const eduorg = await EduOrg.findById(id)
      const ID = {"_id":id}
@@ -557,7 +557,7 @@ router.put('/areduorg/:id',passport.authenticate('jwt', { session: false }),asyn
 router.put('/aradmins/:id',passport.authenticate('jwt', { session: false }),async(req,res)=>{
     const admin2=await Admin.findById(req.user.id )
     //console.log(admin2)
-    if(admin2 && admin2.super==="yes"){
+    if(admin2){
     const id = req.params.id
      const admin = await Admin.findById(id)
      const ID = {"_id":id}

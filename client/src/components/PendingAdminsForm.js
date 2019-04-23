@@ -40,11 +40,11 @@ class PendingAdminsForm extends Component {
       const tokenB= localStorage.getItem('jwtToken');
      
         console.log(id)
-        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{
-          Authorization: tokenB
-        },{registered:"yes"
+        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,
+        {registered:"yes"
 
-            }
+            },{
+              Authorization: tokenB}
           
          
           ).then(res => {this.setState({pendingadmins:[...this.state.PendingAdminsForm,res.data]})})
@@ -60,11 +60,11 @@ class PendingAdminsForm extends Component {
     rejectadmin =(id)=>{
       const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
-        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{
-          Authorization: tokenB
-        },{registered:"rejected"
+        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{registered:"rejected"},
+        {Authorization: tokenB
+      }
 
-            }
+            
           
          
           ).then(res => {this.setState({pendingadmins:[...this.state.PendingAdminsForm,res.data]})})
