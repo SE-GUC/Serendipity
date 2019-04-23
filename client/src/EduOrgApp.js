@@ -28,32 +28,7 @@ class EduOrgApp extends Component {
     .catch(error=> this.ERROR.bind(error))
   }
 
-  // state = {
-  //    eduorgs:[]
-       
-      //  {
-      //    id: 1,
-      //    name: 'guc',
-      //    flag: true
-       
-      //  },
-      //  {
-      //    id: 2,
-      //    name: 'auc',
-      //    flag: false
-       
-      //  },
-      //  {
-      //    id: 3,
-      //    name: 'bue',
-      //    flag: false
-       
-      //  }
-      
-     
-     
-     
-
+  
   //}
   // componentDidMount(){
   //   //axios.get('mongodb+srv://salma:123@cluster0-mepxp.mongodb.net/test?retryWrites=true')
@@ -86,8 +61,15 @@ class EduOrgApp extends Component {
 //   this.setState({eduorgs: [...this.state.eduorgs.filter(eduorg => eduorg.id !== id)]});
 // }
   render() {
-    return this.state.error?<h1>process couldnot be complete</h1>:this.state.loading?
-  <h1>loading please be patient</h1>
+    return this.state.error?<h1>process could not be complete</h1>:this.state.loading?
+    <div class="text-center">
+    <br></br><br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+  <div class="spinner-border"  style={spinnerStyle} role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  {/* <h1>loading please be patient</h1> */}
+</div>
+  
   :(
       <div className="EduOrgApp">
         <h1 style = {this.getStyleEduOrg()}>Educational Organizations</h1>
@@ -101,6 +83,16 @@ class EduOrgApp extends Component {
     console.log(error)
     this.setState({error:true})
   }
+}
+//"width: 3rem; height: 3rem;"
+const spinnerStyle={
+  //background:'#193E43',
+  width: '5rem',
+  height: '5rem',
+  color:'#e5e8e8',
+  textAlign:'center',
+  fontFamily:'ariel',
+  padding:'10px'
 }
 
 export default EduOrgApp;

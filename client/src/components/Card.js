@@ -54,6 +54,7 @@ class SimpleCard extends React.Component {
 
         axios.get(`http://localhost:5000/api/courses/${this.props.cid}/applicants`)
             .then(res => {
+                console.log(res)
                 const app = res.data.data;
                 var mems =
                     <div>
@@ -73,7 +74,7 @@ class SimpleCard extends React.Component {
                 if (app.length === 0)
                     mems = <p style={styles.noApplicants}>No applicants</p>
                 this.setState({ title: ans.title, response: course, store: mems })
-            })
+           })
     }
 
     render() {
@@ -88,6 +89,8 @@ class SimpleCard extends React.Component {
                 <CardActions>
                     <Button size="small" onClick={() => this.handleClick()}>view applicants</Button>
                     <Button size="small" onClick={() => this.handleDelete()}>delete course</Button>
+                    <Button size="small" onClick={() => this.handleApply()}>apply</Button>
+
                     <Link to={`/updateCourse/${this.props.cid}`}>Update</Link>
                     {this.state.deleting}
                 </CardActions>
@@ -104,6 +107,15 @@ class SimpleCard extends React.Component {
         console.log('init')
         this.setState({ deleting: <div><br /><p style={styles.del}>deleting ...</p></div> })
         axios.delete(`http://localhost:5000/api/courses/${this.props.cid}`)
+            .then((res) => { window.location.reload(); console.log('ay7aga') })
+
+    }
+    handleApply() {
+        console.log(this.props.cid)
+        var schema = {};
+        schema["applicantId"] = '5c9cd4a3a5322632a423cf4a'
+        this.setState({ applying: <div><br /><p style={styles.del}>applying ...</p></div> })
+        axios.put(`http://localhost:5000/api/courses/${this.props.cid}/apply`,schema)
             .then((res) => { window.location.reload(); console.log('ay7aga') })
 
     }
