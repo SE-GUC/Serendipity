@@ -57,15 +57,13 @@ import AdminCreate from './components/AdminCreate';
 
 //import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import Allmembers from './components/allmembers';
-import AdminCreate from './components/AdminCreate';
 import PendingJobs from './components/PendingJobs';
-import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import AllExperts from './components/AllExperts';
 import MemberProfile from './components/MemberProfile';
 
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
-import Allmembers from './components/GetMem';
+import Allmemberss from './components/GetMem';
 import GetMem from './components/GetMem';
 import CardButton from './components/CardButton';
 
