@@ -140,27 +140,63 @@ router.get('/', async (req,res) => {
 
 ///////////////////////////////////
 //member apply for workshop WORKS!!!
-router.put("/:wid/apply/:mid",async (req,res)=>{
-    const memberid = req.params.mid
-    const workid=req.params.wid
-    const member =await Member.findById(memberid)
-    const workshop =await Workshop.findById(workid)
-    if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
-    if(!member) return res.status(404).send({error: 'This member does not exist'})
-    //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
-    //add element to applicants
-    //workshop.applicants.push(memberid);
-    
-    Workshop.update(
-        { _id: workid }, 
-        { $push: { applicants: memberid } },
-        //done
-    )
-    res.json({msg:'applicant was added successfully', data:workshop})
-    //workshop.save(done);
-   })
-////////////////////////
+// router.put("/:wid/apply/:mid",async (req,res)=>{
+//     console.log("apply workshop")
 
+//     const memberid = req.params.mid
+//     const workid=req.params.wid
+//     console.log(workid)
+//     console.log(memberid)
+
+//     const member =await Member.findById(memberid)
+//     const workshop =await Workshop.findById(workid)
+//     if(!member) return res.status(404).send({error: 'This member does not exist'})
+//     if(!workshop) return res.status(404).send({error: 'workshop does not exist'})
+//     //const updateWorkshop = await Workshop.findOneAndUpdate({workid},{ $push: { applicants: memberid }),
+//     //add element to applicants
+//     //workshop.applicants.push(memberid);
+    
+//     Workshop.update(
+//         { _id: workid }, 
+//         { $push: { applicants: memberid } },
+//         //done
+//     )
+//     res.json({msg:'applicant was added successfully', data:workshop})
+//     //workshop.save(done);
+//    })
+////////////////////////
+router.put('/:id/apply', async (req, res) => {
+    console.log('hnaaSmsm')
+    console.log(req.body.applicantId)
+    console.log('hnaaSmsm')
+    console.log("apply course")
+   
+    console.log(req.params.id)
+
+
+    const isValidated = validator.applyValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
+
+    const applicantId = req.body.applicantId;
+    const courseId = req.params.id;
+    console.log(courseId)
+    var course = await Workshop.findById(courseId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
+    console.log('one')
+    console.log(course)
+
+    course.applicants.push(applicantId);
+    console.log('two')
+
+    Workshop.findByIdAndUpdate(courseId, { applicants: course.applicants })
+        .exec()
+        .then(doc => { return res.redirect(303, `/api/courses/${req.params.id}`) })
+        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+
+    console.log('one')
+
+})
   
 router.delete('/:id', async (req,res) => {
 

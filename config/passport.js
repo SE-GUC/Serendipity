@@ -18,7 +18,13 @@ const JwtStrategy = require('passport-jwt').Strategy
         const currentUserP = await UserP.findById(jwtPayload.id)//trial
         const currentUserA = await UserA.findById(jwtPayload.id)//trial
         if(currentUserE) return done(null,currentUserE)//trial
-        if(currentUserM) return done(null,currentUserM)//trial
+        if(currentUserM) return done(null,{ id: currentUserM._id,
+
+            name: currentUserM.name,
+
+            email: currentUserM.email,
+
+         })//trial
         if(currentUserP) return done(null,currentUserP)//trial
         if(currentUserA) return done(null,currentUserA)//trial
         return done(null,false)

@@ -45,6 +45,19 @@ updateMasterclasses =(_id) => {
   this.props.history.push(`getMasterclass/update/${_id}`);
   console.log(_id)
 }
+
+applyMasterclass = (_id) => {
+  var schema = {};
+  schema["applicantId"] = '5c9cd4a3a5322632a423cf4a'
+  Axios.put(`http://localhost:5000/api/masterclasses/${_id}/apply`,schema)
+  .then((res) => { alert(`you successfully applied for masterclass`);window.location.reload(); console.log('ay7aga') })
+  // Axios
+  // .put(`http://localhost:5000/api/masterclasses/${_id}/apply/`+'5c9cd4a3a5322632a423cf4a')
+  // .then(alert(`applied for masterclass with id ${_id}`))
+  .catch(error=> this.ERROR.bind(error))
+  console.log(_id+"mm");
+}
+
 componentDidMount() {
   Axios
   .get('http://localhost:5000/api/masterclasses')
@@ -57,7 +70,8 @@ render(){
   :
   (<div className='App'>
   <h1>MasterClasses</h1>
-  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass} updateMasterclasses={this.updateMasterclasses}/>
+  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass} updateMasterclasses={this.updateMasterclasses}applyMasterclass = {this.applyMasterclass}/>
+ 
   </div>
   )
 }

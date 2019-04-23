@@ -148,14 +148,23 @@ router.put('/:id/apply', async (req, res) => {
     console.log('hnaaSmsm')
     console.log(req.body.applicantId)
     console.log('hnaaSmsm')
+    console.log("apply course")
+   
+    console.log(req.params.id)
+
 
     const isValidated = validator.applyValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
     const applicantId = req.body.applicantId;
     const courseId = req.params.id;
+    console.log(courseId)
     var course = await Course.findById(courseId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
     console.log('one')
+    console.log(course)
+
     course.applicants.push(applicantId);
     console.log('two')
 
