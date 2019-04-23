@@ -18,12 +18,12 @@ const MasterclassSchema = new Schema({
 
     Eduorganization: {
 
-        // type: String,
+        type: String,
 
-        // required: true
+        required: true
 
-        type: Schema.Types.ObjectId,
-        ref: "EducationalOrganization"
+        // type: Schema.Types.ObjectId,
+        // ref: "EducationalOrganization"
     },
 
     duration: {
