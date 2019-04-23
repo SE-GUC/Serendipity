@@ -165,6 +165,17 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),async(req
      res.json({msg: 'found it!!',data:e})
  })
 
+ 
+ //Marina
+ router.get('/courses1/:id', async (req,res) =>{
+  const eduorgID = req.params.id;
+  const eduOrg = await EducationalOrganization.findById(eduorgID).populate('courses');
+  const string = JSON.stringify(eduOrg);
+  const objectValue = JSON.parse(string);
+  const courses = objectValue['courses'];
+  res.json({courses})
+})
+
 module.exports = router
 
 // applyForCourse: async (cid, mid) => {

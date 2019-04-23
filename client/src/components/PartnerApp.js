@@ -23,7 +23,7 @@ class PartnerApp extends Component {
       
     
       .catch(e=> "error")
-      // alert('Account created successfully!')
+     // alert('Account created successfully!')
     }
       
      

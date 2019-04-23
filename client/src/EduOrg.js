@@ -41,6 +41,10 @@ Choose = (id)=>{
 .then(alert(`deleted masterclass with id ${id}`))
 .catch(error=> this.ERROR.bind(error))
 }
+updateMasterclasses =(_id) => {
+  this.props.history.push(`getMasterclass/update/${_id}`);
+  console.log(_id)
+}
 componentDidMount() {
   Axios
   .get('http://localhost:5000/api/masterclasses')
@@ -53,7 +57,7 @@ render(){
   :
   (<div className='App'>
   <h1>MasterClasses</h1>
-  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass}/>
+  <Masterclasses masterclasses={this.state.masterclasses} Choose={this.Choose} delMasterclass={this.delMasterclass} updateMasterclasses={this.updateMasterclasses}/>
   </div>
   )
 }

@@ -89,6 +89,7 @@ return await axios.delete('http://localhost:3000/api/members/'+id)
       .then(res => res.data)
       .catch(e => "error");
   },
+
   ////////Workshops//////////////////////
 updateWorkshop: async (id, req) => {
   try {
