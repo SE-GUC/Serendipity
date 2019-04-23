@@ -54,6 +54,11 @@ const EducationalOrganizationSchema = new Schema({
     expirationDate:{
         type: Date
 
+    },
+    registered: {
+        type: String, 
+        default:'no',
+        required: false
     }
 
 

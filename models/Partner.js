@@ -12,6 +12,11 @@ const PartnerSchema = new Schema({
     boardOfMembers: {type: String },
     fieldOfWork: {type: String }, 
     vacancies: [{type: Schema.Types.ObjectId, ref: 'jobs'}],
-    pastProjects: {type: String}
+    pastProjects: {type: String},
+    registered: {
+        type: String, 
+        default:'no',
+        required: false
+    }
 })
 module.exports = Partner = mongoose.model('partners', PartnerSchema)

@@ -8,6 +8,9 @@ const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
 const axios = require('axios');
+//const passport = require('passport');//for auth trial
+
+
 const funcs=require('../../fn');
 const passport = require('passport');
 
@@ -45,6 +48,8 @@ router.get('/a/approved',  async(req,res) => {
    
 })
 
+
+
 // serach for a job by name 
 router.get('/y/:title', async (req,res) => {
     
@@ -54,11 +59,11 @@ router.get('/y/:title', async (req,res) => {
        console.log(title+'hiii')
         const joby=[];
         for(var i=0;i<jobs.data.data.length;i++){
-           if (jobs.data.data[i].title===title)
+           if (jobs.data.data[i].title.includes(title))
            joby.push(jobs.data.data[i])
-           res.json({data: joby})
+           //res.json({data: joby})
         }
-       
+        res.json({data: joby})
       }
       catch(error) {
           // We will be handling the error later
@@ -66,7 +71,7 @@ router.get('/y/:title', async (req,res) => {
       }  
    
 
-   res.json({data: joby})
+   
 })
   
 // Get a certain job 
@@ -104,8 +109,8 @@ router.get("/:_id", (req, res) => {
 
 // Delete a job
 
-
-router.delete('/:id', async (req,res) => {
+//router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.delete('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const id = req.params.id
     const deletedJob = await Job.findByIdAndRemove(id)
@@ -225,13 +230,15 @@ router.put('/:jid/apply/:mid', async (req, res) => {
 
 
 
-router.put('/:id/apply', async (req, res) => {
+router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async (req, res) => {
    console.log('hnaaSmsm')
    console.log(req.body.applicantId)
    console.log('hnaaSmsm')
    console.log("apply course")
   
    console.log(req.params.id)
+   const member =await Member.findById(req.body.applicantId )
+   if(member){
 
 
    const isValidated = validator.applyValidation(req.body)
@@ -255,6 +262,11 @@ router.put('/:id/apply', async (req, res) => {
        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a job with that id !`) });
 
    console.log('one')
+   res.json({err : "you applied successfully"})
+   }else{
+      console.log("Could not find a Workshop with this id")
+        res.json({err : "you're not authorized"})
+   }
 
 })
 // router.put('/:jid/apply/:mid',async (req,res)=>{
