@@ -45,12 +45,7 @@ module.exports = {
             phoneNumber : Joi.number().min(11).max (20),
 
             daysAvailable : Joi.string().min(50).max(200)
-
         }
-
-
-
         return Joi.validate(request, updateSchema)
-
     }, 
 }

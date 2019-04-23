@@ -54,13 +54,21 @@ import deleteAssessment from './components/deleteAssessment';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
 import getAllAssessments from './getAllAssessments';
 import AdminCreate from './components/AdminCreate';
-import PendingJobs from './components/PendingJobs';
+
 //import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import Allmembers from './components/allmembers';
+import AdminCreate from './components/AdminCreate';
+import PendingJobs from './components/PendingJobs';
+import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import AllExperts from './components/AllExperts';
+import MemberProfile from './components/MemberProfile';
+
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
 import Allmembers from './components/GetMem';
 import GetMem from './components/GetMem';
 import CardButton from './components/CardButton';
+
 import PendingPartnersForm from './components/PendingPartnersForm';
 import PendingMembersForm from './components/PendingMembersForm';
 import PendingEduOrgsForm from './components/PendingEduOrgsForm';
@@ -112,6 +120,10 @@ class App extends Component {
 
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/allmembers" component = {Allmembers}/>
+      <Route exact path = "/memberprofile" component = {MemberProfile}/>
+      <Route exact path = "/AllExperts" component = {AllExperts}/>
+
       <Route exact path = "/registerall" component = {RegisterAll}/> {/* register all yan */}
       {/* <Route exact path = "/register" component = {Register}/>  */}
 

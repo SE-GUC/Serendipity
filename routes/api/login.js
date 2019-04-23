@@ -78,6 +78,7 @@ router.post('/', async (req, res) => {
                     email: member.email
                 }
                 const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+                console.log(member._id)
                 return res.json({token: `Bearer ${token}`})
             }
             else return res.status(400).send({ password: 'Wrong password' });

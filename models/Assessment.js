@@ -33,10 +33,6 @@ const assessmentSchema = new Schema ({
     }
 
 })
-
-
-
-
 module.exports = Assessment = mongoose.model('Assessments', assessmentSchema)
 
 // const mongoose = require('mongoose')
