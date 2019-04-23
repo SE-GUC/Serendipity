@@ -44,6 +44,7 @@ import CreateForm from './components/CreateForm';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import RegWaitmail from './components/pages/MailWait';
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -112,7 +113,7 @@ class App extends Component {
       <Route exact path = "/partner/delete" component = {PartnerDelete}/> 
       <Route exact path = "/partner/view" component = {GetAllPartners}/> 
       <Route exact path = "/partner/update" component = {PartnerUpdate}/> 
-
+      <Route exact path = "/register/wait" component = {RegWaitmail}/> 
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 

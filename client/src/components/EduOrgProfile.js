@@ -98,7 +98,7 @@ class EduOrgProfile extends Component {
     axios.get(`http://localhost:5000/api/educationalOrganizations/${edu}`, {
       Authorization: tokenB
     }).then((res) =>{
-      
+      console.log(res)
       const id = edu;
       const userName = res.data.userName;
       const name = res.data.name;
@@ -131,7 +131,7 @@ class EduOrgProfile extends Component {
     })
   } else return;
   }
-  
+ 
   render() {
     // {this.getEduOrg}
     // const {isAuthenticated, user} = this.props.auth;
