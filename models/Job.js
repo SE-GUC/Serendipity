@@ -7,7 +7,8 @@ const Jobschema = new Schema({
     required: true
   },
   state: {
-    type: String
+    type: String,
+    default:'pending'
     // PENDING:'pending',
     // APPROVED:'approved',
     // ASSIGNED:'assigned',
@@ -37,13 +38,13 @@ const Jobschema = new Schema({
   partner: {
     type: Schema.Types.ObjectId,
     ref: "Partner",
-    required: true
+   // required: true
   },
   description: {
     type: String
   },
   applicants: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Member" }]
+    type: [{ type: Schema.Types.ObjectId, ref: "members" }]
   },
   taken: {
     type: Schema.Types.ObjectId,
