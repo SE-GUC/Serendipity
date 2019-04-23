@@ -2,7 +2,7 @@
 //trial yan
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { loginUser } from '../../globalState/actions/authentication';
 import classnames from 'classnames';
 
@@ -105,4 +105,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 })
 
-export  default connect(mapStateToProps, { loginUser })(Login)
+export  default (Login)
