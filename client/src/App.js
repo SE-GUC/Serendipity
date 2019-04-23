@@ -44,14 +44,19 @@ import CreateForm from './components/CreateForm';
 import CourseOver from './components/CourseOver';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
+import Allmembers from './components/allmembers';
 import AdminCreate from './components/AdminCreate';
 import PendingJobs from './components/PendingJobs';
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import AllExperts from './components/AllExperts';
+import MemberProfile from './components/MemberProfile';
+
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
 import Allmembers from './components/GetMem';
 import GetMem from './components/GetMem';
 import CardButton from './components/CardButton';
+
 import PendingPartnersForm from './components/PendingPartnersForm';
 import PendingMembersForm from './components/PendingMembersForm';
 import PendingEduOrgsForm from './components/PendingEduOrgsForm';
@@ -120,6 +125,10 @@ componentDidMount() {
 
       <Route exact path ="/course"component = {CourseApp}/> 
       <Route exact path = "/about" component = {About}/> 
+      <Route exact path = "/allmembers" component = {Allmembers}/>
+      <Route exact path = "/memberprofile" component = {MemberProfile}/>
+      <Route exact path = "/AllExperts" component = {AllExperts}/>
+
       <Route exact path = "/registerall" component = {RegisterAll}/> {/* register all yan */}
       {/* <Route exact path = "/register" component = {Register}/>  */}
 
