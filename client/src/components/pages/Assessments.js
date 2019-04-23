@@ -1,18 +1,54 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
-function Assessments() {
+function ContainedButtons(props) {
+  const { classes } = props;
   return (
-   <React.Fragment>
-       <h2><Link style={LinkStyle} to="/assessment/createAssessment"> Book an assessment </Link>{' '}</h2>
-       <h2><Link style={LinkStyle} to="/assessment/deleteAssessment"> Delete your booked assessment </Link>{' '}</h2>
-       <h2><Link style={LinkStyle} to="/assessment/updateAssessment"> Update your booked assessment </Link>{' '}</h2>
-   </React.Fragment>
-  )
+    <div>
+      <Button variant="contained" className={classes.button}>
+        Default
+      </Button>
+      <Button variant="contained" color="primary" className={classes.button}>
+        Primary
+      </Button>
+      <Button variant="contained" color="secondary" className={classes.button}>
+        Secondary
+      </Button>
+      <Button variant="contained" color="secondary" disabled className={classes.button}>
+        Disabled
+      </Button>
+      <Button variant="contained" href="#contained-buttons" className={classes.button}>
+        Link
+      </Button>
+      <input
+        accept="image/*"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+      <label htmlFor="contained-button-file">
+        <Button variant="contained" component="span" className={classes.button}>
+          Upload
+        </Button>
+      </label>
+    </div>
+  );
 }
-export default Assessments;
 
-const LinkStyle={
-    color:'#000'
-}
+ContainedButtons.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ContainedButtons);

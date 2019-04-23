@@ -12,16 +12,16 @@ export class AssessmentsItem extends Component {
   }
 
   render () {
-    const {_id,title: memberName,expertName,masterClass,educationalOrg} = this.props.current
+    const {_id,memberName,expertName,phoneNumber,daysAvailable} = this.props.current
     return(
         <div style={this.getStyle()}>
-             <h1>Member Name: {memberName}</h1>
-            <p>Expert Name: {expertName}</p>
-            <p>Master Class: {masterClass}</p>
-            <p>Educational Org.: {educationalOrg}</p>
+             <p>Member name: {memberName}</p>
+            <p>Expert name: {expertName}</p>
+            <p>Phone number: {phoneNumber}</p>
+            <p>Days available: {daysAvailable}</p>
             <p>
-              <button onClick={this.props.deleteAssessment.bind(this,_id)} style={btnStyle}> Delete </button>
-              <button onClick={this.props.updateAssessment.bind(this,_id)} style={btnStyle1}> Update </button>
+              <button onClick={this.props.deleteAssessment} style={btnStyle}>delete</button>
+              <button onClick={this.props.updateAssessment} style={btnStyle}>update</button>
           </p>
          
 
@@ -33,20 +33,12 @@ export class AssessmentsItem extends Component {
 
 const btnStyle={
   color: 'white',
-  background:'blue',
-  fontSize: 21,
+  background:'black',
+  fontSize: 18,
   borderColor: 'white',
-  borderWidth: 2,
+  borderWidth: 4,
   borderRadius:'80%',
   cursor:'pointer'
+  // float:'down-right'
 }
-const btnStyle1={
-    color: 'white',
-    background:'blue',
-    fontSize: 21,
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius:'80%',
-  cursor:'pointer'
- }
 export default AssessmentsItem

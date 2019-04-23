@@ -56,6 +56,7 @@ class Jobapp extends Component {
       alert('Job created successfully!! YaaaY')
   };
 
+
   onSubmit = e => {
     e.preventDefault();
     if (
@@ -84,6 +85,7 @@ class Jobapp extends Component {
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     return (
       <div>

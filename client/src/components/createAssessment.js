@@ -1,50 +1,71 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '..';
-import { Link } from 'react-router-dom';
 
 
 class createAssessment extends Component {
  
     state={
-      memberName:'',
-      expertName:'',
-      masterClass:'',
-      educationalOrg:'',
-      phoneNumber:'',
-      daysAvailable:'',
-      status:''
+        memberName:'',
+        expertName:'',
+        phoneNumber:'',
+        daysAvailable:''
+     
     }
-    addassessment = ( schema) => {
-      axios.post(`http://localhost:5000/api/assessments/`, schema)
-          .then(this.setState({ seeUpd: <Link to={`/assessment/createAssessment`} style={styles.linking}> The Assessment was booked successfully! </Link> }))
-          .catch(e => { alert(e); console.log(e) })
-  }
-     onSubmit=(e)=>{
-      e.preventDefault();
-      if(!this.state.memberName||!this.state.expertName||!this.state.masterClass||!this.state.educationalOrg)
-          alert('The information you provided is not enough, please complete the form.')
-     else{
-      var schema = {};
-      if (this.state.memberName) schema["memberName"] = this.state.memberName
-      if (this.state.expertName) schema["expertName"] = this.state.expertName
-      if (this.state.masterClass) schema["masterClass"] = this.state.masterClass
-      if (this.state.educationalOrg) schema["educationalOrg"] = this.state.educationalOrg
-      if (this.state.phoneNumber) schema["phoneNumber"] = this.state.phoneNumber
-      if (this.state.daysAvailable) schema["daysAvailable"] = this.state.daysAvailable
-      this.addassessment(schema);
-     } 
-    }
+    addAssessment=(memberName,expertName,phoneNumber,daysAvailable)=>{
+      
+      axios.post("http://localhost:5000/api/assessments/",{
+
+        memberName:memberName,
+        expertName:expertName,
+        phoneNumber:phoneNumber,
+        daysAvailable:daysAvailable
+      }
+     
+      ).then(res => { alert('Assessment was booked succesfully')
+        this.setState({assessment:[...this.state.createAssessment,res.data]})})
+      
     
-   onChange=(e)=>this.setState({[e.target.name]:e.target.value});
-  render() {
+      .catch(e=> "error")
+      //alert('Assessment was booked succesfully')
+
+    }
+      
+     
+     onSubmit=(e)=>{
+       e.preventDefault();
+       if(!this.state.memberName){
+         alert('The member name cannot be empty')
+       }
+       else if(!this.state.expertName||!this.state.phoneNumber||!this.state.daysAvailable)
+       alert('The validations assessments are not satisfied. Please, try again!')
+      
+      else
+       
+       
+       this.addAssessment(this.state.memberName,this.state.expertName,this.state.phoneNumber,this.state.daysAvailable);//,this.workshopsIDs);
+     
+   
+      }
+    
+  //  onChange=(e)=>this.setState({[e.target.name]:e.target.value});
+  //  onChangeAssessments=(e)=>{
+  //   const ID=e.target.value+ " " 
+  //  // var newIDs = this.state.courseIDs
+  //   if(ID.length===24)
+  //     newIDs.push(ID)
+  //    this.setState({courseIDs:newIDs})
+  //    console.log(newIDs)
+  //    newIDs=[]
+  //   }
+  onChange=(e)=>this.setState({[e.target.name]:e.target.value});
+   render() {
     
     return (
       <div >
-      <h1> Book an assessment </h1>
+      <h1>Book an Assessment </h1>
       <form onSubmit={this.onSubmit}>
       <label>
-          MemberName:
+          Member Name:
           <input
             name="memberName"
             type="text"
@@ -56,7 +77,7 @@ class createAssessment extends Component {
         <br />
         <br />
         <label>
-        Expert Name:
+          Expert Name:
           <input
             name="expertName"
             type="text"
@@ -67,29 +88,7 @@ class createAssessment extends Component {
         <br />
         <br />
         <label>
-        MasterClass:
-          <input
-            name="masterClass"
-            type="text"
-            value={this.state.masterClass}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-          EducationalOrg:
-          <input
-            name="educationalOrg"
-            type="text"
-            value={this.state.educationalOrg}
-            onChange={this.onChange} 
-            />
-        </label>
-        <br />
-        <br />
-        <label>
-        Phone Number:
+          Phone Number:
           <input
             name="phoneNumber"
             type="number"
@@ -100,23 +99,23 @@ class createAssessment extends Component {
         <br />
         <br />
         <label>
-          DaysAvailable:
+          Days Available:
           <input
             name="daysAvailable"
             type="text"
-           value={this.state.daysAvailable}
-           onChange={this.onChange} 
+            value={this.state.daysAvailable}
+            onChange={this.onChange} 
             />
         </label>
         <br />
         <br />
-       
+        
+   
         <input 
           type="submit" 
           value="Submit" 
         />
          </form>
-         {this.state.seeUpd}
          </div>
     );
   }
@@ -125,10 +124,5 @@ const btnStyle={
 background:'#000000',
 color:'#fff'
 
-}
-const styles = {
-  linking: {
-      color: '#FFFF00',
-  }
 }
 export default createAssessment;

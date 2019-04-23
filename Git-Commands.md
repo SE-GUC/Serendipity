@@ -5,12 +5,9 @@
 Working directory clean: means we haven’t added or modified any files.
 Untracked file:
 
-*touch <name of file>: to create a new file
 * git add <name of file>: adding it 
 * git commit -m “ message” : adding a descriptive message to this commit
-
-* git log : to see all past commits .
-		Log --pretty=oneline : outputs the commands in one line
+*git pull origin <name of branch>
 
 * git pull : to update files on my desktop.
 * git branch <name of new branch>: create a new branch
@@ -23,3 +20,5 @@ Untracked file:
 
 * git branch -d <name of branch> : to delete this branch 
 * git push origin --delete <name of the branch>
+* git log : to see all past commits .
+		Log --pretty=oneline : outputs the commands in one line

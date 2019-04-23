@@ -6,14 +6,14 @@ class deleteAssessment extends Component {
     state={
             id: null,     
     }
-    deleteAssess=(id)=>{
+    deleteAssessment=(id)=>{
       axios.delete(`http://localhost:5000/api/assessments/${id}`)
       alert('Assessment deleted successfully')
     }    
 
     onSubmit=(e)=>{
         e.preventDefault();
-         this.deleteAssess(this.state.id);
+         this.deleteAssessment(this.state.id);
        }
        onChange=(e)=>this.setState({[e.target.name]:e.target.value});
 
@@ -43,6 +43,8 @@ class deleteAssessment extends Component {
          </div>
     );
   }
+
+  
 }
 
 export default deleteAssessment;
