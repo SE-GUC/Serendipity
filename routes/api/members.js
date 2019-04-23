@@ -9,30 +9,39 @@ router.use(express.json())
 const Job = require('../../models/Job')
 
 const Member = require('../../models/Member')
-
+const Admin = require ('../../models/Admin')
 const Workshop = require('../../models/Workshop') //yara
-const objectId = require('mongoose').objectid //yara
+const Assessment = require('../../models/Assessment') 
 const passport = require('passport');//for auth trial
 
+const objectId = require('mongoose').objectid //yara
+const jwt = require('jsonwebtoken')
+const tokenKey = require('../../config/keys').secretOrKey
+const bcrypt = require('bcryptjs');
 
 router.get('', async (req, res) => {
-
+  console.log("in get all")
   const members = await Member.find()
-
   res.json({ data: members })
 
 });
 
-/*
-Auth in Member :
-get.id:
-delete:
-put:
+router.get('/getexperts' , async (req , res) => {
 
-*/
+  const members = await Member.find({expert : true})
+  res.json(members);
 
+});
 
-
+router.get('./routes/api/assessments/:name' , passport.authenticate('jwt', { session: false }) ,  async (req , res) => {
+  const id = req.params._id;
+  const id2=admin.id
+  const id3=req.user.id
+  if(id3==id2 || id3==id) {  
+const assessments = await Assessment.find({expertName : name})
+res.json(assessments);
+} 
+});
 
 function Age(birthday) { // birthday is a date
 
@@ -158,7 +167,6 @@ async function finalfilterbyavailability(_id) {
   }
 
   return recommendations;
-
 }
 
 
@@ -189,7 +197,7 @@ function commen(array1, array2) {
 router.post('/', async (req, res) => {
 
   try {
-
+   
     const isValidated = validator.createValidation(req.body)
     
 
@@ -205,7 +213,6 @@ router.post('/', async (req, res) => {
       if (found)
         return res.status(400).send({ error: "email is already in use" });
       else {
-
         const newMember = await Member.create(req.body)
 
         newMember.Age = Age(req.body.birthDate)
@@ -218,7 +225,6 @@ router.post('/', async (req, res) => {
       }
     }
   }
-
   catch (error) {
 
     // We will be handling the error later
@@ -227,64 +233,57 @@ router.post('/', async (req, res) => {
   }
 
 });
-//  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
-  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
-  
-  const id = req.params._id;
-  // admin can view Members 
-  const admin =await Admin.findById(req.user.id )
-  console.log(id)
-  console.log(admin._id)
-  console.log(req.user.id)
-  const id2=admin.id
-  const id3=req.user.id
-
-  if(id3==id2 || id3==id) {
-  Member.findById(id)
-
+router.get("/:id", passport.authenticate('jwt', { session: false })  , async (req, res) => {
+  const id = req.params.id;
+  console.log("in getid")
+  console.log(req.params.id)
+  console.log(req.user._id)
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id
+  if(id3 == id2 || id3 == id) {   
+    Member.findById(id)
     .exec()
-
     .then(r => {
-
       if (r) {
         const ret = {};
         ret.data = r;
         ret.recommendations = finalfilterbyavailability(id);
         res.status(200).json(ret);
         res.status(200).json(r);
-
       } else {
-
         res
-
           .status(404)
-
           .json({ message: "Member Not Found" });
 
       }
-
     })
-
     .catch(err => {
-      return "Member Not Found"
-
-
+      res.json("Member Not found")
     });
   }
   else {
-    res.status(401).json({ err: "Not authorized "});
+    res.json("Not authorized");
   }
-
 });
 
-router.put('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.put('/:_id',passport.authenticate('jwt', { session: false }), async (req, res) => {
+  const id = req.params._id;
+  console.log("in put")
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id 
+  console.log("put request")
+  console.log(req.user._id) ;
+  console.log(id2);
+  console.log(req.params._id);
+  if(id3 == id2 || id3 == id) {
   try {
-//is admin allowed here ?
-    const id = req.params._id; //id of the member being updated
-    const id3=req.user.id //id of whats in bearer (whose logged in right now)
-   if(id==id3){
-    const isValidated = validator.updateValidation(req.body)
-
+       const isValidated = validator.updateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
 
     const username = req.body.userName;
@@ -296,47 +295,58 @@ router.put('/:_id', passport.authenticate('jwt', { session: false }),async(req, 
       const found = await Member.findOne({ "email": email });
       if (found)
         return res.status(400).send({ error: "email is already in use" });
-
       else {
         const updated = await Member.findByIdAndUpdate(req.params._id, req.body)
-
         return res.send(updated)
-
-      }
+      }}
     }
-  }else {
-    res.status(401).json({ err: "Not authorized "});
-  }
-}
   catch (err) {
     res.send(err)
   }
-
-
+}
+else {
+  res.json("Not authenticated")
+}
 });
 
 
 
-router.delete('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
-//is admin allowed here ?
-  try {
-
+router.delete('/:_id' , passport.authenticate('jwt', { session: false }), async (req, res) => {
+  const id = req.params._id;
+  console.log("in Delete")
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id 
+  console.log(req.user._id) ;
+  console.log(id2);
+  console.log(req.params._id);
+  if(id3 == id2 || id3 == id) {
+  try { 
      const deletedMember = await Member.findOneAndDelete ({ _id : req.params._id})
      res.json({msg :'Member deleted successfully' , data : deletedMember})
 
-
-  }
-
+    }
   catch (error) {
 
     console.log(error)
-
-  }
-})
-
+  }}
+});
 
 //MAYAR
 router.put('/:id/addcourse', async(req,res) => {
+  const id = req.params._id;
+  console.log("in Delete")
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id 
+  console.log(req.user._id) ;
+  console.log(id2);
+  console.log(req.params._id);
+  if(id3 == id2 || id3 == id) {
   const isValidated = validator.applyValidation(req.body)
   if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
@@ -344,15 +354,69 @@ router.put('/:id/addcourse', async(req,res) => {
   const memberId = req.params.id;
   var member = await Member.findById(memberId);
   member.coursesTaken.push(coursesId);
- // console.log('two')
-
   Member.findByIdAndUpdate(memberId,{coursesTaken:member.coursesTaken})
   .exec()
   .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
   .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
-
   console.log('one')
+  }
+  else {
+    res.json("Not Authenticated")
+  }
+});
+router.put('/:id/addskills', async(req,res) => {
+  const id = req.params._id;
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id 
+  console.log(req.user._id) ;
+  console.log(id2);
+  console.log(req.params._id);
+  if(id3 == id2 || id3 == id) {
+  const isValidated = validator.applyValidation(req.body)
+  if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
-})
+  const skill = req.body.skill;
+  const memberId = req.params.id;
+  var member = await Member.findById(memberId);
+  member.skills.push(skill);
+  Member.findByIdAndUpdate(memberId,{skills:member.skills})
+  .exec()
+  .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
+  .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
+  }
+  else {
+    res.json("Not Authenticated")
+  }
+});
+router.put('/:id/addinterests', async(req,res) => {
+  const id = req.params._id;
+  const admin = await Admin.findById(req.user._id )
+  let id2 = '';
+  if (admin)
+  id2 = admin._id
+  const id3=req.user._id 
+  console.log(req.user._id) ;
+  console.log(id2);
+  console.log(req.params._id);
+  if(id3 == id2 || id3 == id) {
+  const isValidated = validator.applyValidation(req.body)
+  if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
-module.exports = router
+  const interest = req.body.interest;
+  const memberId = req.params.id;
+  var member = await Member.findById(memberId);
+  member.interests.push(interest);
+  Member.findByIdAndUpdate(memberId,{interests:member.interests})
+  .exec()
+  .then(doc => { return res.redirect(303, `/api/members/${req.params.id}`) })
+  .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a member with that id !`) });
+  }
+  else{
+    res.json("Not authenticated");
+  }
+});
+
+module.exports = router;
