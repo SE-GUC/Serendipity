@@ -7,6 +7,8 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
+const passport = require('passport');//for auth trial
+
 
 const funcs=require('../../fn');
 ////////////////yara WORKS!!!
@@ -179,13 +181,15 @@ router.post('/', async (req,res) => {
 })
 // as a member I should be able to apply for a job
 
-router.put('/:id/apply', async (req, res) => {
+router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async (req, res) => {
    console.log('hnaaSmsm')
    console.log(req.body.applicantId)
    console.log('hnaaSmsm')
    console.log("apply course")
   
    console.log(req.params.id)
+   const member =await Member.findById(req.body.applicantId )
+   if(member){
 
 
    const isValidated = validator.applyValidation(req.body)
@@ -209,6 +213,11 @@ router.put('/:id/apply', async (req, res) => {
        .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a job with that id !`) });
 
    console.log('one')
+   res.json({err : "you applied successfully"})
+   }else{
+      console.log("Could not find a Workshop with this id")
+        res.json({err : "you're not authorized"})
+   }
 
 })
 // router.put('/:jid/apply/:mid',async (req,res)=>{

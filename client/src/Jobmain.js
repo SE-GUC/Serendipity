@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import Jobsi from "./components/Jobsi";
 import "./App.css";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+
 import axios from "axios";
 
 class Jobmain extends Component {
@@ -38,11 +43,14 @@ class Jobmain extends Component {
   };
 
   applyJobs = _id => {
+    const mem =this.state.id;
+  const tokenB= localStorage.getItem('jwtToken');
     var schema = {};
-    schema["applicantId"] = '5c9cd4a3a5322632a423cf4a'
+    schema["applicantId"] = mem
+    //schema["applicantId"] = '5c9cd4a3a5322632a423cf4a'
     axios.put(`http://localhost:5000/api/jobs/${_id}/apply`,schema)
-            .then((res) => {  alert(`you successfully applied for job`);window.location.reload(); console.log('ay7aga') })
-    
+    // .then((res) => { ;window.location.reload(); console.log('ay7aga') })
+    .then(res =>alert(res.data.err))
     console.log(_id);
   };
  
@@ -50,6 +58,8 @@ class Jobmain extends Component {
     this.props.history.push("/job/Jobapp");
   };
   render() {
+    const {user} = this.props.auth;
+  this.state.id={user}.user.id;
     return this.state.error ? (
       <h1>process couldnot be complete</h1>
     ) : this.state.loading ? (
@@ -78,6 +88,7 @@ class Jobmain extends Component {
     this.setState({ error: true });
   }
 }
+
 const btnStyle1 = {
   background: "grey",
   color: "black",
@@ -90,5 +101,12 @@ const btnStyle = {
   background: "#f4f4f4f4",
   color: "#000"
 };
+Jobmain.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
 
-export default Jobmain;
+export default connect(mapStateToProps)(withRouter(Jobmain));
