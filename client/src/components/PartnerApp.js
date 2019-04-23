@@ -15,7 +15,11 @@ class PartnerApp extends Component {
         name:name,email:email,password:password
       }
      
-      ).then(res => {this.setState({partner:[...this.state.PartnerApp,res.data]})})
+      ).then(res => { alert('Account created successfully!') 
+        window.location.href='/register/wait';
+        this.setState({partner:[...this.state.PartnerApp,res.data]})
+       
+      })
       
     
       .catch(e=> "error")
@@ -81,6 +85,7 @@ class PartnerApp extends Component {
           value="Submit" 
         />
          </form>
+        
          </div>
     );
   }

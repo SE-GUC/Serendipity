@@ -372,6 +372,9 @@ deleteAssessment: async id => {
     .then(res => res.data)
     .catch(e => "error");
 }
+
+
+
 }
 
 module.exports = functions;

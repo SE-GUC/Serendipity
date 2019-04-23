@@ -5,8 +5,8 @@ module.exports = {
 
 
 
-    mongoURI: 'mongodb+srv://marina:marina@cluster0-utqbf.mongodb.net/test?retryWrites=true',
-
+    mongoURI: "mongodb+srv://YasmineMaheeb:SerendipityPassWord@cluster0-bufsj.mongodb.net/test?retryWrites=true",
+    secretOrKey:'verysecretkey'
 
 }
 
