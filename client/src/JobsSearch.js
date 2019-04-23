@@ -27,7 +27,7 @@ change=(e)=>{
     
     else{
     this.setState( 
-        { jobs:[...this.state.jobs.filter((current)=>current.title===this.state.searchBy)]
+        { jobs:[...this.state.jobs.filter((current)=>current.title.includes(this.state.searchBy))]
         })
 
 }

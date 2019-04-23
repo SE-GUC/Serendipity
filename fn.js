@@ -89,6 +89,7 @@ return await axios.delete('http://localhost:3000/api/members/'+id)
       .then(res => res.data)
       .catch(e => "error");
   },
+
   ////////Workshops//////////////////////
 updateWorkshop: async (id, req) => {
   try {
@@ -281,6 +282,11 @@ deleteWorkshop: async (id) => {
     return partner;
   },
 
+  getMembers: async () => {
+    const members = await axios.get("http://localhost:5000/api/members/");
+    return members;
+  },
+
   /////////////Admins///////////////////////
   getAdmins: async () => {
     const admins = await axios.get("http://localhost:5000/api/admins/");
@@ -412,6 +418,9 @@ deleteAssessment: async id => {
     .then(res => res.data)
     .catch(e => "error");
 }
+
+
+
 }
 
 module.exports = functions;
