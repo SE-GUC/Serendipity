@@ -91,7 +91,49 @@ router.get('/:eduOrg/getByName/:title', async (req, res) => {
 })
 // search for a course by name 
 
+router.get('/y/:title', async (req,res) => {
 
+    
+
+    try {
+
+        const title = req.params.title
+
+        const courses= await funcs.getCourse()
+
+        console.log(title+'hiii')
+
+         const coursey=[]
+
+         for(var i=0;i<courses.data.data.length;i++){
+
+            if (courses.data.data[i].title.includes(title))
+
+            coursey.push(courses.data.data[i])
+
+           // res.json({data: coursey})
+
+         }
+
+         res.json({data: coursey})
+
+       }
+
+       catch(error) {
+
+           // We will be handling the error later
+
+           console.log(error)
+
+       }  
+
+    
+
+ 
+
+    
+
+ })
 router.get('/:id/applicants', async (req, res) => {
     try {
         const id = req.params.id
@@ -133,14 +175,23 @@ router.put('/:id/apply', async (req, res) => {
     console.log('hnaaSmsm')
     console.log(req.body.applicantId)
     console.log('hnaaSmsm')
+    console.log("apply course")
+   
+    console.log(req.params.id)
+
 
     const isValidated = validator.applyValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
 
     const applicantId = req.body.applicantId;
     const courseId = req.params.id;
+    console.log(courseId)
     var course = await Course.findById(courseId);
+//if (!course) return res.json({ error: 'course does not exist' })
+
     console.log('one')
+    console.log(course)
+
     course.applicants.push(applicantId);
     console.log('two')
 

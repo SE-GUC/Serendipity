@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Masterclasses from './components/MasterclassesY'
+import Workshops from './components/WorkshopsY'
 import './App.css';
 import Axios from 'axios';
 
-class MasterclassSearch extends Component {
+class WorkshopsSearch extends Component {
 constructor(props){
   super(props)
   this.state={
-    masterclasses:[],
+    workshops:[],
     searchBy:"",
     IDorName:false,
     error:false,
@@ -22,20 +22,20 @@ change=(e)=>{
  search= ()=> {
     if(this.state.IDorName)
             this.setState( 
-                { masterclasses:[...this.state.masterclasses.filter((current)=>current._id===this.state.searchBy)]
+                { workshops:[...this.state.workshops.filter((current)=>current._id===this.state.searchBy)]
                 })
     
     else{
     this.setState( 
-        { masterclasses:[...this.state.masterclasses.filter((current)=>current.title.includes(this.state.searchBy))]
+        { workshops:[...this.state.workshops.filter((current)=>current.title.includes(this.state.searchBy))]
         })
 
 }
 }
 componentDidMount() {
   Axios
-  .get('http://localhost:5000/api/masterclasses')
-  .then(res=> this.setState({masterclasses:res.data.data,loading:false}))
+  .get('http://localhost:5000/api/workshops')
+  .then(res=> this.setState({workshops:res.data.data,loading:false}))
   .catch(error=> this.ERROR.bind(error))
 }
 render(){
@@ -49,8 +49,8 @@ render(){
             onChange={this.change} 
     />
     <button onClick={this.search}>Search</ button>
-  <h1>Masterclasses</h1>
-  <Masterclasses masterclasses={this.state.masterclasses} />
+  <h1>Workshops</h1>
+  <Workshops workshops={this.state.workshops} />
   </div>
   )
 }
@@ -60,4 +60,4 @@ ERROR=(error)=>{
 }
 }
 
-export default MasterclassSearch;
+export default WorkshopsSearch;

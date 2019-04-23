@@ -1,21 +1,8 @@
-// import React, { Component } from 'react';
-// import MasterclassItem from './MasterclassItem'
 
-// import '../App.css'
-// class Masterclasses extends Component{
-//     render(){
-//         //return this.props.masterclasses.map((current)=> <MasterclassItem key={current._id} current={current}  delMasterclass={this.props.delMasterclass}/>)
-//         return this.props.masterclasses.map((current)=> <MasterclassItem key={current._id} current={current} Choose={this.props.Choose} delMasterclass={this.props.delMasterclass}/>)
-//         }
-    
-
-//     }
-
-//     export default Masterclasses
 
 import React, { Component } from 'react';
 
-import MasterclassItem from './MasterclassItem';
+import MasterclassItem from './MasterclassItemNew';
 
 import PropTypes from 'prop-types';
 
@@ -23,7 +10,7 @@ import axios from 'axios';
 
 
 
-class Masterclasses extends Component {
+class MasterclassesNew extends Component {
 
 
 
@@ -56,7 +43,7 @@ class Masterclasses extends Component {
   render() {
     return (
       this.props.masterclasses.map((masterclass) => {
-        return <MasterclassItem  masterclass = {masterclass} delMasterclass = {this.props.delMasterclass}updateMasterclasses={this.props.updateMasterclasses}applyMasterclass = {this.props.applyMasterclass}/>
+        return <MasterclassItem  masterclass = {masterclass} applyMasterclass = {this.props.applyMasterclass}/>
         // return <MasterclassItem  masterclass = {masterclass} delMasterclass = {this.props.delMasterclass}  applyMasterclass = {this.props.applyMasterclass} />
  })
  )
@@ -76,5 +63,5 @@ class Masterclasses extends Component {
 
 // }
 
-export default Masterclasses;
+export default MasterclassesNew;
     

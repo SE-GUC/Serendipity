@@ -1,40 +1,4 @@
-// import React, { Component } from 'react'
-// import '../App.css'
 
-// export class MasterclassItem extends Component {
-//   getStyle = () => {
-//     return {
-//       backgroundColor : '#f4f4f4f4',
-//       borderBottom: '1px #ccc dotted',
-//       textDecoration: this.props.current.reviewed? 'line-through':'none'
-//     }
-
-//   }
-
-//   render () {
-//     return (
-//       <div style = {this.getStyle()} >
-//         <p>
-//         <input type='checkbox' onChange={this.props.Choose.bind(this,this.props.current._id)}/> {'  '}
-//         { this.props.current.title}
-//         <button style={btnStyle} onClick={this.props.delMasterclass.bind(this,this.props.current._id)}>X</button>
-//         </p>
-//       </div>
-//     )   
-//   }
-  
-  
-// }
-
-// const btnStyle={
-//  background:'#ff0000',
-//  color:'#ffff',
-//  border:'none',
-//  padding:'5px 10px',
-//  borderRadius:'pointer',
-//  float:'right'
-// }
-// export default MasterclassItem
 
 import React, { Component } from 'react';
 import Masterclasses from './Masterclasses';
@@ -43,7 +7,7 @@ import Masterclasses from './Masterclasses';
 //import PropTypes from 'prop-types';
 
 
-class MasterclassItem extends Component {
+class MasterclassItemNew extends Component {
 
   getStyle =() => {
 
@@ -88,8 +52,8 @@ class MasterclassItem extends Component {
             <p>{"Courses:"}{courseIDs.map(item => <li>{item.title}</li>)}</p>
             <p>{"Workshops:"}{workshopsIDs.map(item => <li>{item.title}</li>)}</p>
            <p>{"applicants:"}{applicants.map(item => <li><p>Applicant Name:{item.name} , Applicant Username:{item.userName} , Applicant email:{item.email}</p></li>)}</p>
-            <button onClick={this.props.delMasterclass.bind(this,_id)}>Delete</button>
-            <button onClick={this.props.updateMasterclasses.bind(this,_id)}>update</button>
+           {/* <button onClick={this.props.delMasterclass.bind(this,_id)}>Delete</button>*/}
+           {/* <button onClick={this.props.updateMasterclasses.bind(this,_id)}>update</button>*/}
             <button onClick={this.props.applyMasterclass.bind(this,_id)}>apply</button>
 
             
@@ -146,4 +110,4 @@ const btnStyle = {
 
 }
 
-export default MasterclassItem;
+export default MasterclassItemNew;

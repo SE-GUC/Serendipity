@@ -30,6 +30,7 @@ import EduOrgProfile from './components/EduOrgProfile';
 import Jobmain from './Jobmain';
 import UpdateJobs from './components/UpdateJobs';
 import MClasses from './MClasses';
+import Search from './Search';
 import JobsSearch from './JobsSearch';
 import PartnerApp from './components/PartnerApp';
 import Register from './components/pages/Register';
@@ -119,6 +120,8 @@ class App extends Component {
       <Route exact path = "/eduorg/myaccount" component = {EduOrgProfile}/> 
 
       
+      <Route exact path = "/search" component = {Search}/> 
+      <Route exact path = "/register" component = {Register}/>  {/* member */}
       <Route exact path = "/searchJobs" component = {JobsSearch}/> 
       <Route exact path = "/register/member" component = {Register}/>  {/* member */}
       <Route exact  path = "/register/partner" component = {PartnerApp}/>  {/* partner */}

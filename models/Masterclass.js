@@ -24,6 +24,9 @@ const MasterclassSchema = new Schema({
 
         // type: Schema.Types.ObjectId,
         // ref: "EducationalOrganization"
+
+        // type: Schema.Types.ObjectId,
+        // ref: "EducationalOrganization"
     },
 
     duration: {

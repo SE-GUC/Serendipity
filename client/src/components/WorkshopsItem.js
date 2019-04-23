@@ -22,6 +22,8 @@ export class WorkshopsItem extends Component {
             <p>
               <button onClick={this.props.delWorkshops.bind(this,_id)} style={btnStyle}>delete</button>
               <button onClick={this.props.updateWorkshops.bind(this,_id)} style={btnStyle1}>update</button>
+              <button onClick={this.props.applyWorkshop.bind(this,_id)} style={btnStyle1}>apply</button>
+
           </p>
          
 

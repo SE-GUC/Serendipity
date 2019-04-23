@@ -32,7 +32,7 @@ module.exports = {
         }
 
         return Joi.validate(request, updateSchema)
-    },
+    }, 
     applyValidation : request => {
 
         const applySchema = {
@@ -43,5 +43,5 @@ module.exports = {
 
         return Joi.validate(request,applySchema)
 
-    } 
+    }
 }
