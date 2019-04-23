@@ -13,6 +13,7 @@ const Course = require('../../models/Course');
 const Workshop = require('../../models/Workshop');
 const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../Validations/masterClassValidations')
+const passport = require('passport');//for auth trial
 
 
 
@@ -27,12 +28,34 @@ router.get('/', async (req, res) => {
     res.json({ data: masterclases })
 })
 
+//router.get('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+    
 router.get('/:id', async (req, res) => {
 
     try {
-        const id = req.params.id
-
+        const id = req.params.id;//id masterclass
+        const admin =await Admin.findById(req.user.id )
+        const nameofsignedineduorg=req.user.name // id logged in eduorg
+console.log(nameofsignedineduorg)
+//
         const master = await Masterclass.findById(id).populate('courseIDs').populate('workshopsIDs').populate('applicants')
+    //    console.log(master.Eduorganization)
+
+    //    if(!master) return res.status(404).send({error: 'Masterclass does not exist'})
+    //     if(master.Eduorganization==nameofsignedineduorg){
+    //         console.log('yaraa')
+    //         res.json({data: master})
+    // }
+    // else {
+    //     res.status(401).json({ err: "Not authorized "});
+    //   }
+         
+    //    }
+    //    catch(error) {
+    //        // We will be handling the error later
+    //        console.log(error)
+    //    }  
+    
 
 
         if (!master) return res.status(404).send({ error: 'Masterclass does not exist' })

@@ -17,6 +17,9 @@ router.post('/', async (req,res) => {
      const isValidated = validator.createValidation(req.body)
      if (isValidated.error) return res.status(400).send("Only name,email and password are required when signing up" /*{ error: isValidated.error.details[0].message }*/)
      const newPartner = await Partner.create(req.body)
+     require('../../services/mailer').sendMail(newPartner).then(data => {
+      console.log(data)
+     }).catch(err => console.log(err)) ;
      res.json({msg:'Partner was created successfully', data: newPartner})
     }
  

@@ -7,7 +7,7 @@ router.use(express.json())
 const Job = require('../../models/Job')
 const Admin = require('../../models/Admin')//yara
 const validator = require('../../Validations/jobValidations')
-
+const passport = require('passport');//for auth trial
 const funcs=require('../../fn');
 ////////////////yara WORKS!!!
 //admin post job
@@ -105,8 +105,8 @@ router.get("/:id", (req, res) => {
 
 // Delete a job
 
-
-router.delete('/:id', async (req,res) => {
+//router.put('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
+router.delete('/:id',passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const id = req.params.id
     const deletedJob = await Job.findByIdAndRemove(id)
@@ -119,29 +119,7 @@ router.delete('/:id', async (req,res) => {
 });
 
 
-
-
-// Update a job
-
-
-
-//create a job
-// create a new member and add it to the database
-// router.post('/', async (req, res) => {
-//    try {
-//        const isValidated = validator.createValidation(req.body)
-//        if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-//        const newJob = await Job.create(req.body)
-//        res.json({msg:'Job created successfully', data: newJob})
-//       }
-//       catch(error) {
-//           // We will be handling the error later
-//           console.log(error)
-
-//       } 
-// });
-
-router.put('/:id', async (req,res) => {
+router.put('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const id = req.params.id
     const job = await Job.findById(id)
@@ -161,7 +139,7 @@ router.put('/:id', async (req,res) => {
 
 //create a job
 
-router.post('/', async (req,res) => {
+router.post('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
    try {
     const isValidated = validator.createValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })

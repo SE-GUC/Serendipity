@@ -11,7 +11,8 @@ router.use(express.json())
 const validator = require('../../Validations/CourseValidations')
 const Course = require('../../models/Course')
 const Member = require('../../models/Member')
-const funcs = require('../../fn');
+const funcs=require('../../fn');
+const passport = require('passport');//for auth trial
 //const Member
 router.post('/', async (req, res) => {
     try {
@@ -66,8 +67,9 @@ router.get('/:eduOrg/getByName/:title', async (req, res) => {
 
 })
 
-router.get('/:id', async (req, res) => {
-
+// / router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+    router.get('/:id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+//still need to handle a unique EduOrg name to check how is accessing 
     try {
         const id = req.params.id
 

@@ -12,7 +12,7 @@ const Member = require('../../models/Member')
 
 const Workshop = require('../../models/Workshop') //yara
 const objectId = require('mongoose').objectid //yara
-
+const passport = require('passport');//for auth trial
 
 
 router.get('', async (req, res) => {
@@ -23,6 +23,13 @@ router.get('', async (req, res) => {
 
 });
 
+/*
+Auth in Member :
+get.id:
+delete:
+put:
+
+*/
 
 
 
@@ -184,8 +191,10 @@ router.post('/', async (req, res) => {
   try {
 
     const isValidated = validator.createValidation(req.body)
+    
 
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    if (isValidated.error) { console.log(isValidated.error.details[0].message)
+      return res.status(400).send({ error: isValidated.error.details[0].message })}
     const username = req.body.userName;
     const found = await Member.findOne({ "userName": username });
     if (found)
@@ -200,7 +209,11 @@ router.post('/', async (req, res) => {
         const newMember = await Member.create(req.body)
 
         newMember.Age = Age(req.body.birthDate)
-
+        //notification
+        require('../../services/mailer').sendMail(newMember).then(data => {
+          console.log(data)
+         }).catch(err => console.log(err)) ;
+         
         res.json({ msg: 'Member was created successfully', data: newMember })
       }
     }
@@ -214,10 +227,19 @@ router.post('/', async (req, res) => {
   }
 
 });
-
-router.get("/:_id", (req, res) => {
+//  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+  router.get('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+  
   const id = req.params._id;
+  // admin can view Members 
+  const admin =await Admin.findById(req.user.id )
+  console.log(id)
+  console.log(admin._id)
+  console.log(req.user.id)
+  const id2=admin.id
+  const id3=req.user.id
 
+  if(id3==id2 || id3==id) {
   Member.findById(id)
 
     .exec()
@@ -248,12 +270,19 @@ router.get("/:_id", (req, res) => {
 
 
     });
+  }
+  else {
+    res.status(401).json({ err: "Not authorized "});
+  }
 
 });
 
-router.put('/:_id', async (req, res) => {
+router.put('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
   try {
-
+//is admin allowed here ?
+    const id = req.params._id; //id of the member being updated
+    const id3=req.user.id //id of whats in bearer (whose logged in right now)
+   if(id==id3){
     const isValidated = validator.updateValidation(req.body)
 
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
@@ -275,7 +304,10 @@ router.put('/:_id', async (req, res) => {
 
       }
     }
+  }else {
+    res.status(401).json({ err: "Not authorized "});
   }
+}
   catch (err) {
     res.send(err)
   }
@@ -285,8 +317,8 @@ router.put('/:_id', async (req, res) => {
 
 
 
-router.delete('/:_id', async (req, res) => {
-
+router.delete('/:_id', passport.authenticate('jwt', { session: false }),async(req, res) =>{
+//is admin allowed here ?
   try {
 
      const deletedMember = await Member.findOneAndDelete ({ _id : req.params._id})
