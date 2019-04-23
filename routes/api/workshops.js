@@ -205,6 +205,7 @@ router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async 
         .exec()
         .then(doc => { return res.redirect(303, `/api/courses/${req.params.id}`) })
         .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+        res.json({err : "you applied successfully"})
 
     console.log('one')
     }else{
