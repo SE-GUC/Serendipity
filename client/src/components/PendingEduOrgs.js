@@ -17,7 +17,10 @@ class PendingEduOrgs extends Component {
         
       }
   getPendingEduOrgs = () => {
-    axios.get('http://localhost:5000/api/admins/p/pendingeduorg')
+    const tokenB= localStorage.getItem('jwtToken');
+    axios.get('http://localhost:5000/api/admins/p/pendingeduorg',{
+      Authorization: tokenB
+    })
     .then(res => this.setState({pendingeduorgs:[...this.state.PendingEduOrgs,res.data]}))
   }
   render() {

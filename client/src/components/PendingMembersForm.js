@@ -27,17 +27,23 @@ class PendingMembersForm extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
-      .get('http://localhost:5000/api/admins/p/pendingmembers')
+      .get('http://localhost:5000/api/admins/p/pendingmembers',{
+        Authorization: tokenB
+      })
       .then(res=> this.setState({pendingmembers:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
 
     approvemember =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
      
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/armember/${id}`,{registered:"yes"
 
+            },{
+              Authorization: tokenB
             }
           
          
@@ -52,9 +58,12 @@ class PendingMembersForm extends Component {
           
     }
     rejectmember =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/armember/${id}`,{registered:"rejected"
 
+            },{
+              Authorization: tokenB
             }
           
          

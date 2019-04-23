@@ -27,19 +27,25 @@ class PendingEduOrgsForm extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
-      .get('http://localhost:5000/api/admins/p/pendingeduorg')
+      .get('http://localhost:5000/api/admins/p/pendingeduorg',{
+        Authorization: tokenB
+      })
       .then(res=> this.setState({pendingeduorgs:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
 
     approveeduorg =(id)=>{
-     
+
+     const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/areduorg/${id}`,{registered:"yes"
 
+            },
+             { Authorization: tokenB
             }
-          
+        
          
           ).then(res => {this.setState({pendingeduorgs:[...this.state.PendingEduOrgsForm,res.data]})})
           
@@ -52,9 +58,12 @@ class PendingEduOrgsForm extends Component {
           
     }
     rejecteduorg =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/areduorg/${id}`,{registered:"rejected"
 
+            },{
+              Authorization: tokenB
             }
           
          

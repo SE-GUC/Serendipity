@@ -29,18 +29,23 @@ class PendingJobs extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
-      .get('http://localhost:5000/api/admins/p/pendingjobs')
+      .get('http://localhost:5000/api/admins/p/pendingjobs',{
+        Authorization: tokenB
+      })
       .then(res=> this.setState({pendingjobs:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
 
     approvejob =(id)=>{
-     
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/approverejectjob/${id}`,{state:"approved"
 
-            }
+            },{
+              Authorization: tokenB
+            },
           
          
           ).then(res => {this.setState({pendingjobs:[...this.state.PendingJobs,res.data]})})
@@ -54,9 +59,12 @@ class PendingJobs extends Component {
           
     }
     rejectjob =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/approverejectjob/${id}`,{state:"rejected"
 
+            },{
+              Authorization: tokenB
             }
           
          

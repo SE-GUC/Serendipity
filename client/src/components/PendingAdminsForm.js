@@ -27,16 +27,22 @@ class PendingAdminsForm extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
-      .get('http://localhost:5000/api/admins/p/pendingadmins')
+      .get('http://localhost:5000/api/admins/p/pendingadmins',{
+        Authorization: tokenB
+      })
       .then(res=> this.setState({pendingadmins:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
 
     approveadmin =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
      
         console.log(id)
-        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{registered:"yes"
+        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{
+          Authorization: tokenB
+        },{registered:"yes"
 
             }
           
@@ -52,8 +58,11 @@ class PendingAdminsForm extends Component {
           
     }
     rejectadmin =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
-        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{registered:"rejected"
+        axios.put(`http://localhost:5000/api/admins/aradmins/${id}`,{
+          Authorization: tokenB
+        },{registered:"rejected"
 
             }
           

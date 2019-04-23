@@ -19,7 +19,10 @@ class Pendingjobslist extends Component {
         
       }
   getPendingJobs = () => {
-    axios.get('http://localhost:5000/api/admins/p/pendingjobs')
+    const tokenB= localStorage.getItem('jwtToken');
+    axios.get('http://localhost:5000/api/admins/p/pendingjobs',{
+      Authorization: tokenB
+    })
     .then(res => this.setState({pendingjobs:[...this.state.Pendingjobslist,res.data]}))
   }
   render() {

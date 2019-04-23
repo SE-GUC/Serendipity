@@ -26,17 +26,22 @@ class PendingPartnersForm extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
-      .get('http://localhost:5000/api/admins/p/pendingpartners')
+      .get('http://localhost:5000/api/admins/p/pendingpartners',{
+        Authorization: tokenB
+      })
       .then(res=> this.setState({pendingpartners:res.data.data,loading:false}))
       .catch(error=> this.ERROR.bind(error))
     }
 
     approvepartner =(id)=>{
-     
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/arpartner/${id}`,{registered:"yes"
 
+            },{
+              Authorization: tokenB
             }
           
          
@@ -51,9 +56,12 @@ class PendingPartnersForm extends Component {
           
     }
     rejectpartner =(id)=>{
+      const tokenB= localStorage.getItem('jwtToken');
         console.log(id)
         axios.put(`http://localhost:5000/api/admins/arpartner/${id}`,{registered:"rejected"
 
+            },{
+              Authorization: tokenB
             }
           
          

@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
         if(eduOrg) 
         {   console.log("eduorg")
         if(eduOrg.registered!=="yes")
+        
         return res.status(404).json({ email: 'You are not approved yet to log in ' });
             const matchE = bcrypt.compareSync(password, eduOrg.password);
            // const matchEE = (password===eduOrg.password) dont need it as password is hashed
@@ -83,8 +84,10 @@ router.post('/', async (req, res) => {
         //Partner
         if(partner){
             console.log("partner")
-            if(partner.registered!=="yes")
+            if(partner.registered!=="yes"){
+            console.log("in partner not registered ")
         return res.status(404).json({ email: 'You are not approved yet to log in ' });
+            }
             const matchP = bcrypt.compareSync(password, partner.password);
             const matchPP = (password===partner.password)
             console.log(matchPP)

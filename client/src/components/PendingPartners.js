@@ -16,7 +16,10 @@ class PendingPartners extends Component {
         
       }
   getPendingPartners = () => {
-    axios.get('http://localhost:5000/api/admins/p/pendingpartners')
+    const tokenB= localStorage.getItem('jwtToken');
+    axios.get('http://localhost:5000/api/admins/p/pendingpartners',{
+      Authorization: tokenB
+    })
     .then(res => this.setState({pendingpartners:[...this.state.PendingPartners,res.data]}))
   }
   render() {

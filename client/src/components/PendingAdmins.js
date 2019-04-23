@@ -17,7 +17,10 @@ class PendingAdmins extends Component {
         
       }
   getPendingAdmins = () => {
-    axios.get('http://localhost:5000/api/admins/p/pendingadmins')
+    const tokenB= localStorage.getItem('jwtToken');
+    axios.get('http://localhost:5000/api/admins/p/pendingadmins',{
+      Authorization: tokenB
+    })
     .then(res => this.setState({pendingadmins:[...this.state.PendingAdmins,res.data]}))
   }
   render() {

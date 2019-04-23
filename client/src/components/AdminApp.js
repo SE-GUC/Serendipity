@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Admins from './Admins';
 import {Link} from 'react-router-dom';
+//const passport = require('passport');
 
 
 import {BrowserRouter as Router,Route} from 'react-router-dom';
@@ -33,6 +34,7 @@ class AdminApp extends Component {
     }
 
     componentDidMount() {
+      const tokenB= localStorage.getItem('jwtToken');
       axios
       .get('http://localhost:5000/api/admins/')
       .then(res=> this.setState({admins:res.data.data,loading:false}))
@@ -63,8 +65,11 @@ class AdminApp extends Component {
 
 
     getAdmins= async ()  => {
+      //const tokenB= localStorage.getItem('jwtToken');
       
-      return await axios.get("http://localhost:5000/api/admins/");
+      return await axios.get("http://localhost:5000/api/admins/"
+      
+      );
     
     }
     // addadmin=(full_name,email,password,username)=>{
@@ -93,11 +98,19 @@ class AdminApp extends Component {
     //  // )
     // }
     showadmin = (id) => {
-      window.location = `http://localhost:5000/api/admins/${id}`;
+      const tokenB= localStorage.getItem('jwtToken');
+      
+      window.location = `http://localhost:5000/api/admins/${id}`
+        
+      
     }
     deleteadmin = (id) => {
-      axios.delete(`http://localhost:5000/api/admins/${id}`)
-        .then(res => this.setState({ admins: [...this.state.admins.filter(admin => admin._id !== id)] }));
+      const tokenB= localStorage.getItem('jwtToken');
+
+      axios.delete(`http://localhost:5000/api/admins/${id}`,{
+        Authorization: tokenB
+      })
+        .then(res =>this.setState({ admins: [...this.state.admins.filter(admin => admin._id !== id)] }));
         
     }
 
@@ -108,9 +121,11 @@ class AdminApp extends Component {
     }
    
     updateadminreal=(id,full_name,email,password,username)=>{
+      const tokenB= localStorage.getItem('jwtToken');
       axios.put(`http://localhost:5000/api/admins/${id}`,{
 
-        full_name:full_name,email:email,password:password,username:username}
+        full_name:full_name,email:email,password:password,username:username},{
+          Authorization: tokenB}
       
      
       ).then(res => {this.setState({admin:[...this.state.AdminApp,res.data]})})
