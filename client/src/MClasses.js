@@ -27,7 +27,7 @@ class MClasses extends Component {
          </div>
       <Route exact path = "/getMasterclass" component = {EduOrg}/>{/*get MaterClasses */}
       <Route exact path = "/createMasterclass" component = {MasterclassCreate}/>{/*create MaterClasses */}
-      <Route exact path = "/updateMasterclass" component = {MasterclassUpdate}/>{/*update MaterClasses */} 
+      {/* <Route exact path = "/updateMasterclass" component = {MasterclassUpdate}/>{/*update MaterClasses */}  */}
       <Route exact path = "/getMasterclassby" component = {MasterclassProfile}/> 
       <Route exact path = "/getMasterclass/update/:id" component = {UpdateMasterclass}/>
   

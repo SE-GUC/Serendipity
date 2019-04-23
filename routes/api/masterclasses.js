@@ -2,6 +2,8 @@ const express = require('express');
 const Joi = require('joi');
 const uuid = require('uuid');
 const mongoose = require('mongoose')
+const passport = require('passport');//for auth trial
+
 
 
 const router = express.Router();
@@ -13,7 +15,7 @@ const Course = require('../../models/Course');
 const Workshop = require('../../models/Workshop');
 const EducationalOrganization = require('../../models/EducationalOrganization')
 const validator = require('../../Validations/masterClassValidations')
-const passport = require('passport');//for auth trial
+//const passport = require('passport');//for auth trial
 
 // const passport = require('passport');//for auth trial
 
@@ -235,17 +237,15 @@ else{
     
  
 //  })
-router.put('/:id/apply', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.put('/:id/apply',passport.authenticate('jwt', { session: false }), async (req, res) => {
     console.log('hnaaSmsm')
     console.log(req.body.applicantId)
     console.log('hnaaSmsm')
     console.log("apply course")
    
     console.log(req.params.id)
-const member=await member.findById(req.body.applicantId)
-if(member){
-
-
+    const member =await Member.findById(req.body.applicantId )
+    if(member){
 
     const isValidated = validator.applyValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -268,9 +268,10 @@ if(member){
         .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
 
     console.log('one')
-}
-else{
-    res.json({err:"you are not authorized"})
+    res.json({err : "you applied successfully"})
+}else{
+   
+     res.json({err : "you're not authorized"})
 }
 
 })
