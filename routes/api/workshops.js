@@ -9,6 +9,7 @@ const validator = require('../../Validations/WorkshopValidations')
 const Workshop = require('../../models/Workshop')
 const Member = require('../../models/Member') //yan
 const funcs = require('../../fn');
+const passport = require('passport');//for auth trial
 
 
 router.post('/', async (req, res) =>  {
@@ -191,14 +192,25 @@ router.get('/', async (req,res) => {
 //     //workshop.save(done);
 //    })
 ////////////////////////
-router.put('/:id/apply', async (req, res) => {
+router.put('/:id/applly', passport.authenticate('jwt', { session: false }),async (req, res) => {
+    console.log(req.body)
+    //console.log(req)
+    const t = await req.body
+    console.log(t)
+})
+////
+router.put('/:id/apply', passport.authenticate('jwt', { session: false }),async (req, res) => {
     console.log('hnaaSmsm')
+    //console.log(req.body)
     console.log(req.body.applicantId)
     console.log('hnaaSmsm')
     console.log("apply course")
    
     console.log(req.params.id)
-
+    console.log(req.user.id)
+    const member =await Member.findById(req.body.applicantId )
+    console.log(member+"mmmm")
+    if(member){
 
     const isValidated = validator.applyValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message });
@@ -219,8 +231,15 @@ router.put('/:id/apply', async (req, res) => {
         .exec()
         .then(doc => { return res.redirect(303, `/api/courses/${req.params.id}`) })
         .catch(err => { console.log(err); return res.send(`Sorry, couldn't update a course with that id !`) });
+        res.json({err : "you applied successfully"})
 
     console.log('one')
+    res.json({err : "you applied successfully"})
+
+    }else{
+        console.log("Could not find a Workshop with this id")
+        res.json({err : "you're not authorized"})
+    }
 
 })
   
