@@ -22,7 +22,7 @@ class MClasses extends Component {
       <div>
       <Link  to="/getMasterclass">get All</Link>{' '}|{' '}
       <Link  to="/createMasterclass">create</Link>{' '}|{' '}
-      <Link  to="/updateMasterclass">update</Link>{' '}|{' '}
+     {/* <Link  to="/updateMasterclass">update</Link>{' '}|{' '}*/}
       <Link  to="/getMasterclassby">get by id</Link>{' '}|{' '}
          </div>
       <Route exact path = "/getMasterclass" component = {EduOrg}/>{/*get MaterClasses */}

@@ -44,16 +44,34 @@ import CreateForm from './components/CreateForm';
 import CourseOver from './components/CourseOver';
 import createWorkshop from './components/createWorkshop';
 import updateWorkshop from './components/updateWorkshop';
-import Allmembers from './components/allmembers';
-import AdminCreate from './components/AdminCreate';
-import PendingJobs from './components/PendingJobs';
+import updateAssessment from './components/updateAssessment';
+import createAssessment from './components/createAssessment';
+import AssessmentApp from './AssessmentApp';
+import Assessments from './components/Assessments';
+import deleteAssessment from './components/deleteAssessment';
+
+
 import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import getAllAssessments from './getAllAssessments';
+import AdminCreate from './components/AdminCreate';
+
+//import { setCurrentUser, logoutUser } from '../src/globalState/actions/authentication';
+import Allmembers from './components/Allmembers';
+import PendingJobs from './components/PendingJobs';
+import workshopsEduOrg from './workshopsEduOrg';
+import ViewEduOrgWorkshops from './ViewEduOrgWorkshops';
+import ViewEduOrgCourses from './ViewEduOrgCourses';
+import ViewEduOrgMasterclasses from './ViewEduOrgMasterclasses';
+import MasterclassesEduOrg from './MasterclassesEduOrg'
+import FormEduOrg from './FormEduOrg'
+
+
 import AllExperts from './components/AllExperts';
 import MemberProfile from './components/MemberProfile';
 
 import AcceptJobs from './components/AcceptJobs';
 import JobV from './JobV';
-import Allmembers from './components/GetMem';
+import Allmemberss from './components/GetMem';
 import GetMem from './components/GetMem';
 import CardButton from './components/CardButton';
 
@@ -73,27 +91,11 @@ if(localStorage.jwtToken) {
     window.location.href = '/login'
   }
 }
-
-
 class App extends Component {
   state={
-    masterclass:[],
     jobapp:[],
     admin:[]
       }
-      ////trial  her
-constructor(props) {
-  super(props);
-  this.state = {}
-  this.connecToServer = this.connecToServer.bind(this);
-}
-connecToServer() {
-  fetch('/');
-}
-componentDidMount() {
-  this.connecToServer();
-}
-////
   render(){
     // const {isAuthenticated, user} = this.props.auth;
     // console.log({})
@@ -113,7 +115,6 @@ componentDidMount() {
       <Route exact path = "/workshop/createworkshop" component = {createWorkshop}/> {/*create workshop */}
       <Route exact path = "/workshop/updateworkshop/:id" component = {updateWorkshop}/> {/*create workshop */}
       <Route exact path = "/member" component = {MemberApp}/> 
-      {/* <Route exact path = "/partner" component = {PartnerProfile}/> PartnerProfile */}
       <Route exact path = "/job" component = {Jobmain}/> 
       <Route exact path = "/admin" component = {AdminApp}/> 
       <Route exact path = "/admin/register" component = {AdminCreate}/> {/* should be hidden to normal Viewers*/ }
@@ -163,11 +164,27 @@ componentDidMount() {
       <Route exact path = "/partner/delete" component = {PartnerDelete}/> 
       <Route exact path = "/partner/view" component = {GetAllPartners}/> 
       <Route exact path = "/partner/update" component = {PartnerUpdate}/> 
+      <Route exact path = "/assessment" component = {AssessmentApp}/>
+      <Route exact path = "/assessment/create" component = {createAssessment} />
+      <Route exact path = "/assessment/update/:id" component = {updateAssessment} />
+      <Route exact path = "/assessment/delete/:id" component = {deleteAssessment}/>
+      <Route exact path = "/assessment/view" component = {getAllAssessments}/>
+     
+      
+
       <Route exact path = "/register/wait" component = {RegWaitmail}/> 
 
       <Route path = "/updateCourse/:id" component = {UpdForm}/> 
       <Route path = "/createCourse" component = {CreateForm}/> 
+      <Route path = "/myaccount/workshops/" component = {workshopsEduOrg}/> 
+      <Route path = "/myaccount/masterclasses" component = {MasterclassesEduOrg}/> 
+      <Route path = "/eduorg/view/workshops/:id" component = {ViewEduOrgWorkshops}/> 
+      <Route path = "/eduorg/view/courses/:id" component = {ViewEduOrgCourses}/> 
+      <Route path = "/eduorg/view/masterclasses/:id" component = {ViewEduOrgMasterclasses}/> 
+      <Route path = "/myaccount/courses" component = {FormEduOrg}/> 
 
+
+    
       <Route exact path = "/courseOver" component = {CourseOver}/> 
 
       {/* <Footer/> hides some functionalities wont stick to bottom of page */}
@@ -179,4 +196,3 @@ componentDidMount() {
     )}
   }
 export default App;
-

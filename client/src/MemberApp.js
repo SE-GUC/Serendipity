@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MemberProfile from './components/MemberProfile';
-import Allmembers from './components/allmembers';
+import Allmembers from './components/Allmembers';
 import JobItem from './components/JobItem';
 import axios from 'axios';
 

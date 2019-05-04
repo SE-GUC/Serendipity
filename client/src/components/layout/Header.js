@@ -23,7 +23,9 @@ function Header() {
     <Link style={LinkStyle} to="/member">Members</Link>|{' '}
     <Link style={LinkStyle} to="/partner">Partners</Link>{' '}|{' '}
     <Link style={LinkStyle} to="/job">Jobs</Link>|{' '}
-    <Link style={LinkStyle} to="/course">Courses</Link>|{' '}
+    <Link style={LinkStyle} to="/course">Courses</Link> |{' '}
+    <Link style={LinkStyle} to="/assessment"> Assessments </Link>{' '}
+   {/* <Link style={LinkStyle} to="/searchJobs">search jobs</Link>{' '} */}
     <Link style={LinkStyle} to="/search">Search </Link>{' '} 
 </header>
   )

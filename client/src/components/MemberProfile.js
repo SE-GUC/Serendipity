@@ -72,7 +72,10 @@ componentDidMount= function()
    console.log(tokenB)
   if(member){
   axios.get(`http://localhost:5000/api/members/${member}` , {Authorization: tokenB }).then((res) =>{
+    console.log({user}.user.id)
     console.log(res)
+    console.log(res.data.data.email)
+    console.log(res.data.email)
     this.setState({email : res.data.data.email , name : res.data.data.name , userName : res.data.data.userName , availableDailyHours : res.data.data.availableDailyHours , location : res.data.data.location , password : res.data.password , birthDate : res.data.data.birthDate , interests : res.data.data.interests ,
     attendedEvents :res.data.data.attendedEvents , previousJobs : res.data.data.previousJobs , previousTasks : res.data.data.previousTasks , previousProjects : res.data.data.previousProjects , reviews : res.data.data.reviews , reviewers : res.data.data.reviewers , 
   certificates : res.data.data.certificates , coursesTaken : res.data.data.coursesTaken , contractSigned : res.data.data.contractSigned , expirationDate : res.data.data.expirationDate , age : res.data.data.age , skills : res.data.data.skills })
@@ -93,41 +96,42 @@ handleSubmit = async event => {
   console.log(tokenB)
   event.preventDefault();
   
-  axios.put(`http://localhost:5000/api/members/${member}` ,{
+  await  axios.put(`http://localhost:5000/api/members/${member}` ,{
     email: this.state.up_email ? this.state.up_email : this.state.email ,
+  
     }
-  )
+  ).then(console.log("updating email"))
     .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}` ,{
+    await axios.put(`http://localhost:5000/api/members/${member}` ,{
 
    userName : this.state.up_userName ? this.state.up_userName : this.state.userName ,
     }
-  )
-    .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}`,{
+  ).then(console.log("updating username"))
+    .catch(e=> e )
+   await  axios.put(`http://localhost:5000/api/members/${member}`,{
     name : this.state.up_name ? this.state.up_name : this.state.name ,
     }
-  )
+  ).then(console.log("updating name"))
     .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}`,{
+   await axios.put(`http://localhost:5000/api/members/${member}`,{
     availableDailyHours : this.state.up_availableDailyHours ? this.state.up_availableDailyHours : this.state.availableDailyHours,
     }
-  )
+  ).then(console.log("updating daily"))
     .catch(e=> e)
-    axios.put(`http://localhost:5000/api/members/${member}`, {
+    await axios.put(`http://localhost:5000/api/members/${member}`, {
        location : this.state.up_location ? this.state.up_location : this.state.location ,
       }
-    )
+    ).then(console.log("updating loc"))
       .catch(e=> e)
       axios.put(`http://localhost:5000/api/members/${member}` , {
        birthDate : this.state.up_birthDate ? this.state.up_birthDate : this.state.birthDate 
       }
-    )
+    ).then(console.log("updating birth"))
       .catch(e=> e)
-      axios.put(`http://localhost:5000/api/members/${member}`, {
+      await axios.put(`http://localhost:5000/api/members/${member}`, {
          password : this.state.up_password ? this.state.up_password : this.state.password 
         }
-      )
+      ).then(console.log("updating passw"))
       .catch(e=> e)
      alert('Updated!');
 }

@@ -32,7 +32,7 @@ class PartnerProfile extends Component {
     //console.log(this.state._id)
     const partner =this.state._id;
     const tokenB= localStorage.getItem('jwtToken');
-
+console.log(tokenB)
     //const partner = e.target.elements.id.value;
     if(partner){
     axios.get(`http://localhost:5000/api/partners/${partner}`, {

@@ -14,7 +14,7 @@ class MemberCard extends Component {
     return(
         <div style={style}>
             <p>{"Name                   :"}{this.props.name}</p>
-            <p>{"Emails                  :"}{this.props.email}</p>
+            <p>{"Email                  :"}{this.props.email}</p>
             <p>{"Skills                 :"}{this.props.skills}</p>
             <p>{"Available Daily Hours  :"}{this.props.AvailableDailyHours}</p>
             <p>{"Location               :"}{this.props.location}</p>

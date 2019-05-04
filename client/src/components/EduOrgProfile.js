@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import EduOrgForm from './EduOrgForm';
 import axios from "axios"
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Navbar from './layout/Navbar';
-import { withRouter } from 'react-router-dom';
-import { logoutUser } from '../globalState/actions/authentication';
-// import { logoutUser ,setCurrentUser} from '../globalState/actions/authentication';
-// import {SET_CURRENT_USER} from '../globalState/actions/authActions';
+
 //import { Router, Route, Link } from 'react-router'
-// import store from '../globalState/store';
 
 class EduOrgProfile extends Component {
-  
   btnStyle= () => {
     return{
         background:'#333',
@@ -28,24 +20,9 @@ class EduOrgProfile extends Component {
         height: '50px'
     
   }
-}
-//
-// const {isAuthenticated, user} = this.props.auth;
-// console.log({isAuthenticated})
-// console.log({user})
-// console.log({user}.id)
-// //
-  // constructor() {
-  //   super();
-  //   // this.state = {
-  //   //     email: '',
-  //   //     password: '',
-  //   //     errors: {}
-  //   // }
-  //   // this.handleInputChange = this.handleInputChange.bind(this);
-  //   // this.handleSubmit = this.handleSubmit.bind(this);
-  // }
 
+
+}
   state = {
     id: null,
     userName: null,
@@ -61,8 +38,6 @@ class EduOrgProfile extends Component {
     contract: null,
     expirationDate: null
   }
-  
-  
   onDelete=() =>{
     //<Link  to={`/eduorg/delete/${this.state.id}`}>Delete my account</Link>{'       |      '}
     this.props.history.push(`/eduorg/delete/${this.state.id}`);
@@ -70,35 +45,11 @@ class EduOrgProfile extends Component {
   }
   getEduOrg = (e) => {
     e.preventDefault();
-    // const {isAuthenticated, user} = this.props.auth;
-    // console.log({isAuthenticated})
-    // console.log({user})
-    const {isAuthenticated, user} = this.props.auth;
-    // const id = {user.id}
-    
-    console.log({user}.user.id)
-    // const edu = e.target.elements.id.value;
-    // const edu = {user}.user.id;
-    const edu =this.state.id;
-    console.log(edu)
-   const tokenB= localStorage.getItem('jwtToken');
-   console.log(tokenB)
-    //yan auth
-    //const {isAuthenticated, user} = this.props.auth;
-    //console.log({isAuthenticated})
-    // console.log({user})
-    // console.log({user}.id)
-    // const edu= user.id
-    // const id= userData.user.id
-    // console.log(id)
-    // if(edu!=)
-    // const t=localStorage.getItem(token).get
-    // console.log(t)
+    const edu = e.target.elements.id.value;
+   
     if(edu){
-    axios.get(`http://localhost:5000/api/educationalOrganizations/${edu}`, {
-      Authorization: tokenB
-    }).then((res) =>{
-      console.log(res)
+    axios.get(`http://localhost:5000/api/educationalOrganizations/${edu}`).then((res) =>{
+
       const id = edu;
       const userName = res.data.userName;
       const name = res.data.name;
@@ -131,32 +82,18 @@ class EduOrgProfile extends Component {
     })
   } else return;
   }
- 
+  
   render() {
-    // {this.getEduOrg}
-    // const {isAuthenticated, user} = this.props.auth;
-    // console.log({SET_CURRENT_USER})
-    // console.log({user})
-    // console.log(store.initialState)
-    const {isAuthenticated, user} = this.props.auth;
-    //  {this.state.getEduOrg}
-    // const id = {user.id}
-    console.log({user}.user.id)
-    this.state.id={user}.user.id;
-    console.log(this.state.id)
-    // console.log({user}.data)
     return (
       <div>
-        {/* <EduOrgForm getEduOrg={this.getEduOrg}/>  */}
-        
-        <button style ={this.btnStyle()}onClick={this.getEduOrg} > View my Info</button>
+        <EduOrgForm getEduOrg={this.getEduOrg}/>
         <center>
         { this.state.userName ? <p><h4>User Name:</h4> {this.state.userName}</p>:<p></p>}
         { this.state.name ? <p><h4>Name:</h4> {this.state.name}</p>:<p></p>}
         { this.state.email ? <p><h4>Email:</h4> {this.state.email}</p>:<p></p>}
-        {/* { this.state.masterClasses ? <p><h4>Master Classes:</h4><ol>{this.state.masterClasses.map(item => <li>{item}</li>)}</ol></p>:<p></p> } */}
-        {/* { this.state.courses ? <p><h4>Courses:</h4><ol>{this.state.courses.map(item => <li>{item}</li>)}</ol></p>:<p></p> } */}
-        {/* { this.state.workshops ? <p><h4>Workshops:</h4><ol>{this.state.workshops.map(item => <li>{item}</li>)}</ol></p>:<p></p> } */}
+        { this.state.masterClasses ? <p><h4>Master Classes:</h4><ol>{this.state.masterClasses.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
+        { this.state.courses ? <p><h4>Courses:</h4><ol>{this.state.courses.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
+        { this.state.workshops ? <p><h4>Workshops:</h4><ol>{this.state.workshops.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
         { this.state.trainers ? <p><h4>Trainers:</h4><ol>{this.state.trainers.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
         { this.state.educators ? <p><h4>Educators:</h4><ol>{this.state.educators.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
         { this.state.trainingPrograms ? <p><h4>Training Programs:</h4><ol>{this.state.trainingPrograms.map(item => <li>{item}</li>)}</ol></p>:<p></p> }
@@ -169,6 +106,11 @@ class EduOrgProfile extends Component {
         <br></br>
         {/* <Link  to={`/eduorg/delete/${this.state.id}`}>Delete my account</Link>{'       |      '} */}
         <Link  to= {`/eduorg/update/${this.state.id}`}>Update my account</Link>{' '}
+        <Link  to= {`/myaccount/workshops/${this.state.id}`}>update workshops</Link>{' '}
+        <Link  to= {`/myaccount/masterclasses/${this.state.id}`}>update masterClasses</Link>{' '}
+        <Link  to= {`/myaccount/courses/${this.state.id}`}>update courses</Link>{' '}
+
+
 
 
        
@@ -177,14 +119,5 @@ class EduOrgProfile extends Component {
 );
   }
 }
-EduOrgProfile.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-}
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-})
-
-//export default EduOrgProfile;
-export default connect(mapStateToProps)(withRouter(EduOrgProfile));
+export default EduOrgProfile;

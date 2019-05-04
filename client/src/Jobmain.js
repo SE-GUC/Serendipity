@@ -47,9 +47,11 @@ class Jobmain extends Component {
 
   applyJobs = _id => {
     const mem =this.state.id;
+    const tokenB= localStorage.getItem('jwtToken');
+
   //const tokenB= localStorage.getItem('jwtToken');
     var schema = {};
-    schema["applicantId"] = '5cbdd750d390fa5364e17d8d'
+    schema["applicantId"] = mem
     axios.put(`http://localhost:5000/api/jobs/${_id}/apply`,schema)
     // .then((res) => { ;window.location.reload(); console.log('ay7aga') })
     .then(res =>alert(res.data.err))

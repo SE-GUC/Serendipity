@@ -16,6 +16,7 @@ const styles = {
 class EduOrgs extends Component {
 
   state = {
+        id: null,
         userName: null,
         name: null,
         password: null,
@@ -42,7 +43,7 @@ class EduOrgs extends Component {
     <Link to={`/courseOver`} style = {styles.button}> Is a Course/Workshop/MasterClass over?? </Link>
     {this.props.eduorgs.map((eduorg) => (
       <EduOrgItem key = {eduorg.id} eduorg = {eduorg} mark = {this.props.mark}
-      delEduOrg = {this.props.delEduOrg}/>
+      viewWorkshops = {this.props.viewWorkshops} viewCourses = {this.props.viewCourses} viewMasterclasses = {this.props.viewMasterclasses} />
 
     ))}
     </div>)

@@ -34,15 +34,16 @@ class ApplicantCard extends Component {
       </div>
     )
   }
-  handleClick() {
+  async handleClick() {
     const id = this.props.app._id
     const cid = this.props.cid
-    axios.put(`http://localhost:5000/api/members/${id}/addcourse`, { "coursesId": cid })
+    await axios.put(`http://localhost:5000/api/members/${id}/addcourse`, { "coursesId": cid })
       .then(res => {
-        this.setState({ viewButton: <text style={styles.done}> Done!</text> })
+        console.log("done")
+        this.setState({ viewButton: <h style={styles.done}> Done!</h> })
       }).catch(e => console.log(e))
     
-    axios.put(`http://localhost:5000/api/${this.props.type}/${cid}/unApply`,{"applicantId":id})
+    await axios.put(`http://localhost:5000/api/${this.props.type}/${cid}/unApply`,{"applicantId":id})
     .then()
   
   }
